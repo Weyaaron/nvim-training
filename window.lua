@@ -1,10 +1,10 @@
-window = {}
+window_management = {}
 
 local api = vim.api
-local win
+local window_table = {}
 
-
-function window.open_window(window_buffer, width, height,row, col)
+function window_management.open_window(width, height, row, col)
+  window_buffer = vim.api.nvim_create_buf(false, true) -- create new emtpy buffer
 
   api.nvim_buf_set_option(window_buffer, 'bufhidden', 'wipe')
 
@@ -21,12 +21,24 @@ function window.open_window(window_buffer, width, height,row, col)
   }
 
   -- and finally create it with buffer attached
-  win = api.nvim_open_win(window_buffer
-  , true, opts)
-  return win
+  win = api.nvim_open_win(window_buffer, true, opts)
+
+
+  current_window = vim.api.nvim_tabpage_get_win(0)
+  vim.api.nvim_set_current_win(current_window)
+
+
+  window_table[#window_table+1] = {buffer = window_buffer, window = win}
+  return #window_table
+end
+
+function window_management.update_window_text(window_index, new_text)
+
+    target_buffer = window_table[window_index]['buffer']
+
+	vim.api.nvim_buf_set_lines(target_buffer,0, -1, false, {new_text})
 end
 
 
-
-return window
+return window_management
 
