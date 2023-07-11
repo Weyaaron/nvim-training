@@ -3,6 +3,7 @@ local window_management = require('window')
 
 local progress ={}
 local display_window_index
+local progress_counter = 0
 
 local function display_progress()
     window_management.update_window_text(display_window_index,"Current Progress: ".. tostring(progress_counter) )
@@ -11,7 +12,7 @@ end
 
 function progress.init()
 
-  	display_window_index =window_management.open_window( 25, 1,1,25)
+  	display_window_index =window_management.open_window(25, 1,2,75)
     display_progress()
 
 end

@@ -1,5 +1,10 @@
 .idea 
 
+
+*.test
+
+
+
 # Compiled Lua sources
 luac.out
 
@@ -7,6 +12,9 @@ luac.out
 *.src.rock
 *.zip
 *.tar.gz
+
+
+
 
 # Object files
 *.o

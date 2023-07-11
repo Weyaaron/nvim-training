@@ -3,7 +3,7 @@
 
 
 
-absolute_line_task ={desc= 'Move to absolute line', success='Wuhu!'}
+absolute_line_task ={desc= 'Move to line relative to ', success='Wuhu!'}
 local data = {target_line= 0}
 
 function absolute_line_task.init()
