@@ -23,11 +23,6 @@ function window_management.open_window(width, height, row, col)
   -- and finally create it with buffer attached
   win = api.nvim_open_win(window_buffer, true, opts)
 
-
-  current_window = vim.api.nvim_tabpage_get_win(0)
-  vim.api.nvim_set_current_win(current_window)
-
-
   window_table[#window_table+1] = {buffer = window_buffer, window = win}
   return #window_table
 end
