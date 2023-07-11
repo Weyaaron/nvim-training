@@ -26,7 +26,7 @@ function window.open_window(window_buffer)
     style = "minimal",
     relative = "cursor",
     anchor = 'SE',
-    width = 15,
+    width = 25,
     height =1,
     row = row,
     col = col,
