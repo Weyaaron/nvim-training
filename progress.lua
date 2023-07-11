@@ -9,17 +9,13 @@ local function display_text(input_text)
 	vim.api.nvim_buf_set_lines(display_buf,0, -1, false, input_text)
 end
 
-
 function play_levelup_sound()
-
     os.execute("play media/ding.flac 2> /dev/null")
 end
 function play_success_sound()
-
     os.execute("play media/click.flac 2> /dev/null")
 end
 function play_failure_sound()
-
     os.execute("play media/clack.flac 2> /dev/null")
 end
 
@@ -49,14 +45,12 @@ end
 function progress.update_streak()
     progress_counter = progress_counter +1
     display_text({"Current Progress: ".. tostring(progress_counter) })
-	play_success_sound()
 
 end
 
 function progress.end_streak()
     progress_counter = 0
     display_text({"Current Progress: ".. tostring(progress_counter) })
-	play_failure_sound()
 end
 
 return progress
