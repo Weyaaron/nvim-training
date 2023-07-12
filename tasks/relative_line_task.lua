@@ -1,25 +1,18 @@
 
 local relative_line_task ={desc= 'Move relative to cursor',}
-local data = {target_line=0, highlight_namespace=nil}
+local data = {previous_line =0, target_offset = 0, highlight_namespace=nil}
 
 local function calculate_offset()
-
-	local initial_value = math.random(0,10)
-	local multiplier ={1,-1}
+	local initial_value = math.random(2,5)
+	local multiplier = {1,-1}
 	return initial_value * multiplier[math.random(1,2)]
-
 end
 
 function relative_line_task.init()
 	local current_offset = calculate_offset()
-	local current_line = vim.api.nvim_win_get_cursor(0)[1]
-	data.target_line = current_line+ current_offset
-	local upper_bound = vim.api.nvim_buf_line_count(0)
-	while  data.target_line  > 0 and  data.target_line  < upper_bound    do
-		current_offset = calculate_offset()
-		data.target_line = current_line + current_offset
-	end
-	data.target_line = current_line + current_offset
+	data.previous_line = vim.api.nvim_win_get_cursor(0)[1]
+	local target_line = data.previous_line+ current_offset
+	print(tostring(target_line) .. ' is target')
 
 	relative_line_task.desc = 'Move ' ..  tostring(current_offset) ..' lines relative to your cursor.'
 
@@ -27,12 +20,17 @@ function relative_line_task.init()
 
 	vim.api.nvim_set_hl(0, 'UnderScore', {underline=true})
 
-	vim.api.nvim_buf_add_highlight(0, data.highlight_namespace,'UnderScore',  data.target_line-1, 0, -1)
+
+	--Todo: Fix this weird highlight, in particular its index
+	vim.api.nvim_buf_add_highlight(0, data.highlight_namespace,'UnderScore',  10, 0, -1)
+	data.target_offset = current_offset
 
 end
 
 function relative_line_task.check()
-	return vim.api.nvim_win_get_cursor(0)[1] == data.target_line
+
+	local target_line = data.previous_line + data.target_offset
+	return vim.api.nvim_win_get_cursor(0)[1] == target_line
 
 end
     function relative_line_task.teardown()

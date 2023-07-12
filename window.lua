@@ -5,7 +5,7 @@ local window_table = {}
 function window_management.open_window(width, height, row, col)
   local window_buffer = vim.api.nvim_create_buf(false, true) -- create new emtpy buffer
 
-  api.nvim_buf_set_option(window_buffer, 'bufhidden', 'wipe')
+  vim.api.nvim_buf_set_option(window_buffer, 'bufhidden', 'wipe')
 
   -- set some options
   local opts = {
@@ -20,7 +20,7 @@ function window_management.open_window(width, height, row, col)
   }
 
   -- and finally create it with buffer attached
-  win = vim.api.nvim_open_win(window_buffer, true, opts)
+  local win = vim.api.nvim_open_win(window_buffer, true, opts)
 
   window_table[#window_table+1] = {buffer = window_buffer, window = win}
   return #window_table

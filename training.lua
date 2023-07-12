@@ -1,5 +1,4 @@
 
-
 local absolute_line_task= require('tasks/absolute_line_task')
 local relative_line_task= require('tasks/relative_line_task')
 local progress = require('progress')
@@ -19,8 +18,6 @@ local function main(autocmd_args)
 
 	chosen_task.init()
 	status.update(chosen_task.desc)
-
-
 
 end
 
