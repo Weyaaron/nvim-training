@@ -12,7 +12,7 @@ end
 
 function progress.init()
 
-  	display_window_index =window_management.open_window(25, 1,2,75)
+  	display_window_index =window_management.open_window(25, 1,5,75)
     display_progress()
 
 end
