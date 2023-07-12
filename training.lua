@@ -26,7 +26,7 @@ end
 
 local function setup()
 
-	current_window = vim.api.nvim_tabpage_get_win(0)
+	local current_window = vim.api.nvim_tabpage_get_win(0)
 
 	progress.init()
 	status.init()
@@ -37,7 +37,7 @@ local function setup()
 	vim.api.nvim_set_current_win(current_window)
 
 	vim.api.nvim_create_autocmd({"CursorMoved"}, {
-  		callback = main,
+		callback = main,
 	})
 end
 

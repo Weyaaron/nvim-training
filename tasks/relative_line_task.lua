@@ -1,6 +1,6 @@
 
-relative_line_task ={desc= 'Move relative to cursor',}
-local data = {line_offset= 0, previous_line = 0, highlight_namespace=nil}
+local relative_line_task ={desc= 'Move relative to cursor',}
+local data = {target_line=0, highlight_namespace=nil}
 
 local function calculate_offset()
 
@@ -11,32 +11,28 @@ local function calculate_offset()
 end
 
 function relative_line_task.init()
+	local current_offset = calculate_offset()
 	local current_line = vim.api.nvim_win_get_cursor(0)[1]
-	data.line_offset = calculate_offset()
+	data.target_line = current_line+ current_offset
 	local upper_bound = vim.api.nvim_buf_line_count(0)
-	while  current_line +data.line_offset  > 0 and  current_line+ data.line_offset  < upper_bound    do
-		data.line_offset = calculate_offset()
+	while  data.target_line  > 0 and  data.target_line  < upper_bound    do
+		current_offset = calculate_offset()
+		data.target_line = current_line + current_offset
 	end
+	data.target_line = current_line + current_offset
 
-	data.line_offset = 5
-
-	relative_line_task.desc = 'Move ' ..  tostring(data.line_offset) ..' lines relative to your cursor.'
-    data.previous_line = current_line
+	relative_line_task.desc = 'Move ' ..  tostring(current_offset) ..' lines relative to your cursor.'
 
 	data.highlight_namespace = vim.api.nvim_create_namespace('RelativeVerticalLineNameSpace')
 
 	vim.api.nvim_set_hl(0, 'UnderScore', {underline=true})
 
-	new_highlight = vim.api.nvim_buf_add_highlight(0, data.highlight_namespace,'UnderScore',  data.previous_line +data.line_offset-1, 0, -1)
+	vim.api.nvim_buf_add_highlight(0, data.highlight_namespace,'UnderScore',  data.target_line-1, 0, -1)
 
 end
 
 function relative_line_task.check()
-	local cursor_position = vim.api.nvim_win_get_cursor(0)[1]
-	local comparison = cursor_position == data.previous_line + data.line_offset
-	data.previous_line = vim.api.nvim_win_get_cursor(0)[1]
-
-	return comparison
+	return vim.api.nvim_win_get_cursor(0)[1] == data.target_line
 
 end
     function relative_line_task.teardown()

@@ -5,7 +5,7 @@ local window_index
 
 function status.init()
 
-  	window_index= window_management.open_window(25, 1,1,75)
+    window_index= window_management.open_window(25, 1,1,75)
     window_management.update_window_text(window_index, "Neue Aufgabe")
 end
 

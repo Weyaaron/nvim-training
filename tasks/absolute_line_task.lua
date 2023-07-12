@@ -1,6 +1,6 @@
 
 
-absolute_line_task ={desc= nil}
+local absolute_line_task ={desc= nil}
 local data = { target_line= 0, highlight_namespace =nil}
 
 function absolute_line_task.init()
@@ -11,7 +11,7 @@ function absolute_line_task.init()
 
 	vim.api.nvim_set_hl(0, 'UnderScore', {underline=true})
 
-	new_highlight = vim.api.nvim_buf_add_highlight(0, data.highlight_namespace,'UnderScore',  data.target_line-1, 0, -1)
+	vim.api.nvim_buf_add_highlight(0, data.highlight_namespace,'UnderScore',  data.target_line-1, 0, -1)
 
 end
 
