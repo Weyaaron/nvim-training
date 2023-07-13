@@ -20,7 +20,6 @@ function relative_line_task.init()
 
 	vim.api.nvim_set_hl(0, 'UnderScore', {underline=true})
 
-
 	--Todo: Fix this weird highlight, in particular its index
 	vim.api.nvim_buf_add_highlight(0, data.highlight_namespace,'UnderScore',  10, 0, -1)
 	data.target_offset = current_offset
