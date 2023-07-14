@@ -17,7 +17,13 @@ function buffer_permutation_task.init()
 	buffer_permutation_task.desc = data_table_from_json["desc"]
 end
 
-function buffer_permutation_task.check() end
+function buffer_permutation_task.failed()
+	return false
+end
+
+function buffer_permutation_task.completed()
+	return false
+end
 
 function buffer_permutation_task.teardown() end
 

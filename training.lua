@@ -2,30 +2,33 @@ require("luarocks.loader")
 
 local absolute_line_task = require("src.tasks.absolute_line_task")
 local relative_line_task = require("src.tasks.relative_line_task")
-local buffer_permutation_task = require("src.tasks.buffer_permutation")
-local test_task = require("src.tasks.test_task")
 local progress = require("src.progress")
 local status = require("src.status")
 
-local all_tasks = { absolute_line_task, relative_line_task, buffer_permutation_task }
-all_tasks = { test_task }
+local all_tasks = { absolute_line_task, relative_line_task }
 local chosen_task = all_tasks[math.random(#all_tasks)]
 local current_autocmds = {}
 
 function main(autocmd_args)
-	task_status = chosen_task.check()
-
-	if chosen_task.check() then
+	completed = chosen_task.completed()
+	failed = chosen_task.failed()
+	if completed and not failed then
 		progress.update_streak()
-	else
-		progress.end_streak()
+		init_new_task()
 	end
-	chosen_task.teardown()
-	chosen_task = all_tasks[math.random(#all_tasks)]
-	init_new_task()
+	if failed and not completed then
+		progress.end_streak()
+		init_new_task()
+	end
+	if failed and completed then
+		print("A Task should not both complete and fail!")
+	end
 end
 
 function init_new_task()
+	chosen_task.teardown()
+	chosen_task = all_tasks[math.random(#all_tasks)]
+
 	chosen_task.init()
 	status.update(chosen_task.desc)
 
