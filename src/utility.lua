@@ -18,6 +18,10 @@ function utility.read_buffer_source_file(file_path)
 end
 
 function utility.split_str(input, sep)
+	if not sep then
+		sep = "\n"
+	end
+
 	local t = {}
 	for str in string.gmatch(input, "([^" .. sep .. "]+)") do
 		table.insert(t, str)

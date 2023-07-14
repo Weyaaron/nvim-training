@@ -2,10 +2,11 @@ require("luarocks.loader")
 
 local absolute_line_task = require("src.tasks.absolute_line_task")
 local relative_line_task = require("src.tasks.relative_line_task")
+local buffer_permutation_task = require("src.tasks.buffer_permutation")
 local progress = require("src.progress")
 local status = require("src.status")
 
-local all_tasks = { absolute_line_task, relative_line_task }
+local all_tasks = { buffer_permutation_task }
 local chosen_task = all_tasks[math.random(#all_tasks)]
 local current_autocmds = {}
 

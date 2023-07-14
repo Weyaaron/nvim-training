@@ -1,19 +1,20 @@
-local buffer_permutation_task = { desc = nil }
+local buffer_permutation_task = { desc = nil, autocmds = { "TextChanged" } }
 local utility = require("src.utility")
 
 local minimal_keys = { "initial_buffer", "new_buffer", "desc", "cursor_position" }
 
+local buffer_data = {}
+
 function buffer_permutation_task.init()
-	local data_table_from_json = utility.read_buffer_source_file("./buffer-files/test.buffer")
+	buffer_data = utility.read_buffer_source_file("./buffer-files/test.buffer")
 	for _, v in pairs(minimal_keys) do
-		if not data_table_from_json[v] then
+		if not buffer_data[v] then
 			print("Missing key!")
 		end
 	end
+	utility.replace_main_buffer_with_str(buffer_data["initial_buffer"])
 
-	utility.replace_main_buffer_with_str(data_table_from_json["new_buffer"])
-
-	buffer_permutation_task.desc = data_table_from_json["desc"]
+	buffer_permutation_task.desc = buffer_data["desc"]
 end
 
 function buffer_permutation_task.failed()
@@ -21,7 +22,20 @@ function buffer_permutation_task.failed()
 end
 
 function buffer_permutation_task.completed()
-	return false
+	local lines = vim.api.nvim_buf_line_count(0)
+	local new_buffer_lines = vim.api.nvim_buf_get_lines(0, 0, lines, false)
+
+	local target_str = utility.split_str(buffer_data["new_buffer"])
+
+	local comparison = #target_str == #new_buffer_lines
+	if comparison then
+		for i, v in pairs(new_buffer_lines) do
+			comparison = comparison and v == target_str[i]
+		end
+	end
+	print(tostring(comparison) .. "has been calculated")
+
+	return comparison
 end
 
 function buffer_permutation_task.teardown() end
