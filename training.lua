@@ -1,11 +1,11 @@
 require("luarocks.loader")
 
-local absolute_line_task = require("tasks/absolute_line_task")
-local relative_line_task = require("tasks/relative_line_task")
-local buffer_permutation_task = require("tasks/buffer_permutation")
-local test_task = require("tasks.test_task")
-local progress = require("progress")
-local status = require("status")
+local absolute_line_task = require("src.tasks.absolute_line_task")
+local relative_line_task = require("src.tasks.relative_line_task")
+local buffer_permutation_task = require("src.tasks.buffer_permutation")
+local test_task = require("src.tasks.test_task")
+local progress = require("src.progress")
+local status = require("src.status")
 
 local all_tasks = { absolute_line_task, relative_line_task, buffer_permutation_task }
 all_tasks = { test_task }
@@ -13,9 +13,7 @@ local chosen_task = all_tasks[math.random(#all_tasks)]
 local current_autocmds = {}
 
 function main(autocmd_args)
-
 	task_status = chosen_task.check()
-
 
 	if chosen_task.check() then
 		progress.update_streak()

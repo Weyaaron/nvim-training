@@ -1,6 +1,6 @@
 local buffer_permutation_task = { desc = nil }
 local data = {}
-local utility = require("utility")
+local utility = require("src.utility")
 
 local minimal_keys = { "initial_buffer", "new_buffer", "desc", "cursor_position" }
 

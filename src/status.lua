@@ -1,4 +1,4 @@
-local window_management = require("window")
+local window_management = require("src.window")
 local status = {}
 local window_index
 
