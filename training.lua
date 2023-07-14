@@ -10,8 +10,8 @@ local chosen_task = all_tasks[math.random(#all_tasks)]
 local current_autocmds = {}
 
 function main(autocmd_args)
-	completed = chosen_task.completed()
-	failed = chosen_task.failed()
+	local completed = chosen_task.completed()
+	local failed = chosen_task.failed()
 	if completed and not failed then
 		progress.update_streak()
 		init_new_task()
@@ -32,12 +32,12 @@ function init_new_task()
 	chosen_task.init()
 	status.update(chosen_task.desc)
 
-	for i, v in pairs(current_autocmds) do
+	for _, v in pairs(current_autocmds) do
 		vim.api.nvim_del_autocmd(v)
 	end
 	current_autocmds = {}
 
-	for i, v in pairs(chosen_task.autocmds) do
+	for _, v in pairs(chosen_task.autocmds) do
 		current_autocmds[#current_autocmds + 1] = vim.api.nvim_create_autocmd({ v }, {
 			callback = main,
 		})

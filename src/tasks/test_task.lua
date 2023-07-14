@@ -1,5 +1,4 @@
 local test_task = { desc = nil, autocmds = nil }
-local data = {}
 local utility = require("src.utility")
 
 function test_task.init()
