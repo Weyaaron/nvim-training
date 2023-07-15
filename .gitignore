@@ -2,7 +2,7 @@
 
 
 *.test
-
+test.lua
 
 
 # Compiled Lua sources

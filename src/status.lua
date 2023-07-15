@@ -8,7 +8,7 @@ function status.init()
 end
 
 function status.update(input_text)
-	window_management.update_window_text(window_index, input_text)
+	window_management.update_window_text(window_index, input_text .. "\n")
 end
 
 return status

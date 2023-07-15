@@ -1,6 +1,7 @@
 local window_management = {}
 
 local window_table = {}
+local utility = require("src.utility")
 
 function window_management.open_window(width, height, row, col)
 	local window_buffer = vim.api.nvim_create_buf(false, true) -- create new emtpy buffer
@@ -27,7 +28,8 @@ function window_management.open_window(width, height, row, col)
 end
 
 function window_management.update_window_text(window_index, new_text)
-	vim.api.nvim_buf_set_lines(window_table[window_index]["buffer"], 0, -1, false, { new_text })
+	local text_as_lines = utility.split_str(new_text)
+	vim.api.nvim_buf_set_lines(window_table[window_index]["buffer"], 0, -1, false, text_as_lines)
 end
 
 return window_management

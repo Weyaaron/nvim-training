@@ -1,4 +1,4 @@
-local absolute_line_task = { desc = nil, autocmds = { "CursorMoved" } }
+local absolute_line_task = { desc = nil, autocmds = { "CursorMoved" }, minimal_level = 1 }
 local data = { target_line = 0, highlight_namespace = nil }
 
 function absolute_line_task.init()

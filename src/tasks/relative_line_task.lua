@@ -1,4 +1,4 @@
-local relative_line_task = { desc = "Move relative to cursor", autocmds = { "CursorMoved" } }
+local relative_line_task = { desc = "Move relative to cursor", autocmds = { "CursorMoved" }, minimal_level = 2 }
 local data = { previous_line = 0, target_offset = 0, highlight_namespace = nil }
 
 local function calculate_offset()

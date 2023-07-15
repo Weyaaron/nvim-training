@@ -6,9 +6,13 @@ local buffer_permutation_task = require("src.tasks.buffer_permutation")
 local progress = require("src.progress")
 local status = require("src.status")
 
-local all_tasks = { buffer_permutation_task }
-local chosen_task = all_tasks[math.random(#all_tasks)]
+local current_task_pool = { absolute_line_task }
+local chosen_task = current_task_pool[math.random(#current_task_pool)]
 local current_autocmds = {}
+local total_task_pool = { absolute_line_task, relative_line_task }
+
+local current_level = 1
+local level_requirements = { 3, 3 }
 
 function main(autocmd_args)
 	local completed = chosen_task.completed()
@@ -24,11 +28,27 @@ function main(autocmd_args)
 	if failed and completed then
 		print("A Task should not both complete and fail!")
 	end
+
+	if completed and progress.progress_counter == level_requirements[current_level] then
+		level_up()
+	end
+end
+
+function level_up()
+	current_level = current_level + 1
+
+	current_task_pool = {}
+	for i, v in pairs(total_task_pool) do
+		if v.minimal_level >= current_level then
+			current_task_pool[i] = v
+		end
+	end
+	progress.progress_counter = 0
 end
 
 function init_new_task()
 	chosen_task.teardown()
-	chosen_task = all_tasks[math.random(#all_tasks)]
+	chosen_task = current_task_pool[math.random(#current_task_pool)]
 
 	chosen_task.init()
 	status.update(chosen_task.desc)
