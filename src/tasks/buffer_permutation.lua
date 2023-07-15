@@ -6,7 +6,7 @@ local minimal_keys = { "initial_buffer", "new_buffer", "desc", "cursor_position"
 local buffer_data = {}
 
 function buffer_permutation_task.init()
-	buffer_data = utility.read_buffer_source_file("./buffer-files/test.buffer")
+	buffer_data = utility.read_buffer_source_file("./buffer_data/test.buffer")
 	for _, v in pairs(minimal_keys) do
 		if not buffer_data[v] then
 			print("Missing key!")
