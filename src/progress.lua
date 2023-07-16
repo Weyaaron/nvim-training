@@ -2,13 +2,12 @@ local window_management = require("src.window")
 
 local progress = { progress_counter = 0 }
 local display_window_index
-local level = 1
+local current_level = 1
 
 local function display_progress()
 	local new_text = "Current Progress: "
 		.. tostring(progress.progress_counter)
-		.. "\n"
-		.. " Current Level: "
+		.. "\nCurrent Level: "
 		.. tostring(current_level)
 	window_management.update_window_text(display_window_index, new_text)
 end
@@ -28,8 +27,8 @@ function progress.end_streak()
 	display_progress()
 end
 
-function progress.update_level(current_level)
-	level = current_level
+function progress.update_level(new_level)
+	current_level = new_level
 end
 
 return progress

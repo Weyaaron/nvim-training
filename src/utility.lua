@@ -30,18 +30,28 @@ function utility.read_buffer_source_file(file_path)
 end
 
 function utility.split_str(input, sep)
-	if not sep then
-		sep = "\n"
-	end
 	if not input then
 		return {}
 	end
-
-	local lines = {}
-	for line in string.gmatch(input, "(.-)" .. sep) do
-		table.insert(lines, line)
+	if not sep then
+		sep = "\n"
 	end
-	return lines
+
+	assert(type(input) == "string" and type(sep) == "string", "The arguments must be <string>")
+	if sep == "" then
+		return { input}
+	end
+
+	local res, from = {}, 1
+	repeat
+		local pos = input:find(sep, from)
+		res[#res + 1] = input:sub(from, pos and pos - 1)
+		from = pos and pos + #sep
+	until not from
+	if #res == 0 then
+		return { input }
+	end
+	return res
 end
 
 return utility
