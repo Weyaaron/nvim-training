@@ -27,7 +27,7 @@ function AbsoluteLineTask:completed()
 end
 
 function AbsoluteLineTask:failed()
-	return not absolute_line_task.completed()
+	return not AbsoluteLineTask:completed()
 end
 
 function AbsoluteLineTask:teardown()

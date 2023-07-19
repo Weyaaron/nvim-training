@@ -1,9 +1,9 @@
-local absolute_line_task = require("src.tasks.absolute_line_task")
-local relative_line_task = require("src.tasks.relative_line_task")
+local AbsoluteLineTask = require("src.tasks.absolute_line_task")
+
 
 local progress = require("src.progress")
 local status = require("src.status")
-local total_task_pool = { absolute_line_task }
+local total_task_pool = { AbsoluteLineTask}
 
 local current_task = nil
 local task_index = 1
@@ -13,7 +13,7 @@ local current_level = 1
 
 function task_sequence.init()
 	if current_task then
-		current_task.teardown()
+		current_task:teardown()
 	end
 
 	task_index = 1
@@ -22,16 +22,16 @@ function task_sequence.init()
 
 	local current_task_pool = {}
 	for i, v in pairs(total_task_pool) do
-		if v.minimal_level >= current_level then
+		local instance = v:new()
+		if instance.minimal_level >= current_level then
 			current_task_pool[i] = v
 		end
 	end
 	current_task_sequence = {}
 	for i = 1, sequence_length do
-		current_task_sequence[i] = current_task_pool[math.random(#current_task_pool)]
+		current_task_sequence[i] = current_task_pool[math.random(#current_task_pool)]:new()
 	end
 	current_task = current_task_sequence[task_index]
-	current_task.init()
 end
 
 function task_sequence.complete_current_task()
