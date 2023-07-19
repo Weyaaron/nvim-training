@@ -2,7 +2,6 @@ require("luarocks.loader")
 
 local absolute_line_task = require("src.tasks.absolute_line_task")
 local relative_line_task = require("src.tasks.relative_line_task")
-local buffer_permutation_task = require("src.tasks.buffer_permutation")
 local progress = require("src.progress")
 local status = require("src.status")
 
@@ -12,7 +11,26 @@ local current_autocmds = {}
 local total_task_pool = { absolute_line_task, relative_line_task }
 
 local current_level = 1
-local level_requirements = { 3, 3 }
+local level_requirements = { 10, 3 }
+
+function init_new_task()
+	chosen_task.teardown()
+	chosen_task = current_task_pool[math.random(#current_task_pool)]
+
+	chosen_task.init()
+	status.update(chosen_task.desc)
+
+	for _, v in pairs(current_autocmds) do
+		vim.api.nvim_del_autocmd(v)
+	end
+	current_autocmds = {}
+
+	for _, v in pairs(chosen_task.autocmds) do
+		current_autocmds[#current_autocmds + 1] = vim.api.nvim_create_autocmd({ v }, {
+			callback = main,
+		})
+	end
+end
 
 function main(autocmd_args)
 	local completed = chosen_task.completed()
@@ -46,26 +64,7 @@ function level_up()
 	progress.progress_counter = 0
 end
 
-function init_new_task()
-	chosen_task.teardown()
-	chosen_task = current_task_pool[math.random(#current_task_pool)]
-
-	chosen_task.init()
-	status.update(chosen_task.desc)
-
-	for _, v in pairs(current_autocmds) do
-		vim.api.nvim_del_autocmd(v)
-	end
-	current_autocmds = {}
-
-	for _, v in pairs(chosen_task.autocmds) do
-		current_autocmds[#current_autocmds + 1] = vim.api.nvim_create_autocmd({ v }, {
-			callback = main,
-		})
-	end
-end
-
-local function setup()
+function setup()
 	local current_window = vim.api.nvim_tabpage_get_win(0)
 
 	progress.init()

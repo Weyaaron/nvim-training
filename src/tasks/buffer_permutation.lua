@@ -33,7 +33,6 @@ function buffer_permutation_task.completed()
 			comparison = comparison and v == target_str[i]
 		end
 	end
-	print(tostring(comparison) .. "has been calculated")
 
 	return comparison
 end

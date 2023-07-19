@@ -1,14 +1,9 @@
 local relative_line_task = { desc = "Move relative to cursor", autocmds = { "CursorMoved" }, minimal_level = 2 }
 local data = { previous_line = 0, target_offset = 0, highlight_namespace = nil }
-
-local function calculate_offset()
-	local initial_value = math.random(2, 5)
-	local multiplier = { 1, -1 }
-	return initial_value * multiplier[math.random(1, 2)]
-end
+local utility = require("src.utility")
 
 function relative_line_task.init()
-	local current_offset = calculate_offset()
+	local current_offset = utility.draw_random_number_with_sign(2, 5)
 	data.previous_line = vim.api.nvim_win_get_cursor(0)[1]
 
 	relative_line_task.desc = "Move " .. tostring(current_offset) .. " lines relative to your cursor."

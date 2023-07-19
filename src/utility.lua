@@ -39,7 +39,7 @@ function utility.split_str(input, sep)
 
 	assert(type(input) == "string" and type(sep) == "string", "The arguments must be <string>")
 	if sep == "" then
-		return { input}
+		return { input }
 	end
 
 	local res, from = {}, 1
@@ -52,6 +52,12 @@ function utility.split_str(input, sep)
 		return { input }
 	end
 	return res
+end
+
+function utility.draw_random_number_with_sign(lower_bound, upper_bound)
+	local initial_value = math.random(lower_bound, upper_bound)
+	local multiplier = { 1, -1 }
+	return initial_value * multiplier[math.random(1, 2)]
 end
 
 return utility
