@@ -1,4 +1,5 @@
-local relative_line_task = { desc = "Move relative to cursor", autocmds = { "CursorMoved" }, minimal_level = 2 }
+local relative_line_task =
+	{ desc = "Move relative to cursor", autocmds = { "CursorMoved" }, minimal_level = 2, abr = "RLT" }
 local data = { previous_line = 0, target_offset = 0, highlight_namespace = nil }
 local utility = require("src.utility")
 
