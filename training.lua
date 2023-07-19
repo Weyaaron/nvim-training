@@ -1,6 +1,5 @@
 require("luarocks.loader")
 
-
 local progress = require("src.progress")
 local status = require("src.status")
 local current_autocmds = {}

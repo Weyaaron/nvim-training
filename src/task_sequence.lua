@@ -11,9 +11,6 @@ local task_index = 1
 local task_sequence = {}
 local current_level = 1
 
-
-
-
 function task_sequence.init()
 	if current_task then
 		current_task.teardown()
@@ -53,6 +50,5 @@ function task_sequence.print()
 	end
 	return task_list_str
 end
-
 
 return task_sequence
