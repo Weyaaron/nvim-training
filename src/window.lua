@@ -3,8 +3,7 @@ local utility = require("src.utility")
 local Window = {}
 
 function Window:new(width, height, row, col)
-	local newObj =
-		{ nvim_win = nil, nvim_buf = nil, win_width = width, win_height = height, win_row = row, win_col = col }
+	local newObj = { win_width = width, win_height = height, win_row = row, win_col = col }
 	self.__index = self
 	setmetatable(newObj, self)
 
@@ -14,7 +13,6 @@ end
 
 function Window:display()
 	self.nvim_buf = vim.api.nvim_create_buf(false, true) -- create new emtpy buffer
-
 
 	vim.api.nvim_buf_set_option(self.nvim_buf, "bufhidden", "wipe")
 
@@ -29,7 +27,6 @@ function Window:display()
 		col = self.win_col,
 		focusable = false,
 	}
-
 
 	-- and finally create it with buffer attached
 	self.nvim_win = vim.api.nvim_open_win(self.nvim_buf, true, opts)

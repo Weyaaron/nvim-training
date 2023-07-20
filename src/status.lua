@@ -7,13 +7,13 @@ function Status:new()
 	self.__index = self
 	setmetatable(newObj, self)
 
-	self.window = Window:new(25, 5, 5, 50)
-	self.window:update_window_text("Neue Aufgabe")
+	newObj.window = Window:new(25, 25, 1, 80)
+	newObj:update("Neue Aufgabe\n")
 	return newObj
 end
 
 function Status:update(input_text)
-	self.window:update_window_text(window_index, input_text .. "\n")
+	self.window:update_window_text(input_text .. "\n")
 end
 
 return Status

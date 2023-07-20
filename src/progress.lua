@@ -3,10 +3,10 @@ local Window = require("src.window")
 local Progress = {}
 
 function Progress:new()
-	local newObj = { window = nil, progress_counter = 0, level = 0 }
+	local newObj = { progress_counter = 0, level = 0 }
 	self.__index = self
 	setmetatable(newObj, self)
-	self.window = Window:new(25, 3, 5, 75)
+	self.window = Window:new(25, 25, 1, 50)
 	newObj:display_progress()
 	return newObj
 end
@@ -25,7 +25,7 @@ function Progress:update_streak()
 end
 
 function Progress:end_streak()
-	progress.progress_counter = 0
+	self.progress_counter = 0
 	self:display_progress()
 end
 
