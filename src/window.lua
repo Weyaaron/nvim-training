@@ -1,12 +1,20 @@
-local window_management = {}
-
-local window_table = {}
 local utility = require("src.utility")
 
-function window_management.open_window(width, height, row, col)
-	local window_buffer = vim.api.nvim_create_buf(false, true) -- create new emtpy buffer
+local Window = {}
 
-	vim.api.nvim_buf_set_option(window_buffer, "bufhidden", "wipe")
+function Window:new(width, height, row, col)
+	local newObj = { nvim_win = nil, nvim_buf = nil }
+	self.__index = self
+	setmetatable(newObj, self)
+
+	self:display()
+	return newObj
+end
+
+function Window:display()
+	self.nvim_buf = vim.api.nvim_create_buf(false, true) -- create new emtpy buffer
+
+	vim.api.nvim_buf_set_option(self.nvim_buf, "bufhidden", "wipe")
 
 	-- set some options
 	local opts = {
@@ -21,15 +29,12 @@ function window_management.open_window(width, height, row, col)
 	}
 
 	-- and finally create it with buffer attached
-	local win = vim.api.nvim_open_win(window_buffer, true, opts)
-
-	window_table[#window_table + 1] = { buffer = window_buffer, window = win }
-	return #window_table
+	self.nvim_win = vim.api.nvim_open_win(self.nvim_buf, true, opts)
 end
 
-function window_management.update_window_text(window_index, new_text)
+function Window:update_window_text(new_text)
 	local text_as_lines = utility.split_str(new_text)
-	vim.api.nvim_buf_set_lines(window_table[window_index]["buffer"], 0, -1, false, text_as_lines)
+	vim.api.nvim_buf_set_lines(self.nvim_buf, 0, -1, false, text_as_lines)
 end
 
-return window_management
+return Window

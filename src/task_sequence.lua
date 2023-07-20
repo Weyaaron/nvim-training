@@ -1,9 +1,8 @@
 local AbsoluteLineTask = require("src.tasks.absolute_line_task")
 
-
 local progress = require("src.progress")
 local status = require("src.status")
-local total_task_pool = { AbsoluteLineTask}
+local total_task_pool = { AbsoluteLineTask }
 
 local current_task = nil
 local task_index = 1
