@@ -10,7 +10,7 @@ function AbsoluteLineTask:new()
 	setmetatable(newObj, self)
 
 	data.target_line = math.random(1, 15)
-	self.desc = "Move to line " .. tostring(data.target_line)
+	newObj.desc = "Move to line " .. tostring(data.target_line)
 	data.highlight_namespace = vim.api.nvim_create_namespace("AbsoluteVerticalLineNameSpace")
 
 	vim.api.nvim_set_hl(0, "UnderScore", { underline = true })

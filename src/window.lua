@@ -7,7 +7,6 @@ function Window:new(width, height, row, col)
 		{ nvim_win = nil, nvim_buf = nil, win_width = width, win_height = height, win_row = row, win_col = col }
 	self.__index = self
 	setmetatable(newObj, self)
-	print("Win_wit" .. tostring(self.win_width))
 
 	newObj:display()
 	return newObj
@@ -15,7 +14,7 @@ end
 
 function Window:display()
 	self.nvim_buf = vim.api.nvim_create_buf(false, true) -- create new emtpy buffer
-	print(self.nvim_buf)
+
 
 	vim.api.nvim_buf_set_option(self.nvim_buf, "bufhidden", "wipe")
 
@@ -30,7 +29,7 @@ function Window:display()
 		col = self.win_col,
 		focusable = false,
 	}
-	print("opts.col" .. tostring(opts.col))
+
 
 	-- and finally create it with buffer attached
 	self.nvim_win = vim.api.nvim_open_win(self.nvim_buf, true, opts)

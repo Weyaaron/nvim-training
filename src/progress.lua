@@ -8,6 +8,7 @@ function Progress:new()
 	setmetatable(newObj, self)
 	self.window = Window:new(25, 3, 5, 75)
 	newObj:display_progress()
+	return newObj
 end
 
 function Progress:display_progress()
