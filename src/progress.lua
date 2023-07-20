@@ -7,29 +7,29 @@ function Progress:new()
 	self.__index = self
 	setmetatable(newObj, self)
 	self.window = Window:new(25, 3, 5, 75)
-	display_progress()
+	newObj:display_progress()
 end
 
 function Progress:display_progress()
 	local new_text = "Current Progress: "
-		.. tostring(progress.progress_counter)
+		.. tostring(self.progress_counter)
 		.. "\nCurrent Level: "
-		.. tostring(current_level)
+		.. tostring(self.level)
 	self.window:update_window_text(new_text)
 end
 
 function Progress:update_streak()
-	progress.progress_counter = progress.progress_counter + 1
-	display_progress()
+	self.progress_counter = self.progress_counter + 1
+	self:display_progress()
 end
 
 function Progress:end_streak()
 	progress.progress_counter = 0
-	display_progress()
+	self:display_progress()
 end
 
 function Progress:update_level(new_level)
-	current_level = new_level
+	self.level = new_level
 end
 
 return Progress

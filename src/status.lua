@@ -1,14 +1,19 @@
-local window_management = require("src.window")
-local status = {}
-local window_index
+local Window = require("src.window")
 
-function status.init()
-	window_index = window_management.open_window(25, 5, 5, 50)
-	window_management.update_window_text(window_index, "Neue Aufgabe")
+local Status = {}
+
+function Status:new()
+	local newObj = { window = nil }
+	self.__index = self
+	setmetatable(newObj, self)
+
+	self.window = Window:new(25, 5, 5, 50)
+	self.window:update_window_text("Neue Aufgabe")
+	return self
 end
 
-function status.update(input_text)
-	window_management.update_window_text(window_index, input_text .. "\n")
+function Status:update(input_text)
+	self.window:update_window_text(window_index, input_text .. "\n")
 end
 
-return status
+return Status
