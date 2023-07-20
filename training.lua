@@ -33,10 +33,13 @@ function main(autocmd_args)
 	if completed and not failed then
 		progress:update_streak()
 		current_task_sequence:complete_current_task()
+		status:update(current_task_sequence.current_task.desc .. "\n")
 	end
 	if failed and not completed then
 		progress:end_streak()
-		current_task_sequence = current_task_sequence:new()
+		current_task_sequence:complete_current_task()
+
+		status:update(current_task_sequence.current_task.desc .. "\n")
 	end
 	if failed and completed then
 		print("A Task should not both complete and fail!")

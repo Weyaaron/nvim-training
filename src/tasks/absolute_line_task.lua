@@ -21,11 +21,12 @@ end
 function AbsoluteLineTask:completed()
 	local cursor_position = vim.api.nvim_win_get_cursor(0)[1]
 	local comparison = cursor_position == self.target_line
+	print(tostring(comparison) .. tostring(self.target_line))
 	return comparison
 end
 
 function AbsoluteLineTask:failed()
-	return not AbsoluteLineTask:completed()
+	return not self:completed()
 end
 
 function AbsoluteLineTask:teardown()

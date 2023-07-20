@@ -30,7 +30,8 @@ end
 
 function TaskSequence:complete_current_task()
 	self.task_index = self.task_index + 1
-	self.current_task = self.task_sequence[task_index]
+	self.current_task = self.task_sequence[self.task_index]
+	print(self.current_task.desc)
 end
 
 function TaskSequence:print()
