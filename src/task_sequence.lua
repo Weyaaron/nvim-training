@@ -7,7 +7,8 @@ local total_task_pool = { JumpMarkTask }
 local TaskSequence = {}
 
 function TaskSequence:new()
-	local newObj = { task_index = 1, current_level = 1 }
+	--Task index starts at 0 to deal with first task initialisation
+	local newObj = { task_index = 0, current_level = 1 }
 	self.__index = self
 	setmetatable(newObj, self)
 
@@ -25,13 +26,13 @@ function TaskSequence:new()
 		newObj.task_sequence[i] = current_task_pool[math.random(#current_task_pool)]:new()
 	end
 
-	newObj.current_task = newObj.task_sequence[newObj.task_index]
-
 	return newObj
 end
 
 function TaskSequence:complete_current_task()
-	self.current_task:teardown()
+	if self.current_task then
+		self.current_task:teardown()
+	end
 end
 
 function TaskSequence:switch_to_next_task()

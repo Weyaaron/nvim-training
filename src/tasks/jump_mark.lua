@@ -6,15 +6,13 @@ function JumpMarkTask:new()
 	local newObj = Task:new()
 	self.__index = self
 	setmetatable(newObj, self)
-	newObj:place_mark()
 
+	newObj.chars = { "a", "b", "c", "d", "x", "y" }
 	return newObj
 end
 
 function JumpMarkTask:place_mark()
-	local chars = { "a", "b", "c", "d", "x", "y" }
-	self.current_mark_name = chars[math.random(1, #chars)]
-
+	self.current_mark_name = self.chars[math.random(1, #self.chars)]
 	self.target_line = math.random(5, 15)
 	self.desc = "Go to Mark " .. self.current_mark_name
 	self.highlight_namespace = vim.api.nvim_create_namespace("MarkLineNameSpace")
@@ -24,7 +22,9 @@ function JumpMarkTask:place_mark()
 
 	vim.api.nvim_buf_set_mark(0, self.current_mark_name, self.target_line, 0, {})
 end
+
 function JumpMarkTask:prepare()
+	self:teardown_all_marks()
 	self:place_mark()
 end
 
@@ -42,7 +42,12 @@ function JumpMarkTask:teardown()
 	if self.highlight_namespace then
 		vim.api.nvim_buf_clear_namespace(0, self.highlight_namespace, 0, -1)
 	end
-	vim.api.nvim_buf_set_mark(0, self.current_mark_name, 0, 0, {})
+	self:teardown_all_marks()
+end
+function JumpMarkTask:teardown_all_marks()
+	for _, v in pairs(self.chars) do
+		vim.api.nvim_buf_set_mark(0, v, 0, 0, {})
+	end
 end
 
 return JumpMarkTask

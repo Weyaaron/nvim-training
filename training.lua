@@ -11,14 +11,18 @@ local current_task_sequence = Task_sequence:new()
 local status = nil
 local progress = nil
 
-function init_new_task()
-	local task_list_str = current_task_sequence:print()
-	status:update(current_task_sequence.current_task.desc .. "\n" .. task_list_str)
-
+local function switch_to_next_task()
+	current_task_sequence:complete_current_task()
 	for _, v in pairs(current_autocmds) do
 		vim.api.nvim_del_autocmd(v)
 	end
 	current_autocmds = {}
+
+	current_task_sequence:switch_to_next_task()
+	current_task_sequence.current_task:prepare()
+	local task_list_str = current_task_sequence:print()
+
+	status:update(current_task_sequence.current_task.desc .. "\n" .. task_list_str)
 
 	for _, v in pairs(current_task_sequence.current_task.autocmds) do
 		current_autocmds[#current_autocmds + 1] = vim.api.nvim_create_autocmd({ v }, {
@@ -32,16 +36,11 @@ function main(autocmd_args)
 	local failed = current_task_sequence.current_task:failed()
 	if completed and not failed then
 		progress:update_streak()
-		current_task_sequence:complete_current_task()
-		current_task_sequence:switch_to_next_task()
-		status:update(current_task_sequence.current_task.desc .. "\n")
+		switch_to_next_task()
 	end
 	if failed and not completed then
 		progress:end_streak()
-		current_task_sequence:complete_current_task()
-		current_task_sequence:switch_to_next_task()
-
-		status:update(current_task_sequence.current_task.desc .. "\n")
+		switch_to_next_task()
 	end
 	if failed and completed then
 		print("A Task should not both complete and fail!")
@@ -59,7 +58,7 @@ function setup()
 	progress = Progress:new()
 	status = Status:new()
 	vim.api.nvim_set_current_win(current_window)
-	init_new_task()
+	switch_to_next_task()
 end
 
 setup()
