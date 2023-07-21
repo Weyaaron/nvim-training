@@ -12,8 +12,8 @@ function BufferPermutationTask:new()
 	newObj.autocmds = { "TextChanged" }
 
 	newObj:load_from_json("./buffer_data/test.buffer")
-	for _, v in pairs(minimal_keys) do
-		if not newObj[v] then
+	for key_el in minimal_keys do
+		if not newObj[key_el] then
 			print("Missing key!")
 		end
 	end

@@ -45,8 +45,8 @@ function JumpMarkTask:teardown()
 	self:teardown_all_marks()
 end
 function JumpMarkTask:teardown_all_marks()
-	for _, v in pairs(self.chars) do
-		vim.api.nvim_buf_set_mark(0, v, 0, 0, {})
+	for  mark_el in self.chars  do
+		vim.api.nvim_buf_set_mark(0, mark_el, 0, 0, {})
 	end
 end
 

@@ -13,8 +13,8 @@ local progress = nil
 
 local function switch_to_next_task()
 	current_task_sequence:complete_current_task()
-	for _, v in pairs(current_autocmds) do
-		vim.api.nvim_del_autocmd(v)
+	for autocmd_el in current_autocmds do
+		vim.api.nvim_del_autocmd(autocmd_el)
 	end
 	current_autocmds = {}
 
@@ -24,8 +24,8 @@ local function switch_to_next_task()
 
 	status:update(current_task_sequence.current_task.desc .. "\n" .. task_list_str)
 
-	for _, v in pairs(current_task_sequence.current_task.autocmds) do
-		current_autocmds[#current_autocmds + 1] = vim.api.nvim_create_autocmd({ v }, {
+	for autocmd_el in current_task_sequence.current_task.autocmds do
+		current_autocmds[#current_autocmds + 1] = vim.api.nvim_create_autocmd({ autocmd_el }, {
 			callback = main,
 		})
 	end

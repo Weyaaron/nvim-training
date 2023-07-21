@@ -15,10 +15,10 @@ function TaskSequence:new()
 	local sequence_length = 15
 
 	local current_task_pool = {}
-	for _, v in pairs(total_task_pool) do
-		local instance = v:new()
+	for task_el in total_task_pool do
+		local instance = task_el:new()
 		if instance.minimal_level >= newObj.current_level then
-			current_task_pool[i] = v
+			current_task_pool[i] = task_el
 		end
 	end
 	newObj.task_sequence = {}
@@ -43,8 +43,8 @@ end
 
 function TaskSequence:print()
 	local task_list_str = ""
-	for v in self.task_sequence do
-		task_list_str = task_list_str .. "\n" .. tostring(v.abr)
+	for task_el in self.task_sequence do
+		task_list_str = task_list_str .. "\n" .. tostring(task_el.abr)
 	end
 	return task_list_str
 end
