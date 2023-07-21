@@ -15,7 +15,7 @@ function TaskSequence:new()
 	local sequence_length = 15
 
 	local current_task_pool = {}
-	for i,task_el in pairs(total_task_pool) do
+	for i, task_el in pairs(total_task_pool) do
 		local instance = task_el:new()
 		if instance.minimal_level >= newObj.current_level then
 			current_task_pool[i] = task_el
