@@ -3,8 +3,6 @@ require("luarocks.loader")
 local UserInterFace = require("src.user_interface")
 local current_autocmds = {}
 
-local current_level = 1
-local level_requirements = { 10, 3 }
 local Task_sequence = require("src.task_sequence")
 local current_task_sequence = Task_sequence:new()
 local user_interface
@@ -18,36 +16,28 @@ local function switch_to_next_task()
 
 	current_task_sequence:switch_to_next_task()
 	current_task_sequence.current_task:prepare()
-	--local task_list_str = current_task_sequence:print()
-
-	--user_interface:update(current_task_sequence.current_task.desc .. "\n" .. task_list_str)
 
 	for _, autocmd_el in pairs(current_task_sequence.current_task.autocmds) do
 		current_autocmds[#current_autocmds + 1] = vim.api.nvim_create_autocmd({ autocmd_el }, {
 			callback = main,
 		})
 	end
+	user_interface:display(current_task_sequence)
 end
 
 function main(autocmd_args)
 	local completed = current_task_sequence.current_task:completed()
 	local failed = current_task_sequence.current_task:failed()
 	if completed and not failed then
-		--user_interface:update_streak()
 		switch_to_next_task()
 	end
 	if failed and not completed then
-		--user_interface:end_streak()
 		switch_to_next_task()
 	end
 	if failed and completed then
 		print("A Task should not both complete and fail!")
 	end
 
-	if completed and task_sequence.task_index == level_requirements[current_level] then
-		-- Todo: Readd levels
-		print("Sucess")
-	end
 	user_interface:display(current_task_sequence)
 end
 
@@ -57,7 +47,6 @@ function setup()
 	user_interface = UserInterFace:new()
 	vim.api.nvim_set_current_win(current_window)
 	switch_to_next_task()
-	user_interface:display(current_task_sequence)
 end
 
 setup()

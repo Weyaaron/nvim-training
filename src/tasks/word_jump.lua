@@ -13,7 +13,6 @@ function jump_word_task.init()
 
 	local current_line = vim.api.nvim_buf_get_lines(0, current_line_index, current_line_index + 1, false)[1]
 	current_line = string.sub(current_line, current_y_cursor_index)
-	--print(current_line)
 
 	local jump_target_offset_in_words = math.random(2, 5)
 
@@ -30,15 +29,6 @@ function jump_word_task.init()
 			cursor_offset_in_chars = cursor_offset_in_chars + current_word_length
 		end
 	end
-
-	local count_list = ""
-
-	for i, v in pairs(word_lengths) do
-		count_list = count_list .. tostring(v) .. ", "
-	end
-	print(count_list)
-
-	--print(tostring(jump_target_offset_in_words) .. ":" .. tostring(cursor_offset_in_chars))
 
 	jump_word_task.desc = "Jump " .. tostring(jump_target_offset_in_words) .. " words relative to your cursor."
 	jump_word_task.desc = tostring(jump_target_offset_in_words) .. ":" .. tostring(cursor_offset_in_chars)
@@ -64,8 +54,6 @@ function jump_word_task.failed()
 	local current_y_cursor_index = vim.api.nvim_win_get_cursor(0)[2]
 
 	local diff = data.cursor_target - current_y_cursor_index
-	print("Diff:" .. tostring(diff))
-
 	return diff == 0
 end
 
