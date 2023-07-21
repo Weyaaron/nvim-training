@@ -33,11 +33,13 @@ function main(autocmd_args)
 	if completed and not failed then
 		progress:update_streak()
 		current_task_sequence:complete_current_task()
+		current_task_sequence:switch_to_next_task()
 		status:update(current_task_sequence.current_task.desc .. "\n")
 	end
 	if failed and not completed then
 		progress:end_streak()
 		current_task_sequence:complete_current_task()
+		current_task_sequence:switch_to_next_task()
 
 		status:update(current_task_sequence.current_task.desc .. "\n")
 	end

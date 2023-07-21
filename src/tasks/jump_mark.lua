@@ -12,7 +12,7 @@ function JumpMarkTask:new()
 end
 
 function JumpMarkTask:place_mark()
-	local chars = { "a", "b", "c" }
+	local chars = { "a", "b", "c", "d", "x", "y" }
 	self.current_mark_name = chars[math.random(1, #chars)]
 
 	self.target_line = math.random(5, 15)
@@ -39,7 +39,6 @@ function JumpMarkTask:failed()
 end
 
 function JumpMarkTask:teardown()
-	print("Teardown happened")
 	if self.highlight_namespace then
 		vim.api.nvim_buf_clear_namespace(0, self.highlight_namespace, 0, -1)
 	end
