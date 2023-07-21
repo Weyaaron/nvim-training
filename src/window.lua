@@ -21,14 +21,13 @@ function Window:display()
 		style = "minimal",
 		relative = "editor",
 		anchor = "NW",
-		width = self.win_height,
+		width = self.win_width,
 		height = self.win_height,
 		row = self.win_row,
 		col = self.win_col,
 		focusable = false,
 	}
 
-	-- and finally create it with buffer attached
 	self.nvim_win = vim.api.nvim_open_win(self.nvim_buf, true, opts)
 end
 
