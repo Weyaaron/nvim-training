@@ -9,6 +9,8 @@ function Task:new()
 	return newObj
 end
 
+function Task:prepare() end
+
 function Task:completed()
 	return false
 end
@@ -36,10 +38,9 @@ function Task:load_from_json(file_path)
 	data_from_json["new_buffer"] = file:read("a")
 	file:close()
 
-	for _,v in ipairs(data_from_json) do
+	for _, v in ipairs(data_from_json) do
 		table.insert(self, v)
 	end
-
 end
 
 return Task

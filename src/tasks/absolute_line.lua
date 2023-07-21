@@ -7,15 +7,16 @@ function AbsoluteLineTask:new()
 	self.__index = self
 	setmetatable(newObj, self)
 
-	newObj.target_line = math.random(1, 15)
-	newObj.desc = "Move to line " .. tostring(newObj.target_line)
-	newObj.highlight_namespace = vim.api.nvim_create_namespace("AbsoluteVerticalLineNameSpace")
+	return newObj
+end
+function AbsoluteLineTask:prepare()
+	stelf.target_line = math.random(1, 15)
+	stelf.desc = "Move to line " .. tostring(stelf.target_line)
+	stelf.highlight_namespace = vim.api.nvim_create_namespace("AbsoluteVerticalLineNameSpace")
 
 	vim.api.nvim_set_hl(0, "UnderScore", { underline = true })
 
-	vim.api.nvim_buf_add_highlight(0, newObj.highlight_namespace, "UnderScore", newObj.target_line - 1, 0, -1)
-
-	return newObj
+	vim.api.nvim_buf_add_highlight(0, stelf.highlight_namespace, "UnderScore", stelf.target_line - 1, 0, -1)
 end
 
 function AbsoluteLineTask:completed()

@@ -1,7 +1,8 @@
 local AbsoluteLineTask = require("src.tasks.absolute_line")
 local RelativLineTask = require("src.tasks.relative_line")
+local JumpMarkTask = require("src.tasks.jump_mark")
 
-local total_task_pool = { RelativLineTask }
+local total_task_pool = { JumpMarkTask }
 
 local TaskSequence = {}
 
@@ -30,9 +31,9 @@ function TaskSequence:new()
 end
 
 function TaskSequence:complete_current_task()
+	self.current_task:teardown()
 	self.task_index = self.task_index + 1
 	self.current_task = self.task_sequence[self.task_index]
-	print(self.current_task.desc)
 end
 
 function TaskSequence:print()
