@@ -10,13 +10,13 @@ function AbsoluteLineTask:new()
 	return newObj
 end
 function AbsoluteLineTask:prepare()
-	stelf.target_line = math.random(1, 15)
-	stelf.desc = "Move to line " .. tostring(stelf.target_line)
-	stelf.highlight_namespace = vim.api.nvim_create_namespace("AbsoluteVerticalLineNameSpace")
+	self.target_line = math.random(1, 15)
+	self.desc = "Move to line " .. tostring(self.target_line)
+	self.highlight_namespace = vim.api.nvim_create_namespace("AbsoluteVerticalLineNameSpace")
 
 	vim.api.nvim_set_hl(0, "UnderScore", { underline = true })
 
-	vim.api.nvim_buf_add_highlight(0, stelf.highlight_namespace, "UnderScore", stelf.target_line - 1, 0, -1)
+	vim.api.nvim_buf_add_highlight(0, self.highlight_namespace, "UnderScore", self.target_line - 1, 0, -1)
 end
 
 function AbsoluteLineTask:completed()

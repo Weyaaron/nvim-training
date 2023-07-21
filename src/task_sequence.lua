@@ -12,10 +12,10 @@ function TaskSequence:new()
 	self.__index = self
 	setmetatable(newObj, self)
 
-	local sequence_length = 5
+	local sequence_length = 15
 
 	local current_task_pool = {}
-	for i, v in pairs(total_task_pool) do
+	for _, v in pairs(total_task_pool) do
 		local instance = v:new()
 		if instance.minimal_level >= newObj.current_level then
 			current_task_pool[i] = v
@@ -43,7 +43,7 @@ end
 
 function TaskSequence:print()
 	local task_list_str = ""
-	for i, v in pairs(self.task_sequence) do
+	for v in self.task_sequence do
 		task_list_str = task_list_str .. "\n" .. tostring(v.abr)
 	end
 	return task_list_str
