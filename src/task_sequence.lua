@@ -1,5 +1,5 @@
-local AbsoluteLineTask = require("src.tasks.absolute_line_task")
-local RelativLineTask = require("src.tasks.relative_line_task")
+local AbsoluteLineTask = require("src.tasks.absolute_line")
+local RelativLineTask = require("src.tasks.relative_line")
 
 local total_task_pool = { RelativLineTask }
 
