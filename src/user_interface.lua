@@ -14,6 +14,16 @@ end
 function UserInterface:display(current_task_sequence)
 	local window_text = "\n" .. current_task_sequence.current_task.desc .. "\n"
 
+	local sequence_of_attempts = ""
+	for i, v in pairs(current_task_sequence.status_list) do
+		if v then
+			sequence_of_attempts = sequence_of_attempts .. "t"
+		else
+			sequence_of_attempts = sequence_of_attempts .. "f"
+		end
+	end
+	window_text = window_text .. sequence_of_attempts
+
 	self.window:update_window_text(window_text)
 end
 

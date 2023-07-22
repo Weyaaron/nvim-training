@@ -8,7 +8,6 @@ local current_task_sequence = Task_sequence:new()
 local user_interface
 
 local function switch_to_next_task()
-	current_task_sequence:complete_current_task()
 	for _, autocmd_el in pairs(current_autocmds) do
 		vim.api.nvim_del_autocmd(autocmd_el)
 	end
@@ -29,9 +28,11 @@ function main(autocmd_args)
 	local completed = current_task_sequence.current_task:completed()
 	local failed = current_task_sequence.current_task:failed()
 	if completed and not failed then
+		current_task_sequence:complete_current_task()
 		switch_to_next_task()
 	end
 	if failed and not completed then
+		current_task_sequence:fail_current_task()
 		switch_to_next_task()
 	end
 	if failed and completed then
