@@ -5,7 +5,7 @@ local Task = require("src.task")
 function AbsoluteLineTask:new()
 	local newObj = Task:new()
 	self.__index = self
-	setmetatable(newObj, self)
+	setmetatable(newObj, { __index = Task })
 
 	return newObj
 end

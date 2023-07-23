@@ -1,16 +1,16 @@
 local AbsoluteLineTask = require("src.tasks.absolute_line")
 local RelativeLineTask = require("src.tasks.relative_line")
 local JumpMarkTask = require("src.tasks.jump_mark")
+local WordJumpTask = require("src.tasks.word_jump")
 
-local total_task_pool = { RelativeLineTask, JumpMarkTask, AbsoluteLineTask }
+local total_task_pool = { AbsoluteLineTask }
 
 local TaskSequence = {}
 
 function TaskSequence:new()
 	--Task index starts at 0 to deal with first task initialisation
 	local newObj = { task_index = 0, current_level = 1, status_list = {} }
-	self.__index = self
-	setmetatable(newObj, self)
+	setmetatable(newObj, { __index = TaskSequence })
 
 	local sequence_length = 15
 

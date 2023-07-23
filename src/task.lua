@@ -3,9 +3,9 @@ local cjson = require("cjson")
 local Task = {}
 
 function Task:new()
-	local newObj = { desc = nil, autocmds = { "CursorMoved" }, minimal_level = 1, abr = "ABLT" }
-	self.__index = self
-	setmetatable(newObj, self)
+	local newObj =
+		{ desc = "Generic Top Level Task Description", autocmds = { "CursorMoved" }, minimal_level = 1, abr = "ABLT" }
+	setmetatable(newObj, { __index = Task })
 	return newObj
 end
 
@@ -28,18 +28,18 @@ function Task:load_from_json(file_path)
 
 	file:close()
 
-	local initial_buffer_file_path = "./buffer_files/" .. data_from_json["initial_buffer"]
-	local new_buffer_file_path = "./buffer_files/" .. data_from_json["new_buffer"]
+	local initial_buffer_file_path = "./buffer_files/" .. data_from_json.initial_buffer
+	local new_buffer_file_path = "./buffer_files/" .. data_from_json.new_buffer
 
 	file = io.open(initial_buffer_file_path)
-	data_from_json["initial_buffer"] = file:read("a")
+	data_from_json.initial_buffer = file:read("a")
 	file:close()
 	file = io.open(new_buffer_file_path)
-	data_from_json["new_buffer"] = file:read("a")
+	data_from_json.new_buffer = file:read("a")
 	file:close()
 
-	for _, v in ipairs(data_from_json) do
-		table.insert(self, v)
+	for i, v in pairs(data_from_json) do
+		self[i] = v
 	end
 end
 
