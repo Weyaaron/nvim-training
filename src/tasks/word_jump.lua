@@ -1,10 +1,25 @@
-local jump_word_task = { desc = "Jump words", autocmds = { "CursorMoved" }, minimal_level = 1 }
-local data = { previous_cursor_position = 0, cursor_target = 0, highlight_namespace = nil }
-local utility = require("src.utility")
-local buffer_data = utility.read_buffer_source_file("./buffer_data/test.buffer")
+local JumpWordTask = {}
 
-function jump_word_task.init()
-	utility.replace_main_buffer_with_str(buffer_data["initial_buffer"])
+local Task = require("src.task")
+local utility = require("src.utility")
+
+function JumpWordTask:new()
+	local newObj = Task:new()
+	self.__index = self
+
+	setmetatable(newObj, { __index = Task })
+	newObj:load_from_json("./buffer_data/test.buffer")
+
+	return newObj
+end
+
+function JumpWordTask:prepare()
+	self.desc = "Jump words"
+
+	self.previous_cursor_position = 0
+	self.cursor_target = 0
+
+	utility.replace_main_buffer_with_str(self.initial_buffer)
 	--vim.api.nvim_win_set_cursor(0, buffer_data["cursor_position"])
 
 	local cursor_position_tuple = vim.api.nvim_win_get_cursor(0)
@@ -33,16 +48,16 @@ function jump_word_task.init()
 	jump_word_task.desc = "Jump " .. tostring(jump_target_offset_in_words) .. " words relative to your cursor."
 	jump_word_task.desc = tostring(jump_target_offset_in_words) .. ":" .. tostring(cursor_offset_in_chars)
 
-	data.highlight_namespace = vim.api.nvim_create_namespace("JumpWordLineNameSpace")
+	self.highlight_namespace = vim.api.nvim_create_namespace("JumpWordLineNameSpace")
 
 	vim.api.nvim_set_hl(0, "UnderScore", { underline = true })
 
 	local left_hl_bound = current_y_cursor_index + cursor_offset_in_chars
-	data.cursor_target = left_hl_bound
+	self.cursor_target = left_hl_bound
 
 	vim.api.nvim_buf_add_highlight(
 		0,
-		data.highlight_namespace,
+		self.highlight_namespace,
 		"UnderScore",
 		current_line_index,
 		left_hl_bound,
@@ -50,21 +65,18 @@ function jump_word_task.init()
 	)
 end
 
-function jump_word_task.failed()
-	local current_y_cursor_index = vim.api.nvim_win_get_cursor(0)[2]
-
-	local diff = data.cursor_target - current_y_cursor_index
-	return diff == 0
+function JumpWordTask:failed()
+	return self.cursor_target - vim.api.nvim_win_get_cursor(0)[2] == 0
 end
 
-function jump_word_task.completed()
-	return not jump_word_task.failed()
+function JumpWordTask:completed()
+	return not JumpWordTask:failed()
 end
 
-function jump_word_task.teardown()
-	if data.highlight_namespace then
-		vim.api.nvim_buf_clear_namespace(0, data.highlight_namespace, 0, -1)
+function JumpWordTask:teardown()
+	if self.highlight_namespace then
+		vim.api.nvim_buf_clear_namespace(0, self.highlight_namespace, 0, -1)
 	end
 end
 
-return jump_word_task
+return JumpWordTask
