@@ -3,12 +3,11 @@ local AbsoluteLineTask = {}
 local Task = require("src.task")
 
 function AbsoluteLineTask:new()
-	local newObj = Task:new()
-	self.__index = self
-	setmetatable(newObj, { __index = Task })
-
-	return newObj
+	local base = Task:new()
+	setmetatable(base, {__index = self})
+	return base
 end
+
 function AbsoluteLineTask:prepare()
 	self.target_line = math.random(1, 15)
 	self.desc = "Move to line " .. tostring(self.target_line)

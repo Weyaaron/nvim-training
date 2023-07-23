@@ -6,21 +6,22 @@ local WordJumpTask = require("src.tasks.word_jump")
 local total_task_pool = { AbsoluteLineTask }
 
 local TaskSequence = {}
+TaskSequence.__index = TaskSequence
 
 function TaskSequence:new()
 	--Task index starts at 0 to deal with first task initialisation
-	local newObj = { task_index = 0, current_level = 1, status_list = {} }
-	setmetatable(newObj, { __index = TaskSequence })
+	local base = { task_index = 0, current_level = 1, status_list = {} }
+	setmetatable(base, {__index = self})
 
 	local sequence_length = 15
 
 	local current_task_pool = total_task_pool
-	newObj.task_sequence = {}
+	base.task_sequence = {}
 	for i = 1, sequence_length do
-		newObj.task_sequence[i] = current_task_pool[math.random(#current_task_pool)]:new()
+		base.task_sequence[i] = current_task_pool[math.random(#current_task_pool)]:new()
 	end
 
-	return newObj
+	return base
 end
 
 function TaskSequence:complete_current_task()

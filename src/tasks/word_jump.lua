@@ -4,13 +4,10 @@ local Task = require("src.task")
 local utility = require("src.utility")
 
 function JumpWordTask:new()
-	local newObj = Task:new()
-	self.__index = self
-
-	setmetatable(newObj, { __index = Task })
-	newObj:load_from_json("./buffer_data/test.buffer")
-
-	return newObj
+	local base = Task:new()
+	setmetatable(base, {__index = self})
+	base:load_from_json("./buffer_data/test.buffer")
+	return base
 end
 
 function JumpWordTask:prepare()

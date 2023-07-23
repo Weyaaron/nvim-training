@@ -1,14 +1,14 @@
 local utility = require("src.utility")
 
 local Window = {}
+Window.__index = Window
 
 function Window:new(width, height, row, col)
-	local newObj = { win_width = width, win_height = height, win_row = row, win_col = col }
-	self.__index = self
-	setmetatable(newObj, self)
+	local base = { win_width = width, win_height = height, win_row = row, win_col = col }
+	setmetatable(base, {__index = self})
 
-	newObj:display()
-	return newObj
+	base:display()
+	return base
 end
 
 function Window:display()

@@ -14,7 +14,6 @@ local function switch_to_next_task()
 	current_autocmds = {}
 
 	current_task_sequence:switch_to_next_task()
-	current_task_sequence.current_task:prepare()
 
 	for _, autocmd_el in pairs(current_task_sequence.current_task.autocmds) do
 		current_autocmds[#current_autocmds + 1] = vim.api.nvim_create_autocmd({ autocmd_el }, {

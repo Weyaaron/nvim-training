@@ -3,6 +3,8 @@
 
 *.test
 test.lua
+scratch.lua
+
 
 
 # Compiled Lua sources

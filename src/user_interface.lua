@@ -1,14 +1,14 @@
 local Window = require("src.window")
 
 local UserInterface = {}
+UserInterface.__index = UserInterface
 
 function UserInterface:new()
-	local newObj = { progress_counter = 0 }
-	self.__index = self
-	setmetatable(newObj, self)
-	self.window = Window:new(50, 3, 1, 25)
-	newObj.call_counter = 0
-	return newObj
+	local base = { progress_counter = 0 }
+	setmetatable(base, {__index = self})
+	base.window = Window:new(50, 3, 1, 25)
+	base.call_counter = 0
+	return base
 end
 
 function UserInterface:display(current_task_sequence)

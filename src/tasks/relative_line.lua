@@ -4,11 +4,10 @@ local utility = require("src.utility")
 local Task = require("src.task")
 
 function RelativeLineTask:new()
-	local newObj = Task:new()
-	self.__index = self
-	setmetatable(newObj, self)
+	local base = Task:new()
+	setmetatable(base, {__index = self})
 
-	return newObj
+	return base
 end
 
 function RelativeLineTask:prepare()

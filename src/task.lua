@@ -1,25 +1,32 @@
 local cjson = require("cjson")
 
 local Task = {}
+Task.__index = Task
 
 function Task:new()
-	local newObj =
+	local base =
 		{ desc = "Generic Top Level Task Description", autocmds = { "CursorMoved" }, minimal_level = 1, abr = "ABLT" }
-	setmetatable(newObj, { __index = Task })
-	return newObj
+	setmetatable(base, self)
+	return base
 end
 
-function Task:prepare() end
+function Task:prepare()
+	print("Prepared from Baseclass called, please implement it in the subclass!")
+end
 
 function Task:completed()
+	print("Completed from Baseclass called, please implement it in the subclass!")
 	return false
 end
 
 function Task:failed()
+	print("Failed from Baseclass called, please implement it in the subclass!")
 	return false
 end
 
-function Task:teardown() end
+function Task:teardown()
+	print("Teardown from Baseclass called, please implement it in the subclass!")
+end
 
 function Task:load_from_json(file_path)
 	local file = io.open(file_path)

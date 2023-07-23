@@ -3,12 +3,11 @@ local JumpMarkTask = {}
 local Task = require("src.task")
 
 function JumpMarkTask:new()
-	local newObj = Task:new()
-	self.__index = self
-	setmetatable(newObj, self)
+	local base = Task:new()
+	setmetatable(base, {__index = self})
 
-	newObj.chars = { "a", "b", "c", "d", "x", "y" }
-	return newObj
+	base.chars = { "a", "b", "c", "d", "x", "y" }
+	return base
 end
 
 function JumpMarkTask:place_mark()
