@@ -14,13 +14,7 @@ function TaskSequence:new()
 
 	local sequence_length = 15
 
-	local current_task_pool = {}
-	for i, task_el in pairs(total_task_pool) do
-		local instance = task_el:new()
-		if instance.minimal_level >= newObj.current_level then
-			current_task_pool[i] = task_el
-		end
-	end
+	local current_task_pool = total_task_pool
 	newObj.task_sequence = {}
 	for i = 1, sequence_length do
 		newObj.task_sequence[i] = current_task_pool[math.random(#current_task_pool)]:new()
