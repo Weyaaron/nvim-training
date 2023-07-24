@@ -1,5 +1,5 @@
 name: Bug Report
-description: Create a report to notify the maintainers about the bug.
+description: Create a report to notify the maintainers about a bug.
 title: "[Bug]: "
 labels: ["bug"]
 assignees: []
@@ -20,8 +20,8 @@ body:
   - type: textarea
     id: reproduction
     attributes:
-      label: How to reproduce
-      description: Steps to reproduce the behavior (e.g. Which task was involved? Which configuration was used?).
+      label: How to reproduce the behavior
+      description: Steps to reproduce the behavior. Which task was involved? Which configuration was used?.
       render: markdown
     validations:
       required: true

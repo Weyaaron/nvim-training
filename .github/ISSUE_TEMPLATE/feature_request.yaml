@@ -23,7 +23,7 @@ body:
     attributes:
       label: Solution
       description: Describe a possible solution you'd like to see implemented.
-      placeholder: How could your problem be solved? Wild guesses are welcome.
+      placeholder: How could your problem be solved? Wild guesses are welcome, we do not require an essay.
     validations:
       required: true
 

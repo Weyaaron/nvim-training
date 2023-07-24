@@ -32,14 +32,14 @@ body:
     id: draft
     attributes:
       label: Draft
-      description: A minimal draft of your idea. You are encouraged to use pseudo code, but words are is fine.
+      description: A minimal draft of your idea. No Code required, words are totally fine.
     validations:
       required: true
 
   - type: textarea
     id: questions
     attributes:
-      label: Open Questions
+      label: Open Questions/Concerns
       description: Any open questions regarding your implementation you want to share?
       placeholder: E.g. I'm still unsure about [...]
     validations:
