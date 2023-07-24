@@ -4,7 +4,7 @@ local JumpMarkTask = require("plugin.src.tasks.jump_mark")
 local WordJumpTask = require("plugin.src.tasks.word_jump")
 local BufferPermutationTask = require("plugin.src.tasks.buffer_permutation")
 
-local total_task_pool = { AbsoluteLineTask, RelativeLineTask, JumpMarkTask }
+local total_task_pool = { BufferPermutationTask}
 
 local TaskSequence = {}
 TaskSequence.__index = TaskSequence

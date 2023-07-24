@@ -39,6 +39,8 @@ function JumpWordTask:prepare()
 
 	self.highlight_namespace = vim.api.nvim_create_namespace("JumpWordLineNameSpace")
 
+	--Todo: Fix highlight!
+
 	vim.api.nvim_set_hl(0, "UnderScore", { underline = true })
 
 	local left_hl_bound = current_y_cursor_index + cursor_offset_in_chars
@@ -55,7 +57,10 @@ function JumpWordTask:prepare()
 end
 
 function JumpWordTask:failed()
-	return self.cursor_target - vim.api.nvim_win_get_cursor(0)[2] == 0
+	if  self.cursor_target then
+		return self.cursor_target - vim.api.nvim_win_get_cursor(0)[2] == 0
+	end
+	return false
 end
 
 function JumpWordTask:completed()
