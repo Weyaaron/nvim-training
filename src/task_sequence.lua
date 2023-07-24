@@ -11,7 +11,7 @@ TaskSequence.__index = TaskSequence
 function TaskSequence:new()
 	--Task index starts at 0 to deal with first task initialisation
 	local base = { task_index = 0, current_level = 1, status_list = {} }
-	setmetatable(base, {__index = self})
+	setmetatable(base, { __index = self })
 
 	local sequence_length = 15
 

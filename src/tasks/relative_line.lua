@@ -5,7 +5,7 @@ local Task = require("src.task")
 
 function RelativeLineTask:new()
 	local base = Task:new()
-	setmetatable(base, {__index = self})
+	setmetatable(base, { __index = self })
 
 	return base
 end

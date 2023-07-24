@@ -7,7 +7,7 @@ local minimal_keys = { "initial_buffer", "new_buffer", "desc", "cursor_position"
 
 function BufferPermutationTask:new()
 	local base_task = Task:new()
-	setmetatable(base, {__index = self})
+	setmetatable(base, { __index = self })
 	base_task.autocmds = { "TextChanged" }
 
 	base_task:load_from_json("./buffer_data/test.buffer")

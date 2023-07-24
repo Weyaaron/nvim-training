@@ -5,7 +5,7 @@ local utility = require("src.utility")
 
 function JumpWordTask:new()
 	local base = Task:new()
-	setmetatable(base, {__index = self})
+	setmetatable(base, { __index = self })
 	base:load_from_json("./buffer_data/test.buffer")
 	return base
 end

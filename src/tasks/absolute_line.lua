@@ -1,12 +1,6 @@
-local AbsoluteLineTask = {}
-
-local Task = require("src.task")
-
-function AbsoluteLineTask:new()
-	local base = Task:new()
-	setmetatable(base, {__index = self})
-	return base
-end
+local MovementTask = require("src.tasks.movement_task")
+local AbsoluteLineTask = MovementTask:new()
+AbsoluteLineTask.__index = AbsoluteLineTask
 
 function AbsoluteLineTask:prepare()
 	self.target_line = math.random(1, 15)

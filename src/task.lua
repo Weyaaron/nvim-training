@@ -2,11 +2,23 @@ local cjson = require("cjson")
 
 local Task = {}
 Task.__index = Task
+Task.base_args = { desc = "Generic Top Level Task Description", autocmds = { "CursorMoved" }, abr = "ABLT" }
 
-function Task:new()
-	local base =
-		{ desc = "Generic Top Level Task Description", autocmds = { "CursorMoved" }, minimal_level = 1, abr = "ABLT" }
+function Task:new(custom_args)
+	local base = {}
+	if not custom_args then
+		custom_args = self.base_args
+	end
+	for i, v in pairs(self.base_args) do
+		if not custom_args[i] then
+			base[i] = v
+		end
+	end
 	setmetatable(base, self)
+
+	for i, v in pairs(custom_args) do
+		base[i] = v
+	end
 	return base
 end
 

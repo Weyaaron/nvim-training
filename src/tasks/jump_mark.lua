@@ -4,7 +4,7 @@ local Task = require("src.task")
 
 function JumpMarkTask:new()
 	local base = Task:new()
-	setmetatable(base, {__index = self})
+	setmetatable(base, { __index = self })
 
 	base.chars = { "a", "b", "c", "d", "x", "y" }
 	return base
