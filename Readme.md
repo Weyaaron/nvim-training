@@ -1,7 +1,7 @@
-# nvim-training
+# nvim_training
 
+[![License: MIT](https://img.shields.io/badge/License-GPL-brightgreen.svg)](https://opensource.org/license/gpl-3-0/)
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
 
 This code implements a Neovim Plugin for training your Muscle Memory.
 
@@ -20,15 +20,15 @@ version will be stable all the time.
 
 
 # Goals 
-- Ease of use. Starting a session should be seamless.
-- Fast and flow-inducing: There should be no waiting time between tasks and as little friction between tasks as possible.
-- Community-driven: Adding new tasks is encouraged, both by providing the interfaces and the documentation required.
-
+- Ease of use. Starting a session should be seamless. The UI should not get in the way.
+- Fast and flow-inducing. There should be no waiting time between tasks and as little friction between tasks as possible.
+- Community-driven. Adding new tasks is encouraged, both by providing the interfaces and the documentation required.
+- Customizable. Task should be switched on and off with ease and the difficulty should be adjustable.
 
 # Non-Goals
 - Implement puzzles. A solution to the current task should be obvious and small, at most a few keystrokes on a vanilla setup.
 - Competing with others. Your progress matters to you, not to others. 
-- Provide help/guides on how to solve a particular task
+- Provide help/guides on how to solve a particular task. Basic familiarity with vim is assumed.
 - Constrain the user on how to solve a particular task
 
 It is loosely inspired by https://first20hours.github.io/keyzen-colemak/
@@ -39,4 +39,4 @@ It is loosely inspired by https://first20hours.github.io/keyzen-colemak/
 3. Run `:source plugin/training.lua`
 
 ## [License](/LICENSE)
-[MIT](LICENSE)
+[GPL](LICENSE)
