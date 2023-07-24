@@ -1,9 +1,19 @@
+
+
+
+if vim.g.loaded_training == 1 then
+	print('Not loaded')
+  return
+end
+vim.g.loaded_training = 1
+
+
 require("luarocks.loader")
 
-local UserInterFace = require("src.user_interface")
+local UserInterFace = require("plugin.src.user_interface")
 local current_autocmds = {}
 
-local Task_sequence = require("src.task_sequence")
+local Task_sequence = require("plugin.src.task_sequence")
 local current_task_sequence = Task_sequence:new()
 local user_interface
 
@@ -49,4 +59,6 @@ function setup()
 	switch_to_next_task()
 end
 
-setup()
+
+print('loaded')
+vim.api.nvim_create_user_command("Training", setup,{})

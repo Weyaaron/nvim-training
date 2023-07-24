@@ -1,4 +1,4 @@
-local Task = require("src.task")
+local Task = require("plugin.src.task")
 local MovementTask = Task:new()
 MovementTask.__index = MovementTask
 MovementTask.base_args = { autocmds = { "CursorMoved" } }

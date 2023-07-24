@@ -1,4 +1,4 @@
-local MovementTask = require("src.tasks.movement_task")
+local MovementTask = require("plugin.src.tasks.movement_task")
 local AbsoluteLineTask = MovementTask:new()
 AbsoluteLineTask.__index = AbsoluteLineTask
 

@@ -1,7 +1,7 @@
 local RelativeLineTask = {}
 
-local utility = require("src.utility")
-local Task = require("src.task")
+local utility = require("plugin.src.utility")
+local Task = require("plugin.src.task")
 
 function RelativeLineTask:new()
 	local base = Task:new()

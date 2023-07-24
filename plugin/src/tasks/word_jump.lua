@@ -1,7 +1,7 @@
 local JumpWordTask = {}
 
-local Task = require("src.task")
-local utility = require("src.utility")
+local Task = require("plugin.src.task")
+local utility = require("plugin.src.utility")
 
 function JumpWordTask:new()
 	local base = Task:new()

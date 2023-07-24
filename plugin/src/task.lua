@@ -47,8 +47,8 @@ function Task:load_from_json(file_path)
 
 	file:close()
 
-	local initial_buffer_file_path = "./buffer_files/" .. data_from_json.initial_buffer
-	local new_buffer_file_path = "./buffer_files/" .. data_from_json.new_buffer
+	local initial_buffer_file_path = "./buffers/" .. data_from_json.initial_buffer
+	local new_buffer_file_path = "./buffers/" .. data_from_json.new_buffer
 
 	file = io.open(initial_buffer_file_path)
 	data_from_json.initial_buffer = file:read("a")

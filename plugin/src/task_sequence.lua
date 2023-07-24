@@ -1,7 +1,7 @@
-local AbsoluteLineTask = require("src.tasks.absolute_line")
-local RelativeLineTask = require("src.tasks.relative_line")
-local JumpMarkTask = require("src.tasks.jump_mark")
-local WordJumpTask = require("src.tasks.word_jump")
+local AbsoluteLineTask = require("plugin.src.tasks.absolute_line")
+local RelativeLineTask = require("plugin.src.tasks.relative_line")
+local JumpMarkTask = require("plugin.src.tasks.jump_mark")
+local WordJumpTask = require("plugin.src.tasks.word_jump")
 
 local total_task_pool = { AbsoluteLineTask }
 

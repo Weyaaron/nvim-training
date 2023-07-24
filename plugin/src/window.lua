@@ -1,4 +1,4 @@
-local utility = require("src.utility")
+local utility = require("plugin.src.utility")
 
 local Window = {}
 Window.__index = Window

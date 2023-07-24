@@ -1,4 +1,4 @@
-local Window = require("src.window")
+local Window = require("plugin.src.window")
 
 local UserInterface = {}
 UserInterface.__index = UserInterface

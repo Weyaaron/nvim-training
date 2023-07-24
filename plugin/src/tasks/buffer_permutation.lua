@@ -1,7 +1,7 @@
 local BufferPermutationTask = {}
 
-local utility = require("src.utility")
-local Task = require("src.task")
+local utility = require("plugin.src.utility")
+local Task = require("plugin.src.task")
 
 local minimal_keys = { "initial_buffer", "new_buffer", "desc", "cursor_position" }
 

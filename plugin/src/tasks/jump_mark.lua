@@ -1,6 +1,6 @@
 local JumpMarkTask = {}
 
-local Task = require("src.task")
+local Task = require("plugin.src.task")
 
 function JumpMarkTask:new()
 	local base = Task:new()
