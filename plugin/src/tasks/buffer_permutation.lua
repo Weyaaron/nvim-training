@@ -1,24 +1,17 @@
-local BufferPermutationTask = {}
-
 local utility = require("plugin.src.utility")
 local Task = require("plugin.src.task")
 
+local BufferPermutationTask = Task:new({ autocmds = { "TextChanged" } })
 local minimal_keys = { "initial_buffer", "new_buffer", "desc", "cursor_position" }
 
-function BufferPermutationTask:new()
-	local base_task = Task:new()
-	setmetatable(base, { __index = self })
-	base_task.autocmds = { "TextChanged" }
-
-	base_task:load_from_json("./buffer_data/test.buffer")
+function BufferPermutationTask:prepare()
+	self:load_from_json("test.buffer")
 	for key_el in minimal_keys do
 		if not base_task[key_el] then
 			print("Missing key!")
 		end
 	end
-	utility.replace_main_buffer_with_str(base_task.initial_buffer)
-
-	return base_task
+	utility.replace_main_buffer_with_str(self.initial_buffer)
 end
 
 function BufferPermutationTask:failed()

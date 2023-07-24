@@ -1,20 +1,13 @@
-local JumpWordTask = {}
-
 local Task = require("plugin.src.task")
 local utility = require("plugin.src.utility")
 
-function JumpWordTask:new()
-	local base = Task:new()
-	setmetatable(base, { __index = self })
-	base:load_from_json("./buffer_data/test.buffer")
-	return base
-end
+local JumpWordTask = Task:new()
+JumpWordTask.base_args = { cursor_target = 0 }
 
 function JumpWordTask:prepare()
-	self.desc = "Jump words"
+	self:load_from_json("test.buffer")
 
 	self.previous_cursor_position = 0
-	self.cursor_target = 0
 
 	utility.replace_main_buffer_with_str(self.initial_buffer)
 	--vim.api.nvim_win_set_cursor(0, buffer_data["cursor_position"])
@@ -42,8 +35,7 @@ function JumpWordTask:prepare()
 		end
 	end
 
-	jump_word_task.desc = "Jump " .. tostring(jump_target_offset_in_words) .. " words relative to your cursor."
-	jump_word_task.desc = tostring(jump_target_offset_in_words) .. ":" .. tostring(cursor_offset_in_chars)
+	self.desc = "Jump " .. tostring(jump_target_offset_in_words) .. " words relative to your cursor."
 
 	self.highlight_namespace = vim.api.nvim_create_namespace("JumpWordLineNameSpace")
 

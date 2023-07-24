@@ -1,14 +1,7 @@
-local RelativeLineTask = {}
-
 local utility = require("plugin.src.utility")
 local Task = require("plugin.src.task")
 
-function RelativeLineTask:new()
-	local base = Task:new()
-	setmetatable(base, { __index = self })
-
-	return base
-end
+local RelativeLineTask = Task:new()
 
 function RelativeLineTask:prepare()
 	self.previous_line = 0

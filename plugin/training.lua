@@ -1,12 +1,8 @@
-
-
-
 if vim.g.loaded_training == 1 then
-	print('Not loaded')
-  return
+	print("Not loaded")
+	return
 end
 vim.g.loaded_training = 1
-
 
 require("luarocks.loader")
 
@@ -59,6 +55,6 @@ function setup()
 	switch_to_next_task()
 end
 
-
-print('loaded')
-vim.api.nvim_create_user_command("Training", setup,{})
+print("loaded")
+vim.api.nvim_create_user_command("Training", setup, {})
+setup()

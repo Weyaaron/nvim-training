@@ -5,6 +5,7 @@ Task.__index = Task
 Task.base_args = { desc = "Generic Top Level Task Description", autocmds = { "CursorMoved" }, abr = "ABLT" }
 
 function Task:new(custom_args)
+	self.__index = self
 	local base = {}
 	if not custom_args then
 		custom_args = self.base_args
@@ -40,8 +41,10 @@ function Task:teardown()
 	print("Teardown from Baseclass called, please implement it in the subclass!")
 end
 
-function Task:load_from_json(file_path)
-	local file = io.open(file_path)
+function Task:load_from_json(file_suffix)
+	local full_path = "./buffers/" .. file_suffix
+
+	local file = io.open(full_path)
 	local content = file:read("a")
 	local data_from_json = cjson.decode(content)
 

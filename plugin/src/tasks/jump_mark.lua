@@ -1,14 +1,6 @@
-local JumpMarkTask = {}
-
 local Task = require("plugin.src.task")
 
-function JumpMarkTask:new()
-	local base = Task:new()
-	setmetatable(base, { __index = self })
-
-	base.chars = { "a", "b", "c", "d", "x", "y" }
-	return base
-end
+local JumpMarkTask = Task:new({ chars = { "a", "b", "c", "d", "x", "y" } })
 
 function JumpMarkTask:place_mark()
 	self.current_mark_name = self.chars[math.random(1, #self.chars)]
