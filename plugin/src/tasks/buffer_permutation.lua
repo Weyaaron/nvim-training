@@ -2,7 +2,7 @@ local utility = require("plugin.src.utility")
 local Task = require("plugin.src.task")
 
 local BufferPermutationTask = Task:new()
-BufferPermutationTask.base_args = { autocmds = { "TextChanged" } }
+BufferPermutationTask.base_args = { autocmds = { "TextChanged" }, tags = {'buffer'} }
 
 function BufferPermutationTask:prepare()
 	self:load_from_json("permutation.buffer")

@@ -2,7 +2,7 @@ local cjson = require("cjson")
 
 local Task = {}
 Task.__index = Task
-Task.base_args = { desc = "Generic Top Level Task Description", autocmds = { "CursorMoved" }, abr = "ABLT" }
+Task.base_args = { desc = "Generic Top Level Task Description", autocmds = { "CursorMoved" }, abr = "ABLT", tags = {} }
 
 function Task:new(custom_args)
 	self.__index = self

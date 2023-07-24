@@ -1,5 +1,6 @@
 local MovementTask = require("plugin.src.tasks.movement_task")
 local AbsoluteLineTask = MovementTask:new()
+AbsoluteLineTask.base_args = {tags = { "movement", 'line_based'}}
 
 function AbsoluteLineTask:prepare()
 	self.target_line = math.random(1, 15)

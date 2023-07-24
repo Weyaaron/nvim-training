@@ -4,7 +4,11 @@ local JumpMarkTask = require("plugin.src.tasks.jump_mark")
 local WordJumpTask = require("plugin.src.tasks.word_jump")
 local BufferPermutationTask = require("plugin.src.tasks.buffer_permutation")
 
-local total_task_pool = { BufferPermutationTask}
+local total_task_pool = { BufferPermutationTask, AbsoluteLineTask, JumpMarkTask}
+
+local included_tags = {"movement"}
+
+
 
 local TaskSequence = {}
 TaskSequence.__index = TaskSequence
@@ -17,6 +21,15 @@ function TaskSequence:new()
 	local sequence_length = 15
 
 	local current_task_pool = total_task_pool
+	for key, el in pairs(total_task_pool) do
+		for tag_key, tag_el in el.tags do
+			print(tag_el)
+			--Todo: Implement!
+	end
+	end
+
+
+
 	base.task_sequence = {}
 	for i = 1, sequence_length do
 		base.task_sequence[i] = current_task_pool[math.random(#current_task_pool)]:new()

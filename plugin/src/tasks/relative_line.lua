@@ -2,6 +2,7 @@ local utility = require("plugin.src.utility")
 local Task = require("plugin.src.task")
 
 local RelativeLineTask = Task:new()
+RelativeLineTask.base_args = {tags = "movement", "absolute" }
 
 function RelativeLineTask:prepare()
 	self.previous_line = 0
