@@ -1,10 +1,10 @@
 local Task = require("plugin.src.task")
 local utility = require("plugin.src.utility")
 
-local JumpWordTask = Task:new()
-JumpWordTask.base_args = { cursor_target = 0 }
+local MoveWordForward = Task:new()
+MoveWordForward.base_args = { cursor_target = 0 }
 
-function JumpWordTask:prepare()
+function MoveWordForward:prepare()
 	self:load_from_json("test.buffer")
 
 	self.previous_cursor_position = 0
@@ -56,21 +56,21 @@ function JumpWordTask:prepare()
 	)
 end
 
-function JumpWordTask:failed()
+function MoveWordForward:failed()
 	if self.cursor_target then
 		return self.cursor_target - vim.api.nvim_win_get_cursor(0)[2] == 0
 	end
 	return false
 end
 
-function JumpWordTask:completed()
-	return not JumpWordTask:failed()
+function MoveWordForward:completed()
+	return not MoveWordForward:failed()
 end
 
-function JumpWordTask:teardown()
+function MoveWordForward:teardown()
 	if self.highlight_namespace then
 		vim.api.nvim_buf_clear_namespace(0, self.highlight_namespace, 0, -1)
 	end
 end
 
-return JumpWordTask
+return MoveWordForward

@@ -1,11 +1,11 @@
 local AbsoluteLineTask = require("plugin.src.tasks.absolute_line")
 local RelativeLineTask = require("plugin.src.tasks.relative_line")
-local JumpMarkTask = require("plugin.src.tasks.jump_mark")
-local WordJumpTask = require("plugin.src.tasks.word_jump")
+local MoveMarkTask = require("plugin.src.tasks.move_mark")
+local WordForwardMovementTask = require("plugin.src.tasks.word_forward_movement")
 local BufferPermutationTask = require("plugin.src.tasks.buffer_permutation")
 local utility = require("plugin.src.utility")
 
-local total_task_pool = { BufferPermutationTask, AbsoluteLineTask, JumpMarkTask }
+local total_task_pool = { BufferPermutationTask, AbsoluteLineTask, MoveMarkTask }
 
 local included_tags = { "movement" }
 local excluded_tags = { "abc" }
