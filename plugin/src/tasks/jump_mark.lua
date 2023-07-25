@@ -5,6 +5,10 @@ JumpMarkTask.base_args = { chars = { "a", "b", "c", "d", "x", "y" }, tags = { "m
 function JumpMarkTask:place_mark()
 	self.current_mark_name = self.chars[math.random(1, #self.chars)]
 	self.target_line = math.random(5, 15)
+	local cursor_position = vim.api.nvim_win_get_cursor(0)[1]
+	while target_line == cursor_position do
+		self.target_line = math.random(5, 15)
+	end
 	self.desc = "Go to Mark " .. self.current_mark_name
 	self.highlight_namespace = vim.api.nvim_create_namespace("MarkLineNameSpace")
 	vim.api.nvim_set_hl(0, "UnderScore", { underline = true })
