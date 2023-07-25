@@ -2,10 +2,10 @@ local Task = require("plugin.src.task")
 local utility = require("plugin.src.utility")
 
 local MoveWordForward = Task:new()
-MoveWordForward.base_args = { cursor_target = 0 }
+MoveWordForward.base_args = { cursor_target = 0, tags = {'movement'} }
 
 function MoveWordForward:prepare()
-	self:load_from_json("test.buffer")
+	self:load_from_json("test.buffer", {"broken_key"})
 
 	self.previous_cursor_position = 0
 

@@ -55,6 +55,5 @@ function setup()
 	switch_to_next_task()
 end
 
-print("loaded")
 vim.api.nvim_create_user_command("Training", setup, {})
 setup()

@@ -5,7 +5,7 @@ local WordForwardMovementTask = require("plugin.src.tasks.word_forward_movement"
 local BufferPermutationTask = require("plugin.src.tasks.buffer_permutation")
 local utility = require("plugin.src.utility")
 
-local total_task_pool = { BufferPermutationTask, AbsoluteLineTask, MoveMarkTask }
+local total_task_pool = { WordForwardMovementTask }
 
 local included_tags = { "movement" }
 local excluded_tags = { "abc" }
