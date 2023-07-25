@@ -57,7 +57,7 @@ function JumpWordTask:prepare()
 end
 
 function JumpWordTask:failed()
-	if  self.cursor_target then
+	if self.cursor_target then
 		return self.cursor_target - vim.api.nvim_win_get_cursor(0)[2] == 0
 	end
 	return false

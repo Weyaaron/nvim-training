@@ -1,7 +1,7 @@
 local Task = require("plugin.src.task")
 
-local JumpMarkTask = Task:new({ chars = { "a", "b", "c", "d", "x", "y" }, tags = {"movement", "mark"} })
-
+local JumpMarkTask = Task:new()
+JumpMarkTask.base_args = { chars = { "a", "b", "c", "d", "x", "y" }, tags = { "movement", "mark" } }
 function JumpMarkTask:place_mark()
 	self.current_mark_name = self.chars[math.random(1, #self.chars)]
 	self.target_line = math.random(5, 15)
