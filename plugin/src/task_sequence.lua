@@ -3,11 +3,14 @@ local RelativeLineTask = require("plugin.src.tasks.relative_line")
 local MoveMarkTask = require("plugin.src.tasks.move_mark")
 local WordForwardMovementTask = require("plugin.src.tasks.word_forward_movement")
 local BufferPermutationTask = require("plugin.src.tasks.buffer_permutation")
+local CreateWindowTask = require("plugin.src.tasks.create_window")
+
 local utility = require("plugin.src.utility")
 
 local total_task_pool = { WordForwardMovementTask }
 
 local included_tags = { "movement" }
+local included_tags = { "ui" }
 local excluded_tags = { "abc" }
 
 local TaskSequence = {}
@@ -24,7 +27,7 @@ function TaskSequence:new()
 	for key, el in pairs(total_task_pool) do
 		local allowed_intersection = utility.intersection(el.base_args.tags, included_tags)
 		local forbidden_intersection = utility.intersection(el.base_args.tags, excluded_tags)
-		if #allowed_intersection > 0 and #forbidden_intersection == 0  then
+		if #allowed_intersection > 0 and #forbidden_intersection == 0 then
 			table.insert(current_task_pool, el)
 		end
 	end

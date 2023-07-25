@@ -40,7 +40,6 @@ function utility.draw_random_number_with_sign(lower_bound, upper_bound)
 end
 
 function utility.intersection(a, b)
-
 	local result = {}
 	for _, a_el in pairs(a) do
 		for _, b_el in pairs(b) do

@@ -3,7 +3,6 @@ local Task = require("plugin.src.task")
 local MoveMarkTask = Task:new()
 MoveMarkTask.base_args = { chars = { "a", "b", "c", "d", "x", "y" }, tags = { "movement", "mark" } }
 function MoveMarkTask:place_mark()
-
 	--Todo: Fix line outside of range
 	self.current_mark_name = self.chars[math.random(1, #self.chars)]
 	self.target_line = math.random(5, 15)

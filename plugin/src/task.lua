@@ -64,13 +64,11 @@ function Task:load_from_json(file_suffix, minimal_keys)
 	data_from_json.new_buffer = file:read("a")
 	file:close()
 
-
 	for key, el in pairs(minimal_keys) do
 		if not data_from_json[key] then
-			print("Json is missing minimal key:" ..tostring(el))
+			print("Json is missing minimal key:" .. tostring(el))
 		end
 	end
-
 
 	for i, v in pairs(data_from_json) do
 		self[i] = v
