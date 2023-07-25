@@ -39,4 +39,18 @@ function utility.draw_random_number_with_sign(lower_bound, upper_bound)
 	return initial_value * multiplier[math.random(1, 2)]
 end
 
+function utility.intersection(a, b)
+
+	local result = {}
+	for _, a_el in pairs(a) do
+		for _, b_el in pairs(b) do
+			if a_el == b_el then
+				table.insert(result, a_el)
+			end
+		end
+	end
+
+	return result
+end
+
 return utility
