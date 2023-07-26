@@ -40,8 +40,9 @@ the most basic version suited for public use.
 Please use on your own risk.
 
 1. Clone this repository
-2. Open Neovim inside the repository
-3. Run `:source plugin/training.lua`
+2. Ensure the luarock module "lua-cjson" is installed
+3. Open Neovim inside the repository
+4. Run `:source plugin/training.lua`
 
 ## [License](/LICENSE)
 [GPL](LICENSE)
