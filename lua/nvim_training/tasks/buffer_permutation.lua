@@ -1,5 +1,5 @@
-local utility = require("lua.nvim_training.utility")
-local Task = require("lua.nvim_training.task")
+local utility = require("stelfnvim_training.utility")
+local Task = require("stelfnvim_training.task")
 
 local BufferPermutationTask = Task:new()
 BufferPermutationTask.base_args = { autocmds = { "TextChanged" }, tags = { "buffer" } }

@@ -1,12 +1,12 @@
-local AbsoluteLineTask = require("lua.nvim_training.tasks.absolute_line")
-local RelativeLineTask = require("lua.nvim_training.tasks.relative_line")
-local MoveMarkTask = require("lua.nvim_training.tasks.move_mark")
-local WordForwardMovementTask = require("lua.nvim_training.tasks.word_forward_movement")
-local BufferPermutationTask = require("lua.nvim_training.tasks.buffer_permutation")
-local OpenWindowTask = require("lua.nvim_training.tasks.open_window")
-local CloseWindowTask = require("lua.nvim_training.tasks.close_window")
+local AbsoluteLineTask = require("nvim_training.tasks.absolute_line")
+local RelativeLineTask = require("nvim_training.tasks.relative_line")
+local MoveMarkTask = require("nvim_training.tasks.move_mark")
+local WordForwardMovementTask = require("nvim_training.tasks.word_forward_movement")
+local BufferPermutationTask = require("nvim_training.tasks.buffer_permutation")
+local OpenWindowTask = require("nvim_training.tasks.open_window")
+local CloseWindowTask = require("nvim_training.tasks.close_window")
 
-local utility = require("lua.nvim_training.utility")
+local utility = require("nvim_training.utility")
 
 local total_task_pool = { OpenWindowTask, CloseWindowTask }
 

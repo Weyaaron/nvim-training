@@ -1,4 +1,4 @@
-local Task = require("lua.nvim_training.task")
+local Task = require("stelfnvim_training.task")
 local OpenWindowTask = Task:new()
 
 OpenWindowTask.base_args = { tags = { "window", "ui" }, autocmds = { "Winenter" }, desc = "Create a new window" }
@@ -16,7 +16,7 @@ end
 function OpenWindowTask:teardown() end
 
 function OpenWindowTask:next()
-	local CloseWindowTask = require("lua.nvim_training.tasks.close_window")
+	local CloseWindowTask = require("stelfnvim_training.tasks.close_window")
 
 	return CloseWindowTask
 end

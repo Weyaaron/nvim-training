@@ -4,11 +4,10 @@ if vim.g.loaded_training == 1 then
 end
 vim.g.loaded_training = 1
 
-
-local UserInterFace = require("lua.nvim_training.user_interface")
+local UserInterFace = require("nvim_training.user_interface")
 local current_autocmds = {}
 
-local Task_sequence = require("lua.nvim_training.task_sequence")
+local Task_sequence = require("nvim_training.task_sequence")
 local current_task_sequence = Task_sequence:new()
 local user_interface
 

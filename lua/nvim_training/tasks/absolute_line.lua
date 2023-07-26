@@ -1,7 +1,7 @@
-local Task = require("lua.nvim_training.task")
+local Task = require("nvim_training.task")
 
 local AbsoluteLineTask = Task:new()
-local utility = require("lua.nvim_training.utility")
+local utility = require("nvim_training.utility")
 
 AbsoluteLineTask.base_args = { tags = { "movement", "line_based" }, autocmds = { "CursorMoved" } }
 

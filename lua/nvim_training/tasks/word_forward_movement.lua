@@ -1,5 +1,5 @@
-local Task = require("lua.nvim_training.task")
-local utility = require("lua.nvim_training.utility")
+local Task = require("stelfnvim_training.task")
+local utility = require("stelfnvim_training.utility")
 
 local MoveWordForward = Task:new()
 MoveWordForward.base_args = { cursor_target = 0, tags = { "movement" } }
