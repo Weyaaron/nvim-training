@@ -4,6 +4,16 @@ if vim.g.loaded_training == 1 then
 end
 vim.g.loaded_training = 1
 
+local function attempt_input()
+	local UserInterFace = require("nvim_training.user_interface")
+end
+local imports_succesfull = pcall(attempt_input)
+if not imports_succesfull then
+	--Fixes runtimepath for local development
+	vim.cmd(":set runtimepath=/home/aaron/Code/Lua/nvim_training/")
+	vim.api.nvim_command("set runtimepath^=/home/aaron/Code/Lua/nvim_training/")
+end
+
 local UserInterFace = require("nvim_training.user_interface")
 local current_autocmds = {}
 
@@ -45,7 +55,6 @@ function main(autocmd_args)
 	user_interface:display(current_task_sequence)
 end
 
-
 function setup()
 	local current_window = vim.api.nvim_tabpage_get_win(0)
 
@@ -55,4 +64,3 @@ function setup()
 end
 
 vim.api.nvim_create_user_command("Training", setup, {})
-
