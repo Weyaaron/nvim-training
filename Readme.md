@@ -1,6 +1,6 @@
 # nvim_training
 
-[![License: MIT](https://img.shields.io/badge/License-GPL-brightgreen.svg)](https://opensource.org/license/gpl-3-0/)
+[![License: GPL](https://img.shields.io/badge/License-GPL-brightgreen.svg)](https://opensource.org/license/gpl-3-0/)
 
 
 This code implements a Neovim Plugin for training your Muscle Memory.

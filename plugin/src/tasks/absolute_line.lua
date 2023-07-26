@@ -1,8 +1,7 @@
 local Task = require("plugin.src.task")
 
-
 local AbsoluteLineTask = Task:new()
-local utility = require('plugin.src.utility')
+local utility = require("plugin.src.utility")
 
 AbsoluteLineTask.base_args = { tags = { "movement", "line_based" }, autocmds = { "CursorMoved" } }
 
