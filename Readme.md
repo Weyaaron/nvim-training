@@ -33,7 +33,12 @@ version will be stable all the time.
 
 It is loosely inspired by https://first20hours.github.io/keyzen-colemak/
 
-## To try it out(On your own risk)
+## To try it out
+
+As of 2023-07, this does not support all the currently implemented tasks yet. This is 
+the most basic version suited for public use. 
+Please use on your own risk.
+
 1. Clone this repository
 2. Open Neovim inside the repository
 3. Run `:source plugin/training.lua`

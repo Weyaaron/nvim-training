@@ -7,7 +7,7 @@ local CreateWindowTask = require("plugin.src.tasks.create_window")
 
 local utility = require("plugin.src.utility")
 
-local total_task_pool = { WordForwardMovementTask }
+local total_task_pool = { AbsoluteLineTask, RelativeLineTask}
 
 local included_tags = { "movement" }
 local included_tags = { "ui" }
@@ -31,6 +31,7 @@ function TaskSequence:new()
 			table.insert(current_task_pool, el)
 		end
 	end
+	local current_task_pool = total_task_pool
 
 	base.task_sequence = {}
 	for i = 1, sequence_length do

@@ -1,8 +1,15 @@
 local Task = require("plugin.src.task")
+
+
 local AbsoluteLineTask = Task:new()
+local utility = require('plugin.src.utility')
+
 AbsoluteLineTask.base_args = { tags = { "movement", "line_based" }, autocmds = { "CursorMoved" } }
 
 function AbsoluteLineTask:prepare()
+	self:load_from_json("absolute_line.buffer")
+	utility.replace_main_buffer_with_str(self.initial_buffer)
+
 	self.target_line = math.random(1, 15)
 	self.desc = "Move to line " .. tostring(self.target_line)
 	self.highlight_namespace = vim.api.nvim_create_namespace("AbsoluteVerticalLineNameSpace")
