@@ -56,4 +56,3 @@ function setup()
 end
 
 vim.api.nvim_create_user_command("Training", setup, {})
-setup()
