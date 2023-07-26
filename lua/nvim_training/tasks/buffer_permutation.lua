@@ -1,5 +1,5 @@
-local utility = require("plugin.src.utility")
-local Task = require("plugin.src.task")
+local utility = require("nvim_training.utility")
+local Task = require("nvim_training.task")
 
 local BufferPermutationTask = Task:new()
 BufferPermutationTask.base_args = { autocmds = { "TextChanged" }, tags = { "buffer" } }

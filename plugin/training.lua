@@ -4,12 +4,20 @@ if vim.g.loaded_training == 1 then
 end
 vim.g.loaded_training = 1
 
-require("luarocks.loader")
+local function attempt_input()
+	local UserInterFace = require("nvim_training.user_interface")
+end
+local imports_succesfull = pcall(attempt_input)
+if not imports_succesfull then
+	--Fixes runtimepath for local development
+	vim.cmd(":set runtimepath=/home/aaron/Code/Lua/nvim_training")
+	vim.api.nvim_command("set runtimepath^=/home/aaron/Code/Lua/nvim_training")
+end
 
-local UserInterFace = require("plugin.src.user_interface")
+local UserInterFace = require("nvim_training.user_interface")
 local current_autocmds = {}
 
-local Task_sequence = require("plugin.src.task_sequence")
+local Task_sequence = require("nvim_training.task_sequence")
 local current_task_sequence = Task_sequence:new()
 local user_interface
 

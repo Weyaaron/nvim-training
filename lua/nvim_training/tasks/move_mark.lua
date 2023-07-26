@@ -1,4 +1,4 @@
-local Task = require("plugin.src.task")
+local Task = require("nvim_training.task")
 
 local MoveMarkTask = Task:new()
 MoveMarkTask.base_args = { chars = { "a", "b", "c", "d", "x", "y" }, tags = { "movement", "mark" } }
