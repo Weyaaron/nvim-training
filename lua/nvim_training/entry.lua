@@ -1,8 +1,8 @@
 
-local UserInterFace = require("lua.user_interface")
+local UserInterFace = require("lua.nvim_training.user_interface")
 local current_autocmds = {}
 
-local Task_sequence = require("lua.task_sequence")
+local Task_sequence = require("lua.nvim_training.task_sequence")
 local current_task_sequence = Task_sequence:new()
 local user_interface
 

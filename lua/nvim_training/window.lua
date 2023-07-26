@@ -1,4 +1,4 @@
-local utility = require("lua.utility")
+local utility = require("lua.nvim_training.utility")
 
 local Window = {}
 Window.__index = Window

@@ -1,4 +1,4 @@
-local Window = require("lua.window")
+local Window = require("lua.nvim_training.window")
 
 local UserInterface = {}
 UserInterface.__index = UserInterface

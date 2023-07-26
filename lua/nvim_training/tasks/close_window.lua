@@ -1,4 +1,4 @@
-local Task = require("lua.task")
+local Task = require("lua.nvim_training.task")
 local CloseWindowTask = Task:new()
 
 CloseWindowTask.base_args = { tags = { "window", "ui" }, autocmds = { "Winclosed" }, desc = "Close a window" }
@@ -16,7 +16,7 @@ end
 function CloseWindowTask:teardown() end
 
 function CloseWindowTask:first()
-	local OpenWindowTask = require("lua.tasks.open_window")
+	local OpenWindowTask = require("lua.nvim_training.tasks.open_window")
 	return OpenWindowTask
 end
 
