@@ -2,7 +2,7 @@ local Task = {}
 Task.__index = Task
 Task.base_args = { desc = "Generic Top Level Task Description", autocmds = { "CursorMoved" }, abr = "ABLT", tags = {} }
 
-local utility = require('nvim_training.utility')
+local utility = require("nvim_training.utility")
 function Task:new(custom_args)
 	self.__index = self
 	local base = {}
@@ -45,8 +45,6 @@ function Task:load_from_json(file_suffix, minimal_keys)
 		minimal_keys = {}
 	end
 	local file_path = utility.construct_path(file_suffix)
-	print(file_path)
-
 
 	local file = io.open(file_path)
 	local content = file:read("a")

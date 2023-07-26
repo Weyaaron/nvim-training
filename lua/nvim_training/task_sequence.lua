@@ -8,7 +8,7 @@ local CloseWindowTask = require("nvim_training.tasks.close_window")
 
 local utility = require("nvim_training.utility")
 
-local total_task_pool = { OpenWindowTask, CloseWindowTask }
+local total_task_pool = { AbsoluteLineTask, RelativeLineTask }
 
 local included_tags = { "movement" }
 local included_tags = { "ui" }
@@ -52,7 +52,6 @@ function TaskSequence:new()
 			current_next_task = next_task
 		end
 	end
-	base.task_sequence = { AbsoluteLineTask:new(), AbsoluteLineTask:new(), AbsoluteLineTask:new() }
 
 	return base
 end

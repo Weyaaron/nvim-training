@@ -52,9 +52,7 @@ function utility.intersection(a, b)
 	return result
 end
 
-
 function utility.construct_path(file_suffix)
-
 	--https://stackoverflow.com/questions/6380820/get-containing-path-of-lua-file
 	function script_path()
 		local str = debug.getinfo(2, "S").source:sub(2)
@@ -64,10 +62,9 @@ function utility.construct_path(file_suffix)
 
 	local base_path = script_path() .. "../.."
 
-	local file_path = base_path .."/buffers/" .. file_suffix
+	local file_path = base_path .. "/buffers/" .. file_suffix
 
 	return file_path
 end
-
 
 return utility
