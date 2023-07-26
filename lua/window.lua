@@ -1,4 +1,4 @@
-local utility = require("plugin.src.utility")
+local utility = require("lua.utility")
 
 local Window = {}
 Window.__index = Window

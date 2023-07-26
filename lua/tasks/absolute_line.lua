@@ -1,7 +1,7 @@
-local Task = require("plugin.src.task")
+local Task = require("lua.task")
 
 local AbsoluteLineTask = Task:new()
-local utility = require("plugin.src.utility")
+local utility = require("lua.utility")
 
 AbsoluteLineTask.base_args = { tags = { "movement", "line_based" }, autocmds = { "CursorMoved" } }
 

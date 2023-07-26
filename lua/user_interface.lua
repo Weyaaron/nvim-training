@@ -1,4 +1,4 @@
-local Window = require("plugin.src.window")
+local Window = require("lua.window")
 
 local UserInterface = {}
 UserInterface.__index = UserInterface

@@ -1,12 +1,12 @@
-local AbsoluteLineTask = require("plugin.src.tasks.absolute_line")
-local RelativeLineTask = require("plugin.src.tasks.relative_line")
-local MoveMarkTask = require("plugin.src.tasks.move_mark")
-local WordForwardMovementTask = require("plugin.src.tasks.word_forward_movement")
-local BufferPermutationTask = require("plugin.src.tasks.buffer_permutation")
-local OpenWindowTask = require("plugin.src.tasks.open_window")
-local CloseWindowTask = require("plugin.src.tasks.close_window")
+local AbsoluteLineTask = require("lua.tasks.absolute_line")
+local RelativeLineTask = require("lua.tasks.relative_line")
+local MoveMarkTask = require("lua.tasks.move_mark")
+local WordForwardMovementTask = require("lua.tasks.word_forward_movement")
+local BufferPermutationTask = require("lua.tasks.buffer_permutation")
+local OpenWindowTask = require("lua.tasks.open_window")
+local CloseWindowTask = require("lua.tasks.close_window")
 
-local utility = require("plugin.src.utility")
+local utility = require("lua.utility")
 
 local total_task_pool = { OpenWindowTask, CloseWindowTask }
 
@@ -73,7 +73,6 @@ function TaskSequence:fail_current_task()
 end
 
 function TaskSequence:switch_to_next_task()
-	print("Task Switch in Sequence called")
 	self.task_index = self.task_index + 1
 	self.current_task = self.task_sequence[self.task_index]
 	self.current_task:prepare()

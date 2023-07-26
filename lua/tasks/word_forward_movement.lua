@@ -1,5 +1,5 @@
-local Task = require("plugin.src.task")
-local utility = require("plugin.src.utility")
+local Task = require("lua.task")
+local utility = require("lua.utility")
 
 local MoveWordForward = Task:new()
 MoveWordForward.base_args = { cursor_target = 0, tags = { "movement" } }

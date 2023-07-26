@@ -1,5 +1,5 @@
-local utility = require("plugin.src.utility")
-local Task = require("plugin.src.task")
+local utility = require("lua.utility")
+local Task = require("lua.task")
 
 local BufferPermutationTask = Task:new()
 BufferPermutationTask.base_args = { autocmds = { "TextChanged" }, tags = { "buffer" } }
