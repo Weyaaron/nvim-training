@@ -52,7 +52,7 @@ function TaskSequence:new()
 			current_next_task = next_task
 		end
 	end
-	base.task_sequence = { OpenWindowTask:new(), CloseWindowTask:new(), AbsoluteLineTask:new(), AbsoluteLineTask:new() }
+	base.task_sequence = { AbsoluteLineTask:new(), AbsoluteLineTask:new(), AbsoluteLineTask:new() }
 
 	return base
 end

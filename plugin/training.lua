@@ -10,8 +10,8 @@ end
 local imports_succesfull = pcall(attempt_input)
 if not imports_succesfull then
 	--Fixes runtimepath for local development
-	vim.cmd(":set runtimepath=/home/aaron/Code/Lua/nvim_training/")
-	vim.api.nvim_command("set runtimepath^=/home/aaron/Code/Lua/nvim_training/")
+	vim.cmd(":set runtimepath=/home/aaron/Code/Lua/nvim_training")
+	vim.api.nvim_command("set runtimepath^=/home/aaron/Code/Lua/nvim_training")
 end
 
 local UserInterFace = require("nvim_training.user_interface")
