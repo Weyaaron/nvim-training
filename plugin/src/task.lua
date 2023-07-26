@@ -1,5 +1,3 @@
-local cjson = require("cjson")
-
 local Task = {}
 Task.__index = Task
 Task.base_args = { desc = "Generic Top Level Task Description", autocmds = { "CursorMoved" }, abr = "ABLT", tags = {} }
@@ -50,7 +48,7 @@ function Task:load_from_json(file_suffix, minimal_keys)
 
 	local file = io.open(full_path)
 	local content = file:read("a")
-	local data_from_json = cjson.decode(content)
+	local data_from_json = vim.json.decode(content)
 
 	file:close()
 
