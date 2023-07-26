@@ -1,5 +1,5 @@
-local utility = require("stelfnvim_training.utility")
-local Task = require("stelfnvim_training.task")
+local utility = require("nvim_training.utility")
+local Task = require("nvim_training.task")
 
 local RelativeLineTask = Task:new()
 RelativeLineTask.base_args = { tags = { "movement", "relative" } }
