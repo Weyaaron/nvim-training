@@ -75,4 +75,11 @@ function Task:load_from_json(file_suffix, minimal_keys)
 	end
 end
 
+function Task:first()
+	return nil
+end
+function Task:next()
+	return nil
+end
+
 return Task

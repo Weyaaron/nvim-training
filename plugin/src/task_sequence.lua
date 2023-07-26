@@ -3,11 +3,12 @@ local RelativeLineTask = require("plugin.src.tasks.relative_line")
 local MoveMarkTask = require("plugin.src.tasks.move_mark")
 local WordForwardMovementTask = require("plugin.src.tasks.word_forward_movement")
 local BufferPermutationTask = require("plugin.src.tasks.buffer_permutation")
-local CreateWindowTask = require("plugin.src.tasks.create_window")
+local OpenWindowTask = require("plugin.src.tasks.open_window")
+local CloseWindowTask = require("plugin.src.tasks.close_window")
 
 local utility = require("plugin.src.utility")
 
-local total_task_pool = { AbsoluteLineTask, RelativeLineTask}
+local total_task_pool = { OpenWindowTask, CloseWindowTask }
 
 local included_tags = { "movement" }
 local included_tags = { "ui" }
@@ -21,6 +22,7 @@ function TaskSequence:new()
 	local base = { task_index = 0, current_level = 1, status_list = {} }
 	setmetatable(base, { __index = self })
 
+	--Todo: Rework with next tasks in mind
 	local sequence_length = 15
 
 	local current_task_pool = {}
@@ -35,8 +37,22 @@ function TaskSequence:new()
 
 	base.task_sequence = {}
 	for i = 1, sequence_length do
-		base.task_sequence[i] = current_task_pool[math.random(#current_task_pool)]:new()
+		local current_next_task = current_task_pool[math.random(#current_task_pool)]:new()
+		while current_next_task:first() do
+			local attempt_to_find_next_task = current_next_task:first()
+			if attempt_to_find_next_task then
+				current_next_task = attempt_to_find_next_task:new()
+			end
+		end
+		base.task_sequence[i] = current_next_task
+		while current_next_task:next() do
+			local next_task = current_next_task:next():new()
+			i = i + 1
+			base.task_sequence[i] = next_task
+			current_next_task = next_task
+		end
 	end
+	base.task_sequence = { OpenWindowTask:new(), CloseWindowTask:new(), AbsoluteLineTask:new(), AbsoluteLineTask:new() }
 
 	return base
 end
@@ -57,6 +73,7 @@ function TaskSequence:fail_current_task()
 end
 
 function TaskSequence:switch_to_next_task()
+	print("Task Switch in Sequence called")
 	self.task_index = self.task_index + 1
 	self.current_task = self.task_sequence[self.task_index]
 	self.current_task:prepare()
