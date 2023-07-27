@@ -1,11 +1,28 @@
 local Task = require("nvim_training.task")
-
+local utility = require("nvim_training.utility")
 local MoveMarkTask = Task:new()
 MoveMarkTask.base_args = { chars = { "a", "b", "c", "d", "x", "y" }, tags = { "movement", "mark" } }
+
+function MoveMarkTask:prepare()
+	self:load_from_json("one_word_per_line.buffer")
+	utility.replace_main_buffer_with_str(self.initial_buffer)
+	self:teardown_all_marks()
+	self:place_mark()
+end
+
+
 function MoveMarkTask:place_mark()
-	--Todo: Fix line outside of range
+
 	self.current_mark_name = self.chars[math.random(1, #self.chars)]
-	self.target_line = math.random(5, 15)
+
+	local line_count = vim.api.nvim_buf_line_count(0)
+
+	self.target_line = math.random(1, line_count - 5)
+	local current_line = vim.api.nvim_win_get_cursor(0)[1]
+	while current_line == self.target_line do
+		self.target_line = math.random(1, line_count - 5)
+	end
+
 	local cursor_position = vim.api.nvim_win_get_cursor(0)[1]
 	while target_line == cursor_position do
 		self.target_line = math.random(5, 15)
@@ -17,11 +34,6 @@ function MoveMarkTask:place_mark()
 	vim.api.nvim_buf_add_highlight(0, self.highlight_namespace, "UnderScore", self.target_line - 1, 0, -1)
 
 	vim.api.nvim_buf_set_mark(0, self.current_mark_name, self.target_line, 0, {})
-end
-
-function MoveMarkTask:prepare()
-	self:teardown_all_marks()
-	self:place_mark()
 end
 
 function MoveMarkTask:completed()
