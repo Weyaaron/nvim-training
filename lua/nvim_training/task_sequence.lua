@@ -19,7 +19,7 @@ TaskSequence.__index = TaskSequence
 
 function TaskSequence:new()
 	--Task index starts at 0 to deal with first task initialisation
-	local base = { task_length = 5, task_index = 1, status_list = {}, task_sequence = {} }
+	local base = { task_length = 10, task_index = 1, status_list = {}, task_sequence = {} }
 	setmetatable(base, { __index = self })
 	base:_prepare()
 
@@ -27,8 +27,6 @@ function TaskSequence:new()
 end
 
 function TaskSequence:_prepare()
-	print("Prepartion got called")
-
 	local current_task_pool = {}
 	for key, el in pairs(total_task_pool) do
 		local allowed_intersection = utility.intersection(el.base_args.tags, included_tags)

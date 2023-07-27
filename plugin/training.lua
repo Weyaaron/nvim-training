@@ -61,20 +61,16 @@ function loop()
 	if failed and completed then
 		print("A Task should not both complete and fail!")
 	end
+
 	if current_task_sequence.task_length == current_task_sequence.task_index then
 		current_task_sequence = Task_sequence:new()
+		setup_first_task()
 	end
 
 	user_interface:display(current_task_sequence)
 end
 
-
-function setup()
-	local current_window = vim.api.nvim_tabpage_get_win(0)
-
-	user_interface = UserInterFace:new()
-	vim.api.nvim_set_current_win(current_window)
-
+function setup_first_task()
 	current_task_sequence.current_task = current_task_sequence.task_sequence[1]
 	current_task_sequence.current_task:prepare()
 
@@ -83,6 +79,14 @@ function setup()
 			callback = outer_loop,
 		})
 	end
+end
+
+function setup()
+	local current_window = vim.api.nvim_tabpage_get_win(0)
+
+	user_interface = UserInterFace:new()
+	vim.api.nvim_set_current_win(current_window)
+	setup_first_task()
 
 	user_interface:display(current_task_sequence)
 end
