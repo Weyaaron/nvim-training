@@ -2,13 +2,14 @@ local AbsoluteLineTask = require("nvim_training.tasks.absolute_line")
 local RelativeLineTask = require("nvim_training.tasks.relative_line")
 local MoveMarkTask = require("nvim_training.tasks.move_mark")
 local WordForwardMovementTask = require("nvim_training.tasks.word_forward_movement")
-local BufferPermutationTask = require("nvim_training.tasks.buffer_permutation")
+local DeleteWordTask = require("nvim_training.tasks.delete_word")
+local DeleteLineTask = require("nvim_training.tasks.delete_line")
 local OpenWindowTask = require("nvim_training.tasks.open_window")
 local CloseWindowTask = require("nvim_training.tasks.close_window")
 
 local utility = require("nvim_training.utility")
 
-local total_task_pool = { BufferPermutationTask }
+local total_task_pool = { DeleteLineTask }
 
 local included_tags = { "movement" }
 local included_tags = { "ui" }
