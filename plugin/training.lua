@@ -64,3 +64,6 @@ function setup()
 end
 
 vim.api.nvim_create_user_command("Training", setup, {})
+if not imports_sucesfull then
+	vim.cmd(":Training")
+end

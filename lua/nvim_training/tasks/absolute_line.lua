@@ -11,10 +11,10 @@ function AbsoluteLineTask:prepare()
 
 	local line_count = vim.api.nvim_buf_line_count(0)
 
-	self.target_line = math.random(1, line_count-5)
+	self.target_line = math.random(1, line_count - 5)
 	local current_line = vim.api.nvim_win_get_cursor(0)[1]
 	while current_line == self.target_line do
-		self.target_line = math.random(1, line_count-5)
+		self.target_line = math.random(1, line_count - 5)
 	end
 
 	self.desc = "Move to line " .. tostring(self.target_line)

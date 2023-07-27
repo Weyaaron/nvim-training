@@ -5,14 +5,15 @@ local RelativeLineTask = Task:new()
 RelativeLineTask.base_args = { tags = { "movement", "relative" } }
 
 function RelativeLineTask:prepare()
+	self:load_from_json("relative_line.buffer")
 	self.previous_line = 0
 	self.target_offset = 0
 
-	local current_offset = utility.draw_random_number_with_sign(2, 5)
+	local current_offset = utility.draw_random_number_with_sign(2, 9)
 	self.previous_line = vim.api.nvim_win_get_cursor(0)[1]
 
 	while current_offset + self.previous_line < 0 do
-		current_offset = utility.draw_random_number_with_sign(2, 5)
+		current_offset = utility.draw_random_number_with_sign(2, 9)
 	end
 
 	self.desc = "Move " .. tostring(current_offset) .. " lines relative to your cursor."
