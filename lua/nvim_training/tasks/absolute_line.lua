@@ -9,7 +9,14 @@ function AbsoluteLineTask:prepare()
 	self:load_from_json("absolute_line.buffer")
 	utility.replace_main_buffer_with_str(self.initial_buffer)
 
-	self.target_line = math.random(1, 15)
+	local line_count = vim.api.nvim_buf_line_count(0)
+
+	self.target_line = math.random(1, line_count-5)
+	local current_line = vim.api.nvim_win_get_cursor(0)[1]
+	while current_line == self.target_line do
+		self.target_line = math.random(1, line_count-5)
+	end
+
 	self.desc = "Move to line " .. tostring(self.target_line)
 	self.highlight_namespace = vim.api.nvim_create_namespace("AbsoluteVerticalLineNameSpace")
 
