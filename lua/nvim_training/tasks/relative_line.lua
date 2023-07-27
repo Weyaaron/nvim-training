@@ -5,7 +5,9 @@ local RelativeLineTask = Task:new()
 RelativeLineTask.base_args = { tags = { "movement", "relative" } }
 
 function RelativeLineTask:prepare()
-	self:load_from_json("relative_line.buffer")
+	self:load_from_json("one_word_per_line.buffer")
+	utility.replace_main_buffer_with_str(self.initial_buffer)
+
 	self.previous_line = 0
 
 	self.current_offset = utility.draw_random_number_with_sign(2, 9)

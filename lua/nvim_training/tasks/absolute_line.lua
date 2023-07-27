@@ -6,7 +6,7 @@ local utility = require("nvim_training.utility")
 AbsoluteLineTask.base_args = { tags = { "movement", "line_based" }, autocmds = { "CursorMoved" } }
 
 function AbsoluteLineTask:prepare()
-	self:load_from_json("absolute_line.buffer")
+	self:load_from_json("one_word_per_line.buffer")
 	utility.replace_main_buffer_with_str(self.initial_buffer)
 
 	local line_count = vim.api.nvim_buf_line_count(0)
