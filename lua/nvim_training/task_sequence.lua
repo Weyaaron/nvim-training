@@ -8,7 +8,7 @@ local CloseWindowTask = require("nvim_training.tasks.close_window")
 
 local utility = require("nvim_training.utility")
 
-local total_task_pool = { MoveMarkTask, RelativeLineTask, AbsoluteLineTask }
+local total_task_pool = { BufferPermutationTask }
 
 local included_tags = { "movement" }
 local included_tags = { "ui" }
