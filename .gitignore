@@ -4,7 +4,7 @@
 *.test
 test.lua
 scratch.lua
-
+current_config.json
 
 
 # Compiled Lua sources

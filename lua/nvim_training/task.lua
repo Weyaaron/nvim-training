@@ -44,7 +44,7 @@ function Task:load_from_json(file_suffix, minimal_keys)
 	if not minimal_keys then
 		minimal_keys = {}
 	end
-	local file_path = utility.construct_path(file_suffix)
+	local file_path = utility.construct_buffer_path(file_suffix)
 
 	local file = io.open(file_path)
 	local content = file:read("a")
@@ -52,8 +52,8 @@ function Task:load_from_json(file_suffix, minimal_keys)
 
 	file:close()
 
-	local initial_buffer_file_path = utility.construct_path(data_from_json.initial_buffer)
-	local new_buffer_file_path = utility.construct_path(data_from_json.new_buffer)
+	local initial_buffer_file_path = utility.construct_buffer_path(data_from_json.initial_buffer)
+	local new_buffer_file_path = utility.construct_buffer_path(data_from_json.new_buffer)
 
 	file = io.open(initial_buffer_file_path)
 	data_from_json.initial_buffer = file:read("a")

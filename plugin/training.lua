@@ -15,6 +15,7 @@ if not imports_succesfull then
 	vim.cmd(":ASToggle")
 end
 
+local Config = require("nvim_training.config")
 local UserInterFace = require("nvim_training.user_interface")
 local current_autocmds = {}
 
@@ -89,6 +90,9 @@ function setup()
 	setup_first_task()
 
 	user_interface:display(current_task_sequence)
+
+	local current_config = Config:new()
+	print(current_config.enable_audio_feedback)
 end
 
 vim.api.nvim_create_user_command("Training", setup, {})
@@ -96,9 +100,14 @@ if not imports_sucesfull then
 	vim.cmd(":Training")
 end
 
-
 local training = {}
-
 function training.config(args)
-	print(tostring(args))
+	local current_config = Config:new()
+	for i, v in pairs(args) do
+		current_config[i] = v
+	end
+	current_config:write_to_json()
+	current_config:load_from_json()
 end
+
+training.config({ enable_audio_feedback = false })
