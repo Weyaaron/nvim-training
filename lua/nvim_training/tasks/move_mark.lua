@@ -10,9 +10,7 @@ function MoveMarkTask:prepare()
 	self:place_mark()
 end
 
-
 function MoveMarkTask:place_mark()
-
 	self.current_mark_name = self.chars[math.random(1, #self.chars)]
 
 	local line_count = vim.api.nvim_buf_line_count(0)
