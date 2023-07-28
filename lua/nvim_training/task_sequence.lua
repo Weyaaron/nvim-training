@@ -8,6 +8,7 @@ local OpenWindowTask = require("nvim_training.tasks.open_window")
 local CloseWindowTask = require("nvim_training.tasks.close_window")
 
 local utility = require("nvim_training.utility")
+local audio_interface = require("nvim_training.audio_feedback"):new()
 
 local total_task_pool = { DeleteLineTask }
 
@@ -60,12 +61,13 @@ end
 
 function TaskSequence:complete_current_task()
 	table.insert(self.status_list, true)
+	audio_interface:play_success_sound()
 	self.current_task:teardown()
 end
 
 function TaskSequence:fail_current_task()
 	table.insert(self.status_list, false)
-
+	audio_interface:play_failure_sound()
 	self.current_task:teardown()
 end
 

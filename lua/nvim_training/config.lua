@@ -37,7 +37,7 @@ function Config:write_to_json()
 
 	local dummy = {}
 	for i, v in pairs(Config.config_args) do
-		dummy[i] = v
+		dummy[i] = self[i]
 	end
 	local data_as_json = vim.json.encode(dummy)
 	file:write(data_as_json)
