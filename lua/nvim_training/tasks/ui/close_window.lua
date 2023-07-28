@@ -3,7 +3,6 @@ local CloseWindowTask = Task:new()
 CloseWindowTask.base_args = { tags = { "window", "ui" }, autocmds = { "WinClosed" }, desc = "Close a window" }
 
 function CloseWindowTask:prepare()
-	print("Prep of close window called")
 	self.desc = "Close a window"
 end
 
@@ -18,7 +17,7 @@ end
 function CloseWindowTask:teardown() end
 
 function CloseWindowTask:previous()
-	local OpenWindowTask = require("nvim_training.tasks.open_window")
+	local OpenWindowTask = require("lua.nvim_training.tasks.ui.open_window")
 
 	return OpenWindowTask
 end
