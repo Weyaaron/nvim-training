@@ -11,13 +11,12 @@ local utility = require("nvim_training.utility")
 local audio_interface = require("nvim_training.audio_feedback"):new()
 local Config = require("nvim_training.config")
 
-local total_task_pool = { AbsoluteLineTask, OpenWindowTask }
+local total_task_pool = { OpenWindowTask, CloseWindowTask }
 
 local TaskSequence = {}
 TaskSequence.__index = TaskSequence
 
 function TaskSequence:new()
-	--Task index starts at 0 to deal with first task initialisation
 	local base = { task_length = 10, task_index = 1, status_list = {}, task_sequence = {}, task_pool = {} }
 	setmetatable(base, { __index = self })
 	base:_prepare()
@@ -26,6 +25,7 @@ function TaskSequence:new()
 end
 
 function TaskSequence:initialize_task_pool()
+	--Todo: Deal with empty poool after filtering!
 	if #Config.included_tags == 0 then
 		self.task_pool = total_task_pool
 	else
@@ -40,12 +40,13 @@ function TaskSequence:initialize_task_pool()
 		local new_pool = {}
 		for key, el in pairs(self.task_pool) do
 			local forbidden_intersection = utility.intersection(el.base_args.tags, Config.excluded_tags)
-			if  (#forbidden_intersection == 0) then
+			if #forbidden_intersection == 0 then
 				new_pool[key] = el
 			end
 		end
 		self.task_pool = new_pool
 	end
+	print("Pool length:" .. tostring(#self.task_pool))
 end
 
 function TaskSequence:_prepare()
@@ -68,6 +69,8 @@ function TaskSequence:_prepare()
 			current_next_task = next_task
 		end
 	end
+
+	self.task_sequence = { AbsoluteLineTask:new(), OpenWindowTask:new(), CloseWindowTask:new(), AbsoluteLineTask:new() }
 end
 
 function TaskSequence:complete_current_task()
@@ -83,6 +86,7 @@ function TaskSequence:fail_current_task()
 end
 
 function TaskSequence:switch_to_next_task()
+	print("Switch in sequence called")
 	self.task_index = self.task_index + 1
 	self.current_task = self.task_sequence[self.task_index]
 	self.current_task:prepare()

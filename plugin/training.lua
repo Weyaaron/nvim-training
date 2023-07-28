@@ -39,16 +39,21 @@ local function switch_to_next_task()
 	current_autocmds = {}
 
 	current_task_sequence:switch_to_next_task()
+	print("Switch in main called")
 
 	for _, autocmd_el in pairs(current_task_sequence.current_task.autocmds) do
-		current_autocmds[#current_autocmds + 1] = vim.api.nvim_create_autocmd({ autocmd_el }, {
+		local next_autocmd = vim.api.nvim_create_autocmd({ autocmd_el }, {
 			callback = outer_loop,
 		})
+		print("Autocmd: " .. tostring(next_autocmd))
+
+		current_autocmds[#current_autocmds + 1] = next_autocmd
 	end
 	user_interface:display(current_task_sequence)
 end
 
 function loop()
+	print("Loop Called")
 	local completed = current_task_sequence.current_task:completed()
 	local failed = current_task_sequence.current_task:failed()
 	if completed and not failed then
@@ -108,4 +113,6 @@ function training.config(args)
 	Config:load_from_json()
 end
 
-training.config({ enable_audio_feedback = false, excluded_tags = {"ui"} })
+--training.config({ enable_audio_feedback = false, excluded_tags = {"ui"} })
+-- Fix problem with config that values linger around
+training.config({ enable_audio_feedback = false, excluded_tags = {} })

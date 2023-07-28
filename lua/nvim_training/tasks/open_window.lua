@@ -1,7 +1,7 @@
 local Task = require("nvim_training.task")
 local OpenWindowTask = Task:new()
 
-OpenWindowTask.base_args = { tags = { "window", "ui" }, autocmds = { "Winenter" }, desc = "Create a new window" }
+OpenWindowTask.base_args = { tags = { "window", "ui" }, autocmds = { "WinNew" }, desc = "Create a new window" }
 
 function OpenWindowTask:prepare() end
 
