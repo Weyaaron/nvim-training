@@ -10,7 +10,7 @@ local CloseWindowTask = require("nvim_training.tasks.close_window")
 local utility = require("nvim_training.utility")
 local audio_interface = require("nvim_training.audio_feedback"):new()
 
-local total_task_pool = { DeleteLineTask }
+local total_task_pool = { AbsoluteLineTask, RelativeLineTask, MoveMarkTask }
 
 local included_tags = { "movement" }
 local included_tags = { "ui" }

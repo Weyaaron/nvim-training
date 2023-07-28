@@ -91,8 +91,7 @@ function setup()
 
 	user_interface:display(current_task_sequence)
 
-	local current_config = Config:new()
-	print(current_config.enable_audio_feedback)
+	Config:load_from_json()
 end
 
 vim.api.nvim_create_user_command("Training", setup, {})
@@ -102,12 +101,11 @@ end
 
 local training = {}
 function training.config(args)
-	local current_config = Config:new()
 	for i, v in pairs(args) do
-		current_config[i] = v
+		Config[i] = v
 	end
-	current_config:write_to_json()
-	current_config:load_from_json()
+	Config:write_to_json()
+	Config:load_from_json()
 end
 
-training.config({ enable_audio_feedback = false })
+training.config({ enable_audio_feedback = false})
