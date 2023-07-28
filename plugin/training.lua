@@ -39,7 +39,6 @@ local function switch_to_next_task()
 	current_autocmds = {}
 
 	current_task_sequence:switch_to_next_task()
-	print("Switch in main called")
 
 	for _, autocmd_el in pairs(current_task_sequence.current_task.autocmds) do
 		local next_autocmd = vim.api.nvim_create_autocmd({ autocmd_el }, {
@@ -52,7 +51,6 @@ local function switch_to_next_task()
 end
 
 function loop()
-	print("Loop Called")
 	local completed = current_task_sequence.current_task:completed()
 	local failed = current_task_sequence.current_task:failed()
 	if completed and not failed then

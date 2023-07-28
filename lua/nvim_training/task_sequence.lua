@@ -1,17 +1,18 @@
-local AbsoluteLineTask = require("nvim_training.tasks.absolute_line")
-local RelativeLineTask = require("nvim_training.tasks.relative_line")
-local MoveMarkTask = require("nvim_training.tasks.move_mark")
-local WordForwardMovementTask = require("nvim_training.tasks.word_forward_movement")
-local DeleteWordTask = require("nvim_training.tasks.delete_word")
-local DeleteLineTask = require("nvim_training.tasks.delete_line")
-local OpenWindowTask = require("nvim_training.tasks.open_window")
-local CloseWindowTask = require("nvim_training.tasks.close_window")
+local AbsoluteLineTask = require("lua.nvim_training.tasks.movements.absolute_line")
+local RelativeLineTask = require("lua.nvim_training.tasks.movements.relative_line")
+local MoveMarkTask = require("lua.nvim_training.tasks.movements.move_mark")
+local WordForwardMovementTask = require("lua.nvim_training.tasks.movements.word_forward_movement")
+local DeleteWordTask = require("lua.nvim_training.tasks.buffer_changes.delete_word")
+local DeleteLineTask = require("lua.nvim_training.tasks.buffer_changes.delete_line")
+local OpenWindowTask = require("lua.nvim_training.tasks.ui.open_window")
+local CloseWindowTask = require("lua.nvim_training.tasks.ui.close_window")
+local SwitchWindowTask = require("lua.nvim_training.tasks.ui.switch_windows")
 
 local utility = require("nvim_training.utility")
 local audio_interface = require("nvim_training.audio_feedback"):new()
 local Config = require("nvim_training.config")
 
-local total_task_pool = { OpenWindowTask, CloseWindowTask }
+local total_task_pool = {AbsoluteLineTask, RelativeLineTask, MoveMarkTask}
 
 local TaskSequence = {}
 TaskSequence.__index = TaskSequence
@@ -76,7 +77,6 @@ function TaskSequence:fail_current_task()
 end
 
 function TaskSequence:switch_to_next_task()
-	print("Switch in sequence called")
 	self.task_index = self.task_index + 1
 	self.current_task = self.task_sequence[self.task_index]
 	self.current_task:prepare()
