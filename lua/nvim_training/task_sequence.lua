@@ -9,40 +9,51 @@ local CloseWindowTask = require("nvim_training.tasks.close_window")
 
 local utility = require("nvim_training.utility")
 local audio_interface = require("nvim_training.audio_feedback"):new()
+local Config = require("nvim_training.config")
 
-local total_task_pool = { AbsoluteLineTask, RelativeLineTask, MoveMarkTask }
-
-local included_tags = { "movement" }
-local included_tags = { "ui" }
-local excluded_tags = { "abc" }
+local total_task_pool = { AbsoluteLineTask, OpenWindowTask }
 
 local TaskSequence = {}
 TaskSequence.__index = TaskSequence
 
 function TaskSequence:new()
 	--Task index starts at 0 to deal with first task initialisation
-	local base = { task_length = 10, task_index = 1, status_list = {}, task_sequence = {} }
+	local base = { task_length = 10, task_index = 1, status_list = {}, task_sequence = {}, task_pool = {} }
 	setmetatable(base, { __index = self })
 	base:_prepare()
 
 	return base
 end
 
-function TaskSequence:_prepare()
-	local current_task_pool = {}
-	for key, el in pairs(total_task_pool) do
-		local allowed_intersection = utility.intersection(el.base_args.tags, included_tags)
-		local forbidden_intersection = utility.intersection(el.base_args.tags, excluded_tags)
-		if #allowed_intersection > 0 and #forbidden_intersection == 0 then
-			table.insert(current_task_pool, el)
+function TaskSequence:initialize_task_pool()
+	if #Config.included_tags == 0 then
+		self.task_pool = total_task_pool
+	else
+		for key, el in pairs(total_task_pool) do
+			local allowed_intersection = utility.intersection(el.base_args.tags, Config.included_tags)
+			if not (#allowed_intersection == 0) then
+				table.insert(self.task_pool, el)
+			end
 		end
 	end
-	local current_task_pool = total_task_pool
+	if not (#Config.excluded_tags == 0) then
+		local new_pool = {}
+		for key, el in pairs(self.task_pool) do
+			local forbidden_intersection = utility.intersection(el.base_args.tags, Config.excluded_tags)
+			if  (#forbidden_intersection == 0) then
+				new_pool[key] = el
+			end
+		end
+		self.task_pool = new_pool
+	end
+end
 
-	self.task_sequence = {}
+function TaskSequence:_prepare()
+	self:initialize_task_pool()
+
 	--Todo: Rework with next tasks in mind
 	for i = 1, self.task_length do
-		local current_next_task = current_task_pool[math.random(#current_task_pool)]:new()
+		local current_next_task = self.task_pool[math.random(#self.task_pool)]:new()
 		while current_next_task:first() do
 			local attempt_to_find_next_task = current_next_task:first()
 			if attempt_to_find_next_task then

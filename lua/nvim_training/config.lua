@@ -1,6 +1,6 @@
 local utility = require("nvim_training.utility")
-local Config = { enable_audio_feedback = false }
-local keys = { "enable_audio_feedback" }
+local Config = { enable_audio_feedback = false, included_tags = {}, excluded_tags = {} }
+local keys = { "enable_audio_feedback", "included_tags", "excluded_tags" }
 
 function Config:load_from_json()
 	local current_config_path = utility.construct_project_base_path("current_config.json")
