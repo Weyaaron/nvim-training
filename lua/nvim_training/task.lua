@@ -73,10 +73,34 @@ function Task:load_from_json(file_suffix, minimal_keys)
 	end
 end
 
-function Task:first()
+function Task:calculate_task_chain()
+	--This function implements task chaining by traversing the line of tasks until the first one has no
+	--precondition. While task chains of arbitrary length are supported, task chains should be short in practice.
+	local task_chain = {}
+	local current_task = self:previous()
+	local last_chain_el = self
+	while current_task do
+		last_chain_el = current_task
+		current_task = current_task:previous()
+	end
+	current_task = last_chain_el
+	while current_task do
+		table.insert(task_chain, current_task)
+		current_task = current_task:next()
+	end
+	return task_chain
+end
+
+function Task:previous()
+	--This function implements task chaining. The Task Scheduler will ensure that a task
+	--that is required runs first. This does support tasks chains of arbitrary length.
+
 	return nil
 end
 function Task:next()
+	--This function implements task chaining.Some tasks profit from context. The Task Scheduler will ensure that a
+	--the returned task runs next. This supports tasks chains of arbitrary length.
+
 	return nil
 end
 

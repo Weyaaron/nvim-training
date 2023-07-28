@@ -52,25 +52,15 @@ end
 function TaskSequence:_prepare()
 	self:initialize_task_pool()
 
-	--Todo: Rework with next tasks in mind
 	for i = 1, self.task_length do
 		local current_next_task = self.task_pool[math.random(#self.task_pool)]:new()
-		while current_next_task:first() do
-			local attempt_to_find_next_task = current_next_task:first()
-			if attempt_to_find_next_task then
-				current_next_task = attempt_to_find_next_task:new()
-			end
-		end
-		self.task_sequence[i] = current_next_task
-		while current_next_task:next() do
-			local next_task = current_next_task:next():new()
+		local chain_for_current_task = current_next_task:calculate_task_chain()
+		for chain_index, chained_task in pairs(chain_for_current_task) do
+			table.insert(self.task_sequence, chained_task:new())
 			i = i + 1
-			self.task_sequence[i] = next_task
-			current_next_task = next_task
 		end
 	end
-
-	self.task_sequence = { AbsoluteLineTask:new(), OpenWindowTask:new(), CloseWindowTask:new(), AbsoluteLineTask:new() }
+	self.task_length = #self.task_sequence
 end
 
 function TaskSequence:complete_current_task()

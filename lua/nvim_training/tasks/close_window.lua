@@ -17,7 +17,7 @@ end
 
 function CloseWindowTask:teardown() end
 
-function CloseWindowTask:first()
+function CloseWindowTask:previous()
 	local OpenWindowTask = require("nvim_training.tasks.open_window")
 
 	return OpenWindowTask

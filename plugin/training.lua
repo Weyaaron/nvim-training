@@ -45,7 +45,6 @@ local function switch_to_next_task()
 		local next_autocmd = vim.api.nvim_create_autocmd({ autocmd_el }, {
 			callback = outer_loop,
 		})
-		print("Autocmd: " .. tostring(next_autocmd))
 
 		current_autocmds[#current_autocmds + 1] = next_autocmd
 	end
