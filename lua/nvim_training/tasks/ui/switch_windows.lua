@@ -29,5 +29,4 @@ function SwitchWindowTask:next()
 	return CloseWindowTask
 end
 
-
 return SwitchWindowTask
