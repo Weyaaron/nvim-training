@@ -13,7 +13,7 @@ local utility = require("nvim_training.utility")
 local audio_interface = require("nvim_training.audio_feedback"):new()
 local Config = require("nvim_training.config")
 
-local total_task_pool = { RandomXYMovementTask }
+local total_task_pool = { RandomXYMovementTask, AbsoluteLineTask }
 
 local TaskSequence = {}
 TaskSequence.__index = TaskSequence
