@@ -127,6 +127,5 @@ function training.config(args)
 	Config:load_from_json()
 end
 
-training.config({ enable_audio_feedback = false, excluded_tags = {} })
 return training
 

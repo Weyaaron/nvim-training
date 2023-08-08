@@ -2,6 +2,9 @@ local Task = {}
 Task.__index = Task
 Task.base_args = { desc = "Generic Top Level Task Description", autocmds = { "CursorMoved" }, abr = "ABLT", tags = {} }
 
+
+-- This is the main object the whole code revolves around. A in-depth description is given in 'architecture.md' in the
+-- docs folder
 local utility = require("nvim_training.utility")
 function Task:new(custom_args)
 	self.__index = self
