@@ -1,11 +1,11 @@
 local Task = require("nvim_training.task")
 
-local RandomXYMovementTask = Task:new()
+local MoveRandomXYTask = Task:new()
 local utility = require("nvim_training.utility")
 
-RandomXYMovementTask.base_args = { tags = { "movement", "line_based" }, autocmds = { "CursorMoved" } }
+MoveRandomXYTask.base_args = { tags = { "movement", "line_based" }, autocmds = { "CursorMoved" } }
 
-function RandomXYMovementTask:prepare()
+function MoveRandomXYTask:prepare()
 	--Todo: Improve Highlight Visibility
 	self:load_from_json("lorem_ipsum.buffer")
 	utility.replace_main_buffer_with_str(self.initial_buffer)
@@ -38,26 +38,26 @@ function RandomXYMovementTask:prepare()
 	)
 end
 
-function RandomXYMovementTask:completed()
+function MoveRandomXYTask:completed()
 	local cursor_position_x_y = vim.api.nvim_win_get_cursor(0)
 	local x_comparison = cursor_position_x_y[1] == self.target_line
 	local y_comparison = cursor_position_x_y[2] == self.target_char
 	return x_comparison and y_comparison
 end
 
-function RandomXYMovementTask:construct_line_table_from_buffer()
+function MoveRandomXYTask:construct_line_table_from_buffer()
 	local line_count = vim.api.nvim_buf_line_count(0)
 	return vim.api.nvim_buf_get_lines(0, 0, line_count, false)
 end
 
-function RandomXYMovementTask:failed()
+function MoveRandomXYTask:failed()
 	return not self:completed()
 end
 
-function RandomXYMovementTask:teardown()
+function MoveRandomXYTask:teardown()
 	if self.highlight_namespace then
 		vim.api.nvim_buf_clear_namespace(0, self.highlight_namespace, 0, -1)
 	end
 end
 
-return RandomXYMovementTask
+return MoveRandomXYTask

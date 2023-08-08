@@ -1,11 +1,11 @@
 local Task = require("nvim_training.task")
 
-local AbsoluteLineTask = Task:new()
+local MoveAbsoluteLineTask = Task:new()
 local utility = require("nvim_training.utility")
 
-AbsoluteLineTask.base_args = { tags = { "movement", "line_based" }, autocmds = { "CursorMoved" } }
+MoveAbsoluteLineTask.base_args = { tags = { "movement", "line_based" }, autocmds = { "CursorMoved" } }
 
-function AbsoluteLineTask:prepare()
+function MoveAbsoluteLineTask:prepare()
 	self:load_from_json("one_word_per_line.buffer")
 	utility.replace_main_buffer_with_str(self.initial_buffer)
 
@@ -25,20 +25,20 @@ function AbsoluteLineTask:prepare()
 	vim.api.nvim_buf_add_highlight(0, self.highlight_namespace, "UnderScore", self.target_line - 1, 0, -1)
 end
 
-function AbsoluteLineTask:completed()
+function MoveAbsoluteLineTask:completed()
 	local cursor_position = vim.api.nvim_win_get_cursor(0)[1]
 	local comparison = cursor_position == self.target_line
 	return comparison
 end
 
-function AbsoluteLineTask:failed()
+function MoveAbsoluteLineTask:failed()
 	return not self:completed()
 end
 
-function AbsoluteLineTask:teardown()
+function MoveAbsoluteLineTask:teardown()
 	if self.highlight_namespace then
 		vim.api.nvim_buf_clear_namespace(0, self.highlight_namespace, 0, -1)
 	end
 end
 
-return AbsoluteLineTask
+return MoveAbsoluteLineTask

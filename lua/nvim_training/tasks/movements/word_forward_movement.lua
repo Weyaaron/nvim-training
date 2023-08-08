@@ -1,10 +1,10 @@
 local Task = require("nvim_training.task")
 local utility = require("nvim_training.utility")
 
-local MoveWordForward = Task:new()
-MoveWordForward.base_args = { cursor_target = 0, tags = { "movement" } }
+local MoveWordForwardTask = Task:new()
+MoveWordForwardTask.base_args = { cursor_target = 0, tags = { "movement" } }
 
-function MoveWordForward:prepare()
+function MoveWordForwardTask:prepare()
 	self:load_from_json("test.buffer", { "broken_key" })
 
 	self.previous_cursor_position = 0
@@ -56,21 +56,21 @@ function MoveWordForward:prepare()
 	)
 end
 
-function MoveWordForward:failed()
+function MoveWordForwardTask:failed()
 	if self.cursor_target then
 		return self.cursor_target - vim.api.nvim_win_get_cursor(0)[2] == 0
 	end
 	return false
 end
 
-function MoveWordForward:completed()
-	return not MoveWordForward:failed()
+function MoveWordForwardTask:completed()
+	return not MoveWordForwardTask:failed()
 end
 
-function MoveWordForward:teardown()
+function MoveWordForwardTask:teardown()
 	if self.highlight_namespace then
 		vim.api.nvim_buf_clear_namespace(0, self.highlight_namespace, 0, -1)
 	end
 end
 
-return MoveWordForward
+return MoveWordForwardTask
