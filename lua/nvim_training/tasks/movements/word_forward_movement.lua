@@ -10,7 +10,6 @@ function MoveWordForwardTask:prepare()
 	self.previous_cursor_position = 0
 
 	utility.replace_main_buffer_with_str(self.initial_buffer)
-	--vim.api.nvim_win_set_cursor(0, buffer_data["cursor_position"])
 
 	local cursor_position_tuple = vim.api.nvim_win_get_cursor(0)
 	local current_line_index = cursor_position_tuple[1] - 1
@@ -26,7 +25,7 @@ function MoveWordForwardTask:prepare()
 
 	local word_lengths = {}
 
-	--This function breaks on multiple whitespaces between words
+	--Todo: Fix that this function breaks on multiple whitespaces between words
 	for i = 1, jump_target_offset_in_words + 1 do
 		if string.len(words_in_line[i]) > 0 then
 			local current_word_length = string.len(words_in_line[i]) + 1
@@ -38,8 +37,6 @@ function MoveWordForwardTask:prepare()
 	self.desc = "Jump " .. tostring(jump_target_offset_in_words) .. " words relative to your cursor."
 
 	self.highlight_namespace = vim.api.nvim_create_namespace("JumpWordLineNameSpace")
-
-	--Todo: Fix highlight!
 
 	vim.api.nvim_set_hl(0, "UnderScore", { underline = true })
 

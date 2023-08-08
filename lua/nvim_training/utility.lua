@@ -3,7 +3,7 @@ local utility = {}
 function utility.replace_main_buffer_with_str(input_str)
 	local str_as_lines = utility.split_str(input_str, "\n")
 	local line_count = vim.api.nvim_buf_line_count(0)
-	vim.api.nvim_buf_set_lines(0, 0, line_count, false,{})
+	vim.api.nvim_buf_set_lines(0, 0, line_count, false, {})
 	vim.api.nvim_buf_set_lines(0, 0, #str_as_lines, false, str_as_lines)
 end
 
