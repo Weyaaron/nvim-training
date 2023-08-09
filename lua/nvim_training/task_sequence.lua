@@ -13,7 +13,7 @@ local utility = require("nvim_training.utility")
 local audio_interface = require("nvim_training.audio_feedback"):new()
 local Config = require("nvim_training.config")
 
-local total_task_pool = { RandomXYMovementTask, AbsoluteLineTask }
+local total_task_pool = { OpenWindowTask, AbsoluteLineTask, SwitchWindowTask }
 
 local TaskSequence = {}
 TaskSequence.__index = TaskSequence
@@ -56,13 +56,8 @@ function TaskSequence:_prepare()
 
 	for i = 1, self.task_length do
 		local current_next_task = self.task_pool[math.random(#self.task_pool)]:new()
-		local chain_for_current_task = current_next_task:calculate_task_chain()
-		for chain_index, chained_task in pairs(chain_for_current_task) do
-			table.insert(self.task_sequence, chained_task:new())
-			i = i + 1
-		end
+		table.insert(self.task_sequence, current_next_task)
 	end
-	self.task_length = #self.task_sequence
 end
 
 function TaskSequence:complete_current_task()

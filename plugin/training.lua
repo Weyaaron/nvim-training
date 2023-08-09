@@ -129,4 +129,3 @@ end
 
 training.config({ enable_audio_feedback = false, excluded_tags = {} })
 return training
-
