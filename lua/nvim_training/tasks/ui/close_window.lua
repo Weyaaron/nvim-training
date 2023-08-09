@@ -4,6 +4,7 @@ CloseWindowTask.base_args = { tags = { "window", "ui" }, autocmds = { "WinClosed
 
 function CloseWindowTask:prepare()
 	self.desc = "Close a window"
+	vim.cmd(":vsplit")
 end
 
 function CloseWindowTask:completed()

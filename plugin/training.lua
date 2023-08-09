@@ -25,7 +25,8 @@ local user_interface
 local utility = require("nvim_training.utility")
 
 local discard_movement = true
-
+-- This is a crude solution to the fact that the cursor moves after entering :Training.
+-- This messes up movement based tasks. Any suggestions for a improvement are appreciated.
 function outer_loop()
 	if not discard_movement then
 		loop()

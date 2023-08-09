@@ -1,7 +1,8 @@
 local Task = require("nvim_training.task")
 local utility = require("nvim_training.utility")
 local MoveMarkTask = Task:new()
-MoveMarkTask.base_args = { chars = { "a", "b", "c", "d", "x", "y" }, tags = { "movement", "mark" } }
+MoveMarkTask.base_args =
+	{ chars = { "a", "b", "c", "d", "x", "y" }, tags = { "movement", "mark" }, autocmds = { "CursorMoved" } }
 
 function MoveMarkTask:prepare()
 	self:load_from_json("one_word_per_line.buffer")

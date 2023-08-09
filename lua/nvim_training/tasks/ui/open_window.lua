@@ -13,6 +13,8 @@ function OpenWindowTask:failed()
 	return false
 end
 
-function OpenWindowTask:teardown() end
+function OpenWindowTask:teardown()
+	vim.cmd(":q")
+end
 
 return OpenWindowTask

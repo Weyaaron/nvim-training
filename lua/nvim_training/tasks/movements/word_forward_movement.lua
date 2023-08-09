@@ -2,10 +2,10 @@ local Task = require("nvim_training.task")
 local utility = require("nvim_training.utility")
 
 local MoveWordForwardTask = Task:new()
-MoveWordForwardTask.base_args = { cursor_target = 0, tags = { "movement" } }
+MoveWordForwardTask.base_args = { cursor_target = 0, tags = { "movement" }, autocmds = { "CursorMoved" } }
 
 function MoveWordForwardTask:prepare()
-	self:load_from_json("test.buffer", { "broken_key" })
+	self:load_from_json("lorem_ipsum.buffer")
 
 	self.previous_cursor_position = 0
 
