@@ -26,6 +26,7 @@ Teardown is called once when the task is removed from the task sequence.
 Tasks may fail or complete or do neither. Doing both is not allowed, but this is not enforced consistently.
 Doing neither is fine, but there should be a good reason for it.
 
+
 To ease access to content that may be reused between tasks, a task may load additional data from json during
 prepare. This is somewhat of an advanced feature and is not required for getting started.
 
@@ -34,6 +35,6 @@ Apart from the methods, there are a few critical attributes:
 - tags: These are short strings that can be used to filter tasks. A list is available in the Readme.
 - desc: This is string is used in the UI to display the goal of the task. Changing it during prepare is encouraged.
 
-Dependencies between tasks are discouraged. However, there are some use-cases for task dependencies.
-A task may implement the functions previous and next that ensure that tasks are run in a particular order relative to other tasks.
-An implementation should return a module that implements a task. Implementing either is fine. 
+Dependencies between tasks are discouraged. Each task is responsible for 
+altering the environment to ensure that the user is able to complete the task. Cleaning 
+up after a task is not required, but encouraged.

@@ -19,7 +19,7 @@ It is loosely inspired by https://first20hours.github.io/keyzen-colemak/
 
 ## To try it out
 
-As of 2023-07, the version marked as main does support all the currently implemented tasks yet.
+As of 2023-07, the version marked as main does not support all the currently implemented tasks yet.
 But it is considered stable. Development will happen on the development branch.
 However, you might fix the version to the release just in case.
 The plugin will overwrite your buffer, starting with an empty one is recommended.
