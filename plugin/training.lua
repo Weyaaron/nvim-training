@@ -72,7 +72,6 @@ function loop()
 		setup_first_task()
 	end
 
-	user_interface:display(current_task_sequence)
 end
 
 function setup_first_task()

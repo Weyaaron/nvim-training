@@ -7,7 +7,11 @@ local utility = require("nvim_training.utility")
 local audio_interface = require("nvim_training.audio_feedback"):new()
 local Config = require("nvim_training.config")
 
-local total_task_pool = { AbsoluteLineTask, RelativeLineTask, MoveMarkTask, DeleteWordTask }
+
+local logging = require('lua.nvim_training.log')
+logging.outfile = "./logs/log.txt"
+
+local total_task_pool = {  MoveMarkTask, DeleteWordTask}
 
 local TaskSequence = {}
 TaskSequence.__index = TaskSequence
@@ -66,6 +70,7 @@ function TaskSequence:fail_current_task()
 end
 
 function TaskSequence:switch_to_next_task()
+	logging.trace("Task Switch happened")
 	self.task_index = self.task_index + 1
 	self.current_task = self.task_sequence[self.task_index]
 	self.current_task:prepare()

@@ -59,19 +59,6 @@ for i, x in ipairs(modes) do
 		local info = debug.getinfo(2, "Sl")
 		local lineinfo = info.short_src .. ":" .. info.currentline
 
-		-- Output to console
-		print(
-			string.format(
-				"%s[%-6s%s]%s %s: %s",
-				log.usecolor and x.color or "",
-				nameupper,
-				os.date("%H:%M:%S"),
-				log.usecolor and "\27[0m" or "",
-				lineinfo,
-				msg
-			)
-		)
-
 		-- Output to log file
 		if log.outfile then
 			local fp = io.open(log.outfile, "a")
