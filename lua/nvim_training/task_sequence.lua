@@ -3,11 +3,6 @@ local RelativeLineTask = require("lua.nvim_training.tasks.movements.relative_lin
 local MoveMarkTask = require("lua.nvim_training.tasks.movements.move_mark")
 local WordForwardMovementTask = require("lua.nvim_training.tasks.movements.word_forward_movement")
 local DeleteWordTask = require("lua.nvim_training.tasks.buffer_changes.delete_word")
-local DeleteLineTask = require("lua.nvim_training.tasks.buffer_changes.delete_line")
-local OpenWindowTask = require("lua.nvim_training.tasks.ui.open_window")
-local CloseWindowTask = require("lua.nvim_training.tasks.ui.close_window")
-local SwitchWindowTask = require("lua.nvim_training.tasks.ui.switch_windows")
-local RandomXYMovementTask = require("lua.nvim_training.tasks.movements.random_line_char")
 
 local utility = require("nvim_training.utility")
 local audio_interface = require("nvim_training.audio_feedback"):new()
@@ -27,7 +22,7 @@ function TaskSequence:new()
 end
 
 function TaskSequence:initialize_task_pool()
-	--Todo: Deal with empty poool after filtering!
+	--Todo: Deal with empty pool after filtering!
 	if #Config.included_tags == 0 then
 		self.task_pool = total_task_pool
 	else
