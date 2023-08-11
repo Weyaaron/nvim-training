@@ -2,6 +2,9 @@
 
 [![License: GPL](https://img.shields.io/badge/License-GPL-brightgreen.svg)](https://opensource.org/license/gpl-3-0/)
 
+
+**Installation is currently(As of 2023-08-11) on halt due to a few unresolved issues.**
+
 This code implements a Neovim Plugin for training your muscle memory.
 
 This plugin fills a gap I have noticed a during interaction with vim:
@@ -47,6 +50,8 @@ It is loosely inspired by https://first20hours.github.io/keyzen-colemak/
 - Implement some sort of progress during a session
 
 ## To try it out
+
+**Installation is currently(As of 2023-08-11) on halt due to a few unresolved issues.**
 
 As of 2023-07, the version marked as main does support all the currently implemented tasks yet.
 But it is considered stable. Development will happen on the development branch.
