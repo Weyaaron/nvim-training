@@ -2,25 +2,22 @@
 
 [![License: GPL](https://img.shields.io/badge/License-GPL-brightgreen.svg)](https://opensource.org/license/gpl-3-0/)
 
-
-**Installation is currently(As of 2023-08-11) on halt due to a few unresolved issues.**
-
 This code implements a Neovim Plugin for training your muscle memory.
 
 This plugin fills a gap I have noticed a during interaction with vim:
 Knowing is half the battle, executing another entirely.
 This plugin aims to help with the latter.
 
-A training session consists of a series of tasks, each of which is small and composable.
+A training session consists of a series of tasks, each of which is small and easily repeatable.
 The plugin will recognize when a task is completed and automatically start the next one.
 This helps to work on a lot of tasks in a short amount of time.
 
-As of 2023-07, this code implements a few basic commands for training of movement.
+As of 2023-08, this code implements a few basic commands for training of movement.
 But it is missing critical features for usability: There is little documentation, and some glitches are to be expected.
 
 It is loosely inspired by https://first20hours.github.io/keyzen-colemak/
 
-## To try it out
+# To try it out
 
 **Installation is currently(As of 2023-08-11) on halt due to a few unresolved issues.**
 
@@ -30,15 +27,17 @@ But it is considered stable. Development will happen on the development branch.
 - Install it using the plugin manager of your choice. Packer is tested, if any other fails, please open an issue. Pinning it to a fixed version is encouraged.
 - Run `:Training` to start a session.
 
-## Available tasks 
+# Available tasks 
 - Move to an absolute line
 - Move x lines relative to your cursor 
 - Move to a mark 
 
-## Some tasks currently in the pipeline but not yet supported on main 
+# Some tasks currently in the pipeline but not yet supported on main 
 - Window Management
 - Delete lines 
-- ...
+- Delete words 
+- Moving to line and a char in the buffer 
+- Moving within a line
 
 # Goals 
 - Ease of use. Starting a session should be seamless. The UI should not get in the way.
@@ -53,9 +52,9 @@ But it is considered stable. Development will happen on the development branch.
 - Constrain the user on how to solve a particular task
 
 
-## How to get started with contributing
-Contributions are welcome! Any input is appreciated, be it a bug report, a feature request, or a pull request.
-This is my first project in lua, therefore some junk and bad practices are to be expected. Any feedback/suggestions
+# How to get started with contributing
+Contributions are welcome!Any input is appreciated, be it a bug report, a feature request, or a pull request.
+This is my first project in lua, therefore, some junk and bad practices are to be expected. Any feedback/suggestions
 are welcome. 
 
 First of all, you should have a look at the issues. Maybe someone else has already raised your concern.
@@ -69,5 +68,5 @@ For contributing code, you may have a look at the [architecture](docs/architectu
 - Improve on the UI
 
 
-## [License](/LICENSE)
+# [License](/LICENSE)
 [GPL](LICENSE)
