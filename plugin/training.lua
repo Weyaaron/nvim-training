@@ -4,6 +4,7 @@ if vim.g.loaded_training == 1 then
 end
 vim.g.loaded_training = 1
 
+local Config = require("nvim_training.config")
 local UserInterFace = require("nvim_training.user_interface")
 local current_autocmds = {}
 
