@@ -3,7 +3,6 @@ local utility = require("nvim_training.utility")
 local PlaceMarkTask = Task:new()
 PlaceMarkTask.base_args = { chars = { "a", "b", "c", "d", "x", "y" }, tags = { "mark" } }
 
-
 -- Apparently, there is no autocmd for mark placed? Therefore, this is placed on halt until a
 -- solution has been found.
 
