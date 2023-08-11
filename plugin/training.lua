@@ -47,7 +47,7 @@ local function switch_to_next_task()
 			callback = outer_loop,
 		})
 
-		current_autocmds[#current_autocmds + 1] = next_autocmd
+		table.insert(current_autocmds, next_autocmd)
 	end
 	user_interface:display(current_task_sequence)
 end
@@ -71,13 +71,13 @@ function loop()
 		current_task_sequence = Task_sequence:new()
 		setup_first_task()
 	end
-
 end
 
 function setup_first_task()
 	current_task_sequence.current_task = current_task_sequence.task_sequence[1]
 	current_task_sequence.current_task:prepare()
 
+	current_autocmds = {}
 	for _, autocmd_el in pairs(current_task_sequence.current_task.autocmds) do
 		current_autocmds[#current_autocmds + 1] = vim.api.nvim_create_autocmd({ autocmd_el }, {
 			callback = outer_loop,

@@ -7,11 +7,10 @@ local utility = require("nvim_training.utility")
 local audio_interface = require("nvim_training.audio_feedback"):new()
 local Config = require("nvim_training.config")
 
-
-local logging = require('lua.nvim_training.log')
+local logging = require("lua.nvim_training.log")
 logging.outfile = "./logs/log.txt"
 
-local total_task_pool = {  MoveMarkTask, DeleteWordTask}
+local total_task_pool = { AbsoluteLineTask, RelativeLineTask }
 
 local TaskSequence = {}
 TaskSequence.__index = TaskSequence
