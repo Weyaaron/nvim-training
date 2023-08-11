@@ -22,21 +22,21 @@ It is loosely inspired by https://first20hours.github.io/keyzen-colemak/
 
 ## To try it out
 
-As of 2023-07, the version marked as main does not support all the currently implemented tasks yet.
+**Installation is currently(As of 2023-08-11) on halt due to a few unresolved issues.**
+
+As of 2023-07, the version marked as main does support all the currently implemented tasks yet.
 But it is considered stable. Development will happen on the development branch.
-However, you might fix the version to the release just in case.
-The plugin will overwrite your buffer, starting with an empty one is recommended.
 
 - Install it using the plugin manager of your choice. Packer is tested, if any other fails, please open an issue. Pinning it to a fixed version is encouraged.
 - Run `:Training` to start a session.
 
-## Some available tasks 
+## Available tasks 
 - Move to an absolute line
 - Move x lines relative to your cursor 
 - Move to a mark 
 
 ## Some tasks currently in the pipeline but not yet supported on main 
-- Window Managment
+- Window Management
 - Delete lines 
 - ...
 
@@ -63,21 +63,11 @@ If you want to start working on something, please open an issue first. This help
 
 For contributing code, you may have a look at the [architecture](docs/architecture.md) document. 
 
-# Roadmap (As of 2023-07)
+# Roadmap (As of 2023-08)
 - Implement and release tasks that involve changes to the buffer
-- Write a huge chunk of documentation, in particular for the task interface
-- Implement some sort of progress during a session
+- Improve on he progress-communication during a session
+- Improve on the UI
 
-## To try it out
-
-**Installation is currently(As of 2023-08-11) on halt due to a few unresolved issues.**
-
-As of 2023-07, the version marked as main does support all the currently implemented tasks yet.
-But it is considered stable. Development will happen on the development branch.
-However, you might fix the version to the release just in case.
-
-- Install it using the plugin manager of your choice. Packer is tested, if any other fails, please open an issue. Pinning it to a fixed version is encouraged.
-- Run `:Training` to start a session.
 
 ## [License](/LICENSE)
 [GPL](LICENSE)

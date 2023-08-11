@@ -10,7 +10,7 @@ local Config = require("nvim_training.config")
 local logging = require("lua.nvim_training.log")
 logging.outfile = "./logs/log.txt"
 
-local total_task_pool = { AbsoluteLineTask, RelativeLineTask }
+local total_task_pool = { AbsoluteLineTask, RelativeLineTask, MoveMarkTask }
 
 local TaskSequence = {}
 TaskSequence.__index = TaskSequence
