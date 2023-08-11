@@ -1,7 +1,9 @@
 local Task = {}
 Task.__index = Task
-Task.base_args = { desc = "Generic Top Level Task Description", autocmds = { "CursorMoved" }, abr = "ABLT", tags = {} }
+Task.base_args = { desc = "Generic Top Level Task Description", autocmds = {}, abr = "ABLT", tags = {} }
 
+-- This is the main object the whole code revolves around. A in-depth description is given in 'architecture.md' in the
+-- docs folder
 local utility = require("nvim_training.utility")
 function Task:new(custom_args)
 	self.__index = self
@@ -44,7 +46,7 @@ function Task:load_from_json(file_suffix, minimal_keys)
 	if not minimal_keys then
 		minimal_keys = {}
 	end
-	local file_path = utility.construct_path(file_suffix)
+	local file_path = utility.construct_buffer_path(file_suffix)
 
 	local file = io.open(file_path)
 	local content = file:read("a")
@@ -52,8 +54,8 @@ function Task:load_from_json(file_suffix, minimal_keys)
 
 	file:close()
 
-	local initial_buffer_file_path = utility.construct_path(data_from_json.initial_buffer)
-	local new_buffer_file_path = utility.construct_path(data_from_json.new_buffer)
+	local initial_buffer_file_path = utility.construct_buffer_path(data_from_json.initial_buffer)
+	local new_buffer_file_path = utility.construct_buffer_path(data_from_json.new_buffer)
 
 	file = io.open(initial_buffer_file_path)
 	data_from_json.initial_buffer = file:read("a")
@@ -71,13 +73,6 @@ function Task:load_from_json(file_suffix, minimal_keys)
 	for i, v in pairs(data_from_json) do
 		self[i] = v
 	end
-end
-
-function Task:first()
-	return nil
-end
-function Task:next()
-	return nil
 end
 
 return Task

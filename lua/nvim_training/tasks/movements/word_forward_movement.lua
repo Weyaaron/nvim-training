@@ -1,16 +1,15 @@
 local Task = require("nvim_training.task")
 local utility = require("nvim_training.utility")
 
-local MoveWordForward = Task:new()
-MoveWordForward.base_args = { cursor_target = 0, tags = { "movement" } }
+local MoveWordForwardTask = Task:new()
+MoveWordForwardTask.base_args = { cursor_target = 0, tags = { "movement" }, autocmds = { "CursorMoved" } }
 
-function MoveWordForward:prepare()
-	self:load_from_json("test.buffer", { "broken_key" })
+function MoveWordForwardTask:prepare()
+	self:load_from_json("lorem_ipsum.buffer")
 
 	self.previous_cursor_position = 0
 
 	utility.replace_main_buffer_with_str(self.initial_buffer)
-	--vim.api.nvim_win_set_cursor(0, buffer_data["cursor_position"])
 
 	local cursor_position_tuple = vim.api.nvim_win_get_cursor(0)
 	local current_line_index = cursor_position_tuple[1] - 1
@@ -26,7 +25,7 @@ function MoveWordForward:prepare()
 
 	local word_lengths = {}
 
-	--This function breaks on multiple whitespaces between words
+	--Todo: Fix that this function breaks on multiple whitespaces between words
 	for i = 1, jump_target_offset_in_words + 1 do
 		if string.len(words_in_line[i]) > 0 then
 			local current_word_length = string.len(words_in_line[i]) + 1
@@ -38,8 +37,6 @@ function MoveWordForward:prepare()
 	self.desc = "Jump " .. tostring(jump_target_offset_in_words) .. " words relative to your cursor."
 
 	self.highlight_namespace = vim.api.nvim_create_namespace("JumpWordLineNameSpace")
-
-	--Todo: Fix highlight!
 
 	vim.api.nvim_set_hl(0, "UnderScore", { underline = true })
 
@@ -56,21 +53,21 @@ function MoveWordForward:prepare()
 	)
 end
 
-function MoveWordForward:failed()
+function MoveWordForwardTask:failed()
 	if self.cursor_target then
 		return self.cursor_target - vim.api.nvim_win_get_cursor(0)[2] == 0
 	end
 	return false
 end
 
-function MoveWordForward:completed()
-	return not MoveWordForward:failed()
+function MoveWordForwardTask:completed()
+	return not MoveWordForwardTask:failed()
 end
 
-function MoveWordForward:teardown()
+function MoveWordForwardTask:teardown()
 	if self.highlight_namespace then
 		vim.api.nvim_buf_clear_namespace(0, self.highlight_namespace, 0, -1)
 	end
 end
 
-return MoveWordForward
+return MoveWordForwardTask

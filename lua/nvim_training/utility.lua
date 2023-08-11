@@ -1,11 +1,23 @@
 local utility = {}
 
-function utility.replace_main_buffer_with_str(input_str)
-	local str_as_lines = utility.split_str(input_str, "\n")
-	-- Requires fix
-	--vim.api.nvim_buf_set_lines(0, 0, 100, false,{})
+local logging = require("lua.nvim_training.log")
+logging.outfile = "./logs/utility.log"
 
-	vim.api.nvim_buf_set_lines(0, 0, #str_as_lines, false, str_as_lines)
+function utility.replace_main_buffer_with_str(input_str)
+	local line_count = vim.api.nvim_buf_line_count(0)
+	local current_buffer_lines = vim.api.nvim_buf_get_lines(0, 0, line_count, false)
+
+	local str_as_lines = utility.split_str(input_str, "\n")
+	local buffer_equality = true
+
+	for i, v in pairs(current_buffer_lines) do
+		buffer_equality = buffer_equality and (v == str_as_lines[i])
+	end
+	logging.info("The buffers are " .. tostring(buffer_equality))
+	if not buffer_equality then
+		vim.api.nvim_buf_set_lines(0, 0, line_count, false, {})
+		vim.api.nvim_buf_set_lines(0, 0, #str_as_lines, false, str_as_lines)
+	end
 end
 
 function utility.split_str(input, sep)
@@ -51,8 +63,7 @@ function utility.intersection(a, b)
 
 	return result
 end
-
-function utility.construct_path(file_suffix)
+function construct_base_path()
 	--https://stackoverflow.com/questions/6380820/get-containing-path-of-lua-file
 	function script_path()
 		local str = debug.getinfo(2, "S").source:sub(2)
@@ -61,10 +72,15 @@ function utility.construct_path(file_suffix)
 	end
 
 	local base_path = script_path() .. "../.."
+	return base_path
+end
 
-	local file_path = base_path .. "/buffers/" .. file_suffix
+function utility.construct_buffer_path(file_suffix)
+	return construct_base_path() .. "/buffers/" .. file_suffix
+end
 
-	return file_path
+function utility.construct_project_base_path(file_suffix)
+	return construct_base_path() .. "/" .. file_suffix
 end
 
 return utility

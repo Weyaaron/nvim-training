@@ -3,10 +3,13 @@ local Window = require("nvim_training.window")
 local UserInterface = {}
 UserInterface.__index = UserInterface
 
+local logging = require("lua.nvim_training.log")
+logging.outfile = "./logs/log.txt"
+
 function UserInterface:new()
 	local base = { progress_counter = 0 }
 	setmetatable(base, { __index = self })
-	base.window = Window:new(50, 3, 1, 25)
+	base.window = Window:new(50, 3, 1, 75)
 	base.call_counter = 0
 	return base
 end
@@ -25,6 +28,7 @@ function UserInterface:display(current_task_sequence)
 	window_text = window_text .. sequence_of_attempts
 
 	self.window:update_window_text(window_text)
+	logging.info("Current status length is " .. #current_task_sequence.status_list)
 end
 
 return UserInterface

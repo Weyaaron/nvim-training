@@ -1,10 +1,10 @@
 local utility = require("nvim_training.utility")
 local Task = require("nvim_training.task")
 
-local RelativeLineTask = Task:new()
-RelativeLineTask.base_args = { tags = { "movement", "relative" } }
+local MoveRelativeLineTask = Task:new()
+MoveRelativeLineTask.base_args = { tags = { "movement", "relative" }, autocmds = { "CursorMoved" } }
 
-function RelativeLineTask:prepare()
+function MoveRelativeLineTask:prepare()
 	self:load_from_json("one_word_per_line.buffer")
 	utility.replace_main_buffer_with_str(self.initial_buffer)
 
@@ -27,18 +27,18 @@ function RelativeLineTask:prepare()
 	vim.api.nvim_buf_add_highlight(0, self.highlight_namespace, "UnderScore", line_for_highlight, 0, -1)
 end
 
-function RelativeLineTask:completed()
+function MoveRelativeLineTask:completed()
 	return vim.api.nvim_win_get_cursor(0)[1] == self.previous_line + self.current_offset
 end
 
-function RelativeLineTask:failed()
+function MoveRelativeLineTask:failed()
 	return not self:completed()
 end
 
-function RelativeLineTask:teardown()
+function MoveRelativeLineTask:teardown()
 	if self.highlight_namespace then
 		vim.api.nvim_buf_clear_namespace(0, self.highlight_namespace, 0, -1)
 	end
 end
 
-return RelativeLineTask
+return MoveRelativeLineTask

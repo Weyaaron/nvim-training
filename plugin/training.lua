@@ -10,9 +10,11 @@ local current_autocmds = {}
 local Task_sequence = require("nvim_training.task_sequence")
 local current_task_sequence = Task_sequence:new()
 local user_interface
+local utility = require("nvim_training.utility")
 
 local discard_movement = true
-
+-- This is a crude solution to the fact that the cursor moves after entering :Training.
+-- This messes up movement based tasks. Any suggestions for a improvement are appreciated.
 function outer_loop()
 	if not discard_movement then
 		loop()
@@ -29,9 +31,11 @@ local function switch_to_next_task()
 	current_task_sequence:switch_to_next_task()
 
 	for _, autocmd_el in pairs(current_task_sequence.current_task.autocmds) do
-		current_autocmds[#current_autocmds + 1] = vim.api.nvim_create_autocmd({ autocmd_el }, {
+		local next_autocmd = vim.api.nvim_create_autocmd({ autocmd_el }, {
 			callback = outer_loop,
 		})
+
+		table.insert(current_autocmds, next_autocmd)
 	end
 	user_interface:display(current_task_sequence)
 end
@@ -55,14 +59,13 @@ function loop()
 		current_task_sequence = Task_sequence:new()
 		setup_first_task()
 	end
-
-	user_interface:display(current_task_sequence)
 end
 
 function setup_first_task()
 	current_task_sequence.current_task = current_task_sequence.task_sequence[1]
 	current_task_sequence.current_task:prepare()
 
+	current_autocmds = {}
 	for _, autocmd_el in pairs(current_task_sequence.current_task.autocmds) do
 		current_autocmds[#current_autocmds + 1] = vim.api.nvim_create_autocmd({ autocmd_el }, {
 			callback = outer_loop,
@@ -70,7 +73,23 @@ function setup_first_task()
 	end
 end
 
+--Todo: There should be a less convoluted way of copying a file, but this is sufficient for now
+function copy_json()
+	local base_config_path = utility.construct_project_base_path("./plugin/default_config.json")
+	local source_file = io.open(base_config_path)
+	local content = source_file:read("a")
+	source_file:close()
+
+	local target_config_path = utility.construct_project_base_path("current_config.json")
+	local target_file = io.open(target_config_path, "w")
+
+	target_file:write(content)
+	target_file:close()
+end
+
 function setup()
+	copy_json()
+
 	local current_window = vim.api.nvim_tabpage_get_win(0)
 
 	user_interface = UserInterFace:new()
@@ -78,6 +97,22 @@ function setup()
 	setup_first_task()
 
 	user_interface:display(current_task_sequence)
+
+	Config:load_from_json()
 end
 
 vim.api.nvim_create_user_command("Training", setup, {})
+if not imports_sucesfull then
+	vim.cmd(":Training")
+end
+
+local training = {}
+function training.config(args)
+	for i, v in pairs(args) do
+		Config[i] = v
+	end
+	Config:write_to_json()
+	Config:load_from_json()
+end
+
+return training
