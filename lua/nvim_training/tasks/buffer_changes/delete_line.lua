@@ -6,7 +6,6 @@ local utility = require("nvim_training.utility")
 
 function DeleteLineTask:prepare()
 	self:load_from_json("permutation.buffer")
-	--Todo: Reset the complete buffer just in case
 	utility.replace_main_buffer_with_str(self.initial_buffer)
 	self.target_buffer = self.initial_buffer
 

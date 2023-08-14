@@ -2,6 +2,7 @@ local AbsoluteLineTask = require("lua.nvim_training.tasks.movements.absolute_lin
 local RelativeLineTask = require("lua.nvim_training.tasks.movements.relative_line")
 local MoveMarkTask = require("lua.nvim_training.tasks.movements.move_mark")
 local DeleteWordTask = require("lua.nvim_training.tasks.buffer_changes.delete_word")
+local MoveWordForwardTask = require('lua.nvim_training.tasks.movements.word_forward_movement')
 
 local utility = require("nvim_training.utility")
 local audio_interface = require("nvim_training.audio_feedback"):new()
@@ -10,7 +11,8 @@ local Config = require("nvim_training.config")
 local logging = require("lua.nvim_training.log")
 logging.outfile = "./logs/log.txt"
 
-local total_task_pool = { AbsoluteLineTask }
+local total_task_pool = {  DeleteWordTask}
+
 
 local current_window = vim.api.nvim_tabpage_get_win(0)
 local user_interface = require("lua.nvim_training.user_interface"):new()
