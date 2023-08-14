@@ -19,8 +19,6 @@ end
 local base_path = construct_base_path()
 vim.api.nvim_command("set runtimepath^=" .. base_path)
 
-local Config = require("nvim_training.config")
-
 --Todo: There should be a less convoluted way of copying a file, but this is sufficient for now
 function copy_json()
 	local utility = require("nvim_training.utility")
@@ -39,6 +37,7 @@ end
 function setup()
 	local Task_sequence = require("nvim_training.task_sequence")
 	copy_json()
+	local Config = require("nvim_training.config")
 	Config:load_from_json()
 
 	local current_task_sequence = Task_sequence:new()
@@ -46,14 +45,3 @@ function setup()
 end
 
 vim.api.nvim_create_user_command("Training", setup, {})
-
-local training = {}
-function training.config(args)
-	for i, v in pairs(args) do
-		Config[i] = v
-	end
-	Config:write_to_json()
-	Config:load_from_json()
-end
-
-return training
