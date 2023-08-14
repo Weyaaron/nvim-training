@@ -9,10 +9,9 @@ function DeleteWordTask:prepare()
 	utility.replace_main_buffer_with_str(self.initial_buffer)
 	self.target_buffer = self.initial_buffer
 
-
 	local line_count = vim.api.nvim_buf_line_count(0)
 	local new_cursor_pos = math.random(0, line_count)
-	vim.api.nvim_win_set_cursor(0, {new_cursor_pos, 7})
+	vim.api.nvim_win_set_cursor(0, { new_cursor_pos, 7 })
 
 	self.initial_words_in_buffer = self:construct_word_table_from_buffer()
 	local target_word = self.initial_words_in_buffer[math.random(1, #self.initial_words_in_buffer)]
@@ -68,8 +67,8 @@ end
 
 function DeleteWordTask:construct_word_table_from_buffer()
 	local result = {}
-	local line_position= vim.api.nvim_win_get_cursor(0)[1] -1
-	local new_buffer_lines = vim.api.nvim_buf_get_lines(0, line_position, line_position+1, false)
+	local line_position = vim.api.nvim_win_get_cursor(0)[1] - 1
+	local new_buffer_lines = vim.api.nvim_buf_get_lines(0, line_position, line_position + 1, false)
 
 	for i, line_el in pairs(new_buffer_lines) do
 		local pieces = utility.split_str(line_el, " ")

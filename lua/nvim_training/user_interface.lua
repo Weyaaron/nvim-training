@@ -3,7 +3,6 @@ local Window = require("nvim_training.window")
 local UserInterface = {}
 UserInterface.__index = UserInterface
 
-
 function UserInterface:new()
 	local base = { progress_counter = 0 }
 	setmetatable(base, { __index = self })
