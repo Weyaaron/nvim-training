@@ -1,8 +1,5 @@
 local utility = {}
 
-local logging = require("lua.nvim_training.log")
-logging.outfile = "./logs/utility.log"
-
 function utility.replace_main_buffer_with_str(input_str)
 	local line_count = vim.api.nvim_buf_line_count(0)
 	local current_buffer_lines = vim.api.nvim_buf_get_lines(0, 0, line_count, false)
@@ -13,7 +10,6 @@ function utility.replace_main_buffer_with_str(input_str)
 	for i, v in pairs(current_buffer_lines) do
 		buffer_equality = buffer_equality and (v == str_as_lines[i])
 	end
-	logging.info("The buffers are " .. tostring(buffer_equality))
 	if not buffer_equality then
 		vim.api.nvim_buf_set_lines(0, 0, line_count, false, {})
 		vim.api.nvim_buf_set_lines(0, 0, #str_as_lines, false, str_as_lines)
