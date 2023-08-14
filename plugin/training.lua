@@ -4,6 +4,24 @@ if vim.g.loaded_training == 1 then
 end
 vim.g.loaded_training = 1
 
+function construct_base_path()
+	--https://stackoverflow.com/questions/6380820/get-containing-path-of-lua-file
+	function script_path()
+		local str = debug.getinfo(2, "S").source:sub(2)
+		local initial_result = str:match("(.*/)")
+		return initial_result
+	end
+
+	local base_path = script_path() .. "../"
+	return base_path
+end
+
+local base_path = construct_base_path()
+vim.api.nvim_command("set runtimepath^="..base_path)
+
+
+
+
 local Config = require("nvim_training.config")
 local Task_sequence = require("nvim_training.task_sequence")
 local utility = require("nvim_training.utility")
