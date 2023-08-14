@@ -28,6 +28,5 @@ function Config:write_to_json()
 	file:write(data_as_json)
 	file:close()
 end
---Not quite sure why this has to exist, it somehow has to?
-Config:load_from_json()
+
 return Config
