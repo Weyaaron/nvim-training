@@ -2,22 +2,28 @@ local AbsoluteLineTask = require("lua.nvim_training.tasks.movements.absolute_lin
 local RelativeLineTask = require("lua.nvim_training.tasks.movements.relative_line")
 local MoveMarkTask = require("lua.nvim_training.tasks.movements.move_mark")
 local DeleteWordTask = require("lua.nvim_training.tasks.buffer_changes.delete_word")
+local MoveWordForwardTask = require('lua.nvim_training.tasks.movements.word_forward_movement')
 
 local utility = require("nvim_training.utility")
 local audio_interface = require("nvim_training.audio_feedback"):new()
 local Config = require("nvim_training.config")
 
 
-local total_task_pool = { AbsoluteLineTask, RelativeLineTask, MoveMarkTask }
+local total_task_pool = {  DeleteWordTask}
+
+
+local current_window = vim.api.nvim_tabpage_get_win(0)
+local user_interface = require("lua.nvim_training.user_interface"):new()
+vim.api.nvim_set_current_win(current_window)
 
 local TaskSequence = {}
 TaskSequence.__index = TaskSequence
 
 function TaskSequence:new()
-	local base = { task_length = 10, task_index = 1, status_list = {}, task_sequence = {}, task_pool = {} }
+	local base =
+		{ task_length = 10, task_index = 0, status_list = {}, task_sequence = {}, task_pool = {}, active_autocmds = {} }
 	setmetatable(base, { __index = self })
 	base:_prepare()
-
 	return base
 end
 
@@ -67,9 +73,51 @@ function TaskSequence:fail_current_task()
 end
 
 function TaskSequence:switch_to_next_task()
+	for _, autocmd_el in pairs(self.active_autocmds) do
+		vim.api.nvim_del_autocmd(autocmd_el)
+	end
+	self.active_autocmds = {}
+
 	self.task_index = self.task_index + 1
 	self.current_task = self.task_sequence[self.task_index]
 	self.current_task:prepare()
+
+	local function handle_wrapper()
+		--Todo: Shall we do something with the args from autocmd?
+		self:handle_autocmd()
+	end
+
+	for _, autocmd_el in pairs(self.current_task.autocmds) do
+		local next_autocmd = vim.api.nvim_create_autocmd({ autocmd_el }, {
+			callback =handle_wrapper,
+		})
+
+		table.insert(self.active_autocmds, next_autocmd)
+	end
+	user_interface:display(self)
+end
+
+function TaskSequence:handle_autocmd()
+
+	local completed = self.current_task:completed()
+	local failed = self.current_task:failed()
+	if completed and not failed then
+		self:complete_current_task()
+		self:switch_to_next_task()
+	end
+	if failed and not completed then
+		self:fail_current_task()
+		self:switch_to_next_task()
+	end
+	if failed and completed then
+		print("A Task should not both complete and fail!")
+	end
+
+	if self.task_length == self.task_index then
+		--Todo: Ensure that this function works as intended!
+		self:_prepare()
+	end
+	user_interface:display(self)
 end
 
 return TaskSequence
