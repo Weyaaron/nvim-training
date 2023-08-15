@@ -1,5 +1,8 @@
 local Config = require("nvim_training.config")
 
+
+-- I would like to export this, but I cant work out how to
+-- Any help is appreciated. 
 local training = {}
 function training.config(args)
 	for i, v in pairs(args) do

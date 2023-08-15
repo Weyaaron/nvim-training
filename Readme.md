@@ -4,7 +4,7 @@
 
 This code implements a Neovim Plugin for training your muscle memory.
 
-This plugin fills a gap I have noticed a during interaction with vim:
+This plugin fills a gap I have noticed during interaction with vim:
 Knowing is half the battle, executing another entirely.
 This plugin aims to help with the latter.
 
@@ -13,13 +13,12 @@ The plugin will recognize when a task is completed and automatically start the n
 This helps to work on a lot of tasks in a short amount of time.
 
 As of 2023-08, this code implements a few basic commands for training of movement.
-But it is missing critical features for usability: There is little documentation, and some glitches are to be expected.
+But it is missing critical features for usability: There is little documentation, no config, 
+and some glitches are to be expected. This is my first project in this particular domain.
 
 It is loosely inspired by https://first20hours.github.io/keyzen-colemak/
 
 # To try it out
-
-**Installation is currently(As of 2023-08-11) on halt due to a few unresolved issues.**
 
 As of 2023-07, the version marked as main does support all the currently implemented tasks yet.
 But it is considered stable. Development will happen on the development branch.
@@ -64,8 +63,9 @@ For contributing code, you may have a look at the [architecture](docs/architectu
 
 # Roadmap (As of 2023-08)
 - Implement and release tasks that involve changes to the buffer
-- Improve on he progress-communication during a session
-- Improve on the UI
+- Improve the progress-communication during a session
+- Improvements to the UI
+- Implement and document a config
 
 
 # [License](/LICENSE)
