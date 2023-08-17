@@ -10,9 +10,7 @@ local utility = require("nvim_training.utility")
 local audio_interface = require("nvim_training.audio_feedback"):new()
 local Config = require("nvim_training.config")
 
-local total_task_pool = {RandomXYTask}
-
-
+local total_task_pool = { RandomXYTask }
 
 local current_window = vim.api.nvim_tabpage_get_win(0)
 local user_interface = require("lua.nvim_training.user_interface"):new()
@@ -23,7 +21,7 @@ TaskSequence.__index = TaskSequence
 
 function TaskSequence:new()
 	local base =
-	{ task_length = 10, task_index = 0, status_list = {}, task_sequence = {}, task_pool = {}, active_autocmds = {} }
+		{ task_length = 10, task_index = 0, status_list = {}, task_sequence = {}, task_pool = {}, active_autocmds = {} }
 	setmetatable(base, { __index = self })
 	base:_prepare()
 	return base

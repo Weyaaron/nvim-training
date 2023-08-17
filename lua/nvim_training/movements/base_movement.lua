@@ -21,7 +21,7 @@ function Movement:new(custom_args)
 	end
 	return base
 end
-function Movement:_prepare_calculation() 
+function Movement:_prepare_calculation()
 	local max_lines = vim.api.nvim_buf_line_count(0)
 	local buffer_as_lines = vim.api.nvim_buf_get_lines(0, max_lines, -1, false)
 	self.str_as_single_line = nil

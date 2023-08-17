@@ -13,7 +13,7 @@ function TestTask:prepare()
 
 	self.new_buffer_coordinates = self.movement:calculate_cursor_x_y()
 
-	self.desc ="Jump to " .. self.new_buffer_coordinates[1] .. ",".. self.new_buffer_coordinates[2]
+	self.desc = "Jump to " .. self.new_buffer_coordinates[1] .. "," .. self.new_buffer_coordinates[2]
 
 	self.highlight_namespace = vim.api.nvim_create_namespace("TestTaskNameSpace")
 
@@ -23,7 +23,7 @@ function TestTask:prepare()
 		0,
 		self.highlight_namespace,
 		"UnderScore",
-		self.new_buffer_coordinates[1] -1,
+		self.new_buffer_coordinates[1] - 1,
 		self.new_buffer_coordinates[2],
 		self.new_buffer_coordinates[2] + 1
 	)
@@ -31,7 +31,7 @@ end
 
 function TestTask:completed()
 	local current_cursor = vim.api.nvim_win_get_cursor(0)
-	print("You jumped to " ..tostring(current_cursor[1]) .. ", " .. tostring(current_cursor[2]))
+	print("You jumped to " .. tostring(current_cursor[1]) .. ", " .. tostring(current_cursor[2]))
 	local x_diff = current_cursor[1] - self.new_buffer_coordinates[1]
 	local y_diff = current_cursor[2] - self.new_buffer_coordinates[2]
 	print(x_diff .. ", " .. y_diff)

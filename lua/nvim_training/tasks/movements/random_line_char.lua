@@ -47,7 +47,7 @@ function MoveRandomXYTask:prepare()
 		"UnderScore",
 		self.new_buffer_coordinates[1] - 1,
 		self.new_buffer_coordinates[2] + 2,
-		line_length +1
+		line_length + 1
 	)
 end
 
