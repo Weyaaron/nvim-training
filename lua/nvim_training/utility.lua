@@ -1,6 +1,19 @@
 local utility = {}
 
+function utility.generate_char_set(input_str)
+	local result = {}
+	local cursor_pos = vim.api.nvim_win_get_cursor(0)
+	local cursor_pos_y = cursor_pos[2]
+	local max_line_len = #input_str
+	for i = cursor_pos_y + 3, max_line_len, 1 do
+		local current_char = string.sub(input_str, i, i)
+		table.insert(result, current_char)
+	end
+	return result
+end
+
 function utility.replace_main_buffer_with_str(input_str)
+
 	local line_count = vim.api.nvim_buf_line_count(0)
 	local current_buffer_lines = vim.api.nvim_buf_get_lines(0, 0, line_count, false)
 
