@@ -5,7 +5,6 @@ tMovement.__index = tMovement
 tMovement.base_args = { target_char = "" }
 
 function tMovement:_execute_calculation()
-
 	local cursor_pos = vim.api.nvim_win_get_cursor(0)
 	local cursor_pos_x = cursor_pos[1]
 	local cursor_pos_y = cursor_pos[2]

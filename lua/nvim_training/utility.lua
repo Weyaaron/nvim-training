@@ -13,7 +13,6 @@ function utility.generate_char_set(input_str)
 end
 
 function utility.replace_main_buffer_with_str(input_str)
-
 	local line_count = vim.api.nvim_buf_line_count(0)
 	local current_buffer_lines = vim.api.nvim_buf_get_lines(0, 0, line_count, false)
 
