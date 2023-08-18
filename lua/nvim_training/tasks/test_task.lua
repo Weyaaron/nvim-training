@@ -1,7 +1,7 @@
 local Task = require("nvim_training.task")
 
 local TestMovement = require("lua.nvim_training.movements.test_movement")
-local ForwardMovement = require("lua.nvim_training.movements.forward_movement")
+local BaseMovement= require("lua.nvim_training.movements.base_movement")
 
 local TestTask = Task:new()
 TestTask.base_args = { autocmds = { "CursorMoved" }, tags = { "buffer" } }
@@ -11,7 +11,7 @@ function TestTask:prepare()
 	self:load_from_json("permutation.buffer")
 	utility.replace_main_buffer_with_str(self.initial_buffer)
 
-	self.movement = ForwardMovement:new()
+	self.movement = BaseMovement:new()
 
 	self.new_buffer_coordinates = self.movement:calculate_cursor_x_y()
 

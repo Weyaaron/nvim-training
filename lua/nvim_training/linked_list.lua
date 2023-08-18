@@ -4,6 +4,11 @@ local LinkedList = {}
 local utility = require("lua.nvim_training.utility")
 
 function LinkedList.create_list_from_text_table(input_list)
+	if not input_list then
+		print("Empty Input!")
+		return nil
+	end
+
 	local nodes_in_list = {}
 	local root_node = nil
 

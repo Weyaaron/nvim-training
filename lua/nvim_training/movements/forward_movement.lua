@@ -15,7 +15,6 @@ function ForwardMovement:_prepare_calculation()
 	local left_sub_str = string.sub(current_cursor_line, current_cursor[2], #current_cursor_line)
 
 	self.right_str = left_sub_str
-	print(left_sub_str)
 	local result = {}
 end
 function ForwardMovement:_execute_calculation()
