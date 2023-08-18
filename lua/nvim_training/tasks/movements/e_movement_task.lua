@@ -47,3 +47,4 @@ function eMovementTask:teardown()
 		vim.api.nvim_buf_clear_namespace(0, self.highlight_namespace, 0, -1)
 	end
 end
+return eMovementTask

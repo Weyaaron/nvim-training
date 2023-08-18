@@ -1,4 +1,3 @@
-
 local Task = require("nvim_training.task")
 local fMovement = require("lua.nvim_training.movements.f_movement")
 local FMovementTask = Task:new()
