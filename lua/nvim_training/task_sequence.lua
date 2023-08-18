@@ -7,6 +7,7 @@ local TestTask = require("lua.nvim_training.tasks.test_task")
 local RandomXYTask = require("lua.nvim_training.tasks.movements.random_line_char")
 local FMovementTask = require("lua.nvim_training.tasks.movements.f")
 local TMovementTask = require("lua.nvim_training.tasks.movements.t")
+local eMovementTask = require("lua.nvim_training.tasks.movements.e")
 local utility = require("nvim_training.utility")
 
 local audio_interface = require("nvim_training.audio_feedback"):new()

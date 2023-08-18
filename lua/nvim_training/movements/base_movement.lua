@@ -34,7 +34,6 @@ function Movement:_prepare_calculation()
 
 	local linked_list = require("lua.nvim_training.linked_list")
 	self.buffer_as_list = linked_list.create_list_from_text_table(buffer_as_lines)
-
 end
 function Movement:_execute_calculation()
 	return { 5, 9 }

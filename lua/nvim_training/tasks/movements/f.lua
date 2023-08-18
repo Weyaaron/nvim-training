@@ -14,8 +14,10 @@ function FMovementTask:prepare()
 
 	self.movement = fMovement:new()
 
+	--Maybe this could be improved by utilizing the linked data list?
+
 	local current_cursor = vim.api.nvim_win_get_cursor(0)
-	local current_buffer_lines = vim.api.nvim_buf_get_lines(0, current_cursor[1], current_cursor[1] + 1, false)
+	local current_buffer_lines = vim.api.nvim_buf_get_lines(0, current_cursor[1] - 1, current_cursor[1], false)
 	local current_cursor_line = current_buffer_lines[1]
 	local left_sub_str = string.sub(current_cursor_line, current_cursor[2], #current_cursor_line)
 	local possible_chars = utility.generate_char_set(left_sub_str)
