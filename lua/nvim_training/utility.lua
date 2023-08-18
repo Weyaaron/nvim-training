@@ -1,17 +1,5 @@
 local utility = {}
 
-function utility.traverse_to_cursor(input_node)
-	local cursor_pos = vim.api.nvim_win_get_cursor(0)
-	local x_comparision = input_node.line_index == cursor_pos[1]
-	cursor_pos[2] = cursor_pos[2] + 1
-	print(cursor_pos[2])
-	local left_bound = (input_node.start_index <= cursor_pos[2])
-	local right_bound = (input_node.end_index >= cursor_pos[2])
-	print(input_node.content .. tostring(x_comparision) .. " " .. tostring(left_bound) .. " " .. tostring(right_bound))
-
-	--print(input_node:stringify())
-	return x_comparision and left_bound and right_bound
-end
 
 function utility.search_for_char_in_word(input_word, input_char)
 	local offset = -1
