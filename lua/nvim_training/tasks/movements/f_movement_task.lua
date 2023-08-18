@@ -1,9 +1,8 @@
+
 local Task = require("nvim_training.task")
 local fMovement = require("lua.nvim_training.movements.f_movement")
-
 local FMovementTask = Task:new()
 FMovementTask.base_args = { autocmds = { "CursorMoved" }, tags = { "buffer" } }
-local utility = require("nvim_training.utility")
 
 function FMovementTask:prepare()
 	--Replace this with a list of chars actually contained in the
