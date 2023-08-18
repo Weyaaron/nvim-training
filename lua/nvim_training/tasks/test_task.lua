@@ -1,7 +1,7 @@
 local Task = require("nvim_training.task")
 
 local TestMovement = require("lua.nvim_training.movements.test_movement")
-local BaseMovement= require("lua.nvim_training.movements.base_movement")
+local BaseMovement = require("lua.nvim_training.movements.base_movement")
 
 local TestTask = Task:new()
 TestTask.base_args = { autocmds = { "CursorMoved" }, tags = { "buffer" } }

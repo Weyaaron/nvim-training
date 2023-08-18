@@ -1,5 +1,5 @@
-local linemovement = require("lua/nvim_training/movements/line_movement")
-local tMovement = linemovement:new()
+local base_movement = require("lua/nvim_training/movements/base_movement")
+local tMovement = base_movement:new()
 tMovement.__index = tMovement
 
 tMovement.base_args = { target_char = "" }
