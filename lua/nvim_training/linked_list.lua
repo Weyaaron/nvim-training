@@ -61,34 +61,38 @@ end
 
 function LinkedList.construct_text_table_from_list(result, input_node)
 	if not result then
-		result = {""}
+		result = { "" }
 	end
-	if not input_node then 
-		return result 
+	if not input_node then
+		return result
 	end
 
 	if not input_node.next then
 		result[input_node.line_index] = result[input_node.line_index] .. input_node.content
 		return result
 	end
-	print(input_node.line_index .. " " .. input_node.next.line_index )
+	print(input_node.line_index .. " " .. input_node.next.line_index)
 	print("len: " .. #result)
 
-	local comparision =input_node.line_index == input_node.next.line_index
+	local comparision = input_node.line_index == input_node.next.line_index
 
 	if comparision then
 		result[input_node.line_index] = result[input_node.line_index] .. input_node.content
 		return LinkedList.construct_text_table_from_list(result, input_node.next)
 	else
-
 		result[input_node.line_index] = result[input_node.line_index] .. input_node.content
 		table.insert(result, "")
 		return LinkedList.construct_text_table_from_list(result, input_node.next)
+	end
 end
-	
-
+function LinkedList.traverse_n(distance)
+	local counter = 0
+	local function inner_func(input_node)
+		counter = counter + 1
+		return counter == distance
+	end
+	return inner_func
 end
-
 return LinkedList
 --[[
 	local result = {}
