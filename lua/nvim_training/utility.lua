@@ -1,5 +1,48 @@
 local utility = {}
 
+local LinkedListNode = require("lua.nvim_training.linked_list")
+
+function utility.construct_linked_list()
+	local line_count = vim.api.nvim_buf_line_count(0)
+	local input_list = vim.api.nvim_buf_get_lines(0, 0, line_count, false)
+
+	local node_list = {}
+	local root_node = nil
+
+	for i, line_el in pairs(input_list) do
+		local pieces = utility.split_str(line_el, " ")
+		for pi, piece_el in pairs(pieces) do
+			local values = line_el:find(piece_el)
+			local new_node = LinkedListNode:new(piece_el, i, values, values + #piece_el)
+			table.insert(node_list, new_node)
+		end
+	end
+
+	root_node = node_list[1]
+
+	for i = 1, #node_list do
+		node_list[i].next = node_list[i + 1]
+		node_list[i].previous = node_list[i - 1]
+	end
+	return root_node
+end
+
+function utility.deconstruct_linked_list(root_node)
+	--Todo: Should this function actually write the buffer?
+	local current_line_index = 1
+	local lines = {}
+	local current_node = root_node
+	while current_node.next do
+		if current_node.line_index == current_line_index then
+			lines[current_line_index] = lines[current_line_index] .." " .. current_node.content
+		else
+			current_line_index = current_line_index + 1
+			lines[current_line_index] = current_node.content
+		end
+		current_node = current_node.next
+	end
+	return lines
+end
 
 function utility.search_for_char_in_word(input_word, input_char)
 	local offset = -1
