@@ -3,13 +3,11 @@ local eMovement = base_movement:new()
 eMovement.__index = eMovement
 eMovement.base_args = { offset = 0 }
 
-local utility = require("nvim_training.utility")
 function eMovement:_execute_calculation()
-	local cursor_node = self.buffer_as_list:traverse(utility.traverse_to_cursor)
-
-	local target_node = cursor_node:traverse(utility.traverse_n(self.offset))
-	print(target_node.content)
-	return { target_node.line_index, target_node.start_index }
+	local cursor_pos = vim.api.nvim_win_get_cursor(0)
+	local cursor_node = self.buffer_as_list:traverse_to_line_char(cursor_pos[1], cursor_pos[2])
+	local target_node = cursor_node:traverse_n(self.offset)
+	return { target_node.line_index, target_node.end_index - 2 }
 end
 
 return eMovement
