@@ -52,12 +52,20 @@ function LinkedListNode:backtrack(condition_fn)
 end
 
 function LinkedListNode:traverse_to_line_char(line_index, char_index)
+	char_index = char_index + 1
+
 	local function traversal_function(input_node)
 		local x_comparision = input_node.line_index == line_index
 		local left_bound = (input_node.start_index <= char_index)
 		local right_bound = (input_node.end_index >= char_index)
 		print(
-			input_node.content .. tostring(x_comparision) .. " " .. tostring(left_bound) .. " " .. tostring(right_bound)
+			input_node.content
+				.. " "
+				.. tostring(x_comparision)
+				.. " "
+				.. tostring(left_bound)
+				.. " "
+				.. tostring(right_bound)
 		)
 
 		return x_comparision and left_bound and right_bound
@@ -78,13 +86,10 @@ function LinkedListNode:traverse_and_consume(stop_func)
 	end
 end
 function LinkedListNode:traverse_n(distance)
+	local counter = 0
 	local function inner_traverse(input_node)
-		local counter = 0
-		local function inner_func(input_node)
-			counter = counter + 1
-			return counter == distance
-		end
-		return inner_func
+		counter = counter + 1
+		return counter == distance
 	end
 	return self:traverse(inner_traverse)
 end

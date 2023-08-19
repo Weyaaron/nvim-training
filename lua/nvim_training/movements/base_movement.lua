@@ -3,6 +3,8 @@ Movement.__index = Movement
 
 Movement.base_args = {}
 
+local LinkedListNode = require("lua.nvim_training.linked_list")
+local utility = require("nvim_training.utility")
 function Movement:new(custom_args)
 	self.__index = self
 	local base = {}
@@ -22,18 +24,7 @@ function Movement:new(custom_args)
 	return base
 end
 function Movement:_prepare_calculation()
-	local max_lines = vim.api.nvim_buf_line_count(0)
-	local buffer_as_lines = vim.api.nvim_buf_get_lines(0, 0, max_lines, false)
-	self.str_as_single_line = ""
-	self.line_indexes = {}
-
-	for i, line_el in pairs(buffer_as_lines) do
-		self.str_as_single_line = self.str_as_single_line .. line_el
-		table.insert(self.line_indexes, #self.str_as_single_line)
-	end
-
-	local linked_list = require("lua.nvim_training.linked_list")
-	self.buffer_as_list = linked_list.create_list_from_text_table(buffer_as_lines)
+	self.buffer_as_list = utility.construct_linked_list()
 end
 function Movement:_execute_calculation()
 	return { 5, 9 }

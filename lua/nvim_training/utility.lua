@@ -34,7 +34,7 @@ function utility.deconstruct_linked_list(root_node)
 	local current_node = root_node
 	while current_node.next do
 		if current_node.line_index == current_line_index then
-			lines[current_line_index] = lines[current_line_index] .." " .. current_node.content
+			lines[current_line_index] = lines[current_line_index] .. " " .. current_node.content
 		else
 			current_line_index = current_line_index + 1
 			lines[current_line_index] = current_node.content

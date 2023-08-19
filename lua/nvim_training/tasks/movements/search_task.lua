@@ -8,6 +8,7 @@ local utility = require("nvim_training.utility")
 
 function SearchTask:prepare()
 	local offset = math.random(10)
+	local offset = 12
 
 	self:load_from_json("permutation.buffer")
 	utility.replace_main_buffer_with_str(self.initial_buffer)
@@ -16,9 +17,9 @@ function SearchTask:prepare()
 	self.movement.offset = offset
 
 	self.new_buffer_coordinates = self.movement:calculate_cursor_x_y()
-	self.movement.buffer_as_list = self.movement.buffer_as_list:traverse(linked_list.traverse_to_cursor)
-	local content_word = self.movement.buffer_as_list:traverse(linked_list.traverse_n(offset)).content
-
+	local cursor_position = vim.api.nvim_win_get_cursor(0)
+	local cursor_node = self.movement.buffer_as_list:traverse_to_line_char(cursor_position[1], cursor_position[2])
+	local content_word = cursor_node:traverse_n(offset).content
 	self.desc = "Jump to the next instance of " .. content_word .. " using search."
 
 	self.highlight_namespace = vim.api.nvim_create_namespace("TestTaskNameSpace")
