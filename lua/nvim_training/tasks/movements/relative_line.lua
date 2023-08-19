@@ -1,3 +1,5 @@
+-- luacheck: globals vim
+
 local utility = require("nvim_training.utility")
 local Task = require("nvim_training.task")
 

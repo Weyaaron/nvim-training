@@ -1,3 +1,5 @@
+-- luacheck: globals vim
+
 if vim.g.loaded_training == 1 then
 	print("Already loaded")
 	return
@@ -20,7 +22,7 @@ local base_path = construct_base_path()
 vim.api.nvim_command("set runtimepath^=" .. base_path)
 
 --Todo: There should be a less convoluted way of copying a file, but this is sufficient for now
-function copy_json()
+local function copy_json()
 	local utility = require("nvim_training.utility")
 	local base_config_path = utility.construct_project_base_path("./plugin/default_config.json")
 	local source_file = io.open(base_config_path)
@@ -34,7 +36,7 @@ function copy_json()
 	target_file:close()
 end
 
-function setup()
+local function setup()
 	local Task_sequence = require("nvim_training.task_sequence")
 	copy_json()
 	local Config = require("nvim_training.config")

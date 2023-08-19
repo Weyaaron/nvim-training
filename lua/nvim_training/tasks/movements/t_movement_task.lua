@@ -1,3 +1,5 @@
+-- luacheck: globals vim
+
 local Task = require("nvim_training.task")
 local tMovement = require("lua.nvim_training.movements.t_movement")
 

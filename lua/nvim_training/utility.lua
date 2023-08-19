@@ -1,3 +1,5 @@
+-- luacheck: globals vim
+
 local utility = {}
 
 local LinkedListNode = require("lua.nvim_training.linked_list")
@@ -128,9 +130,9 @@ function utility.intersection(a, b)
 
 	return result
 end
-function construct_base_path()
+local function construct_base_path()
 	--https://stackoverflow.com/questions/6380820/get-containing-path-of-lua-file
-	function script_path()
+	local function script_path()
 		local str = debug.getinfo(2, "S").source:sub(2)
 		local initial_result = str:match("(.*/)")
 		return initial_result

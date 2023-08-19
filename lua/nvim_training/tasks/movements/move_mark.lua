@@ -1,3 +1,5 @@
+-- luacheck: globals vim
+
 local Task = require("nvim_training.task")
 local utility = require("nvim_training.utility")
 local MoveMarkTask = Task:new()

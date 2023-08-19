@@ -1,14 +1,14 @@
+-- luacheck: globals vim
+
 local Task = require("nvim_training.task")
 local SearchMovement = require("lua.nvim_training.movements.search_movement")
 local SearchTask = Task:new()
 SearchTask.base_args = { autocmds = { "CursorMoved" }, tags = { "buffer" } }
 
-local linked_list = require("nvim_training.linked_list")
 local utility = require("nvim_training.utility")
 
 function SearchTask:prepare()
 	local offset = math.random(10)
-	local offset = 12
 
 	self:load_from_json("permutation.buffer")
 	utility.replace_main_buffer_with_str(self.initial_buffer)

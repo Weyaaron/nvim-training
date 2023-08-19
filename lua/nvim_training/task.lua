@@ -1,3 +1,5 @@
+-- luacheck: globals vim
+
 local Task = {}
 Task.__index = Task
 Task.base_args = { desc = "Generic Top Level Task Description", autocmds = {}, abr = "ABLT", tags = {} }
