@@ -21,7 +21,7 @@ function Movement:new(custom_args)
 		base[i] = v
 	end
 
-	self.buffer_as_list = utility.construct_linked_list()
+
 	return base
 end
 function Movement:_execute_calculation()

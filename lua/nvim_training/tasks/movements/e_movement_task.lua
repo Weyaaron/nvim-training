@@ -1,8 +1,6 @@
 -- luacheck: globals vim
 
 local Task = require("nvim_training.task")
-local eMovement = require("lua.nvim_training.movements.e_movement")
-
 local eMovementTask = Task:new()
 eMovementTask.base_args = { autocmds = { "CursorMoved" }, tags = { "buffer" } }
 local utility = require("nvim_training.utility")
@@ -12,7 +10,6 @@ function eMovementTask:prepare()
 	utility.replace_main_buffer_with_str(self.initial_buffer)
 	local jump_distance = math.random(10)
 
-	self.movement = eMovement:new()
 	local cursor_position = vim.api.nvim_win_get_cursor(0)
 	local cursor_node = self.movement.buffer_as_list:traverse_to_line_char(cursor_position[1], cursor_position[2])
 	local end_diff = cursor_node.end_index - cursor_position[2] - 2

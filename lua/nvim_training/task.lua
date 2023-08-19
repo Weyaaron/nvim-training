@@ -23,6 +23,8 @@ function Task:new(custom_args)
 	for i, v in pairs(custom_args) do
 		base[i] = v
 	end
+	--Buffer might change? hope not
+	self.buffer_as_list = utility.construct_linked_list()
 	return base
 end
 

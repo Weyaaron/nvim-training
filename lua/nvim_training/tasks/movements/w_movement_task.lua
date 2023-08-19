@@ -2,23 +2,21 @@
 
 local Task = require("nvim_training.task")
 local utility = require("nvim_training.utility")
-local wMovement = require("lua.nvim_training.movements.w_movement")
 local MoveWordForwardTask = Task:new()
+
+local Movements = require("lua.nvim_training.movements")
 MoveWordForwardTask.base_args = { cursor_target = 0, tags = { "movement" }, autocmds = { "CursorMoved" } }
 
 function MoveWordForwardTask:prepare()
 	self:load_from_json("lorem_ipsum.buffer")
 
-	self.previous_cursor_position = 0
-
 	utility.replace_main_buffer_with_str(self.initial_buffer)
 
-	local jump_target_offset_in_words = math.random(2, 5)
-	self.movement = wMovement:new()
+	local offset= math.random(2, 5)
+	local movement_result = Movements.w(self.buffer_as_list, 0,0,{offset=offset})
+	self.new_buffer_coordinates = {movement_result[2], movement_result[3]}
 
-	self.new_buffer_coordinates = self.movement:calculate_cursor_x_y()
-
-	self.desc = "Jump " .. tostring(jump_target_offset_in_words) .. " words relative to your cursor."
+	self.desc = "Jump " .. tostring(offset) .. " words relative to your cursor."
 
 	self.highlight_namespace = vim.api.nvim_create_namespace("JumpWordLineNameSpace")
 
@@ -42,7 +40,7 @@ function MoveWordForwardTask:completed()
 end
 
 function MoveWordForwardTask:failed()
-	return not self:failed()
+	return not self:completed()
 end
 
 function MoveWordForwardTask:teardown()

@@ -87,11 +87,17 @@ end
 function LinkedListNode:traverse_n(distance)
 	local counter = 0
 	local function inner_traverse(input_node)
-		--print("Traversing at node " .. input_node.content .. "with c " .. counter)
 		local comparison = counter == distance
 		counter = counter + 1
 		return comparison
 	end
 	return self:traverse(inner_traverse)
 end
+
+
+
+
+
+
+
 return LinkedListNode
