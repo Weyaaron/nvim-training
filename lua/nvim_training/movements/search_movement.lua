@@ -10,7 +10,6 @@ function SearchMovement:_execute_calculation()
 
 	local target_node = cursor_node:traverse_n(self.offset)
 
-	print(target_node.content)
 	return { target_node.line_index, target_node.start_index - 1 }
 end
 

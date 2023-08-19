@@ -59,7 +59,6 @@ function utility.search_for_char_in_word(input_word, input_char)
 end
 
 function utility.generate_char_set(input_str)
-	print("input:" .. input_str)
 	local result = {}
 	local cursor_pos = vim.api.nvim_win_get_cursor(0)
 	local cursor_pos_y = cursor_pos[2]
