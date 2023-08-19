@@ -58,15 +58,14 @@ function LinkedListNode:traverse_to_line_char(line_index, char_index)
 		local x_comparision = input_node.line_index == line_index
 		local left_bound = (input_node.start_index <= char_index)
 		local right_bound = (input_node.end_index >= char_index)
-		print(
-			input_node.content
-				.. " "
-				.. tostring(x_comparision)
-				.. " "
-				.. tostring(left_bound)
-				.. " "
-				.. tostring(right_bound)
-		)
+		local status = input_node.content
+			.. " "
+			.. tostring(x_comparision)
+			.. " "
+			.. tostring(left_bound)
+			.. " "
+			.. tostring(right_bound)
+		--print(status)
 
 		return x_comparision and left_bound and right_bound
 	end
@@ -88,8 +87,10 @@ end
 function LinkedListNode:traverse_n(distance)
 	local counter = 0
 	local function inner_traverse(input_node)
+		--print("Traversing at node " .. input_node.content .. "with c " .. counter)
+		local comparison = counter == distance
 		counter = counter + 1
-		return counter == distance
+		return comparison
 	end
 	return self:traverse(inner_traverse)
 end
