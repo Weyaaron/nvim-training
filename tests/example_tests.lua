@@ -44,9 +44,11 @@ function div(v1, v2)
 	return v1 / v2
 end
 function adder(v)
-    -- return a function that adds v to its argument using add
-    function closure( x ) return x+v end
-    return closure
+	-- return a function that adds v to its argument using add
+	function closure(x)
+		return x + v
+	end
+	return closure
 end
 
 TestAdd = {}
@@ -69,6 +71,5 @@ function TestAdd:testAdder()
 	luaunit.assertIsFunction(f)
 	luaunit.assertEquals(f(2), 5)
 end
-
 
 os.exit(luaunit.LuaUnit.run())

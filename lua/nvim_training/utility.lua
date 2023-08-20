@@ -29,21 +29,30 @@ function utility.construct_linked_list()
 	return root_node
 end
 
-function utility.deconstruct_linked_list(root_node)
-	--Todo: Should this function actually write the buffer?
-	local current_line_index = 1
+function utility.deconstruct_linked_list(start_note)
+	local root_node = start_note:root()
 	local lines = {}
+	--100 should be fine for most purposes
+	for i = 1, 75 do
+		table.insert(lines, "")
+	end
 	local current_node = root_node
 	while current_node.next do
-		if current_node.line_index == current_line_index then
-			lines[current_line_index] = lines[current_line_index] .. " " .. current_node.content
-		else
-			current_line_index = current_line_index + 1
-			lines[current_line_index] = current_node.content
-		end
+		lines[current_node.line_index] = lines[current_node.line_index] .. current_node.content .. " "
 		current_node = current_node.next
 	end
-	return lines
+	local result = {}
+	--Modyfing in place failed, this is fine
+	for i, v in pairs(lines) do
+		if not (v == "") then
+			local function all_trim(s)
+				return s:match("^%s*(.-)%s*$")
+			end
+			v = all_trim(v)
+			table.insert(result, v)
+		end
+	end
+	return result
 end
 
 function utility.search_for_char_in_word(input_word, input_char)
