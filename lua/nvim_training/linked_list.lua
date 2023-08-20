@@ -78,9 +78,9 @@ function LinkedListNode:traverse_to_line_char(line_index, char_index)
 	return self:traverse(traversal_function)
 end
 
-function LinkedListNode:traverse_and_consume(stop_func)
-	--Do I do this properly? Test it!
+function LinkedListNode:traverse_and_consume_inclusive(stop_func)
 	local current_status = stop_func(self)
+	print("Status of " .. self.content .. " " .. tostring(current_status))
 	if not current_status then
 		if self.previous then
 			self.previous.next = self.next
@@ -88,17 +88,19 @@ function LinkedListNode:traverse_and_consume(stop_func)
 		if self.next then
 			self.next.previous = self.previous
 		end
-		return self.next:traverse_and_consume(stop_func)
+		return self.next:traverse_and_consume_inclusive(stop_func)
 	else
-		return self
+		self.next.previous = self.previous
+		return self.next
 	end
 end
 
-function LinkedListNode:consume_up_until_node(target_node)
+function LinkedListNode:consume_up_until_node_inclusive(target_node)
 	local function cmp_func(input_node)
+		print("Comparing " .. input_node.content .. " with " .. target_node.content)
 		return input_node.content == target_node.content
 	end
-	return self:traverse_and_consume(cmp_func)
+	return self:traverse_and_consume_inclusive(cmp_func)
 end
 
 function LinkedListNode:root()
@@ -106,6 +108,12 @@ function LinkedListNode:root()
 		return input_node == nil
 	end
 	return self:backtrack(_end)
+end
+function LinkedListNode:last()
+	local function _end(input_node)
+		return input_node == nil
+	end
+	return self:traverse(_end)
 end
 
 function LinkedListNode:traverse_n(distance)
