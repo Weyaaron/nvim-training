@@ -11,6 +11,8 @@ function DeleteWordTask:prepare()
 	utility.replace_main_buffer_with_str(self.initial_buffer)
 	self.target_buffer = self.initial_buffer
 
+	--Todo: Replace with linked list
+
 	local line_count = vim.api.nvim_buf_line_count(0)
 	local new_cursor_pos = math.random(0, line_count)
 	vim.api.nvim_win_set_cursor(0, { new_cursor_pos, 7 })

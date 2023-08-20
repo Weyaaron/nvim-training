@@ -34,36 +34,12 @@ function utility.deconstruct_linked_list(start_note)
 	local root_node = start_note:root()
 	local lines = {}
 
-	--100 should be fine for most purposes
-	for i = 1, 75 do
+	--That should be fine for most purposes
+	while (#lines <75) do
 		table.insert(lines, "")
 	end
 	local current_node = root_node
 	while current_node do
-		lines[current_node.line_index] = lines[current_node.line_index] .. current_node.content .. " "
-		current_node = current_node.next
-	end
-	local result = {}
-	--Modyfing in place failed, this is fine
-	for i, v in pairs(lines) do
-		if not (v == "") then
-			local function all_trim(s)
-				return s:match("^%s*(.-)%s*$")
-			end
-			v = all_trim(v)
-			table.insert(result, v)
-		end
-	end
-	return result
-end
-
-function utility.search_for_char_in_word(input_word, input_char)
-	--100 should be fine for most purposes
-	for i = 1, 75 do
-		table.insert(lines, "")
-	end
-	local current_node = root_node
-	while current_node.next do
 		lines[current_node.line_index] = lines[current_node.line_index] .. current_node.content .. " "
 		current_node = current_node.next
 	end

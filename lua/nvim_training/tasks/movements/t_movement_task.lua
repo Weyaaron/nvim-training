@@ -8,8 +8,7 @@ tMovementTask.base_args = { autocmds = { "CursorMoved" }, tags = { "buffer" } }
 local utility = require("nvim_training.utility")
 
 function tMovementTask:prepare()
-	--Replace this with a list of chars actually contained in the
-	--string
+
 
 	self:load_from_json("permutation.buffer")
 	utility.replace_main_buffer_with_str(self.initial_buffer)

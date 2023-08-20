@@ -80,7 +80,6 @@ end
 
 function LinkedListNode:traverse_and_consume_inclusive(stop_func)
 	local current_status = stop_func(self)
-	print("Status of " .. self.content .. " " .. tostring(current_status))
 	if not current_status then
 		if self.previous then
 			self.previous.next = self.next
@@ -97,7 +96,6 @@ end
 
 function LinkedListNode:consume_up_until_node_inclusive(target_node)
 	local function cmp_func(input_node)
-		print("Comparing " .. input_node.content .. " with " .. target_node.content)
 		return input_node.content == target_node.content
 	end
 	return self:traverse_and_consume_inclusive(cmp_func)
@@ -128,7 +126,7 @@ function LinkedListNode:traverse_n(distance)
 end
 
 function LinkedListNode:w(offset)
-	return self:traverse_n(offset)
+	return self:traverse_n(offset - 1)
 end
 function LinkedListNode:test()
 	return { self.next }
@@ -167,7 +165,6 @@ function Movements.search(input_node, cursor_x, cursor_y, custom_args)
 	return { target_node.line_index, target_node.start_index - 1 }
 end
 
-
 function tMovement:_execute_calculation()
 	local cursor_pos = vim.api.nvim_win_get_cursor(0)
 	local cursor_pos_x = cursor_pos[1]
@@ -184,6 +181,5 @@ function tMovement:_execute_calculation()
 
 	return { cursor_pos_x, y_target - 1 }
 end
-
 ]]
 --

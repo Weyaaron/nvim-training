@@ -13,15 +13,13 @@ function DeleteMultipleWordsTask:prepare()
 
 	self.buffer_as_list = utility.construct_linked_list()
 	local offset = math.random(2, 12)
-	offset = 3
 	local cursor_pos = vim.api.nvim_win_get_cursor(0)
 	local move_to_cursor = self.buffer_as_list:traverse_to_line_char(cursor_pos[1], cursor_pos[2])
-	--Why -1? This might break in the future
-	local movement_result = move_to_cursor:w(offset - 1)
+	local movement_result = move_to_cursor:w(offset)
 
-	self.desc = "Remove the words up until '" .. movement_result.content .. "' from the buffer."
+	self.desc = "Remove " .. offset .. " words."
 
-	local new_list = move_to_cursor:consume_up_until_node(movement_result)
+	local new_list = move_to_cursor:consume_up_until_node_inclusive(movement_result)
 	self.target_list = new_list
 
 	self.highlight_namespace = vim.api.nvim_create_namespace("BufferPermutationNameSpace")
@@ -36,8 +34,6 @@ function DeleteMultipleWordsTask:prepare()
 		movement_result.end_index,
 		movement_result.end_index + 1
 	)
-	--Placing this here sucks, but there is no other way?
-	self.buffer_as_list = utility.construct_linked_list()
 end
 
 function DeleteMultipleWordsTask:completed()
@@ -45,26 +41,26 @@ function DeleteMultipleWordsTask:completed()
 	local current_buffer_lines = vim.api.nvim_buf_get_lines(0, 0, line_count, false)
 
 	local target_lines = utility.deconstruct_linked_list(self.target_list)
-	local comparision = true
+	local comparison = #target_lines == #current_buffer_lines
+	if not comparison then
+		print("Lines differ in length!")
+	end
+
 	for i, current_buffer_line_el in pairs(current_buffer_lines) do
 		local target_line_el = target_lines[i]
-		if not target_line_el then
-			comparision = false
-			break
-		end
 		local line_comparision = target_line_el == current_buffer_line_el
 		if not line_comparision then
 			print("Comp broke at " .. i .. ":" .. current_buffer_line_el .. "!=" .. target_line_el)
-			comparision = false
+			comparison = false
 			break
 		end
 	end
-	--print("Result is:" .. tostring(comparision))
-	return true
+
+	return comparison
 end
 
 function DeleteMultipleWordsTask:failed()
-	return false
+	return not self:completed()
 end
 
 function DeleteMultipleWordsTask:teardown()
