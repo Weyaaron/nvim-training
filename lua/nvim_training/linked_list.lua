@@ -1,6 +1,5 @@
 local LinkedListNode = {}
 LinkedListNode.__index = LinkedListNode
-
 function LinkedListNode:new(content, line_index, start_index, end_index)
 	self.__index = self
 	local base = {}
@@ -33,6 +32,7 @@ function LinkedListNode:stringify()
 end
 
 function LinkedListNode:traverse(condition_fn)
+	--print("Traversing" ..self.content)
 	local current_node = condition_fn(self)
 	if current_node then
 		return self
@@ -139,23 +139,18 @@ function LinkedListNode.e(cursor_x, cursor_y, offset)
 	return { target_node.line_index, target_node.end_index - 2 }
 end
 
-return LinkedListNode
---[[
-function LinkedListNode.f(input_node, cursor_x, cursor_y, custom_args)
-	local cursor_node = self.buffer_as_list:traverse(utility.traverse_to_cursor)
-
+function LinkedListNode:f(target_char)
+	local utility = require("lua.nvim_training.utility")
 	local function traverse_to_char(input_node)
-		local search_result = utility.search_for_char_in_word(input_node.content, self.target_char)
+		local search_result = utility.search_for_char_in_word(input_node.content, target_char)
 		return not (search_result == -1)
 	end
 
-	local final_node = cursor_node:traverse(traverse_to_char)
-	local char_offset_in_word = utility.search_for_char_in_word(final_node.content, self.target_char)
-
-	--Todo: Evaluate the -2 and fix it
-	return { final_node.line_index, final_node.start_index + char_offset_in_word - 2 }
+	return self:traverse(traverse_to_char)
 end
 
+return LinkedListNode
+--[[
 function Movements.search(input_node, cursor_x, cursor_y, custom_args)
 	local cursor_position = vim.api.nvim_win_get_cursor(0)
 	local cursor_node = self.buffer_as_list:traverse_to_line_char(cursor_position[1], cursor_position[2])
