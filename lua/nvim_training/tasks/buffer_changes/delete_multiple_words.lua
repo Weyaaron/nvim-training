@@ -19,21 +19,11 @@ function DeleteMultipleWordsTask:prepare()
 
 	self.desc = "Remove " .. offset .. " words."
 
-	local new_list = move_to_cursor:consume_up_until_node_inclusive(movement_result)
-	self.target_list = new_list
+	self.target_list = move_to_cursor:consume_up_until_node_inclusive(movement_result)
 
-	self.highlight_namespace = vim.api.nvim_create_namespace("BufferPermutationNameSpace")
+	self.highlight = utility.create_highlights(	movement_result.line_index - 1,
+		movement_result.end_index,1)
 
-	vim.api.nvim_set_hl(0, "UnderScore", { underline = true })
-
-	vim.api.nvim_buf_add_highlight(
-		0,
-		self.highlight_namespace,
-		"UnderScore",
-		movement_result.line_index - 1,
-		movement_result.end_index,
-		movement_result.end_index + 1
-	)
 end
 
 function DeleteMultipleWordsTask:completed()
@@ -48,8 +38,8 @@ function DeleteMultipleWordsTask:completed()
 
 	for i, current_buffer_line_el in pairs(current_buffer_lines) do
 		local target_line_el = target_lines[i]
-		local line_comparision = target_line_el == current_buffer_line_el
-		if not line_comparision then
+		local line_comparison = target_line_el == current_buffer_line_el
+		if not line_comparison then
 			print("Comp broke at " .. i .. ":" .. current_buffer_line_el .. "!=" .. target_line_el)
 			comparison = false
 			break
@@ -64,9 +54,7 @@ function DeleteMultipleWordsTask:failed()
 end
 
 function DeleteMultipleWordsTask:teardown()
-	if self.highlight_namespace then
-		vim.api.nvim_buf_clear_namespace(0, self.highlight_namespace, 0, -1)
-	end
+	utility.clear_highlight(self.highlight)
 end
 
 return DeleteMultipleWordsTask

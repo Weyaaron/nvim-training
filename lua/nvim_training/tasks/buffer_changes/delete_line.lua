@@ -36,11 +36,10 @@ function DeleteLineTask:prepare()
 		end
 	end
 
-	self.highlight_namespace = vim.api.nvim_create_namespace("BufferPermutationNameSpace")
 
-	vim.api.nvim_set_hl(0, "UnderScore", { underline = true })
+	self.highlight = utility.create_highlights(line_index, 0, -1)
 
-	vim.api.nvim_buf_add_highlight(0, self.highlight_namespace, "UnderScore", line_index, 0, -1)
+
 end
 
 function DeleteLineTask:completed()
@@ -64,9 +63,7 @@ function DeleteLineTask:construct_line_table_from_buffer()
 end
 
 function DeleteLineTask:teardown()
-	if self.highlight_namespace then
-		vim.api.nvim_buf_clear_namespace(0, self.highlight_namespace, 0, -1)
-	end
+	utility.clean_highlight(self.highlight)
 end
 
 return DeleteLineTask

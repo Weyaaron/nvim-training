@@ -39,19 +39,13 @@ function DeleteWordTask:prepare()
 		end
 	end
 
-	local right_bound = left_bound + target_word:len()
-
 	for i, v in pairs(self.initial_words_in_buffer) do
 		if target_word == v then
 			table.remove(self.initial_words_in_buffer, i)
 		end
 	end
+	self.highlight = utility.create_highlights(line_index, left_bound,target_word:len())
 
-	self.highlight_namespace = vim.api.nvim_create_namespace("BufferPermutationNameSpace")
-
-	vim.api.nvim_set_hl(0, "UnderScore", { underline = true })
-
-	vim.api.nvim_buf_add_highlight(0, self.highlight_namespace, "UnderScore", line_index, left_bound, right_bound)
 end
 
 function DeleteWordTask:completed()
@@ -87,9 +81,7 @@ function DeleteWordTask:construct_word_table_from_buffer()
 end
 
 function DeleteWordTask:teardown()
-	if self.highlight_namespace then
-		vim.api.nvim_buf_clear_namespace(0, self.highlight_namespace, 0, -1)
-	end
+	utility.clean_highlight(self.highlight)
 end
 
 return DeleteWordTask
