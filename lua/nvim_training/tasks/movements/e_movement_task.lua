@@ -8,21 +8,19 @@ local utility = require("nvim_training.utility")
 function eMovementTask:prepare()
 	self:load_from_json("permutation.buffer")
 	utility.replace_main_buffer_with_str(self.initial_buffer)
-	local jump_distance = math.random(10)
+	local offset = math.random(3, 7)
+	offset = 5
 
 	local cursor_position = vim.api.nvim_win_get_cursor(0)
-	local cursor_node = self.movement.buffer_as_list:traverse_to_line_char(cursor_position[1], cursor_position[2])
-	local end_diff = cursor_node.end_index - cursor_position[2] - 2
-	print("end diff with node " .. cursor_node.content .. " " .. end_diff)
-	if not (end_diff == 0) then
-		jump_distance = jump_distance - 1
-	end
-	self.movement.offset = jump_distance
-	self.new_buffer_coordinates = self.movement:calculate_cursor_x_y()
 
-	local content_word = cursor_node:traverse_n(jump_distance).content
+	local cursor_node = self.buffer_as_list:traverse_to_line_char(cursor_position[1], cursor_position[2])
+	--print("Cursor_node " .. cursor_node.content)
 
-	self.desc = "Jump  to the end of the " .. jump_distance .. "th word: " .. content_word
+	local e_movement_result = cursor_node:e(cursor_position[1], cursor_position[2], offset)
+	local target_note = e_movement_result[1]
+	offset = e_movement_result[2]
+	self.desc = "Jump  to the end of the " .. offset .. "th word: " .. target_note.content
+	self.new_buffer_coordinates = { target_note.line_index, target_note.end_index - 2 }
 
 	self.highlight_namespace = vim.api.nvim_create_namespace("TestTaskNameSpace")
 

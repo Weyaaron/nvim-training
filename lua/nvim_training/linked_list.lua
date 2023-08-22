@@ -131,12 +131,17 @@ end
 function LinkedListNode:test()
 	return { self.next }
 end
-function LinkedListNode.e(cursor_x, cursor_y, offset)
-	--Todo: Implement this!
-	local cursor_pos = vim.api.nvim_win_get_cursor(0)
-	local cursor_node = self.buffer_as_list:traverse_to_line_char(cursor_pos[1], cursor_pos[2])
-	local target_node = cursor_node:traverse_n(self.offset)
-	return { target_node.line_index, target_node.end_index - 2 }
+
+--This function has to deviate from the default return value
+--by returning the offset since the offset is required in the ui
+function LinkedListNode:e(cursor_x, cursor_y, offset)
+	local offset_to_end = (cursor_y - self.end_index) + 2
+	print("Offset at node " .. self.content .. " is " .. offset_to_end)
+	--print("Starting at " .. self.content)
+	if offset_to_end == 0 then
+		offset = offset - 1
+	end
+	return { self:traverse_n(offset - 1), offset }
 end
 
 function LinkedListNode:f(target_char)
