@@ -35,7 +35,7 @@ function utility.deconstruct_linked_list(start_note)
 	local lines = {}
 
 	--That should be fine for most purposes
-	while (#lines <75) do
+	while #lines < 75 do
 		table.insert(lines, "")
 	end
 	local current_node = root_node

@@ -29,8 +29,7 @@ end
 
 function MoveAbsoluteLineTask:completed()
 	local cursor_position = vim.api.nvim_win_get_cursor(0)[1]
-	local comparison = cursor_position == self.target_line
-	return comparison
+	return cursor_position == self.target_line
 end
 
 function MoveAbsoluteLineTask:failed()
