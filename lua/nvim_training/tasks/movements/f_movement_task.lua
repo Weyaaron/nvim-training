@@ -26,10 +26,9 @@ function FMovementTask:prepare()
 
 	local char_index = utility.search_for_char_in_word(self.target_node.content, target_char)
 	self.new_buffer_coordinates = { self.target_node.line_index, self.target_node.start_index + char_index - 2 }
-	print("Coordinates" .. self.new_buffer_coordinates[1] .. " " .. self.new_buffer_coordinates[2])
 	self.desc = "Jump to the next instance of " .. target_char .. "."
 
-	self.highlight = utility.create_highlights(self.new_buffer_coordinates[1] - 1, self.new_buffer_coordinates[2], 1)
+	self.highlight = utility.create_highlight(self.new_buffer_coordinates[1] - 1, self.new_buffer_coordinates[2], 1)
 end
 
 function FMovementTask:completed()

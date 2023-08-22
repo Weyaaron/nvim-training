@@ -23,8 +23,7 @@ function utility.construct_linked_list(input)
 	if not input then
 		local line_count = vim.api.nvim_buf_line_count(0)
 		input_list = vim.api.nvim_buf_get_lines(0, 0, line_count, false)
-		end
-
+	end
 
 	local node_list = {}
 

@@ -19,7 +19,7 @@ function MoveAbsoluteLineTask:prepare()
 		self.target_line_index = math.random(bounds[1], bounds[2])
 	end
 
-	self.desc = "Move to line " .. tostring(self.target_line)
+	self.desc = "Move to line " .. tostring(self.target_line_index)
 	self.highlight = utility.create_highlight(self.target_line_index - 1, 0, -1)
 end
 

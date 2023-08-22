@@ -44,8 +44,7 @@ function DeleteWordTask:prepare()
 			table.remove(self.initial_words_in_buffer, i)
 		end
 	end
-	self.highlight = utility.create_highlights(line_index, left_bound,target_word:len())
-
+	self.highlight = utility.create_highlight(line_index, left_bound, target_word:len())
 end
 
 function DeleteWordTask:completed()

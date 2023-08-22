@@ -21,14 +21,14 @@ function MoveRandomXYTask:prepare()
 	self.desc = "Move to line " .. self.new_buffer_coordinates[1] .. "and " .. self.new_buffer_coordinates[2]
 
 	local first_highlight =
-		utility.create_highlights(self.new_buffer_coordinates[1] - 1, self.new_buffer_coordinates[2], 1)
+		utility.create_highlight(self.new_buffer_coordinates[1] - 1, self.new_buffer_coordinates[2], 1)
 	local second_highlight =
-		utility.create_highlights(self.new_buffer_coordinates[1] - 1, 0, self.new_buffer_coordinates[2] - 1)
+		utility.create_highlight(self.new_buffer_coordinates[1] - 1, 0, self.new_buffer_coordinates[2] - 1)
 
 	local new_buffer_lines =
 		vim.api.nvim_buf_get_lines(0, self.new_buffer_coordinates[1], self.new_buffer_coordinates[1] + 1, false)
 	local line_length = #new_buffer_lines[1]
-	local third_highlight = utility.create_highlights(
+	local third_highlight = utility.create_highlight(
 		self.new_buffer_coordinates[1] - 1,
 		self.new_buffer_coordinates[2] + 2,
 		line_length + 1

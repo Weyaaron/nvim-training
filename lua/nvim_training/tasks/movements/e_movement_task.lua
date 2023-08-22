@@ -8,18 +8,18 @@ local utility = require("nvim_training.utility")
 function eMovementTask:prepare()
 	self:load_from_json("permutation.buffer")
 	utility.replace_main_buffer_with_str(self.initial_buffer)
-	local offset = math.random(3, 7)
+	local offset = math.random(2, 9)
 
 	local cursor_position = vim.api.nvim_win_get_cursor(0)
 	local cursor_node = self.buffer_as_list:traverse_to_line_char(cursor_position[1], cursor_position[2])
 
 	local e_movement_result = cursor_node:e(cursor_position[1], cursor_position[2], offset)
-	local target_note = e_movement_result[1]
+	local target_node = e_movement_result[1]
 	offset = e_movement_result[2]
-	self.desc = "Jump  to the end of the " .. offset .. "th word: " .. target_note.content
-	self.new_buffer_coordinates = { target_note.line_index, target_note.end_index - 2 }
+	self.desc = "Jump  to the end of the " .. offset .. "th word: " .. target_node.content
+	self.new_buffer_coordinates = { target_node.line_index, target_node.end_index - 2 }
 
-	self.highlight = utility.create_highlights(self.new_buffer_coordinates[1] - 1, self.new_buffer_coordinates[2], 1)
+	self.highlight = utility.create_highlight(self.new_buffer_coordinates[1] - 1, self.new_buffer_coordinates[2], 1)
 end
 
 function eMovementTask:completed()

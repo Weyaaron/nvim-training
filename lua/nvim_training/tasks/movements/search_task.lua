@@ -21,7 +21,7 @@ function SearchTask:prepare()
 	local target_node = cursor_node:search(content_word)
 	self.new_buffer_coordinates = { target_node.line_index, target_node.start_index - 1 }
 	self.highlight =
-		utility.create_highlights(target_node.line_index - 1, target_node.start_index - 1, #target_node.content)
+		utility.create_highlight(target_node.line_index - 1, target_node.start_index - 1, #target_node.content)
 end
 
 function SearchTask:completed()

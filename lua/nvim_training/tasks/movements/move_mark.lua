@@ -30,7 +30,7 @@ function MoveMarkTask:place_mark()
 	end
 	self.desc = "Go to Mark " .. self.current_mark_name
 
-	self.highlight = utility.create_highlights(self.target_line - 1, 0, -1)
+	self.highlight = utility.create_highlight(self.target_line - 1, 0, -1)
 
 	vim.api.nvim_buf_set_mark(0, self.current_mark_name, self.target_line, 0, {})
 end

@@ -21,9 +21,7 @@ function DeleteMultipleWordsTask:prepare()
 
 	self.target_list = move_to_cursor:consume_up_until_node_inclusive(movement_result)
 
-	self.highlight = utility.create_highlights(	movement_result.line_index - 1,
-		movement_result.end_index,1)
-
+	self.highlight = utility.create_highlight(movement_result.line_index - 1, movement_result.end_index, 1)
 end
 
 function DeleteMultipleWordsTask:completed()

@@ -10,7 +10,6 @@ function tMovementTask:prepare()
 	self:load_from_json("permutation.buffer")
 	utility.replace_main_buffer_with_str(self.initial_buffer)
 
-
 	local current_cursor = vim.api.nvim_win_get_cursor(0)
 	local current_line = vim.api.nvim_buf_get_lines(0, current_cursor[1], current_cursor[1] + 1, false)[1]
 	local current_line_as_list = utility.construct_linked_list(current_line)
@@ -19,9 +18,6 @@ function tMovementTask:prepare()
 	local left_sub_str = string.sub(current_cursor_line, current_cursor[2], #current_cursor_line)
 	local possible_chars = utility.generate_char_set(left_sub_str)
 	local target_char = possible_chars[math.random(#possible_chars)]
-
-
-
 
 	local cursor_node = self.buffer_as_list:traverse_to_line_char(current_cursor[1], current_cursor[2])
 	local target_node = cursor_node:t(target_char)

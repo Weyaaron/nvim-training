@@ -22,7 +22,7 @@ function MoveRelativeLineTask:prepare()
 	self.desc = "Move " .. tostring(self.current_offset) .. " lines relative to your cursor."
 
 	local line_for_highlight = self.previous_line + self.current_offset - 1
-	self.highlight = utility.create_highlights(line_for_highlight, 0, -1)
+	self.highlight = utility.create_highlight(line_for_highlight, 0, -1)
 end
 
 function MoveRelativeLineTask:completed()
@@ -34,7 +34,7 @@ function MoveRelativeLineTask:failed()
 end
 
 function MoveRelativeLineTask:teardown()
-	utility.clean_highlight(self.highlight)
+	utility.clear_highlight(self.highlight)
 end
 
 return MoveRelativeLineTask
