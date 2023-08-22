@@ -60,19 +60,19 @@ function LinkedListNode:traverse_to_line_char(line_index, char_index)
 	char_index = char_index + 1
 
 	local function traversal_function(input_node)
-		local x_comparision = input_node.line_index == line_index
+		local x_comparison = input_node.line_index == line_index
 		local left_bound = (input_node.start_index <= char_index)
 		local right_bound = (input_node.end_index >= char_index)
 		local status = input_node.content
 			.. " "
-			.. tostring(x_comparision)
+			.. tostring(x_comparison)
 			.. " "
 			.. tostring(left_bound)
 			.. " "
 			.. tostring(right_bound)
 		--print(status)
 
-		return x_comparision and left_bound and right_bound
+		return x_comparison and left_bound and right_bound
 	end
 
 	return self:traverse(traversal_function)
@@ -118,15 +118,14 @@ function LinkedListNode:traverse_n(distance)
 	local counter = 0
 	local function inner_traverse(input_node)
 		--print("Traversing " ..input_node.content.. "with" ..counter )
-		local comparison = counter == distance
 		counter = counter + 1
-		return comparison
+		return counter == distance
 	end
 	return self:traverse(inner_traverse)
 end
 
 function LinkedListNode:w(offset)
-	return self:traverse_n(offset - 1)
+	return self:traverse_n(offset)
 end
 function LinkedListNode:test()
 	return { self.next }
@@ -141,7 +140,7 @@ function LinkedListNode:e(cursor_x, cursor_y, offset)
 	if offset_to_end == 0 then
 		offset = offset - 1
 	end
-	return { self:traverse_n(offset - 1), offset }
+	return { self:traverse_n(offset), offset }
 end
 
 function LinkedListNode:f(target_char)
@@ -152,6 +151,13 @@ function LinkedListNode:f(target_char)
 	end
 
 	return self:traverse(traverse_to_char)
+end
+
+function LinkedListNode:search(target_str)
+	local function traverse_by_content(input_node)
+		return input_node.content == target_str
+	end
+	return self:traverse(traverse_by_content)
 end
 
 return LinkedListNode

@@ -9,12 +9,9 @@ function eMovementTask:prepare()
 	self:load_from_json("permutation.buffer")
 	utility.replace_main_buffer_with_str(self.initial_buffer)
 	local offset = math.random(3, 7)
-	offset = 5
 
 	local cursor_position = vim.api.nvim_win_get_cursor(0)
-
 	local cursor_node = self.buffer_as_list:traverse_to_line_char(cursor_position[1], cursor_position[2])
-	--print("Cursor_node " .. cursor_node.content)
 
 	local e_movement_result = cursor_node:e(cursor_position[1], cursor_position[2], offset)
 	local target_note = e_movement_result[1]

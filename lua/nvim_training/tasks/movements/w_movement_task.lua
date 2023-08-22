@@ -14,8 +14,7 @@ function MoveWordForwardTask:prepare()
 	local offset = math.random(2, 5)
 	local cursor_pos = vim.api.nvim_win_get_cursor(0)
 	local move_to_cursor = self.buffer_as_list:traverse_to_line_char(cursor_pos[1], cursor_pos[2])
-	--Why -1? This might break in the future
-	local movement_result = move_to_cursor:w(offset - 1)
+	local movement_result = move_to_cursor:w(offset)
 	self.desc = "Jump " .. tostring(offset) .. " words relative to your cursor."
 	self.new_buffer_coordinates = { movement_result.line_index, movement_result.end_index }
 
