@@ -16,15 +16,17 @@ function FMovementTask:prepare()
 	local left_sub_str = string.sub(current_cursor_line, current_cursor[2], #current_cursor_line)
 	local possible_chars = utility.generate_char_set(left_sub_str)
 
+	--One recurring issue is that the movement may be stuck if you start at the char you
+	--are searching for. This has to be fixed, but I have no clue how.
+
 	local target_char = possible_chars[math.random(#possible_chars)]
-	--The +1 ensures that we hit the next instance of u instead of staying at the current place 
 	local cursor_node = self.buffer_as_list:traverse_to_line_char(current_cursor[1], current_cursor[2])
-	self.target_node =cursor_node:f(target_char)
+	self.target_node = cursor_node:f(target_char)
 	print("target_node = " .. self.target_node.content)
 
 	local char_index = utility.search_for_char_in_word(self.target_node.content, target_char)
-	self.new_buffer_coordinates = { self.target_node.line_index, self.target_node.start_index + char_index -2}
-	print("Coordinates" ..self.new_buffer_coordinates[1] .. " " .. self.new_buffer_coordinates[2])
+	self.new_buffer_coordinates = { self.target_node.line_index, self.target_node.start_index + char_index - 2 }
+	print("Coordinates" .. self.new_buffer_coordinates[1] .. " " .. self.new_buffer_coordinates[2])
 	self.desc = "Jump to the next instance of " .. target_char .. "."
 
 	self.highlight_namespace = vim.api.nvim_create_namespace("TestTaskNameSpace")
