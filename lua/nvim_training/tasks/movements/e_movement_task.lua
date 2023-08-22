@@ -19,18 +19,7 @@ function eMovementTask:prepare()
 	self.desc = "Jump  to the end of the " .. offset .. "th word: " .. target_note.content
 	self.new_buffer_coordinates = { target_note.line_index, target_note.end_index - 2 }
 
-	self.highlight_namespace = vim.api.nvim_create_namespace("TestTaskNameSpace")
-
-	vim.api.nvim_set_hl(0, "UnderScore", { underline = true })
-
-	vim.api.nvim_buf_add_highlight(
-		0,
-		self.highlight_namespace,
-		"UnderScore",
-		self.new_buffer_coordinates[1] - 1,
-		self.new_buffer_coordinates[2],
-		self.new_buffer_coordinates[2] + 1
-	)
+	self.highlight = utility.create_highlights(self.new_buffer_coordinates[1] - 1, self.new_buffer_coordinates[2], 1)
 end
 
 function eMovementTask:completed()
@@ -45,8 +34,6 @@ function eMovementTask:failed()
 end
 
 function eMovementTask:teardown()
-	if self.highlight_namespace then
-		vim.api.nvim_buf_clear_namespace(0, self.highlight_namespace, 0, -1)
-	end
+	utility.clear_highlight(self.highlight)
 end
 return eMovementTask

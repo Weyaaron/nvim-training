@@ -28,10 +28,6 @@ function PlaceMarkTask:failed()
 end
 
 function PlaceMarkTask:teardown() end
-function PlaceMarkTask:teardown_all_marks()
-	for _, mark_el in pairs(self.chars) do
-		vim.api.nvim_buf_set_mark(0, mark_el, 0, 0, {})
-	end
-end
+function PlaceMarkTask:teardown_all_marks() end
 
 return PlaceMarkTask

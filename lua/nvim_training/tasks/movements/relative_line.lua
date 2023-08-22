@@ -21,12 +21,8 @@ function MoveRelativeLineTask:prepare()
 
 	self.desc = "Move " .. tostring(self.current_offset) .. " lines relative to your cursor."
 
-	self.highlight_namespace = vim.api.nvim_create_namespace("RelativeVerticalLineNameSpace")
-
-	vim.api.nvim_set_hl(0, "UnderScore", { underline = true })
-
 	local line_for_highlight = self.previous_line + self.current_offset - 1
-	vim.api.nvim_buf_add_highlight(0, self.highlight_namespace, "UnderScore", line_for_highlight, 0, -1)
+	self.highlight = utility.create_highlights(line_for_highlight, 0, -1)
 end
 
 function MoveRelativeLineTask:completed()
@@ -38,9 +34,7 @@ function MoveRelativeLineTask:failed()
 end
 
 function MoveRelativeLineTask:teardown()
-	if self.highlight_namespace then
-		vim.api.nvim_buf_clear_namespace(0, self.highlight_namespace, 0, -1)
-	end
+	utility.clean_highlight(self.highlight)
 end
 
 return MoveRelativeLineTask

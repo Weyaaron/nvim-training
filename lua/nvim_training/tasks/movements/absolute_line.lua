@@ -11,25 +11,21 @@ function MoveAbsoluteLineTask:prepare()
 	self:load_from_json("one_word_per_line.buffer")
 	utility.replace_main_buffer_with_str(self.initial_buffer)
 
-	local line_count = vim.api.nvim_buf_line_count(0)
+	local bounds = { 1, vim.api.nvim_buf_line_count(0) - 5 }
 
-	self.target_line = math.random(1, line_count - 5)
+	self.target_line_index = math.random(bounds[1], bounds[2])
 	local current_line = vim.api.nvim_win_get_cursor(0)[1]
-	while current_line == self.target_line do
-		self.target_line = math.random(1, line_count - 5)
+	while current_line == self.target_line_index do
+		self.target_line_index = math.random(bounds[1], bounds[2])
 	end
 
 	self.desc = "Move to line " .. tostring(self.target_line)
-	self.highlight_namespace = vim.api.nvim_create_namespace("AbsoluteVerticalLineNameSpace")
-
-	vim.api.nvim_set_hl(0, "UnderScore", { underline = true })
-
-	vim.api.nvim_buf_add_highlight(0, self.highlight_namespace, "UnderScore", self.target_line - 1, 0, -1)
+	self.highlight = utility.create_highlight(self.target_line_index - 1, 0, -1)
 end
 
 function MoveAbsoluteLineTask:completed()
 	local cursor_position = vim.api.nvim_win_get_cursor(0)[1]
-	return cursor_position == self.target_line
+	return cursor_position == self.target_line_index
 end
 
 function MoveAbsoluteLineTask:failed()
@@ -37,9 +33,7 @@ function MoveAbsoluteLineTask:failed()
 end
 
 function MoveAbsoluteLineTask:teardown()
-	if self.highlight_namespace then
-		vim.api.nvim_buf_clear_namespace(0, self.highlight_namespace, 0, -1)
-	end
+	utility.clear_highlight(self.highlight)
 end
 
 return MoveAbsoluteLineTask

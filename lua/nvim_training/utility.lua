@@ -4,6 +4,20 @@ local utility = {}
 
 local LinkedListNode = require("lua.nvim_training.linked_list")
 
+function utility.create_highlight(x, y, len)
+	local hl = {}
+	local highlight_namespace = vim.api.nvim_create_namespace("DefaultNvimTrainingHlSpace")
+	hl.highlight_namespace = highlight_namespace
+	vim.api.nvim_set_hl(0, "UnderScore", { underline = true })
+
+	vim.api.nvim_buf_add_highlight(0, highlight_namespace, "UnderScore", x, y, y + len)
+	return hl
+end
+
+function utility.clear_highlight(highlight_obj)
+	vim.api.nvim_buf_clear_namespace(0, highlight_obj.highlight_namespace, 0, -1)
+end
+
 function utility.construct_linked_list()
 	local line_count = vim.api.nvim_buf_line_count(0)
 	local input_list = vim.api.nvim_buf_get_lines(0, 0, line_count, false)

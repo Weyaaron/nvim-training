@@ -18,18 +18,7 @@ function MoveWordForwardTask:prepare()
 	self.desc = "Jump " .. tostring(offset) .. " words relative to your cursor."
 	self.new_buffer_coordinates = { movement_result.line_index, movement_result.end_index }
 
-	self.highlight_namespace = vim.api.nvim_create_namespace("JumpWordLineNameSpace")
-
-	vim.api.nvim_set_hl(0, "UnderScore", { underline = true })
-
-	vim.api.nvim_buf_add_highlight(
-		0,
-		self.highlight_namespace,
-		"UnderScore",
-		movement_result.line_index - 1,
-		movement_result.end_index,
-		movement_result.end_index + 1
-	)
+	self.highlight = utility.create_highlights(self.new_buffer_coordinates[1] - 1, self.new_buffer_coordinates[2], 1)
 end
 
 function MoveWordForwardTask:completed()
@@ -44,9 +33,7 @@ function MoveWordForwardTask:failed()
 end
 
 function MoveWordForwardTask:teardown()
-	if self.highlight_namespace then
-		vim.api.nvim_buf_clear_namespace(0, self.highlight_namespace, 0, -1)
-	end
+	utility.clear_highlight(self.highlight)
 end
 
 return MoveWordForwardTask

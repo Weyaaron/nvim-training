@@ -29,18 +29,7 @@ function FMovementTask:prepare()
 	print("Coordinates" .. self.new_buffer_coordinates[1] .. " " .. self.new_buffer_coordinates[2])
 	self.desc = "Jump to the next instance of " .. target_char .. "."
 
-	self.highlight_namespace = vim.api.nvim_create_namespace("TestTaskNameSpace")
-
-	vim.api.nvim_set_hl(0, "UnderScore", { underline = true })
-
-	vim.api.nvim_buf_add_highlight(
-		0,
-		self.highlight_namespace,
-		"UnderScore",
-		self.new_buffer_coordinates[1] - 1,
-		self.new_buffer_coordinates[2],
-		self.new_buffer_coordinates[2] + 1
-	)
+	self.highlight = utility.create_highlights(self.new_buffer_coordinates[1] - 1, self.new_buffer_coordinates[2], 1)
 end
 
 function FMovementTask:completed()
@@ -56,9 +45,7 @@ function FMovementTask:failed()
 end
 
 function FMovementTask:teardown()
-	if self.highlight_namespace then
-		vim.api.nvim_buf_clear_namespace(0, self.highlight_namespace, 0, -1)
-	end
+	utility.clear_highlight(self.highlight)
 end
 
 return FMovementTask

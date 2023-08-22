@@ -29,10 +29,8 @@ function MoveMarkTask:place_mark()
 		self.target_line = math.random(5, 15)
 	end
 	self.desc = "Go to Mark " .. self.current_mark_name
-	self.highlight_namespace = vim.api.nvim_create_namespace("MarkLineNameSpace")
-	vim.api.nvim_set_hl(0, "UnderScore", { underline = true })
 
-	vim.api.nvim_buf_add_highlight(0, self.highlight_namespace, "UnderScore", self.target_line - 1, 0, -1)
+	self.highlight = utility.create_highlights(self.target_line - 1, 0, -1)
 
 	vim.api.nvim_buf_set_mark(0, self.current_mark_name, self.target_line, 0, {})
 end

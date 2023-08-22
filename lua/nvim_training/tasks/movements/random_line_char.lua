@@ -19,38 +19,21 @@ function MoveRandomXYTask:prepare()
 	self.desc = "Jump to line " .. self.new_buffer_coordinates[1] .. " and char " .. self.new_buffer_coordinates[2]
 
 	self.desc = "Move to line " .. self.new_buffer_coordinates[1] .. "and " .. self.new_buffer_coordinates[2]
-	self.highlight_namespace = vim.api.nvim_create_namespace("AbsoluteVerticalLineNameSpace")
 
-	vim.api.nvim_set_hl(0, "UnderScore", { underline = true })
-
-	vim.api.nvim_buf_add_highlight(
-		0,
-		self.highlight_namespace,
-		"UnderScore",
-		self.new_buffer_coordinates[1] - 1,
-		self.new_buffer_coordinates[2],
-		self.new_buffer_coordinates[2] + 1
-	)
-	vim.api.nvim_buf_add_highlight(
-		0,
-		self.highlight_namespace,
-		"UnderScore",
-		self.new_buffer_coordinates[1] - 1,
-		0,
-		self.new_buffer_coordinates[2] - 1
-	)
+	local first_highlight =
+		utility.create_highlights(self.new_buffer_coordinates[1] - 1, self.new_buffer_coordinates[2], 1)
+	local second_highlight =
+		utility.create_highlights(self.new_buffer_coordinates[1] - 1, 0, self.new_buffer_coordinates[2] - 1)
 
 	local new_buffer_lines =
 		vim.api.nvim_buf_get_lines(0, self.new_buffer_coordinates[1], self.new_buffer_coordinates[1] + 1, false)
 	local line_length = #new_buffer_lines[1]
-	vim.api.nvim_buf_add_highlight(
-		0,
-		self.highlight_namespace,
-		"UnderScore",
+	local third_highlight = utility.create_highlights(
 		self.new_buffer_coordinates[1] - 1,
 		self.new_buffer_coordinates[2] + 2,
 		line_length + 1
 	)
+	self.highlights = { first_highlight, second_highlight, third_highlight }
 end
 
 function MoveRandomXYTask:completed()
@@ -65,8 +48,8 @@ function MoveRandomXYTask:failed()
 end
 
 function MoveRandomXYTask:teardown()
-	if self.highlight_namespace then
-		vim.api.nvim_buf_clear_namespace(0, self.highlight_namespace, 0, -1)
+	for i, v in self.highlights do
+		utility.clear_highlight(v)
 	end
 end
 
