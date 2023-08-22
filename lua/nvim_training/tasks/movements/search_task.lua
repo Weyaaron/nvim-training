@@ -1,27 +1,25 @@
 -- luacheck: globals vim
 
 local Task = require("nvim_training.task")
-local SearchMovement = require("lua.nvim_training.movements.search_movement")
 local SearchTask = Task:new()
 SearchTask.base_args = { autocmds = { "CursorMoved" }, tags = { "buffer" } }
 
 local utility = require("nvim_training.utility")
 
 function SearchTask:prepare()
-	local offset = math.random(10)
-
 	self:load_from_json("permutation.buffer")
 	utility.replace_main_buffer_with_str(self.initial_buffer)
+	self.buffer_as_list = utility.construct_linked_list()
 
-	self.movement = SearchMovement:new()
-	self.movement.offset = offset
-
-	self.new_buffer_coordinates = self.movement:calculate_cursor_x_y()
+	local offset = math.random(2, 15)
 	local cursor_position = vim.api.nvim_win_get_cursor(0)
-	local cursor_node = self.movement.buffer_as_list:traverse_to_line_char(cursor_position[1], cursor_position[2])
-	local content_word = cursor_node:traverse_n(offset).content
-	self.desc = "Jump to the next instance of " .. content_word .. " using search."
+	local cursor_node = self.buffer_as_list:traverse_to_line_char(cursor_position[1], cursor_position[2])
 
+	local content_word = cursor_node:traverse_n(offset).content
+	self.desc = "Jump to the next instance of '" .. content_word .. "' using search."
+
+	local target_node = cursor_node:search(content_word)
+	self.new_buffer_coordinates = { target_node.line_index, target_node.start_index -1}
 	self.highlight_namespace = vim.api.nvim_create_namespace("TestTaskNameSpace")
 
 	vim.api.nvim_set_hl(0, "UnderScore", { underline = true })
