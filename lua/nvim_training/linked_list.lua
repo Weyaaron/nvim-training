@@ -144,13 +144,7 @@ function LinkedListNode:e(cursor_x, cursor_y, offset)
 end
 
 function LinkedListNode:f(target_char)
-	local utility = require("lua.nvim_training.utility")
-	local function traverse_to_char(input_node)
-		local search_result = utility.search_for_char_in_word(input_node.content, target_char)
-		return not (search_result == -1)
-	end
-
-	return self:traverse(traverse_to_char)
+	return self:_traverse_until_char(target_char)
 end
 
 function LinkedListNode:search(target_str)
@@ -160,32 +154,18 @@ function LinkedListNode:search(target_str)
 	return self:traverse(traverse_by_content)
 end
 
-return LinkedListNode
---[[
-function Movements.search(input_node, cursor_x, cursor_y, custom_args)
-	local cursor_position = vim.api.nvim_win_get_cursor(0)
-	local cursor_node = self.buffer_as_list:traverse_to_line_char(cursor_position[1], cursor_position[2])
-
-	local target_node = cursor_node:traverse_n(self.offset)
-
-	return { target_node.line_index, target_node.start_index - 1 }
-end
-
-function tMovement:_execute_calculation()
-	local cursor_pos = vim.api.nvim_win_get_cursor(0)
-	local cursor_pos_x = cursor_pos[1]
-	local cursor_pos_y = cursor_pos[2]
-	local y_target = 0
-	local max_line_len = #self.current_line
-	for i = cursor_pos_y + 2, max_line_len, 1 do
-		local current_char = string.sub(self.current_line, i, i)
-		if current_char == self.target_char then
-			y_target = i - 1
-			break
-		end
+function LinkedListNode:_traverse_until_char(target_char)
+	local utility = require("lua.nvim_training.utility")
+	local function traverse_to_char(input_node)
+		local search_result = utility.search_for_char_in_word(input_node.content, target_char)
+		return not (search_result == -1)
 	end
-
-	return { cursor_pos_x, y_target - 1 }
+	return self:traverse(traverse_to_char)
 end
-]]
---
+function LinkedListNode:t(target_char)
+	print("Starting at " .. self.content)
+	local result = self:_traverse_until_char(target_char)
+	print("moved from " .. self.content .. " and input " .. target_char .. " to " .. result.content)
+	return result
+end
+return LinkedListNode

@@ -18,9 +18,13 @@ function utility.clear_highlight(highlight_obj)
 	vim.api.nvim_buf_clear_namespace(0, highlight_obj.highlight_namespace, 0, -1)
 end
 
-function utility.construct_linked_list()
-	local line_count = vim.api.nvim_buf_line_count(0)
-	local input_list = vim.api.nvim_buf_get_lines(0, 0, line_count, false)
+function utility.construct_linked_list(input)
+	local input_list = input
+	if not input then
+		local line_count = vim.api.nvim_buf_line_count(0)
+		input_list = vim.api.nvim_buf_get_lines(0, 0, line_count, false)
+		end
+
 
 	local node_list = {}
 
