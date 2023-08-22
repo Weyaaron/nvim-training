@@ -9,7 +9,6 @@ function utility.construct_linked_list()
 	local input_list = vim.api.nvim_buf_get_lines(0, 0, line_count, false)
 
 	local node_list = {}
-	local root_node = nil
 
 	for i, line_el in pairs(input_list) do
 		local pieces = utility.split_str(line_el, " ")
@@ -20,7 +19,7 @@ function utility.construct_linked_list()
 		end
 	end
 
-	root_node = node_list[1]
+	local root_node = node_list[1]
 
 	for i = 1, #node_list do
 		node_list[i].next = node_list[i + 1]

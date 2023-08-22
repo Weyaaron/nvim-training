@@ -1,6 +1,9 @@
+-- luacheck: globals vim
+
 local wTask = require("lua.nvim_training.tasks.movements.w_movement_task")
 local fTask = require("lua.nvim_training.tasks.movements.f_movement_task")
 local eTask = require("lua.nvim_training.tasks.movements.e_movement_task")
+local SearchTask = require("lua.nvim_training.tasks.movements.search_task")
 local AbsoluteLineTask = require("lua.nvim_training.tasks.movements.absolute_line")
 local DeleteMultipleWords = require("lua.nvim_training.tasks.buffer_changes.delete_multiple_words")
 local utility = require("nvim_training.utility")
@@ -8,7 +11,7 @@ local utility = require("nvim_training.utility")
 local audio_interface = require("nvim_training.audio_feedback"):new()
 local Config = require("nvim_training.config")
 
-local total_task_pool = { eTask }
+local total_task_pool = { SearchTask}
 
 local current_window = vim.api.nvim_tabpage_get_win(0)
 local user_interface = require("lua.nvim_training.user_interface"):new()

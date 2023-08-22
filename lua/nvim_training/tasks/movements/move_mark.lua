@@ -25,7 +25,7 @@ function MoveMarkTask:place_mark()
 	end
 
 	local cursor_position = vim.api.nvim_win_get_cursor(0)[1]
-	while target_line == cursor_position do
+	while self.target_line == cursor_position do
 		self.target_line = math.random(5, 15)
 	end
 	self.desc = "Go to Mark " .. self.current_mark_name
