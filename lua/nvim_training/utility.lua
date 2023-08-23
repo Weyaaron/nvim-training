@@ -74,8 +74,9 @@ function utility.deconstruct_linked_list(start_note)
 end
 
 function utility.search_for_char_in_word(input_word, input_char)
+	print("Input into search is " .. input_word)
 	local offset = -1
-	for i = 1, #input_word, 1 do
+	for i = 1, #input_word do
 		local current_char = string.sub(input_word, i, i)
 		if current_char == input_char then
 			offset = i

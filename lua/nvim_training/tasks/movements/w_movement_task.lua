@@ -1,13 +1,12 @@
 -- luacheck: globals vim
 
-local Task = require("nvim_training.task")
-local utility = require("nvim_training.utility")
+local Task = require("lua.nvim_training.task")
+local utility = require("lua.nvim_training.utility")
 local MoveWordForwardTask = Task:new()
 
 MoveWordForwardTask.base_args = { cursor_target = 0, tags = { "movement" }, autocmds = { "CursorMoved" } }
 
 function MoveWordForwardTask:prepare()
-	--Currently completely broken
 	self:load_from_json("lorem_ipsum.buffer")
 
 	utility.replace_main_buffer_with_str(self.initial_buffer)

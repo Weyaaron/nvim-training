@@ -5,12 +5,10 @@ local AbsoluteLineTask = require("lua.nvim_training.tasks.movements.absolute_lin
 local RelativeLineTask = require("lua.nvim_training.tasks.movements.relative_line")
 local SearchTask = require("lua.nvim_training.tasks.movements.search_task")
 local MoveMark = require("lua.nvim_training.tasks.movements.move_mark")
+local wTask = require("lua.nvim_training.tasks.movements.w_movement_task")
+local eTask = require("lua.nvim_training.tasks.movements.e_movement_task")
 
 --These are not done yet
-local eTask = require("lua.nvim_training.tasks.movements.e_movement_task")
-local wTask = require("lua.nvim_training.tasks.movements.w_movement_task")
-
---These are not tested yet
 local fTask = require("lua.nvim_training.tasks.movements.f_movement_task")
 local tTask = require("lua.nvim_training.tasks.movements.t_movement_task")
 
@@ -19,7 +17,7 @@ local utility = require("nvim_training.utility")
 local audio_interface = require("nvim_training.audio_feedback"):new()
 local Config = require("nvim_training.config")
 
-local total_task_pool = { fTask }
+local total_task_pool = { tTask }
 
 local current_window = vim.api.nvim_tabpage_get_win(0)
 local user_interface = require("lua.nvim_training.user_interface"):new()

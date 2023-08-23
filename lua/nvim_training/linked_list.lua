@@ -56,6 +56,7 @@ function LinkedListNode:backtrack(condition_fn)
 end
 
 function LinkedListNode:traverse_to_line_char(line_index, char_index)
+	--print("Line char called")
 	--Todo: Can we fix this?
 	char_index = char_index + 1
 
@@ -74,7 +75,6 @@ function LinkedListNode:traverse_to_line_char(line_index, char_index)
 
 		return x_comparison and left_bound and right_bound
 	end
-
 	return self:traverse(traversal_function)
 end
 
@@ -133,18 +133,26 @@ end
 
 --This function has to deviate from the default return value
 --by returning the offset since the offset is required in the ui
-function LinkedListNode:e(cursor_x, cursor_y, offset)
-	local offset_to_end = (cursor_y - self.end_index) + 2
-	print("Offset at node " .. self.content .. " is " .. offset_to_end)
-	--print("Starting at " .. self.content)
+function LinkedListNode:e(offset, y_cursor_pos)
+	local actual_offset = offset
+	local offset_to_end = (y_cursor_pos - self.end_index) + 2
 	if offset_to_end == 0 then
-		offset = offset - 1
+		actual_offset = actual_offset - 1
 	end
-	return { self:traverse_n(offset), offset }
+	local target_node = self:traverse_n(actual_offset)
+	--No clue what this actually about ? Apparently it works!
+	if offset_to_end == 0 then
+		actual_offset = actual_offset - 1
+	end
+	return { node = target_node, offset = actual_offset }
 end
 
 function LinkedListNode:f(target_char)
-	return self:_traverse_until_char(target_char)
+	print("Searching for " .. target_char)
+	local utility = require("lua.nvim_training.utility")
+	local base_node_result = self:_traverse_until_char(target_char)
+	local offset = base_node_result.start_index + utility.search_for_char_in_word(base_node_result.content, target_char)
+	return { node = base_node_result, offset = offset - 2 }
 end
 
 function LinkedListNode:search(target_str)
@@ -157,15 +165,16 @@ end
 function LinkedListNode:_traverse_until_char(target_char)
 	local utility = require("lua.nvim_training.utility")
 	local function traverse_to_char(input_node)
+		print("Input into search above is  " .. input_node.content)
 		local search_result = utility.search_for_char_in_word(input_node.content, target_char)
 		return not (search_result == -1)
 	end
 	return self:traverse(traverse_to_char)
 end
 function LinkedListNode:t(target_char)
-	print("Starting at " .. self.content)
+	local utility = require("lua.nvim_training.utility")
 	local result = self:_traverse_until_char(target_char)
-	print("moved from " .. self.content .. " and input " .. target_char .. " to " .. result.content)
-	return result
+	local char_offset = utility.search_for_char_in_word(result.content, target_char) - 1
+	return { node = result, offset = result.start_index + char_offset - 2 }
 end
 return LinkedListNode
