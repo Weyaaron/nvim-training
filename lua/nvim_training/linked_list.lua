@@ -32,7 +32,6 @@ function LinkedListNode:stringify()
 end
 
 function LinkedListNode:traverse(condition_fn)
-	--print("Traversing" ..self.content)
 	local current_node = condition_fn(self)
 	if current_node then
 		return self
@@ -56,7 +55,6 @@ function LinkedListNode:backtrack(condition_fn)
 end
 
 function LinkedListNode:traverse_to_line_char(line_index, char_index)
-	--print("Line char called")
 	--Todo: Can we fix this?
 	char_index = char_index + 1
 
@@ -64,15 +62,6 @@ function LinkedListNode:traverse_to_line_char(line_index, char_index)
 		local x_comparison = input_node.line_index == line_index
 		local left_bound = (input_node.start_index <= char_index)
 		local right_bound = (input_node.end_index >= char_index)
-		local status = input_node.content
-			.. " "
-			.. tostring(x_comparison)
-			.. " "
-			.. tostring(left_bound)
-			.. " "
-			.. tostring(right_bound)
-		--print(status)
-
 		return x_comparison and left_bound and right_bound
 	end
 	return self:traverse(traversal_function)
@@ -117,7 +106,6 @@ end
 function LinkedListNode:traverse_n(distance)
 	local counter = 0
 	local function inner_traverse(input_node)
-		--print("Traversing " ..input_node.content.. "with" ..counter )
 		counter = counter + 1
 		return counter == distance
 	end
@@ -148,7 +136,6 @@ function LinkedListNode:e(offset, y_cursor_pos)
 end
 
 function LinkedListNode:f(target_char)
-	print("Searching for " .. target_char)
 	local utility = require("lua.nvim_training.utility")
 	local base_node_result = self:_traverse_until_char(target_char)
 	local offset = base_node_result.start_index + utility.search_for_char_in_word(base_node_result.content, target_char)
@@ -165,7 +152,6 @@ end
 function LinkedListNode:_traverse_until_char(target_char)
 	local utility = require("lua.nvim_training.utility")
 	local function traverse_to_char(input_node)
-		print("Input into search above is  " .. input_node.content)
 		local search_result = utility.search_for_char_in_word(input_node.content, target_char)
 		return not (search_result == -1)
 	end

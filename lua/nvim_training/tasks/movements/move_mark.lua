@@ -1,8 +1,7 @@
 -- luacheck: globals vim
 
-local Task = require("nvim_training.task")
 local utility = require("nvim_training.utility")
-local MoveMarkTask = Task:new()
+local MoveMarkTask = require("lua.nvim_training.tasks.base_movement"):new()
 MoveMarkTask.base_args =
 	{ chars = { "a", "b", "c", "d", "x", "y" }, tags = { "movement", "mark" }, autocmds = { "CursorMoved" } }
 
@@ -33,9 +32,8 @@ function MoveMarkTask:place_mark()
 	self.highlight = utility.create_highlight(self.target_line - 1, 0, -1)
 
 	vim.api.nvim_buf_set_mark(0, self.current_mark_name, self.target_line, 0, {})
-	self.new_buffer_coordinates ={self.target_line, 0}
+	self.new_buffer_coordinates = { self.target_line, 0 }
 end
-
 
 function MoveMarkTask:teardown()
 	utility.clear_highlight(self.highlight)

@@ -37,6 +37,4 @@ function MoveRandomXYTask:prepare()
 	self.highlights = { first_highlight, second_highlight, third_highlight }
 end
 
-
-
 return MoveRandomXYTask

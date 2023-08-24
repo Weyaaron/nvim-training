@@ -1,3 +1,5 @@
+
+-- luacheck: globals vim
 local utility = require("nvim_training.utility")
 local Config = {}
 local keys = { "enable_audio_feedback", "included_tags", "excluded_tags" }

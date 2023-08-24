@@ -1,8 +1,7 @@
 -- luacheck: globals vim
 
-local Task = require("lua.nvim_training.task")
 local utility = require("lua.nvim_training.utility")
-local MoveWordForwardTask = Task:new()
+local MoveWordForwardTask = require("lua.nvim_training.tasks.base_movement"):new()
 
 MoveWordForwardTask.base_args = { cursor_target = 0, tags = { "movement" }, autocmds = { "CursorMoved" } }
 

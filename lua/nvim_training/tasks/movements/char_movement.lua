@@ -17,12 +17,11 @@ function MoveRelativeCharTask:prepare()
 	local current_line_index = cursor_pos[1]
 	local current_line = vim.api.nvim_buf_get_lines(0, current_line_index, current_line_index + 1, false)
 	local current_line_len = #current_line[1]
-	while  true do
+	while true do
 		offset = utility.draw_random_number_with_sign(2, 9)
 		local left_bound = current_char_index + offset > 0
-		local right_bound = current_char_index+ offset < current_line_len
+		local right_bound = current_char_index + offset < current_line_len
 		if left_bound and right_bound then
-			print("broken")
 			break
 		end
 	end
@@ -30,7 +29,7 @@ function MoveRelativeCharTask:prepare()
 	self.desc = "Move " .. tostring(offset) .. " chars relative to your cursor."
 	self.new_buffer_coordinates = { current_line_index, current_char_index + offset }
 
-	self.highlight = utility.create_highlight(current_line_index-1, self.new_buffer_coordinates[2], 1)
+	self.highlight = utility.create_highlight(current_line_index - 1, self.new_buffer_coordinates[2], 1)
 end
 
 return MoveRelativeCharTask

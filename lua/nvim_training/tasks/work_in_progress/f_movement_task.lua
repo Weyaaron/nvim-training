@@ -5,6 +5,7 @@ local FMovementTask = require("lua.nvim_training.tasks.base_movement"):new()
 FMovementTask.base_args = { autocmds = { "CursorMoved" }, tags = { "buffer" } }
 
 function FMovementTask:prepare()
+	--This task is currently not implemented properly!
 	self:load_from_json("permutation.buffer")
 	utility.replace_main_buffer_with_str(self.initial_buffer)
 	self.buffer_as_list = utility.construct_linked_list()
