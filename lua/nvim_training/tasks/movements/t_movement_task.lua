@@ -7,7 +7,6 @@ tMovementTask.base_args = { autocmds = { "CursorMoved" }, tags = { "buffer" } }
 local utility = require("nvim_training.utility")
 
 function tMovementTask:prepare()
-
 	--This is currently not properly implemented
 	self:load_from_json("permutation.buffer")
 	utility.replace_main_buffer_with_str(self.initial_buffer)
@@ -25,14 +24,12 @@ function tMovementTask:prepare()
 	local left_sub_str = string.sub(current_cursor_line, current_cursor[2], #current_cursor_line)
 	local possible_chars = utility.generate_char_set(left_sub_str)
 
-
 	local target_char = possible_chars[math.random(#possible_chars)]
 	--This ensures that we are not stuck searching for the char next to us
 	local current_char = string.sub(current_cursor_line, current_cursor[2] + 2, current_cursor[2] + 2)
 	while target_char == current_char do
 		target_char = possible_chars[math.random(#possible_chars)]
 	end
-
 
 	local cursor_node = self.buffer_as_list:traverse_to_line_char(current_cursor[1], current_cursor[2])
 	local movement_result = cursor_node:t(target_char)
