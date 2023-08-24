@@ -3,7 +3,7 @@
 local utility = require("nvim_training.utility")
 
 local MoveRelativeCharTask = require("lua.nvim_training.tasks.base_movement"):new()
-MoveRelativeCharTask.base_args = { tags = { "movement", "relative" }, autocmds = { "CursorMoved" } }
+MoveRelativeCharTask.base_args = { tags = { "movement", "relative" }, autocmds = { "CursorMoved" }, min_level = 2 }
 
 function MoveRelativeCharTask:prepare()
 	self:load_from_json("lorem_ipsum.buffer")

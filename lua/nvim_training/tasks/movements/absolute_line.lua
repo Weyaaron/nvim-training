@@ -3,7 +3,7 @@
 local MoveAbsoluteLineTask = require("lua.nvim_training.tasks.base_movement"):new()
 local utility = require("nvim_training.utility")
 
-MoveAbsoluteLineTask.base_args = { tags = { "movement", "line_based" }, autocmds = { "CursorMoved" } }
+MoveAbsoluteLineTask.base_args = { tags = { "movement", "line_based" }, autocmds = { "CursorMoved" }, min_level = 1 }
 
 function MoveAbsoluteLineTask:prepare()
 	self:load_from_json("one_word_per_line.buffer")

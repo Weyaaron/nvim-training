@@ -2,8 +2,12 @@
 
 local utility = require("nvim_training.utility")
 local MoveMarkTask = require("lua.nvim_training.tasks.base_movement"):new()
-MoveMarkTask.base_args =
-	{ chars = { "a", "b", "c", "d", "x", "y" }, tags = { "movement", "mark" }, autocmds = { "CursorMoved" } }
+MoveMarkTask.base_args = {
+	chars = { "a", "b", "c", "d", "x", "y" },
+	tags = { "movement", "mark" },
+	autocmds = { "CursorMoved" },
+	min_level = 2,
+}
 
 function MoveMarkTask:prepare()
 	self:load_from_json("one_word_per_line.buffer")

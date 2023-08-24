@@ -20,10 +20,19 @@ local TaskSequence = {}
 TaskSequence.__index = TaskSequence
 
 function TaskSequence:new()
-	local base =
-		{ task_length = 50, task_index = 0, status_list = {}, task_sequence = {}, task_pool = {}, active_autocmds = {} }
+	local base = {
+		task_length = 3,
+		task_index = 0,
+		status_list = {},
+		task_sequence = {},
+		task_pool = {},
+		active_autocmds = {},
+		current_level = 1,
+		round_counter = 0,
+		round_successfully = true,
+	}
 	setmetatable(base, { __index = self })
-	base:_prepare()
+	base:_reset()
 	return base
 end
 
@@ -51,7 +60,11 @@ function TaskSequence:initialize_task_pool()
 	end
 end
 
-function TaskSequence:_prepare()
+function TaskSequence:_reset()
+	if self.round_successfully then
+		self.round_counter = self.round_counter + 1
+	end
+	self.status_list = {}
 	self:initialize_task_pool()
 
 	for i = 1, self.task_length do
@@ -70,6 +83,9 @@ function TaskSequence:fail_current_task()
 	table.insert(self.status_list, false)
 	audio_interface:play_failure_sound()
 	self.current_task:teardown()
+	self.round_successfully = false
+
+	self:_reset()
 end
 
 function TaskSequence:switch_to_next_task()
@@ -114,7 +130,7 @@ function TaskSequence:handle_autocmd()
 
 	if self.task_length == self.task_index then
 		--Todo: Ensure that this function works as intended!
-		self:_prepare()
+		self:_reset()
 	end
 	user_interface:display(self)
 end
