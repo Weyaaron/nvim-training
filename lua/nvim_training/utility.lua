@@ -177,4 +177,17 @@ function utility.construct_project_base_path(file_suffix)
 	return construct_base_path() .. "/" .. file_suffix
 end
 
+function utility.load_config_file_into_global_namespace(file_path)
+	local current_config_path = file_path
+	if not current_config_path then
+		current_config_path = utility.construct_project_base_path("default_config.json")
+	end
+
+	local file = io.open(current_config_path)
+	local content = file:read("a")
+	local data_from_json = vim.json.decode(content)
+	file:close()
+	vim.g.nvim_training = data_from_json
+end
+
 return utility

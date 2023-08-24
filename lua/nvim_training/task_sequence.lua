@@ -10,8 +10,6 @@ local charTask = require("lua.nvim_training.tasks.movements.char_movement")
 local utility = require("nvim_training.utility")
 
 local audio_interface = require("nvim_training.audio_feedback"):new()
-local Config = require("nvim_training.config")
-
 local total_task_pool = { charTask, AbsoluteLineTask, RelativeLineTask, wTask, eTask, SearchTask, MoveMark }
 
 local current_window = vim.api.nvim_tabpage_get_win(0)
@@ -31,20 +29,20 @@ end
 
 function TaskSequence:initialize_task_pool()
 	--Todo: Deal with empty pool after filtering!
-	if #Config.included_tags == 0 then
+	if #vim.g.nvim_training.included_tags == 0 then
 		self.task_pool = total_task_pool
 	else
 		for key, el in pairs(total_task_pool) do
-			local allowed_intersection = utility.intersection(el.base_args.tags, Config.included_tags)
+			local allowed_intersection = utility.intersection(el.base_args.tags, vim.g.nvim_training.included_tags)
 			if not (#allowed_intersection == 0) then
 				table.insert(self.task_pool, el)
 			end
 		end
 	end
-	if not (#Config.excluded_tags == 0) then
+	if not (#vim.g.nvim_training.excluded_tags == 0) then
 		local new_pool = {}
 		for key, el in pairs(self.task_pool) do
-			local forbidden_intersection = utility.intersection(el.base_args.tags, Config.excluded_tags)
+			local forbidden_intersection = utility.intersection(el.base_args.tags, vim.g.nvim_training.excluded_tags)
 			if #forbidden_intersection == 0 then
 				new_pool[key] = el
 			end

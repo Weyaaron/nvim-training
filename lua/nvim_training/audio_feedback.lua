@@ -1,5 +1,3 @@
-local Config = require("nvim_training.config")
-
 local AudioInterface = {}
 AudioInterface.__index = AudioInterface
 
@@ -8,7 +6,7 @@ function AudioInterface:new()
 	local base = {}
 	setmetatable(base, { __index = self })
 
-	base.enable_audio_feedback = Config.enable_audio_feedback
+	base.enable_audio_feedback = vim.g.nvim_training.enable_audio_feedback
 	return base
 end
 
