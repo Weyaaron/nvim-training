@@ -1,14 +1,15 @@
 -- luacheck: globals vim
 
-local Task = require("nvim_training.task")
+local BaseMovementTask = require("lua.nvim_training.tasks.base_movement")
 
-local MoveRandomXYTask = Task:new()
+local MoveRandomXYTask = BaseMovementTask:new()
 local utility = require("nvim_training.utility")
 
 MoveRandomXYTask.base_args = { tags = { "movement", "line_based" }, autocmds = { "CursorMoved" } }
 
 local TestMovement = require("lua.nvim_training.movements.test_movement")
 function MoveRandomXYTask:prepare()
+	--This one is currently broken
 	self:load_from_json("lorem_ipsum.buffer")
 	utility.replace_main_buffer_with_str(self.initial_buffer)
 
@@ -36,21 +37,6 @@ function MoveRandomXYTask:prepare()
 	self.highlights = { first_highlight, second_highlight, third_highlight }
 end
 
-function MoveRandomXYTask:completed()
-	local current_cursor = vim.api.nvim_win_get_cursor(0)
-	local x_diff = current_cursor[1] - self.new_buffer_coordinates[1]
-	local y_diff = current_cursor[2] - self.new_buffer_coordinates[2]
-	return x_diff == 0 and y_diff == 0
-end
 
-function MoveRandomXYTask:failed()
-	return not self:completed()
-end
-
-function MoveRandomXYTask:teardown()
-	for i, v in self.highlights do
-		utility.clear_highlight(v)
-	end
-end
 
 return MoveRandomXYTask

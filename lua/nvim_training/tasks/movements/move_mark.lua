@@ -33,22 +33,12 @@ function MoveMarkTask:place_mark()
 	self.highlight = utility.create_highlight(self.target_line - 1, 0, -1)
 
 	vim.api.nvim_buf_set_mark(0, self.current_mark_name, self.target_line, 0, {})
+	self.new_buffer_coordinates ={self.target_line, 0}
 end
 
-function MoveMarkTask:completed()
-	local cursor_position = vim.api.nvim_win_get_cursor(0)[1]
-	local comparison = cursor_position == self.target_line
-	return comparison
-end
-
-function MoveMarkTask:failed()
-	return not self:completed()
-end
 
 function MoveMarkTask:teardown()
-	if self.highlight_namespace then
-		vim.api.nvim_buf_clear_namespace(0, self.highlight_namespace, 0, -1)
-	end
+	utility.clear_highlight(self.highlight)
 	self:teardown_all_marks()
 end
 function MoveMarkTask:teardown_all_marks()

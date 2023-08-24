@@ -1,9 +1,8 @@
 -- luacheck: globals vim
 
 local utility = require("nvim_training.utility")
-local Task = require("nvim_training.task")
 
-local MoveRelativeCharTask = Task:new()
+local MoveRelativeCharTask = require("lua.nvim_training.tasks.base_movement"):new()
 MoveRelativeCharTask.base_args = { tags = { "movement", "relative" }, autocmds = { "CursorMoved" } }
 
 function MoveRelativeCharTask:prepare()
@@ -32,21 +31,6 @@ function MoveRelativeCharTask:prepare()
 	self.new_buffer_coordinates = { current_line_index, current_char_index + offset }
 
 	self.highlight = utility.create_highlight(current_line_index-1, self.new_buffer_coordinates[2], 1)
-end
-
-function MoveRelativeCharTask:completed()
-	local current_cursor = vim.api.nvim_win_get_cursor(0)
-	local x_diff = current_cursor[1] - self.new_buffer_coordinates[1]
-	local y_diff = current_cursor[2] - self.new_buffer_coordinates[2]
-	return x_diff == 0 and y_diff == 0
-end
-
-function MoveRelativeCharTask:failed()
-	return not self:completed()
-end
-
-function MoveRelativeCharTask:teardown()
-	utility.clear_highlight(self.highlight)
 end
 
 return MoveRelativeCharTask

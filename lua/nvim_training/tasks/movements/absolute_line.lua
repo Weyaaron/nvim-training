@@ -1,8 +1,6 @@
 -- luacheck: globals vim
 
-local Task = require("nvim_training.task")
-
-local MoveAbsoluteLineTask = Task:new()
+local MoveAbsoluteLineTask =require("lua.nvim_training.tasks.base_movement"):new()
 local utility = require("nvim_training.utility")
 
 MoveAbsoluteLineTask.base_args = { tags = { "movement", "line_based" }, autocmds = { "CursorMoved" } }
@@ -21,19 +19,9 @@ function MoveAbsoluteLineTask:prepare()
 
 	self.desc = "Move to line " .. tostring(self.target_line_index)
 	self.highlight = utility.create_highlight(self.target_line_index - 1, 0, -1)
+
+	self.new_buffer_coordinates = {self.target_line_index, 0}
 end
 
-function MoveAbsoluteLineTask:completed()
-	local cursor_position = vim.api.nvim_win_get_cursor(0)[1]
-	return cursor_position == self.target_line_index
-end
-
-function MoveAbsoluteLineTask:failed()
-	return not self:completed()
-end
-
-function MoveAbsoluteLineTask:teardown()
-	utility.clear_highlight(self.highlight)
-end
 
 return MoveAbsoluteLineTask
