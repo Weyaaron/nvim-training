@@ -80,7 +80,7 @@ function DeleteWordTask:construct_word_table_from_buffer()
 end
 
 function DeleteWordTask:teardown()
-	utility.clean_highlight(self.highlight)
+	utility.clear_highlight(self.highlight)
 end
 
 return DeleteWordTask

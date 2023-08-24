@@ -20,23 +20,27 @@ It is loosely inspired by https://first20hours.github.io/keyzen-colemak/
 
 # To try it out
 
-As of 2023-07, the version marked as main does support all the currently implemented tasks yet.
-But it is considered stable. Development will happen on the development branch.
+As of 2023-08, the version marked as main does support all the currently implemented tasks yet.
+Some tasks are still not fully stable. Development will happen on the development branch, using 
+this branch for testing is as of 2023-08 discouraged.
 
 - Install it using the plugin manager of your choice. Packer is tested, if any other fails, please open an issue. Pinning it to a fixed version is encouraged.
+- Make sure you are in an empty buffer.
 - Run `:Training` to start a session.
 
 # Available tasks 
 - Move to an absolute line
 - Move x lines relative to your cursor 
 - Move to a mark 
+- Move chars relative to your cursor
+- The Movements e and w 
+- Forward-Search
 
-# Some tasks currently in the pipeline but not yet supported on main 
+# Some tasks currently in the pipeline 
 - Window Management
 - Delete lines 
 - Delete words 
-- Moving to line and a char in the buffer 
-- Moving within a line
+- Moving to line and a char in the buffer
 
 # Goals 
 - Ease of use. Starting a session should be seamless. The UI should not get in the way.
@@ -52,7 +56,7 @@ But it is considered stable. Development will happen on the development branch.
 
 
 # How to get started with contributing
-Contributions are welcome!Any input is appreciated, be it a bug report, a feature request, or a pull request.
+Contributions are welcome! Any input is appreciated, be it a bug report, a feature request, or a pull request.
 This is my first project in lua, therefore, some junk and bad practices are to be expected. Any feedback/suggestions
 are welcome. 
 

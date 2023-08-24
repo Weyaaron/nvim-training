@@ -53,7 +53,7 @@ function DeleteLineTask:failed()
 end
 
 function DeleteLineTask:teardown()
-	utility.clean_highlight(self.highlight)
+	utility.clear_highlight(self.highlight)
 end
 
 return DeleteLineTask
