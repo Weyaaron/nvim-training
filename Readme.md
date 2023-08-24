@@ -29,18 +29,25 @@ this branch for testing is as of 2023-08 discouraged.
 - Run `:Training` to start a session.
 
 # Configuration Options
-There are two options how to configure this plugin:
-- Overwrite parts of the config file found at [default_config.json](plugin/default_config.json). This is not recommended, as it requires manual updates when the repo changes.
-- Overwrite parts of the table "vim.g.nvim_training" after loading the plugin. This is recommended. This may be done in the init.lua after loading the plugin.
+To configure this plugin, overwrite the table "vim.g.nvim_training" after loading the plugin. 
+This may be done in the init.lua after loading the plugin.
 
 The following options are available (This can be copy-pasted into your init.lua):
 ```lua
-vim.g.nvim_training.enable_audio_feedback =false --If true, a sound will be played when a task is completed(Caution: This is experimental and may requires additional setup) Default: false
-vim.g.nvim_training.excluded_tags = {} -- A list of tags. Tasks with these tags will not be included in the session. Default: empty list
-vim.g.nvim_training.included_tags = {} -- A list of tags. Only tasks with these tags will be included in the session(If not set, all tags will be included). Default: empty list
-vim.g.nvim_training.first_level = 1 -- The level a session starts at. Useful for skipping the early easy tasks.  Default: 1
-vim.g.nvim_training.display_info = false -- This enables help in the ui. If set, some tasks will provide a hint on how to to them. Default: false
+local config= {}
+config.enable_audio_feedback = false --If true, a sound will be played when a task is completed(Caution: This is experimental and may requires additional setup) Default: false
+config.excluded_tags = {} -- A list of tags. Tasks with these tags will not be included in the session. Default: empty list
+config.included_tags = {} -- A list of tags. Only tasks with these tags will be included in the session(If not set, all tags will be included). Default: empty list
+config.first_level = 1 -- The level a session starts at. Useful for skipping the early easy tasks.  Default: 1
+config.display_info = false -- This enables help in the ui. If set, some tasks will provide a hint on how to to them. Default: false
+vim.g.nvim_training = config
 ```
+
+Unfortunately, the names can not be set individually,
+see [here](https://neovim.io/doc/user/lua-guide.html#lua-guide-variables)
+and [here](https://github.com/neovim/neovim/issues/12544) for Details.
+
+
 As of 2023-08 and Version 0.2, these names are subject to change. Please check the [default_config.json](plugin/default_config.json) for the current names 
 on occasion. 
 
@@ -62,7 +69,7 @@ on occasion.
 - Ease of use. Starting a session should be seamless. The UI should not get in the way.
 - Fast and flow-inducing. There should be no waiting time between tasks and as little friction between tasks as possible.
 - (Eventually) Community-driven. Adding new tasks is encouraged, both by providing the interfaces and the documentation required.
-- Customizable. Task should be switched on and off with ease and the difficulty should be adjustable.
+- Customizable. Task should be switched on and off with ease, and the difficulty should be adjustable.
 
 # Non-Goals
 - Implement puzzles. A solution to the current task should be obvious and small, at most a few keystrokes on a vanilla setup.

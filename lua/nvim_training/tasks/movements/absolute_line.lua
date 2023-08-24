@@ -18,6 +18,9 @@ function MoveAbsoluteLineTask:prepare()
 	end
 
 	self.desc = "Move to line " .. tostring(self.target_line_index)
+	if vim.g.nvim_training.display_info then
+		self.desc = self.desc .. " (Tip: Use G/gg)"
+	end
 	self.highlight = utility.create_highlight(self.target_line_index - 1, 0, -1)
 
 	self.new_buffer_coordinates = { self.target_line_index, 0 }
