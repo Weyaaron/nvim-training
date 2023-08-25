@@ -27,7 +27,7 @@ utility.load_config_file_into_global_namespace(base_config_path)
 local function setup()
 	local Task_sequence = require("nvim_training.task_sequence")
 	local current_task_sequence = Task_sequence:new()
-	current_task_sequence:switch_to_next_task()
+	current_task_sequence:start()
 end
 
 vim.api.nvim_create_user_command("Training", setup, {})

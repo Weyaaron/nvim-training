@@ -12,18 +12,10 @@ local charTask = require("lua.nvim_training.tasks.movements.char_movement")
 local StartOfLineTask = require("lua.nvim_training.tasks.movements.start_of_line_movement")
 local utility = require("nvim_training.utility")
 
-local audio_interface = require("nvim_training.audio_feedback"):new()
 local total_task_pool = {
-	charTask,
+
 	AbsoluteLineTask,
 	RelativeLineTask,
-	wTask,
-	eTask,
-	SearchTask,
-	MoveMark,
-	bTask,
-	DollarTask,
-	StartOfLineTask,
 }
 
 local current_window = vim.api.nvim_tabpage_get_win(0)
@@ -37,7 +29,6 @@ function TaskSequence:new()
 	local base = {
 		task_length = 3,
 		task_index = 0,
-		status_list = {},
 		task_sequence = {},
 		task_pool = {},
 		active_autocmds = {},
@@ -45,13 +36,28 @@ function TaskSequence:new()
 		current_round = 0,
 		max_rounds = 3,
 		round_successfully = true,
+		--Todo: Remove
+		status_list = { true },
 	}
 	setmetatable(base, { __index = self })
-	base:_reset()
+
 	return base
 end
+local Level = require("lua.nvim_training.task_managment.level")
+function TaskSequence:start()
+	self:construct_task_pool()
+	for i = 1, self.task_length do
+		local current_next_task = self.task_pool[math.random(#self.task_pool)]:new()
+		table.insert(self.task_sequence, current_next_task)
+	end
 
-function TaskSequence:initialize_task_pool()
+	self.current_level = Level:new(self.task_sequence)
+	self.current_level:start()
+	self:advance_to_next_task()
+	user_interface:display(self)
+end
+
+function TaskSequence:construct_task_pool()
 	--Todo: Deal with empty pool after filtering!
 	if #vim.g.nvim_training.included_tags == 0 then
 		self.task_pool = total_task_pool
@@ -75,78 +81,40 @@ function TaskSequence:initialize_task_pool()
 	end
 end
 
-function TaskSequence:_reset()
-	if self.round_successfully then
-		self.current_round = self.current_round + 1
-	end
-	self.status_list = {}
-	self:initialize_task_pool()
-
-	for i = 1, self.task_length do
-		local current_next_task = self.task_pool[math.random(#self.task_pool)]:new()
-		table.insert(self.task_sequence, current_next_task)
-	end
+function TaskSequence:tear_down_current_task()
+	self.current_level:tear_down_current_task()
 end
 
-function TaskSequence:complete_current_task()
-	table.insert(self.status_list, true)
-	audio_interface:play_success_sound()
-	self.current_task:teardown()
-end
-
-function TaskSequence:fail_current_task()
-	table.insert(self.status_list, false)
-	audio_interface:play_failure_sound()
-	self.current_task:teardown()
-	self.round_successfully = false
-
-	self:_reset()
-end
-
-function TaskSequence:switch_to_next_task()
+function TaskSequence:advance_to_next_task()
 	for _, autocmd_el in pairs(self.active_autocmds) do
 		vim.api.nvim_del_autocmd(autocmd_el)
 	end
-	self.active_autocmds = {}
 
-	self.task_index = self.task_index + 1
-	self.current_task = self.task_sequence[self.task_index]
-	self.current_task:prepare()
-	self.current_task:apply_config()
+	self.active_autocmds = {}
 
 	local function handle_wrapper()
 		--Todo: Shall we do something with the args from autocmd?
 		self:handle_autocmd()
 	end
 
-	for _, autocmd_el in pairs(self.current_task.autocmds) do
+	for _, autocmd_el in pairs(self.current_level.current_round.current_task.autocmds) do
 		local next_autocmd = vim.api.nvim_create_autocmd({ autocmd_el }, {
 			callback = handle_wrapper,
 		})
 
 		table.insert(self.active_autocmds, next_autocmd)
 	end
-	user_interface:display(self)
 end
 
 function TaskSequence:handle_autocmd()
-	local completed = self.current_task:completed()
-	local failed = self.current_task:failed()
-	if completed and not failed then
-		self:complete_current_task()
-		self:switch_to_next_task()
-	end
-	if failed and not completed then
-		self:fail_current_task()
-		self:switch_to_next_task()
-	end
-	if failed and completed then
-		print("A Task should not both complete and fail!")
-	end
+	local completed = self.current_level:task_completed()
+	local failed = self.current_level:task_failed()
+	self.current_level:advance_task(completed, failed)
 
-	if self.task_length == self.task_index then
-		--Todo: Ensure that this function works as intended!
-		self:_reset()
+	local level_completed = self.current_level:completed()
+	if level_completed then
+		self.current_level = Level:new()
+		self.current_level:initialize()
 	end
 	user_interface:display(self)
 end

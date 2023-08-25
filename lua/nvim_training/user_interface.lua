@@ -24,7 +24,8 @@ function UserInterface:display(current_task_sequence)
 			head = head .. "-"
 		end
 	end
-	local window_text =  current_task_sequence.current_task.desc .. "\n"
+	--This long string sucks
+	local window_text = current_task_sequence.current_level.current_round.current_task.desc .. "\n"
 
 	local sequence_of_attempts = ""
 
@@ -42,7 +43,13 @@ function UserInterface:display(current_task_sequence)
 	end
 
 	window_text = window_text .. sequence_of_attempts
+	self.window:update_window_text(window_text)
 
+end
+
+return UserInterface
+--[[
+	--Todo: Reintroduce
 	window_text = window_text .. "\n\n" .. "Current Level: " .. current_task_sequence.current_level
 	window_text = window_text
 		.. "\n\n"
@@ -53,7 +60,4 @@ function UserInterface:display(current_task_sequence)
 
 	--window_text = window_text .. "\n" .. self.help_text
 
-	self.window:update_window_text(window_text)
-end
-
-return UserInterface
+--]]
