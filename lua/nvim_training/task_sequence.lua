@@ -13,8 +13,18 @@ local StartOfLineTask = require("lua.nvim_training.tasks.movements.start_of_line
 local utility = require("nvim_training.utility")
 
 local audio_interface = require("nvim_training.audio_feedback"):new()
-local total_task_pool = { charTask, AbsoluteLineTask, RelativeLineTask, wTask, eTask, SearchTask, MoveMark, bTask, DollarTask, StartOfLineTask}
-
+local total_task_pool = {
+	charTask,
+	AbsoluteLineTask,
+	RelativeLineTask,
+	wTask,
+	eTask,
+	SearchTask,
+	MoveMark,
+	bTask,
+	DollarTask,
+	StartOfLineTask,
+}
 
 local current_window = vim.api.nvim_tabpage_get_win(0)
 local user_interface = require("lua.nvim_training.user_interface"):new()
@@ -85,6 +95,7 @@ function TaskSequence:switch_to_next_task()
 	self.task_index = self.task_index + 1
 	self.current_task = self.task_sequence[self.task_index]
 	self.current_task:prepare()
+	self.current_task:apply_config()
 
 	local function handle_wrapper()
 		--Todo: Shall we do something with the args from autocmd?

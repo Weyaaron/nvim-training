@@ -3,7 +3,7 @@
 local utility = require("lua.nvim_training.utility")
 local StartOfLineMovementTask = require("lua.nvim_training.tasks.base_movement"):new()
 
-StartOfLineMovementTask.base_args = { tags = { "movement" }, autocmds = { "CursorMoved" } }
+StartOfLineMovementTask.base_args = { tags = { "movement" }, autocmds = { "CursorMoved" }, help = " (Tip: Use 0)" }
 
 function StartOfLineMovementTask:prepare()
 	self:load_from_json("lorem_ipsum.buffer")

@@ -3,7 +3,8 @@
 local utility = require("lua.nvim_training.utility")
 local DollarMovementTask = require("lua.nvim_training.tasks.base_movement"):new()
 
-DollarMovementTask.base_args = { cursor_target = 0, tags = { "movement" }, autocmds = { "CursorMoved" } }
+DollarMovementTask.base_args =
+	{ cursor_target = 0, tags = { "movement" }, autocmds = { "CursorMoved" }, help = " (Tip: Use $)" }
 
 function DollarMovementTask:prepare()
 	self:load_from_json("lorem_ipsum.buffer")

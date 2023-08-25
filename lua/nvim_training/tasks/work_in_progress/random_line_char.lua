@@ -17,8 +17,6 @@ function MoveRandomXYTask:prepare()
 
 	self.new_buffer_coordinates = self.movement:calculate_cursor_x_y()
 
-	self.desc = "Jump to line " .. self.new_buffer_coordinates[1] .. " and char " .. self.new_buffer_coordinates[2]
-
 	self.desc = "Move to line " .. self.new_buffer_coordinates[1] .. "and " .. self.new_buffer_coordinates[2]
 
 	local first_highlight =
