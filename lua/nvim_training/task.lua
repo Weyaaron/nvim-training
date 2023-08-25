@@ -35,7 +35,7 @@ function Task:new(custom_args)
 	return base
 end
 
-function Task:prepare()
+function Task:setup()
 	print("Prepared from Baseclass called, please implement it in the subclass!")
 end
 function Task:apply_config()

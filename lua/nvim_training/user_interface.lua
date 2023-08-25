@@ -44,7 +44,6 @@ function UserInterface:display(current_task_sequence)
 
 	window_text = window_text .. sequence_of_attempts
 	self.window:update_window_text(window_text)
-
 end
 
 return UserInterface

@@ -3,7 +3,7 @@ local OpenWindowTask = Task:new()
 
 OpenWindowTask.base_args = { tags = { "window", "ui" }, autocmds = { "WinNew" }, desc = "Create a new window" }
 
-function OpenWindowTask:prepare() end
+function OpenWindowTask:setup() end
 
 function OpenWindowTask:completed()
 	return true

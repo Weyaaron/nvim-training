@@ -4,7 +4,7 @@ local eMovementTask = require("lua.nvim_training.tasks.base_movement"):new()
 eMovementTask.base_args = { autocmds = { "CursorMoved" }, tags = { "buffer" }, help = " (Tip: Use e)" }
 local utility = require("nvim_training.utility")
 
-function eMovementTask:prepare()
+function eMovementTask:setup()
 	self:load_from_json("permutation.buffer")
 	utility.replace_main_buffer_with_str(self.initial_buffer)
 	self.buffer_as_list = utility.construct_linked_list()

@@ -6,7 +6,7 @@ local MoveWordForwardTask = require("lua.nvim_training.tasks.base_movement"):new
 MoveWordForwardTask.base_args =
 	{ cursor_target = 0, tags = { "movement" }, autocmds = { "CursorMoved" }, help = " (Tip: Use w)" }
 
-function MoveWordForwardTask:prepare()
+function MoveWordForwardTask:setup()
 	self:load_from_json("lorem_ipsum.buffer")
 
 	utility.replace_main_buffer_with_str(self.initial_buffer)

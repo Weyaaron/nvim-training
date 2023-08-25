@@ -13,7 +13,6 @@ local StartOfLineTask = require("lua.nvim_training.tasks.movements.start_of_line
 local utility = require("nvim_training.utility")
 
 local total_task_pool = {
-
 	AbsoluteLineTask,
 	RelativeLineTask,
 }
@@ -44,7 +43,7 @@ function TaskSequence:new()
 	return base
 end
 local Level = require("lua.nvim_training.task_managment.level")
-function TaskSequence:start()
+function TaskSequence:setup()
 	self:construct_task_pool()
 	for i = 1, self.task_length do
 		local current_next_task = self.task_pool[math.random(#self.task_pool)]:new()
@@ -81,10 +80,6 @@ function TaskSequence:construct_task_pool()
 	end
 end
 
-function TaskSequence:tear_down_current_task()
-	self.current_level:tear_down_current_task()
-end
-
 function TaskSequence:advance_to_next_task()
 	for _, autocmd_el in pairs(self.active_autocmds) do
 		vim.api.nvim_del_autocmd(autocmd_el)
@@ -109,13 +104,27 @@ end
 function TaskSequence:handle_autocmd()
 	local completed = self.current_level:task_completed()
 	local failed = self.current_level:task_failed()
-	self.current_level:advance_task(completed, failed)
+	local check_for_level = false
 
-	local level_completed = self.current_level:completed()
-	if level_completed then
-		self.current_level = Level:new()
-		self.current_level:initialize()
+	if completed and not failed then
+		self.current_level:tear_down_current_task()
+		self.current_level:advance_task(completed, failed)
+		check_for_level = true
 	end
+	if not completed and failed then
+		self.current_level:tear_down_current_task()
+		self.current_level:advance_task(completed, failed)
+		check_for_level = true
+	end
+	if check_for_level then
+		local level_completed = self.current_level:completed()
+		if level_completed then
+			self.current_level:teardown()
+			self.current_level = Level:new()
+			self.current_level:initialize()
+		end
+	end
+
 	user_interface:display(self)
 end
 

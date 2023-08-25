@@ -10,7 +10,7 @@ MoveMarkTask.base_args = {
 	help = " (Tip: Use ')",
 }
 
-function MoveMarkTask:prepare()
+function MoveMarkTask:setup()
 	self:load_from_json("one_word_per_line.buffer")
 	utility.replace_main_buffer_with_str(self.initial_buffer)
 	self:teardown_all_marks()

@@ -2,7 +2,7 @@ local Task = require("nvim_training.task")
 local SwitchWindowTask = Task:new()
 SwitchWindowTask.base_args = { tags = { "window", "ui" }, autocmds = { "WinEnter" }, desc = "Switch to new a window" }
 
-function SwitchWindowTask:prepare()
+function SwitchWindowTask:setup()
 	self.desc = "Switch to another window"
 end
 

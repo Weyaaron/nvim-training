@@ -3,7 +3,6 @@
 local Level = {}
 Level.__index = Level
 
-local utility = require("lua.nvim_training.utility")
 function Level:new(task_pool)
 	local base = {
 		length = 3,
@@ -18,13 +17,13 @@ function Level:new(task_pool)
 end
 local Round = require("lua.nvim_training.task_managment.round")
 
-function Level:start()
+function Level:setup()
 	self.current_round = Round:new(self.task_pool)
 	self.current_round:start()
 end
 
-function Level:advance_task()
-	self.current_round:advance_task()
+function Level:advance_task(completed, failed)
+	self.current_round:advance_task(completed, failed)
 end
 function Level:task_completed()
 	return self.current_round:task_completed()
@@ -38,6 +37,6 @@ function Level:completed()
 	return false
 end
 
-function Level:end_() end
+function Level:teardown() end
 
 return Level

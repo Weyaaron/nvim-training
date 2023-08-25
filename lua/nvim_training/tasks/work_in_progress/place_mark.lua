@@ -8,7 +8,7 @@ PlaceMarkTask.base_args = { chars = { "a", "b", "c", "d", "x", "y" }, tags = { "
 -- Apparently, there is no autocmd for mark placed? Therefore, this is placed on halt until a
 -- solution has been found.
 
-function PlaceMarkTask:prepare()
+function PlaceMarkTask:setup()
 	self:load_from_json("one_word_per_line.buffer")
 	utility.replace_main_buffer_with_str(self.initial_buffer)
 	self:teardown_all_marks()

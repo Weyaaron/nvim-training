@@ -4,7 +4,7 @@ local tMovementTask = require("lua.nvim_training.tasks.base_movement"):new()
 tMovementTask.base_args = { autocmds = { "CursorMoved" }, tags = { "buffer" } }
 local utility = require("nvim_training.utility")
 
-function tMovementTask:prepare()
+function tMovementTask:setup()
 	--This is currently not properly implemented
 	self:load_from_json("permutation.buffer")
 	utility.replace_main_buffer_with_str(self.initial_buffer)

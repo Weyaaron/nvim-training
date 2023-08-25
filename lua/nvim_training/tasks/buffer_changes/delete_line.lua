@@ -6,7 +6,7 @@ local DeleteLineTask = Task:new()
 DeleteLineTask.base_args = { autocmds = { "TextChanged" }, tags = { "buffer" } }
 local utility = require("nvim_training.utility")
 
-function DeleteLineTask:prepare()
+function DeleteLineTask:setup()
 	self:load_from_json("permutation.buffer")
 	utility.replace_main_buffer_with_str(self.initial_buffer)
 

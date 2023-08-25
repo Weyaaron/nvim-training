@@ -6,7 +6,7 @@ local YankWordsTask = Task:new()
 YankWordsTask.base_args = { autocmds = { "TextYankPost" }, tags = { "buffer" } }
 local utility = require("nvim_training.utility")
 
-function YankWordsTask:prepare()
+function YankWordsTask:setup()
 	--Yanking sets the textlock, this breaks most of this plugin.https://neovim.io/doc/user/eval.html#textlock
 	self:load_from_json("permutation.buffer")
 	utility.replace_main_buffer_with_str(self.initial_buffer)

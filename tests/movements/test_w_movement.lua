@@ -38,7 +38,7 @@ TestwMovement = {}
 
 function TestwMovement:setup()
 	self.w_task = wTask:new()
-	self.w_task:prepare()
+	self.w_task:setup()
 end
 function TestwMovement:test_setup()
 	local completion_result = self.w_task:completed()

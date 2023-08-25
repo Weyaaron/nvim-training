@@ -6,7 +6,7 @@ local DeleteMultipleWordsTask = Task:new()
 DeleteMultipleWordsTask.base_args = { autocmds = { "TextChanged" }, tags = { "buffer" } }
 local utility = require("nvim_training.utility")
 
-function DeleteMultipleWordsTask:prepare()
+function DeleteMultipleWordsTask:setup()
 	self:load_from_json("numbers.buffer")
 	utility.replace_main_buffer_with_str(self.initial_buffer)
 	self.target_buffer = self.initial_buffer

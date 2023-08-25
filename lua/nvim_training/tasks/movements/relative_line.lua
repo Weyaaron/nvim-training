@@ -7,7 +7,7 @@ local MoveRelativeLineTask = Task:new()
 MoveRelativeLineTask.base_args =
 	{ tags = { "movement", "relative" }, autocmds = { "CursorMoved" }, help = " (Tip: Use j,k)" }
 
-function MoveRelativeLineTask:prepare()
+function MoveRelativeLineTask:setup()
 	self:load_from_json("one_word_per_line.buffer")
 	utility.replace_main_buffer_with_str(self.initial_buffer)
 

@@ -2,7 +2,7 @@ local Task = require("nvim_training.task")
 local CloseWindowTask = Task:new()
 CloseWindowTask.base_args = { tags = { "window", "ui" }, autocmds = { "WinClosed" }, desc = "Close a window" }
 
-function CloseWindowTask:prepare()
+function CloseWindowTask:setup()
 	self.desc = "Close a window"
 	vim.cmd(":vsplit")
 end

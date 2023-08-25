@@ -6,7 +6,7 @@ local utility = require("nvim_training.utility")
 MoveAbsoluteLineTask.base_args =
 	{ tags = { "movement", "line_based" }, autocmds = { "CursorMoved" }, help = " (Tip: Use G/gg)", min_level = 1 }
 
-function MoveAbsoluteLineTask:prepare()
+function MoveAbsoluteLineTask:setup()
 	self:load_from_json("one_word_per_line.buffer")
 	utility.replace_main_buffer_with_str(self.initial_buffer)
 

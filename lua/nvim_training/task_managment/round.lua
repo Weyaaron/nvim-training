@@ -3,7 +3,6 @@
 local Round = {}
 Round.__index = Round
 
-local utility = require("lua.nvim_training.utility")
 function Round:new(task_pool)
 	local base = {
 		task_length = 5,
@@ -14,7 +13,7 @@ function Round:new(task_pool)
 	return base
 end
 
-function Round:start()
+function Round:setup()
 	self.task_sequence = {}
 
 	for i = 1, self.task_length do
@@ -22,23 +21,21 @@ function Round:start()
 		table.insert(self.task_sequence, current_next_task)
 	end
 	self.current_task = self.task_sequence[self.task_index]
-	self.current_task:prepare()
+	self.current_task:setup()
 end
 
-function Round:end_()
+function Round:teardown()
 	print("Ending the round")
 end
 
-function Round:advance_task()
-	print("Advance called")
+function Round:advance_task(completed, failed)
 	print(self.current_task.desc)
-	--Todo: Debug this?
-	--self.current_task:tear_down()
+	self.current_task:teardown()
 
 	self.task_index = self.task_index + 1
 	self.current_task = self.task_sequence[self.task_index]
 
-	self.current_task:prepare()
+	self.current_task:setup()
 	self.current_task:apply_config()
 end
 
@@ -48,5 +45,4 @@ end
 function Round:task_failed()
 	return self.current_task:failed()
 end
-
 return Round

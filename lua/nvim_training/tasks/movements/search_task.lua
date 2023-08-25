@@ -5,7 +5,7 @@ SearchTask.base_args = { autocmds = { "CursorMoved" }, tags = { "buffer" }, help
 
 local utility = require("nvim_training.utility")
 
-function SearchTask:prepare()
+function SearchTask:setup()
 	self:load_from_json("permutation.buffer")
 	utility.replace_main_buffer_with_str(self.initial_buffer)
 	self.buffer_as_list = utility.construct_linked_list()

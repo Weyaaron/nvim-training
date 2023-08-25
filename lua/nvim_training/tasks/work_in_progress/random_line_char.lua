@@ -8,7 +8,7 @@ local utility = require("nvim_training.utility")
 MoveRandomXYTask.base_args = { tags = { "movement", "line_based" }, autocmds = { "CursorMoved" } }
 
 local TestMovement = require("lua.nvim_training.movements.test_movement")
-function MoveRandomXYTask:prepare()
+function MoveRandomXYTask:setup()
 	--This one is currently broken
 	self:load_from_json("lorem_ipsum.buffer")
 	utility.replace_main_buffer_with_str(self.initial_buffer)
