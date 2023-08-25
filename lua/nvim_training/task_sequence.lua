@@ -42,7 +42,8 @@ function TaskSequence:new()
 		task_pool = {},
 		active_autocmds = {},
 		current_level = 1,
-		round_counter = 0,
+		current_round = 0,
+		max_rounds = 3,
 		round_successfully = true,
 	}
 	setmetatable(base, { __index = self })
@@ -76,7 +77,7 @@ end
 
 function TaskSequence:_reset()
 	if self.round_successfully then
-		self.round_counter = self.round_counter + 1
+		self.current_round = self.current_round + 1
 	end
 	self.status_list = {}
 	self:initialize_task_pool()

@@ -6,7 +6,8 @@ MoveMarkTask.base_args = {
 	chars = { "a", "b", "c", "d", "x", "y" },
 	tags = { "movement", "mark" },
 	autocmds = { "CursorMoved" },
-	min_level = 2,help = " (Tip: Use ')"
+	min_level = 2,
+	help = " (Tip: Use ')",
 }
 
 function MoveMarkTask:prepare()
