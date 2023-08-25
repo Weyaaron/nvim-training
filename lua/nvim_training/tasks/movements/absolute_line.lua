@@ -3,7 +3,8 @@
 local MoveAbsoluteLineTask = require("lua.nvim_training.tasks.base_movement"):new()
 local utility = require("nvim_training.utility")
 
-MoveAbsoluteLineTask.base_args = { tags = { "movement", "line_based" }, autocmds = { "CursorMoved" }, min_level = 1 }
+MoveAbsoluteLineTask.base_args =
+	{ tags = { "movement", "line_based" }, autocmds = { "CursorMoved" }, help = " (Tip: Use G/gg)" ,min_level = 1 }
 
 function MoveAbsoluteLineTask:prepare()
 	self:load_from_json("one_word_per_line.buffer")
@@ -17,10 +18,7 @@ function MoveAbsoluteLineTask:prepare()
 		self.target_line_index = math.random(bounds[1], bounds[2])
 	end
 
-	self.desc = "Move to line " .. tostring(self.target_line_index)
-	if vim.g.nvim_training.display_info then
-		self.desc = self.desc .. " (Tip: Use G/gg)"
-	end
+	self.desc = "Move to line " .. tostring(self.target_line_index) .. "."
 	self.highlight = utility.create_highlight(self.target_line_index - 1, 0, -1)
 
 	self.new_buffer_coordinates = { self.target_line_index, 0 }

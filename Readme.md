@@ -56,8 +56,9 @@ on occasion.
 - Move x lines relative to your cursor 
 - Move to a mark 
 - Move chars relative to your cursor
-- The Movements e and w 
+- The Movements e, w, b
 - Forward-Search
+- Move start/end of line
 
 # Some tasks currently in the pipeline 
 - Window Management

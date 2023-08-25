@@ -103,6 +103,14 @@ function LinkedListNode:last()
 	return self:traverse(_end)
 end
 
+function LinkedListNode:backtrack_n(distance)
+	local counter = 0
+	local function inner_backtrack(input_node)
+		counter = counter + 1
+		return counter == distance
+	end
+	return self:backtrack(inner_backtrack)
+end
 function LinkedListNode:traverse_n(distance)
 	local counter = 0
 	local function inner_traverse(input_node)
@@ -163,4 +171,24 @@ function LinkedListNode:t(target_char)
 	local char_offset = utility.search_for_char_in_word(result.content, target_char) - 1
 	return { node = result, offset = result.start_index + char_offset - 2 }
 end
+
+function LinkedListNode:dollar()
+	local function function_same_line(input_node)
+		return not (input_node.next.line_index == self.line_index)
+	end
+	return self:traverse(function_same_line)
+end
+function LinkedListNode:b(offset, y_cursor_pos)
+	local diff = self.start_index - y_cursor_pos
+	print("diff " .. diff)
+	if diff == 1 then
+		offset = offset - 1
+	end
+	local result_node = self:backtrack_n(offset)
+	if diff == 1 then
+		offset = offset - 1
+	end
+	return { node = result_node, offset = offset }
+end
+
 return LinkedListNode

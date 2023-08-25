@@ -1,7 +1,7 @@
 -- luacheck: globals vim
 
 local SearchTask = require("lua.nvim_training.tasks.base_movement"):new()
-SearchTask.base_args = { autocmds = { "CursorMoved" }, tags = { "buffer" } }
+SearchTask.base_args = { autocmds = { "CursorMoved" }, tags = { "buffer" }, help = " (Tip: Use /target)" }
 
 local utility = require("nvim_training.utility")
 
@@ -15,7 +15,7 @@ function SearchTask:prepare()
 	local cursor_node = self.buffer_as_list:traverse_to_line_char(cursor_position[1], cursor_position[2])
 
 	local content_word = cursor_node:traverse_n(offset).content
-	self.desc = "Move to '" .. content_word .. "'"
+	self.desc = "Move to '" .. content_word .. "'."
 
 	local target_node = cursor_node:search(content_word)
 	self.new_buffer_coordinates = { target_node.line_index, target_node.start_index - 1 }

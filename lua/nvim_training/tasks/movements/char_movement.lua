@@ -3,7 +3,8 @@
 local utility = require("nvim_training.utility")
 
 local MoveRelativeCharTask = require("lua.nvim_training.tasks.base_movement"):new()
-MoveRelativeCharTask.base_args = { tags = { "movement", "relative" }, autocmds = { "CursorMoved" }, min_level = 2 }
+MoveRelativeCharTask.base_args =
+	{ tags = { "movement", "relative" }, autocmds = { "CursorMoved" }, help = " (Tip: Use h,l)" ,min_level = 2 }
 
 function MoveRelativeCharTask:prepare()
 	self:load_from_json("lorem_ipsum.buffer")
@@ -26,7 +27,7 @@ function MoveRelativeCharTask:prepare()
 		end
 	end
 
-	self.desc = "Move " .. tostring(offset) .. " chars relative to your cursor."
+	self.desc = "Move " .. tostring(offset) .. " chars."
 	self.new_buffer_coordinates = { current_line_index, current_char_index + offset }
 
 	self.highlight = utility.create_highlight(current_line_index - 1, self.new_buffer_coordinates[2], 1)

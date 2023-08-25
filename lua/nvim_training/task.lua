@@ -2,7 +2,7 @@
 
 local Task = {}
 Task.__index = Task
-Task.base_args = { desc = "Generic Top Level Task Description", autocmds = {}, abr = "ABLT", tags = {}, min_level = -1 }
+Task.base_args = { desc = "Generic Top Level Task Description", autocmds = {}, abr = "ABLT", tags = {}, min_level = -1 ,help = "Generic Help" }
 
 -- This is the main object the whole code revolves around. A in-depth description is given in 'architecture.md' in the
 -- docs folder
@@ -30,6 +30,11 @@ end
 
 function Task:prepare()
 	print("Prepared from Baseclass called, please implement it in the subclass!")
+end
+function Task:apply_config()
+	if vim.g.nvim_training.display_info then
+		self.desc = self.desc .. self.help
+	end
 end
 
 function Task:completed()

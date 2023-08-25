@@ -30,12 +30,12 @@ function FMovementTask:prepare()
 	end
 
 	--This task has an open issue where sometimes the char is found in before the cursor.
-	--At the moment, the solution is that the user jumps using F.
+	--At the moment, the solution is that the user using F.
 	local cursor_node = self.buffer_as_list:traverse_to_line_char(current_cursor[1], current_cursor[2])
 	local movement_result = cursor_node:f(target_char)
 	self.target_node = movement_result.node
 	self.new_buffer_coordinates = { self.target_node.line_index, movement_result.offset }
-	self.desc = "Jump to the instance of " .. target_char .. "."
+	self.desc = "Move to the instance of " .. target_char .. "."
 
 	self.highlight = utility.create_highlight(self.new_buffer_coordinates[1] - 1, self.new_buffer_coordinates[2], 1)
 end

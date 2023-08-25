@@ -6,7 +6,7 @@ MoveMarkTask.base_args = {
 	chars = { "a", "b", "c", "d", "x", "y" },
 	tags = { "movement", "mark" },
 	autocmds = { "CursorMoved" },
-	min_level = 2,
+	min_level = 2,help = " (Tip: Use ')"
 }
 
 function MoveMarkTask:prepare()
@@ -31,7 +31,7 @@ function MoveMarkTask:place_mark()
 	while self.target_line == cursor_position do
 		self.target_line = math.random(5, 15)
 	end
-	self.desc = "Go to Mark " .. self.current_mark_name
+	self.desc = "Move to Mark " .. self.current_mark_name .. "."
 
 	self.highlight = utility.create_highlight(self.target_line - 1, 0, -1)
 
