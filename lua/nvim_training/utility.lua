@@ -3,7 +3,7 @@
 local utility = {}
 
 local LinkedListNode = require("lua.nvim_training.linked_list")
-
+--This module deviates from the oop paradigm, it is just a collection of methods without internal state
 function utility.create_highlight(x, y, len)
 	local hl = {}
 	local highlight_namespace = vim.api.nvim_create_namespace("DefaultNvimTrainingHlSpace")
