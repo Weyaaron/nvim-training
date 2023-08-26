@@ -11,11 +11,14 @@ function MoveRelativeLineTask:setup()
 	self:load_from_json("one_word_per_line.buffer")
 	utility.replace_main_buffer_with_str(self.initial_buffer)
 
-	self.current_offset = utility.draw_random_number_with_sign(2, 9)
-	self.previous_line = vim.api.nvim_win_get_cursor(0)[1]
+	local left_bound = 2
+	local right_bound = 9
 
-	while self.current_offset + self.previous_line < 0 do
-		self.current_offset = utility.draw_random_number_with_sign(2, 9)
+	self.current_offset = utility.draw_random_number_with_sign(left_bound, right_bound)
+	self.previous_line = vim.api.nvim_win_get_cursor(0)[1]
+	--The -1 corrects for the offset -1 in line_for_highlight
+	while self.current_offset + self.previous_line < 1 do
+		self.current_offset = utility.draw_random_number_with_sign(left_bound, right_bound)
 	end
 
 	self.desc = "Move " .. tostring(self.current_offset) .. " lines."

@@ -17,22 +17,14 @@ function UserInterface:new()
 end
 
 function UserInterface:display(current_task_sequence)
-	--Todo: Implement this as a progress indicator
-	local head = ""
-	local scale = 3
-	for i = 1, current_task_sequence.current_round do
-		for v = 1, scale do
-			head = head .. "-"
-		end
-	end
-	--This long string sucks
+
 	local window_text = current_task_sequence.current_level.current_round.current_task.desc .. "\n"
 
 	local sequence_of_attempts = ""
 
-	local max_streak_per_level = 3
-	--Doing it this way sucks, this will be improved upon
-	local status_list = current_task_sequence.current_level.current_round.status_list
+	local round_length = vim.g.nvim_training.round_length
+	local current_round = current_task_sequence.current_level.current_round
+	local status_list = current_round:results()
 
 	for i = 1, #status_list do
 		local current_status = status_list[i]
@@ -42,7 +34,7 @@ function UserInterface:display(current_task_sequence)
 			sequence_of_attempts = sequence_of_attempts .. " x"
 		end
 	end
-	for i = #current_task_sequence.status_list, max_streak_per_level do
+	for i = #status_list, round_length do
 		sequence_of_attempts = sequence_of_attempts .. " _"
 	end
 
@@ -55,7 +47,7 @@ function UserInterface:display(current_task_sequence)
 		.. "Current Round: "
 		.. current_task_sequence.current_level.round_index
 		.. "/"
-		.. current_task_sequence.current_level.max_rounds
+		.. current_task_sequence.current_level.level_length
 
 	self.window:update_window_text(window_text)
 end

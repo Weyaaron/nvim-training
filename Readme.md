@@ -28,6 +28,7 @@ this branch for testing is as of 2023-08 discouraged.
 - Make sure you are in an empty buffer.
 - Run `:Training` to start a session.
 
+
 # Configuration Options
 To configure this plugin, overwrite the table "vim.g.nvim_training" after loading the plugin. 
 This may be done in the init.lua after loading the plugin.
@@ -39,11 +40,14 @@ config.enable_audio_feedback = false --If true, a sound will be played when a ta
 config.excluded_tags = {} -- A list of tags. Tasks with these tags will not be included in the session. Default: empty list
 config.included_tags = {} -- A list of tags. Only tasks with these tags will be included in the session(If not set, all tags will be included). Default: empty list
 config.first_level = 1 -- The level a session starts at. Useful for skipping the early easy tasks.  Default: 1
-config.display_info = false -- This enables help in the ui. If set, some tasks will provide a hint on how to to them. Default: false
+config.display_info = false -- This enables help in the ui. If set, some tasks will provide a hint on how to do them. Default: false
+config.level_length = 3 --  The number of rounds per level. Default: 3
+config.round_length = 5 -- The number of task per round. Default: 5
+
 vim.g.nvim_training = config
 ```
 
-Unfortunately, the names can not be set individually,
+Unfortunately, the values can not be set individually,
 see [here](https://neovim.io/doc/user/lua-guide.html#lua-guide-variables)
 and [here](https://github.com/neovim/neovim/issues/12544) for Details.
 

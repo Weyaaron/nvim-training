@@ -7,7 +7,7 @@ function Level:new(task_pool, level)
 	local base = {}
 	setmetatable(base, { __index = self })
 	base.round_index = 1
-	base.max_rounds = 5
+	base.level_length = vim.g.nvim_training.level_length
 	base.task_pool = task_pool
 	base.level = level
 
@@ -21,12 +21,13 @@ function Level:setup()
 end
 
 function Level:advance_round()
-	local results = self.current_round.status_list
-	local round_suceddet = true
-	for i, v in pairs(results) do
-		round_suceddet = round_suceddet and v
+
+
+	local round_sucedet = true
+	for i, v in pairs(self.current_round:results()) do
+		round_sucedet = round_sucedet and v
 	end
-	if round_suceddet then
+	if round_sucedet then
 		self.round_index = self.round_index + 1
 	end
 

@@ -8,6 +8,7 @@ Task.base_args = {
 	tags = {},
 	min_level = -1,
 	help = "Generic Help",
+	result = nil,
 }
 
 -- This is the main object the whole code revolves around. A in-depth description is given in 'architecture.md' in the
@@ -37,9 +38,11 @@ function Task:setup()
 	print("Prepared from Baseclass called, please implement it in the subclass!")
 end
 function Task:apply_config()
+	local current_desc = self.desc
 	if vim.g.nvim_training.display_info then
 		self.desc = self.desc .. self.help
 	end
+	print(current_desc.." " .. tostring(vim.g.nvim_training.display_info) .." " .. self.help .." " .. self.desc)
 end
 
 function Task:completed()
