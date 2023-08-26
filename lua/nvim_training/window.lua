@@ -6,9 +6,12 @@ local Window = {}
 Window.__index = Window
 
 function Window:new(width, height, row, col)
-	local base = { win_width = width, win_height = height, win_row = row, win_col = col }
+	local base = {}
 	setmetatable(base, { __index = self })
-
+	base.win_width = width
+	base.win_height = height
+	base.win_row = row
+	base.win_col = col
 	base:display()
 	return base
 end

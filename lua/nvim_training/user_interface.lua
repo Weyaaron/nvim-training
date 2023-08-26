@@ -4,8 +4,9 @@ local UserInterface = {}
 UserInterface.__index = UserInterface
 
 function UserInterface:new()
-	local base = { progress_counter = 0 }
+	local base = {}
 	setmetatable(base, { __index = self })
+	base.progress_counter = 0
 	base.window_width = 60
 	base.window = Window:new(base.window_width, 9, 1, 75)
 	base.call_counter = 0

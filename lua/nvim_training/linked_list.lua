@@ -180,7 +180,6 @@ function LinkedListNode:dollar()
 end
 function LinkedListNode:b(offset, y_cursor_pos)
 	local diff = self.start_index - y_cursor_pos
-	print("diff " .. diff)
 	if diff == 1 then
 		offset = offset - 1
 	end

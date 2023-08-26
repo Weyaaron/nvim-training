@@ -5,7 +5,6 @@ Task.__index = Task
 Task.base_args = {
 	desc = "Generic Top Level Task Description",
 	autocmds = {},
-	abr = "ABLT",
 	tags = {},
 	min_level = -1,
 	help = "Generic Help",
@@ -15,7 +14,7 @@ Task.base_args = {
 -- docs folder
 local utility = require("lua.nvim_training.utility")
 function Task:new(custom_args)
-	self.__index = self
+	--This class not been adopted to the new style of 'new' that most other classes adhere to.
 	local base = {}
 	if not custom_args then
 		custom_args = self.base_args
@@ -25,12 +24,11 @@ function Task:new(custom_args)
 			base[i] = v
 		end
 	end
-	setmetatable(base, self)
+	setmetatable(base, { __index = self })
 
 	for i, v in pairs(custom_args) do
 		base[i] = v
 	end
-	--Buffer might change? hope not
 	self.buffer_as_list = utility.construct_linked_list()
 	return base
 end
@@ -58,10 +56,7 @@ function Task:teardown()
 	print("Teardown from Baseclass called, please implement it in the subclass!")
 end
 
-function Task:load_from_json(file_suffix, minimal_keys)
-	if not minimal_keys then
-		minimal_keys = {}
-	end
+function Task:load_from_json(file_suffix)
 	local file_path = utility.construct_buffer_path(file_suffix)
 
 	local file = io.open(file_path)
@@ -79,12 +74,6 @@ function Task:load_from_json(file_suffix, minimal_keys)
 	file = io.open(new_buffer_file_path)
 	data_from_json.new_buffer = file:read("a")
 	file:close()
-
-	for key, el in pairs(minimal_keys) do
-		if not data_from_json[key] then
-			print("Json is missing minimal key:" .. tostring(el))
-		end
-	end
 
 	for i, v in pairs(data_from_json) do
 		self[i] = v

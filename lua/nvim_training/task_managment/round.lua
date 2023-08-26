@@ -4,18 +4,15 @@ local Round = {}
 Round.__index = Round
 
 function Round:new(task_pool)
-	local base = {
-		task_length = 5,
-		task_index = 1,
-	}
+	local base = {}
 	setmetatable(base, { __index = self })
 	base.task_pool = task_pool
 	base.status_list = {}
+	base.task_length = 5
 	return base
 end
 
 function Round:setup()
-	print("New Round started")
 	self.task_sequence = {}
 
 	for _ = 1, self.task_length do
@@ -26,9 +23,7 @@ function Round:setup()
 	self.current_task:setup()
 end
 
-function Round:teardown()
-	print("Ending the round")
-end
+function Round:teardown() end
 
 function Round:advance_task()
 	self.task_index = self.task_index + 1
@@ -59,7 +54,6 @@ end
 
 function Round:completed()
 	local index_diff = self.task_index - #self.task_sequence
-	print(index_diff)
 	return index_diff == 0
 end
 

@@ -22,8 +22,6 @@ function YankWordsTask:setup()
 end
 
 function YankWordsTask:completed()
-	print("autocmd called")
-
 	return true
 end
 

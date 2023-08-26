@@ -25,33 +25,20 @@ local TaskSequence = {}
 TaskSequence.__index = TaskSequence
 
 function TaskSequence:new()
-	local base = {
-		task_length = 3,
-		task_index = 0,
-		task_sequence = {},
-		task_pool = {},
-		active_autocmds = {},
-		current_level = 1,
-		current_round = 0,
-		max_rounds = 3,
-		round_successfully = true,
-		--Todo: Remove
-		status_list = { true },
-		level_index = 1,
-	}
+	local base = {}
 	setmetatable(base, { __index = self })
-
+	base.task_pool = {}
+	base.active_autocmds = {}
+	base.current_level = nil
+	base.current_round = nil
+	base.level_index = 1
 	return base
 end
 local Level = require("lua.nvim_training.task_managment.level")
 function TaskSequence:setup()
 	self:construct_task_pool()
-	for i = 1, self.task_length do
-		local current_next_task = self.task_pool[math.random(#self.task_pool)]:new()
-		table.insert(self.task_sequence, current_next_task)
-	end
 
-	self.current_level = Level:new(self.task_sequence, self.level_index)
+	self.current_level = Level:new(self.task_pool, self.level_index)
 	self.current_level:setup()
 	self:advance_to_next_task()
 	user_interface:display(self)
@@ -105,7 +92,6 @@ end
 function TaskSequence:handle_autocmd()
 	local completed = self.current_level:task_completed()
 	local failed = self.current_level:task_failed()
-	--print("C: " .. tostring(completed) .." and F: " .. tostring(failed))
 	local check_for_level = false
 
 	if completed and not failed then
@@ -119,12 +105,11 @@ function TaskSequence:handle_autocmd()
 		check_for_level = true
 	end
 	if check_for_level then
-		print("Checking for level")
 		local level_completed = self.current_level:completed()
 		if level_completed then
 			self.current_level:teardown()
 			self.level_index = self.level_index + 1
-			print("New level started")
+
 			self.current_level = Level:new(self.task_pool, self.level_index)
 			self.current_level:setup()
 		end

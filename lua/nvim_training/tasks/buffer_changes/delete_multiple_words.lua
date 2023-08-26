@@ -30,15 +30,11 @@ function DeleteMultipleWordsTask:completed()
 
 	local target_lines = utility.deconstruct_linked_list(self.target_list)
 	local comparison = #target_lines == #current_buffer_lines
-	if not comparison then
-		print("Lines differ in length!")
-	end
 
 	for i, current_buffer_line_el in pairs(current_buffer_lines) do
 		local target_line_el = target_lines[i]
 		local line_comparison = target_line_el == current_buffer_line_el
 		if not line_comparison then
-			print("Comp broke at " .. i .. ":" .. current_buffer_line_el .. "!=" .. target_line_el)
 			comparison = false
 			break
 		end

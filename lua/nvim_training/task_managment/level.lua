@@ -16,16 +16,14 @@ end
 local Round = require("lua.nvim_training.task_managment.round")
 
 function Level:setup()
-	print("Level setup happened")
 	self.current_round = Round:new(self.task_pool)
 	self.current_round:setup()
 end
 
 function Level:advance_round()
-	print("Advancing round")
 	local results = self.current_round.status_list
 	local round_suceddet = true
-	for i,v in pairs(results) do
+	for i, v in pairs(results) do
 		round_suceddet = round_suceddet and v
 	end
 	if round_suceddet then
