@@ -17,7 +17,6 @@ function UserInterface:new()
 end
 
 function UserInterface:display(current_task_sequence)
-
 	local window_text = current_task_sequence.current_level.current_round.current_task.desc .. "\n"
 
 	local sequence_of_attempts = ""
@@ -26,9 +25,8 @@ function UserInterface:display(current_task_sequence)
 	local current_round = current_task_sequence.current_level.current_round
 	local status_list = current_round:results()
 
-	for i = 1, #status_list do
-		local current_status = status_list[i]
-		if current_status then
+	for i, v in pairs(status_list) do
+		if v then
 			sequence_of_attempts = sequence_of_attempts .. " ✓"
 		else
 			sequence_of_attempts = sequence_of_attempts .. " x"

@@ -5,7 +5,7 @@ local Task = require("nvim_training.task")
 
 local MoveRelativeLineTask = Task:new()
 MoveRelativeLineTask.base_args =
-	{ tags = { "movement", "relative" }, autocmds = { "CursorMoved" }, help = " (Tip: Use j,k)" }
+	{ tags = { "movement", "relative" }, autocmds = { "CursorMoved" }, help = " (Tip: Use j,k)", min_level = 1 }
 
 function MoveRelativeLineTask:setup()
 	self:load_from_json("one_word_per_line.buffer")

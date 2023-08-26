@@ -15,6 +15,7 @@ local utility = require("nvim_training.utility")
 local total_task_pool = {
 	AbsoluteLineTask,
 	RelativeLineTask,
+	charTask, SearchTask, StartOfLineTask, DollarTask, bTask, wTask, eTask,MoveMark
 }
 
 local current_window = vim.api.nvim_tabpage_get_win(0)
@@ -47,12 +48,14 @@ end
 function TaskSequence:construct_task_pool()
 	--Todo: Deal with empty pool after filtering!
 	if #vim.g.nvim_training.included_tags == 0 then
-		self.task_pool = total_task_pool
+		for i, v in pairs(total_task_pool) do
+			table.insert(self.task_pool, v:new())
+		end
 	else
 		for key, el in pairs(total_task_pool) do
 			local allowed_intersection = utility.intersection(el.base_args.tags, vim.g.nvim_training.included_tags)
 			if not (#allowed_intersection == 0) then
-				table.insert(self.task_pool, el)
+				table.insert(self.task_pool, el:new())
 			end
 		end
 	end
@@ -61,11 +64,22 @@ function TaskSequence:construct_task_pool()
 		for key, el in pairs(self.task_pool) do
 			local forbidden_intersection = utility.intersection(el.base_args.tags, vim.g.nvim_training.excluded_tags)
 			if #forbidden_intersection == 0 then
-				new_pool[key] = el
+				table.insert(new_pool, el:new())
 			end
 		end
 		self.task_pool = new_pool
 	end
+
+	local task_pool_after_level_adjustments = {}
+	for i, v in pairs(self.task_pool) do
+		print(v.help .. " " .. v.min_level)
+		local is_included = (v.min_level <= self.level_index) and (v.min_level > -1)
+		if is_included then
+			table.insert(task_pool_after_level_adjustments, v)
+		end
+	end
+	--Todo: Deal with empty pool after filtering!
+	self.task_pool = task_pool_after_level_adjustments
 end
 
 function TaskSequence:advance_to_next_task()
@@ -112,6 +126,7 @@ function TaskSequence:handle_autocmd()
 
 			self.current_level = Level:new(self.task_pool, self.level_index)
 			self.current_level:setup()
+			self:construct_task_pool()
 		end
 	end
 

@@ -21,8 +21,6 @@ function Level:setup()
 end
 
 function Level:advance_round()
-
-
 	local round_sucedet = true
 	for i, v in pairs(self.current_round:results()) do
 		round_sucedet = round_sucedet and v
@@ -51,11 +49,7 @@ function Level:completed()
 	if round_completed then
 		self:advance_round()
 	end
-
-	if round_completed and self.round_index == self.max_rounds then
-		return true
-	end
-	return false
+	return round_completed and self.round_index == self.level_length
 end
 
 function Level:teardown_current_task()

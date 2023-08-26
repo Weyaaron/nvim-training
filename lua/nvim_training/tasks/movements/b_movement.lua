@@ -3,7 +3,7 @@
 local utility = require("lua.nvim_training.utility")
 local bMovementTask = require("lua.nvim_training.tasks.base_movement"):new()
 
-bMovementTask.base_args = { tags = { "movement" }, autocmds = { "CursorMoved" }, help = " (Tip: Use b)" }
+bMovementTask.base_args = { tags = { "movement" }, autocmds = { "CursorMoved" }, help = " (Tip: Use b)", min_level = 5 }
 
 function bMovementTask:setup()
 	self:load_from_json("lorem_ipsum.buffer")

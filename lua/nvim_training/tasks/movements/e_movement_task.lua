@@ -1,7 +1,7 @@
 -- luacheck: globals vim
 
 local eMovementTask = require("lua.nvim_training.tasks.base_movement"):new()
-eMovementTask.base_args = { autocmds = { "CursorMoved" }, tags = { "buffer" }, help = " (Tip: Use e)" }
+eMovementTask.base_args = { autocmds = { "CursorMoved" }, tags = { "buffer" }, help = " (Tip: Use e)", min_level = 3 }
 local utility = require("nvim_training.utility")
 
 function eMovementTask:setup()

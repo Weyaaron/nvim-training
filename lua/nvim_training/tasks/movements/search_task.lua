@@ -1,7 +1,8 @@
 -- luacheck: globals vim
 
 local SearchTask = require("lua.nvim_training.tasks.base_movement"):new()
-SearchTask.base_args = { autocmds = { "CursorMoved" }, tags = { "buffer" }, help = " (Tip: Use /target)" }
+SearchTask.base_args =
+	{ autocmds = { "CursorMoved" }, tags = { "buffer" }, help = " (Tip: Use /target)", min_level = 5 }
 
 local utility = require("nvim_training.utility")
 

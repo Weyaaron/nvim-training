@@ -28,6 +28,12 @@ this branch for testing is as of 2023-08 discouraged.
 - Make sure you are in an empty buffer.
 - Run `:Training` to start a session.
 
+The tasks will cycle in rounds and in levels. The first five Levels will add new tasks, 
+which tasks are added and in which level is subject to change.
+To reach a new level, you have to complete all the rounds of the current level
+flawlessly. The mechanism for adding tasks will consider the difficulty of the task.(Details 
+of the selection process are subject to change).
+
 
 # Configuration Options
 To configure this plugin, overwrite the table "vim.g.nvim_training" after loading the plugin. 
