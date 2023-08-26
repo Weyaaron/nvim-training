@@ -37,6 +37,7 @@ function TaskSequence:new()
 		round_successfully = true,
 		--Todo: Remove
 		status_list = { true },
+		level_index = 1,
 	}
 	setmetatable(base, { __index = self })
 
@@ -50,8 +51,8 @@ function TaskSequence:setup()
 		table.insert(self.task_sequence, current_next_task)
 	end
 
-	self.current_level = Level:new(self.task_sequence)
-	self.current_level:start()
+	self.current_level = Level:new(self.task_sequence, self.level_index)
+	self.current_level:setup()
 	self:advance_to_next_task()
 	user_interface:display(self)
 end
@@ -104,24 +105,28 @@ end
 function TaskSequence:handle_autocmd()
 	local completed = self.current_level:task_completed()
 	local failed = self.current_level:task_failed()
+	--print("C: " .. tostring(completed) .." and F: " .. tostring(failed))
 	local check_for_level = false
 
 	if completed and not failed then
-		self.current_level:tear_down_current_task()
-		self.current_level:advance_task(completed, failed)
+		self.current_level:teardown_current_task()
+		self.current_level:advance_task()
 		check_for_level = true
 	end
 	if not completed and failed then
-		self.current_level:tear_down_current_task()
-		self.current_level:advance_task(completed, failed)
+		self.current_level:teardown_current_task()
+		self.current_level:advance_task()
 		check_for_level = true
 	end
 	if check_for_level then
+		print("Checking for level")
 		local level_completed = self.current_level:completed()
 		if level_completed then
 			self.current_level:teardown()
-			self.current_level = Level:new()
-			self.current_level:initialize()
+			self.level_index = self.level_index + 1
+			print("New level started")
+			self.current_level = Level:new(self.task_pool, self.level_index)
+			self.current_level:setup()
 		end
 	end
 

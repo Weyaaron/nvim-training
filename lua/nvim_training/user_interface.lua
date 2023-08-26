@@ -30,8 +30,11 @@ function UserInterface:display(current_task_sequence)
 	local sequence_of_attempts = ""
 
 	local max_streak_per_level = 3
-	for i = 1, #current_task_sequence.status_list do
-		local current_status = current_task_sequence.status_list[i]
+	--Doing it this way sucks, this will be improved upon
+	local status_list = current_task_sequence.current_level.current_round.status_list
+
+	for i = 1, #status_list do
+		local current_status = status_list[i]
 		if current_status then
 			sequence_of_attempts = sequence_of_attempts .. " ✓"
 		else
@@ -43,19 +46,23 @@ function UserInterface:display(current_task_sequence)
 	end
 
 	window_text = window_text .. sequence_of_attempts
+
+	window_text = window_text .. "\n\n" .. "Current Level: " .. current_task_sequence.level_index
+
+	window_text = window_text
+		.. "\n\n"
+		.. "Current Round: "
+		.. current_task_sequence.current_level.round_index
+		.. "/"
+		.. current_task_sequence.current_level.max_rounds
+
 	self.window:update_window_text(window_text)
 end
 
 return UserInterface
 --[[
 	--Todo: Reintroduce
-	window_text = window_text .. "\n\n" .. "Current Level: " .. current_task_sequence.current_level
-	window_text = window_text
-		.. "\n\n"
-		.. "Current Round: "
-		.. current_task_sequence.current_round
-		.. "/"
-		.. current_task_sequence.max_rounds
+
 
 	--window_text = window_text .. "\n" .. self.help_text
 
