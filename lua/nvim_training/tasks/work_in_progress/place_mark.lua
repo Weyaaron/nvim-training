@@ -14,7 +14,7 @@ function PlaceMarkTask:setup()
 	self:teardown_all_marks()
 
 	self.current_mark_name = self.chars[math.random(1, #self.chars)]
-	self.desc = "Place the mark " .. self.current_mark_name
+	self.instruction = "Place the mark " .. self.current_mark_name
 end
 
 function PlaceMarkTask:completed()

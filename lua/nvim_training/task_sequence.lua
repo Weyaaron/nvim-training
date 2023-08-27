@@ -2,20 +2,27 @@
 
 local AbsoluteLineTask = require("lua.nvim_training.tasks.movements.absolute_line")
 local RelativeLineTask = require("lua.nvim_training.tasks.movements.relative_line")
-local SearchTask = require("lua.nvim_training.tasks.movements.search_task")
-local MoveMark = require("lua.nvim_training.tasks.movements.move_mark")
-local wTask = require("lua.nvim_training.tasks.movements.w_movement_task")
-local eTask = require("lua.nvim_training.tasks.movements.e_movement_task")
-local bTask = require("lua.nvim_training.tasks.movements.b_movement")
-local DollarTask = require("lua.nvim_training.tasks.movements.dollar_movement")
-local charTask = require("lua.nvim_training.tasks.movements.char_movement")
-local StartOfLineTask = require("lua.nvim_training.tasks.movements.start_of_line_movement")
+local SearchTask = require("lua.nvim_training.tasks.movements.search")
+local MoveMarkTask = require("lua.nvim_training.tasks.movements.move_mark")
+local wTask = require("lua.nvim_training.tasks.movements.w")
+local eTask = require("lua.nvim_training.tasks.movements.e")
+local bTask = require("lua.nvim_training.tasks.movements.b")
+local DollarTask = require("lua.nvim_training.tasks.movements.dollar")
+local charTask = require("lua.nvim_training.tasks.movements.char")
+local StartOfLineTask = require("lua.nvim_training.tasks.movements.start_of_line")
 local utility = require("nvim_training.utility")
 
 local total_task_pool = {
 	AbsoluteLineTask,
 	RelativeLineTask,
-	charTask, SearchTask, StartOfLineTask, DollarTask, bTask, wTask, eTask,MoveMark
+	charTask,
+	SearchTask,
+	StartOfLineTask,
+	DollarTask,
+	bTask,
+	wTask,
+	eTask,
+	MoveMarkTask,
 }
 
 local current_window = vim.api.nvim_tabpage_get_win(0)
@@ -70,9 +77,18 @@ function TaskSequence:construct_task_pool()
 		self.task_pool = new_pool
 	end
 
+	local function _sort(a,b)
+		return a.min_level < b.min_level
+	end
+	table.sort(self.task_pool, _sort)
+
+	for i, v in pairs(self.task_pool) do
+		local str_from_tags = table.concat(v.tags, ", ")
+		--print("-".. v.description .. " (" .. str_from_tags ..")")
+	end
+
 	local task_pool_after_level_adjustments = {}
 	for i, v in pairs(self.task_pool) do
-		print(v.help .. " " .. v.min_level)
 		local is_included = (v.min_level <= self.level_index) and (v.min_level > -1)
 		if is_included then
 			table.insert(task_pool_after_level_adjustments, v)

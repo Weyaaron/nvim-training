@@ -1,10 +1,16 @@
 -- luacheck: globals vim
 
-local eMovementTask = require("lua.nvim_training.tasks.base_movement"):new()
-eMovementTask.base_args = { autocmds = { "CursorMoved" }, tags = { "buffer" }, help = " (Tip: Use e)", min_level = 3 }
+local eTask = require("lua.nvim_training.tasks.base_movement"):new()
+eTask.base_args = {
+	autocmds = { "CursorMoved" },
+	tags = { "movement", "relative", "word_based" },
+	help = " (Tip: Use e)",
+	min_level = 3,
+	description = "Move to the end of words."
+}
 local utility = require("nvim_training.utility")
 
-function eMovementTask:setup()
+function eTask:setup()
 	self:load_from_json("permutation.buffer")
 	utility.replace_main_buffer_with_str(self.initial_buffer)
 	self.buffer_as_list = utility.construct_linked_list()
@@ -23,10 +29,10 @@ function eMovementTask:setup()
 	local e_movement_result = cursor_node:e(offset, cursor_position[2])
 	local target_node = e_movement_result.node
 	offset = e_movement_result.offset
-	self.desc = "Move to the end of the " .. offset .. "th word. "
+	self.instruction = "Move to the end of the " .. offset .. "th word. "
 	self.new_buffer_coordinates = { target_node.line_index, target_node.end_index - 2 }
 
 	self.highlight = utility.create_highlight(self.new_buffer_coordinates[1] - 1, self.new_buffer_coordinates[2], 1)
 end
 
-return eMovementTask
+return eTask

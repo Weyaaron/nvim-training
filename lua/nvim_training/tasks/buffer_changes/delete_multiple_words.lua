@@ -17,7 +17,7 @@ function DeleteMultipleWordsTask:setup()
 	local move_to_cursor = self.buffer_as_list:traverse_to_line_char(cursor_pos[1], cursor_pos[2])
 	local movement_result = move_to_cursor:w(offset)
 
-	self.desc = "Remove " .. offset .. " words."
+	self.instruction = "Remove " .. offset .. " words."
 
 	self.target_list = move_to_cursor:consume_up_until_node_inclusive(movement_result)
 

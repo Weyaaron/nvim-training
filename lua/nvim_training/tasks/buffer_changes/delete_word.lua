@@ -23,7 +23,7 @@ function DeleteWordTask:setup()
 		target_word = self.initial_words_in_buffer[math.random(1, #self.initial_words_in_buffer)]
 	end
 
-	self.desc = "Remove the word '" .. target_word .. "' from the buffer."
+	self.instruction = "Remove the word '" .. target_word .. "' from the buffer."
 
 	local new_buffer_lines = vim.api.nvim_buf_get_lines(0, 0, line_count, false)
 	local left_bound = 0

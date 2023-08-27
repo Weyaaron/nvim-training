@@ -17,7 +17,7 @@ function MoveRandomXYTask:setup()
 
 	self.new_buffer_coordinates = self.movement:calculate_cursor_x_y()
 
-	self.desc = "Move to line " .. self.new_buffer_coordinates[1] .. "and " .. self.new_buffer_coordinates[2]
+	self.instruction = "Move to line " .. self.new_buffer_coordinates[1] .. "and " .. self.new_buffer_coordinates[2]
 
 	local first_highlight =
 		utility.create_highlight(self.new_buffer_coordinates[1] - 1, self.new_buffer_coordinates[2], 1)

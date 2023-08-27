@@ -4,8 +4,13 @@ local utility = require("nvim_training.utility")
 local Task = require("nvim_training.task")
 
 local MoveRelativeLineTask = Task:new()
-MoveRelativeLineTask.base_args =
-	{ tags = { "movement", "relative" }, autocmds = { "CursorMoved" }, help = " (Tip: Use j,k)", min_level = 1 }
+MoveRelativeLineTask.base_args = {
+	tags = { "movement", "relative", "line_based" },
+	autocmds = { "CursorMoved" },
+	help = " (Tip: Use j,k)",
+	min_level = 1,
+	description = "Move lines up or down.",
+}
 
 function MoveRelativeLineTask:setup()
 	self:load_from_json("one_word_per_line.buffer")
@@ -21,7 +26,7 @@ function MoveRelativeLineTask:setup()
 		self.current_offset = utility.draw_random_number_with_sign(left_bound, right_bound)
 	end
 
-	self.desc = "Move " .. tostring(self.current_offset) .. " lines."
+	self.instruction = "Move " .. tostring(self.current_offset) .. " lines."
 
 	local line_for_highlight = self.previous_line + self.current_offset - 1
 	self.highlight = utility.create_highlight(line_for_highlight, 0, -1)

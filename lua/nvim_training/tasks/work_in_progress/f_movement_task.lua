@@ -35,7 +35,7 @@ function FMovementTask:setup()
 	local movement_result = cursor_node:f(target_char)
 	self.target_node = movement_result.node
 	self.new_buffer_coordinates = { self.target_node.line_index, movement_result.offset }
-	self.desc = "Move to the instance of " .. target_char .. "."
+	self.instruction = "Move to the instance of " .. target_char .. "."
 
 	self.highlight = utility.create_highlight(self.new_buffer_coordinates[1] - 1, self.new_buffer_coordinates[2], 1)
 end

@@ -3,7 +3,7 @@ local SwitchWindowTask = Task:new()
 SwitchWindowTask.base_args = { tags = { "window", "ui" }, autocmds = { "WinEnter" }, desc = "Switch to new a window" }
 
 function SwitchWindowTask:setup()
-	self.desc = "Switch to another window"
+	self.instruction = "Switch to another window"
 end
 
 function SwitchWindowTask:completed()

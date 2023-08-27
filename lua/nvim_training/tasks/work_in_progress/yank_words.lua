@@ -15,7 +15,7 @@ function YankWordsTask:setup()
 	local cursor_pos = vim.api.nvim_win_get_cursor(0)
 	local move_to_cursor = self.buffer_as_list:traverse_to_line_char(cursor_pos[1], cursor_pos[2])
 	local movement_result = move_to_cursor:w(offset)
-	self.desc = "Move " .. tostring(offset) .. " words relative to your cursor using w."
+	self.instruction = "Move " .. tostring(offset) .. " words relative to your cursor using w."
 	self.new_buffer_coordinates = { movement_result.line_index, movement_result.end_index }
 
 	self.highlight = utility.create_highlight(self.new_buffer_coordinates[1] - 1, self.new_buffer_coordinates[2], 1)

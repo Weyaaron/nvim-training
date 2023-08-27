@@ -3,12 +3,13 @@
 local Task = {}
 Task.__index = Task
 Task.base_args = {
-	desc = "Generic Top Level Task Description",
+	instruction = "Generic Top Level Task Instruction",
 	autocmds = {},
 	tags = {},
 	min_level = -1,
 	help = "Generic Help",
 	result = nil,
+	description = "Generic Top Level Task Description",
 }
 
 -- This is the main object the whole code revolves around. A in-depth description is given in 'architecture.md' in the
@@ -39,7 +40,7 @@ function Task:setup()
 end
 function Task:apply_config()
 	if vim.g.nvim_training.display_info then
-		self.desc = self.desc .. self.help
+		self.instruction = self.instruction .. self.help
 	end
 end
 

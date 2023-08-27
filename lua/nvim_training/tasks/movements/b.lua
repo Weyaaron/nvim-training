@@ -1,11 +1,17 @@
 -- luacheck: globals vim
 
 local utility = require("lua.nvim_training.utility")
-local bMovementTask = require("lua.nvim_training.tasks.base_movement"):new()
+local bTask = require("lua.nvim_training.tasks.base_movement"):new()
 
-bMovementTask.base_args = { tags = { "movement" }, autocmds = { "CursorMoved" }, help = " (Tip: Use b)", min_level = 5 }
+bTask.base_args = {
+	tags = { "movement", "horizontal", "word_based" },
+	autocmds = { "CursorMoved" },
+	help = " (Tip: Use b)",
+	min_level = 5,
+	description = "Move words back.",
+}
 
-function bMovementTask:setup()
+function bTask:setup()
 	self:load_from_json("lorem_ipsum.buffer")
 
 	utility.replace_main_buffer_with_str(self.initial_buffer)
@@ -17,10 +23,10 @@ function bMovementTask:setup()
 
 	offset = movement_result.offset
 	movement_result = movement_result.node
-	self.desc = "Move " .. tostring(offset) .. " words back."
+	self.instruction = "Move " .. tostring(offset) .. " words back."
 	self.new_buffer_coordinates = { movement_result.line_index, movement_result.start_index - 1 }
 
 	self.highlight = utility.create_highlight(self.new_buffer_coordinates[1] - 1, self.new_buffer_coordinates[2], 1)
 end
 
-return bMovementTask
+return bTask

@@ -17,7 +17,7 @@ function UserInterface:new()
 end
 
 function UserInterface:display(current_task_sequence)
-	local window_text = current_task_sequence.current_level.current_round.current_task.desc .. "\n"
+	local window_text = current_task_sequence.current_level.current_round.current_task.instruction .. "\n"
 
 	local sequence_of_attempts = ""
 

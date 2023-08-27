@@ -18,7 +18,7 @@ function DeleteLineTask:setup()
 		target_line = self.initial_lines_in_buffer[math.random(1, #self.initial_lines_in_buffer)]
 	end
 
-	self.desc = "Remove the line '" .. tostring(target_line) .. "' from the buffer."
+	self.instruction = "Remove the line '" .. tostring(target_line) .. "' from the buffer."
 
 	local line_index = 0
 

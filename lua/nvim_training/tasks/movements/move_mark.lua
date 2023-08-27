@@ -4,10 +4,11 @@ local utility = require("nvim_training.utility")
 local MoveMarkTask = require("lua.nvim_training.tasks.base_movement"):new()
 MoveMarkTask.base_args = {
 	chars = { "a", "b", "c", "d", "x", "y" },
-	tags = { "movement", "mark" },
+	tags = { "movement", "mark", "absolute" },
 	autocmds = { "CursorMoved" },
 	min_level = 2,
 	help = " (Tip: Use ')",
+	description = "Move to designated mark.",
 }
 
 function MoveMarkTask:setup()
@@ -32,7 +33,7 @@ function MoveMarkTask:place_mark()
 	while self.target_line == cursor_position do
 		self.target_line = math.random(5, 15)
 	end
-	self.desc = "Move to Mark " .. self.current_mark_name .. "."
+	self.instruction = "Move to Mark " .. self.current_mark_name .. "."
 
 	self.highlight = utility.create_highlight(self.target_line - 1, 0, -1)
 

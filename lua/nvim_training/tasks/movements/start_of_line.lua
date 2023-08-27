@@ -3,7 +3,13 @@
 local utility = require("lua.nvim_training.utility")
 local StartOfLineMovementTask = require("lua.nvim_training.tasks.base_movement"):new()
 
-StartOfLineMovementTask.base_args = { tags = { "movement" }, autocmds = { "CursorMoved" }, help = " (Tip: Use 0)", min_level=4 }
+StartOfLineMovementTask.base_args = {
+	tags = { "movement", "line_based", "horizontal", "absolute" },
+	autocmds = { "CursorMoved" },
+	help = " (Tip: Use 0)",
+	min_level = 4,
+	description = "Move to the start of the line.",
+}
 
 function StartOfLineMovementTask:setup()
 	self:load_from_json("lorem_ipsum.buffer")
@@ -16,7 +22,7 @@ function StartOfLineMovementTask:setup()
 		vim.api.nvim_win_set_cursor(0, { cursor_pos[1], new_pos })
 	end
 
-	self.desc = "Move to the start of the line."
+	self.instruction = "Move to the start of the line."
 	self.new_buffer_coordinates = { cursor_pos[1], 0 }
 
 	self.highlight = utility.create_highlight(self.new_buffer_coordinates[1] - 1, self.new_buffer_coordinates[2], 1)

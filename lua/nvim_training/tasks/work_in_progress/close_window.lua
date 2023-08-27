@@ -3,7 +3,7 @@ local CloseWindowTask = Task:new()
 CloseWindowTask.base_args = { tags = { "window", "ui" }, autocmds = { "WinClosed" }, desc = "Close a window" }
 
 function CloseWindowTask:setup()
-	self.desc = "Close a window"
+	self.instruction = "Close a window"
 	vim.cmd(":vsplit")
 end
 

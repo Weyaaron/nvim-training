@@ -33,7 +33,7 @@ function tMovementTask:setup()
 	local movement_result = cursor_node:t(target_char)
 	local target_node = movement_result.node
 	local offset = movement_result.offset
-	self.desc = "Move before the next instance of " .. target_char .. "."
+	self.instruction = "Move before the next instance of " .. target_char .. "."
 
 	self.new_buffer_coordinates = {
 		target_node.line_index,

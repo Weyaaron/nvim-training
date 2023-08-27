@@ -57,18 +57,21 @@ Unfortunately, the values can not be set individually,
 see [here](https://neovim.io/doc/user/lua-guide.html#lua-guide-variables)
 and [here](https://github.com/neovim/neovim/issues/12544) for Details.
 
-
 As of 2023-08 and Version 0.2, these names are subject to change. Please check the [default_config.json](plugin/default_config.json) for the current names 
 on occasion. 
 
-# Available tasks 
-- Move to an absolute line
-- Move x lines relative to your cursor 
-- Move to a mark 
-- Move chars relative to your cursor
-- The Movements e, w, b
-- Forward-Search
-- Move start/end of line
+# Available tasks (And their tags)
+-Move to an absolute line. (movement, line_based, absolute)
+-Move lines up or down. (movement, relative, line_based)
+-Move horizontally relative to your cursor. (movement, relative, horizontal)
+-Move to designated mark. (movement, mark, absolute)
+-Move to the end of words. (movement, relative, word_based)
+-Move words forwards. (movement, word_based, relative)
+-Move to the start of the line. (movement, line_based, horizontal, absolute)
+-Move to the end of the line. (movement, line_based, absolute, horizontal)
+-Search for a word. (absolute, search)
+-Move words back. (movement, horizontal, word_based)
+
 
 # Some tasks currently in the pipeline 
 - Window Management
