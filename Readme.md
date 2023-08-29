@@ -34,7 +34,6 @@ To reach a new level, you have to complete all the rounds of the current level
 flawlessly. The mechanism for adding tasks will consider the difficulty of the task.(Details 
 of the selection process are subject to change).
 
-
 # Configuration Options
 To configure this plugin, overwrite the table "vim.g.nvim_training" after loading the plugin. 
 This may be done in the init.lua after loading the plugin.
@@ -42,7 +41,6 @@ This may be done in the init.lua after loading the plugin.
 The following options are available (This can be copy-pasted into your init.lua):
 ```lua
 local config= {}
-config.enable_audio_feedback = false --If true, a sound will be played when a task is completed(Caution: This is experimental and may requires additional setup) Default: false
 config.excluded_tags = {} -- A list of tags. Tasks with these tags will not be included in the session. Default: empty list
 config.included_tags = {} -- A list of tags. Only tasks with these tags will be included in the session(If not set, all tags will be included). Default: empty list
 config.first_level = 1 -- The level a session starts at. Useful for skipping the early easy tasks.  Default: 1
@@ -60,7 +58,7 @@ and [here](https://github.com/neovim/neovim/issues/12544) for Details.
 As of 2023-08 and Version 0.2, these names are subject to change. Please check the [default_config.json](plugin/default_config.json) for the current names 
 on occasion. 
 
-# Available tasks (And their tags)
+# Available tasks and their tags
 -Move to an absolute line. (movement, line_based, absolute)
 -Move lines up or down. (movement, relative, line_based)
 -Move horizontally relative to your cursor. (movement, relative, horizontal)

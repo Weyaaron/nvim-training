@@ -20,7 +20,7 @@ end
 
 local base_path = construct_base_path()
 vim.api.nvim_command("set runtimepath^=" .. base_path)
-local utility = require("lua.nvim_training.utility")
+local utility = require("nvim_training.utility")
 local base_config_path = utility.construct_project_base_path("./plugin/default_config.json")
 utility.load_config_file_into_global_namespace(base_config_path)
 
