@@ -1,13 +1,13 @@
 -- luacheck: globals vim
 
-local BaseMovementTask = require("lua.nvim_training.tasks.base_movement")
+local BaseMovementTask = require("nvim_training.tasks.base_movement")
 
 local MoveRandomXYTask = BaseMovementTask:new()
 local utility = require("nvim_training.utility")
 
 MoveRandomXYTask.base_args = { tags = { "movement", "line_based" }, autocmds = { "CursorMoved" } }
 
-local TestMovement = require("lua.nvim_training.movements.test_movement")
+local TestMovement = require("nvim_training.movements.test_movement")
 function MoveRandomXYTask:setup()
 	--This one is currently broken
 	self:load_from_json("lorem_ipsum.buffer")

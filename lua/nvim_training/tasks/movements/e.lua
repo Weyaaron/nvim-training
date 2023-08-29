@@ -1,6 +1,6 @@
 -- luacheck: globals vim
 
-local eTask = require("lua.nvim_training.tasks.base_movement"):new()
+local eTask = require("nvim_training.tasks.base_movement"):new()
 eTask.base_args = {
 	autocmds = { "CursorMoved" },
 	tags = { "movement", "relative", "word_based" },

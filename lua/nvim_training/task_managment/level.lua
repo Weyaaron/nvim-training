@@ -13,7 +13,7 @@ function Level:new(task_pool, level)
 
 	return base
 end
-local Round = require("lua.nvim_training.task_managment.round")
+local Round = require("nvim_training.task_managment.round")
 
 function Level:setup()
 	self.current_round = Round:new(self.task_pool)

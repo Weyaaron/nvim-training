@@ -25,8 +25,8 @@ vim = {
 	},
 }
 
-local wTask = require("lua.nvim_training.tasks.movements.w")
-utility = require("lua.nvim_training.utility")
+local wTask = require("nvim_training.tasks.movements.w")
+utility = require("nvim_training.utility")
 utility.create_highlight = function()
 	return -1
 end

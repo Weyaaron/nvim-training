@@ -1,6 +1,6 @@
 -- luacheck: globals vim
 
-local MoveAbsoluteLineTask = require("lua.nvim_training.tasks.base_movement"):new()
+local MoveAbsoluteLineTask = require("nvim_training.tasks.base_movement"):new()
 local utility = require("nvim_training.utility")
 
 MoveAbsoluteLineTask.base_args = {

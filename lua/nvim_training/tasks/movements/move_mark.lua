@@ -1,7 +1,7 @@
 -- luacheck: globals vim
 
 local utility = require("nvim_training.utility")
-local MoveMarkTask = require("lua.nvim_training.tasks.base_movement"):new()
+local MoveMarkTask = require("nvim_training.tasks.base_movement"):new()
 MoveMarkTask.base_args = {
 	chars = { "a", "b", "c", "d", "x", "y" },
 	tags = { "movement", "mark", "absolute" },

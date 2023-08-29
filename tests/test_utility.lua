@@ -25,7 +25,7 @@ vim = {
 	},
 }
 
-local utility = require("lua.nvim_training.utility")
+local utility = require("nvim_training.utility")
 TestUtility = {}
 
 function TestUtility:test_word_search_without_bound()

@@ -144,7 +144,7 @@ function LinkedListNode:e(offset, y_cursor_pos)
 end
 
 function LinkedListNode:f(target_char)
-	local utility = require("lua.nvim_training.utility")
+	local utility = require("nvim_training.utility")
 	local base_node_result = self:_traverse_until_char(target_char)
 	local offset = base_node_result.start_index + utility.search_for_char_in_word(base_node_result.content, target_char)
 	return { node = base_node_result, offset = offset - 2 }
@@ -158,7 +158,7 @@ function LinkedListNode:search(target_str)
 end
 
 function LinkedListNode:_traverse_until_char(target_char)
-	local utility = require("lua.nvim_training.utility")
+	local utility = require("nvim_training.utility")
 	local function traverse_to_char(input_node)
 		local search_result = utility.search_for_char_in_word(input_node.content, target_char)
 		return not (search_result == -1)
@@ -166,7 +166,7 @@ function LinkedListNode:_traverse_until_char(target_char)
 	return self:traverse(traverse_to_char)
 end
 function LinkedListNode:t(target_char)
-	local utility = require("lua.nvim_training.utility")
+	local utility = require("nvim_training.utility")
 	local result = self:_traverse_until_char(target_char)
 	local char_offset = utility.search_for_char_in_word(result.content, target_char) - 1
 	return { node = result, offset = result.start_index + char_offset - 2 }

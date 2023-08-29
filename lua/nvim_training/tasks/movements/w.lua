@@ -1,7 +1,7 @@
 -- luacheck: globals vim
 
-local utility = require("lua.nvim_training.utility")
-local wTask = require("lua.nvim_training.tasks.base_movement"):new()
+local utility = require("nvim_training.utility")
+local wTask = require("nvim_training.tasks.base_movement"):new()
 
 wTask.base_args = {
 	tags = { "movement", "word_based", "relative" },

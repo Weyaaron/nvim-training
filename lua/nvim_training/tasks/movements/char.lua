@@ -2,7 +2,7 @@
 
 local utility = require("nvim_training.utility")
 
-local MoveRelativeCharTask = require("lua.nvim_training.tasks.base_movement"):new()
+local MoveRelativeCharTask = require("nvim_training.tasks.base_movement"):new()
 MoveRelativeCharTask.base_args = {
 	tags = { "movement", "relative", "horizontal" },
 	autocmds = { "CursorMoved" },

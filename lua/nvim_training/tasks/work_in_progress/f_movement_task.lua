@@ -1,7 +1,7 @@
 -- luacheck: globals vim
-local utility = require("lua.nvim_training.utility")
+local utility = require("nvim_training.utility")
 
-local FMovementTask = require("lua.nvim_training.tasks.base_movement"):new()
+local FMovementTask = require("nvim_training.tasks.base_movement"):new()
 FMovementTask.base_args = { autocmds = { "CursorMoved" }, tags = { "buffer" } }
 
 function FMovementTask:setup()

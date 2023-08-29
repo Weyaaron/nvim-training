@@ -12,8 +12,8 @@ local lorem_ipsum = {
 	"Ut enim ad minim veniam quis nostrud exercitation ullamco",
 }
 
-local utility = require("lua.nvim_training.utility")
-local Movements = require("lua.nvim_training.movements")
+local utility = require("nvim_training.utility")
+local Movements = require("nvim_training.movements")
 
 TestBasicListFunctions = {}
 

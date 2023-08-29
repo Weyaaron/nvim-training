@@ -1,15 +1,15 @@
 -- luacheck: globals vim
 
-local AbsoluteLineTask = require("lua.nvim_training.tasks.movements.absolute_line")
-local RelativeLineTask = require("lua.nvim_training.tasks.movements.relative_line")
-local SearchTask = require("lua.nvim_training.tasks.movements.search")
-local MoveMarkTask = require("lua.nvim_training.tasks.movements.move_mark")
-local wTask = require("lua.nvim_training.tasks.movements.w")
-local eTask = require("lua.nvim_training.tasks.movements.e")
-local bTask = require("lua.nvim_training.tasks.movements.b")
-local DollarTask = require("lua.nvim_training.tasks.movements.dollar")
-local charTask = require("lua.nvim_training.tasks.movements.char")
-local StartOfLineTask = require("lua.nvim_training.tasks.movements.start_of_line")
+local AbsoluteLineTask = require("nvim_training.tasks.movements.absolute_line")
+local RelativeLineTask = require("nvim_training.tasks.movements.relative_line")
+local SearchTask = require("nvim_training.tasks.movements.search")
+local MoveMarkTask = require("nvim_training.tasks.movements.move_mark")
+local wTask = require("nvim_training.tasks.movements.w")
+local eTask = require("nvim_training.tasks.movements.e")
+local bTask = require("nvim_training.tasks.movements.b")
+local DollarTask = require("nvim_training.tasks.movements.dollar")
+local charTask = require("nvim_training.tasks.movements.char")
+local StartOfLineTask = require("nvim_training.tasks.movements.start_of_line")
 local utility = require("nvim_training.utility")
 
 local total_task_pool = {
@@ -26,7 +26,7 @@ local total_task_pool = {
 }
 
 local current_window = vim.api.nvim_tabpage_get_win(0)
-local user_interface = require("lua.nvim_training.user_interface"):new()
+local user_interface = require("nvim_training.user_interface"):new()
 vim.api.nvim_set_current_win(current_window)
 
 local TaskSequence = {}
@@ -42,7 +42,7 @@ function TaskSequence:new()
 	base.level_index = 1
 	return base
 end
-local Level = require("lua.nvim_training.task_managment.level")
+local Level = require("nvim_training.task_managment.level")
 function TaskSequence:setup()
 	self:construct_task_pool()
 
