@@ -3,13 +3,13 @@
 local Level = {}
 Level.__index = Level
 
-function Level:new(task_pool, level)
+function Level:new(task_pool, level_index)
 	local base = {}
 	setmetatable(base, { __index = self })
 	base.round_index = 1
 	base.level_length = vim.g.nvim_training.level_length
 	base.task_pool = task_pool
-	base.level = level
+	base.level_index = level_index
 
 	return base
 end

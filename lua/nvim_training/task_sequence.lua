@@ -10,6 +10,7 @@ local bTask = require("nvim_training.tasks.movements.b")
 local DollarTask = require("nvim_training.tasks.movements.dollar")
 local charTask = require("nvim_training.tasks.movements.char")
 local StartOfLineTask = require("nvim_training.tasks.movements.start_of_line")
+local QuestionMarkTask = require("nvim_training.tasks.movements.question_mark")
 local utility = require("nvim_training.utility")
 
 local total_task_pool = {
@@ -23,6 +24,7 @@ local total_task_pool = {
 	wTask,
 	eTask,
 	MoveMarkTask,
+	QuestionMarkTask
 }
 
 local current_window = vim.api.nvim_tabpage_get_win(0)
@@ -83,8 +85,9 @@ function TaskSequence:construct_task_pool()
 	table.sort(self.task_pool, _sort)
 
 	for i, v in pairs(self.task_pool) do
+		table.sort(v.tags)
 		local str_from_tags = table.concat(v.tags, ", ")
-		--print("-".. v.description .. " (" .. str_from_tags ..")")
+		--print("- ".. v.description .. " (" .. str_from_tags ..")")
 	end
 
 	local task_pool_after_level_adjustments = {}
@@ -140,9 +143,9 @@ function TaskSequence:handle_autocmd()
 			self.current_level:teardown()
 			self.level_index = self.level_index + 1
 
+			self:construct_task_pool()
 			self.current_level = Level:new(self.task_pool, self.level_index)
 			self.current_level:setup()
-			self:construct_task_pool()
 		end
 	end
 

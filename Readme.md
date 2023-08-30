@@ -59,16 +59,17 @@ As of 2023-08 and Version 0.2, these names are subject to change. Please check t
 on occasion. 
 
 # Available tasks and their tags
--Move to an absolute line. (movement, line_based, absolute)
--Move lines up or down. (movement, relative, line_based)
--Move horizontally relative to your cursor. (movement, relative, horizontal)
--Move to designated mark. (movement, mark, absolute)
--Move to the end of words. (movement, relative, word_based)
--Move words forwards. (movement, word_based, relative)
--Move to the start of the line. (movement, line_based, horizontal, absolute)
--Move to the end of the line. (movement, line_based, absolute, horizontal)
--Search for a word. (absolute, search)
--Move words back. (movement, horizontal, word_based)
+- Move to an absolute line. (absolute, line_based, movement)
+- Move lines up or down. (line_based, movement, relative)
+- Move horizontally relative to your cursor. (horizontal, movement, relative)
+- Move to designated mark. (absolute, mark, movement)
+- Move words forwards. (movement, relative, word_based)
+- Move to the end of words. (movement, relative, word_based)
+- Move to the end of the line. (absolute, horizontal, line_based, movement)
+- Move to the start of the line. (absolute, horizontal, line_based, movement)
+- Move words back. (horizontal, movement, word_based)
+- Search for a word. (absolute, search)
+- Search for a word backwards. (absolute, search)
 
 
 # Some tasks currently in the pipeline 
