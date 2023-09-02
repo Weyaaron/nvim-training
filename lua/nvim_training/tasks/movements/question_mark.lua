@@ -1,4 +1,3 @@
-
 -- luacheck: globals vim
 
 local QuestionMarkTask = require("nvim_training.tasks.base_movement"):new()
@@ -21,7 +20,7 @@ function QuestionMarkTask:setup()
 	local cursor_position = vim.api.nvim_win_get_cursor(0)
 
 	if cursor_position[1] < 5 then
-		vim.api.nvim_win_set_cursor(0, { math.random(3,7), cursor_position[2]})
+		vim.api.nvim_win_set_cursor(0, { math.random(3, 7), cursor_position[2] })
 	end
 
 	cursor_position = vim.api.nvim_win_get_cursor(0)

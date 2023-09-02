@@ -150,7 +150,6 @@ function LinkedListNode:f(target_char)
 	return { node = base_node_result, offset = offset - 2 }
 end
 
-
 function LinkedListNode:search_backward(target_str)
 	local function traverse_by_content(input_node)
 		return input_node.content == target_str

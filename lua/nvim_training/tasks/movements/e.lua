@@ -6,7 +6,7 @@ eTask.base_args = {
 	tags = { "movement", "relative", "word_based" },
 	help = " (Tip: Use e)",
 	min_level = 3,
-	description = "Move to the end of words."
+	description = "Move to the end of words.",
 }
 local utility = require("nvim_training.utility")
 

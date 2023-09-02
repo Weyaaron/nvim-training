@@ -39,6 +39,8 @@ function Task:setup()
 	print("Prepared from Baseclass called, please implement it in the subclass!")
 end
 function Task:apply_config()
+	--This has the unfortunate side effect of chaining the instruction if is not reset.
+	-- I am fine with this as is at the moment.
 	if vim.g.nvim_training.display_info then
 		self.instruction = self.instruction .. self.help
 	end
