@@ -1,6 +1,6 @@
 -- luacheck: globals vim
 
-local TestTask = require("lua.nvim_training.task"):new()
+local TestTask = require("nvim_training.task"):new()
 TestTask.base_args = {
 	tags = { "movement", "test", "absolute" },
 	autocmds = { "CursorMoved" },

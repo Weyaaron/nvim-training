@@ -28,10 +28,10 @@ local total_task_pool = {
 }
 
 local current_window = vim.api.nvim_tabpage_get_win(0)
-local user_interface = require("lua.nvim_training.ui.status_ui"):new()
-local misc_ui = require("lua.nvim_training.ui.misc_ui"):new()
+local user_interface = require("nvim_training.ui.status_ui"):new()
+local misc_ui = require("nvim_training.ui.misc_ui"):new()
 vim.api.nvim_set_current_win(current_window)
-global_log = require("lua.nvim_training.log")
+global_log = require("nvim_training.log")
 
 local os = require("os")
 local date_pieces = os.date("*t")

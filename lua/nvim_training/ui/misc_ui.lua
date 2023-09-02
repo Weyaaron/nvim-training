@@ -1,4 +1,4 @@
-local BaseUI = require("lua.nvim_training.ui.base_ui")
+local BaseUI = require("nvim_training.ui.base_ui")
 
 local MiscUi = {}
 MiscUi.__index = MiscUi
