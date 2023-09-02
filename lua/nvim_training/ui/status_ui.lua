@@ -1,22 +1,15 @@
-local Window = require("nvim_training.window")
+local BaseUI = require("lua.nvim_training.ui.base_ui")
 
-local UserInterface = {}
-UserInterface.__index = UserInterface
+local StatusUI = {}
+StatusUI.__index = StatusUI
 
-function UserInterface:new()
-	local base = {}
+function StatusUI:new()
+	base = BaseUI:new(60, 9, 1, 75)
 	setmetatable(base, { __index = self })
-	base.progress_counter = 0
-	base.window_width = 60
-	base.window = Window:new(base.window_width, 9, 1, 75)
-	base.call_counter = 0
-	--Todo: Fix the number, not quite sure how
-	base.help_text = "Finish 7 tasks in the current sequence successfully to reach a new level."
-	base.window_width = 60
 	return base
 end
 
-function UserInterface:display(current_task_sequence)
+function StatusUI:display(current_task_sequence)
 	local window_text = current_task_sequence.current_level.current_round.current_task.instruction .. "\n"
 
 	local sequence_of_attempts = ""
@@ -26,13 +19,13 @@ function UserInterface:display(current_task_sequence)
 	local status_list = current_round:results()
 
 	for i, v in pairs(status_list) do
-		if v then
+		if v:completed() then
 			sequence_of_attempts = sequence_of_attempts .. " ✓"
 		else
 			sequence_of_attempts = sequence_of_attempts .. " x"
 		end
 	end
-	for i = #status_list, round_length do
+	for i = #status_list, round_length - 1 do
 		sequence_of_attempts = sequence_of_attempts .. " _"
 	end
 
@@ -50,11 +43,4 @@ function UserInterface:display(current_task_sequence)
 	self.window:update_window_text(window_text)
 end
 
-return UserInterface
---[[
-	--Todo: Reintroduce
-
-
-	--window_text = window_text .. "\n" .. self.help_text
-
---]]
+return StatusUI
