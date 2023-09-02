@@ -18,8 +18,11 @@ local function construct_base_path()
 	return base_path
 end
 
+--This is a construct I am not entirely happy with. There
+--might be a better way.
 local base_path = construct_base_path()
 vim.api.nvim_command("set runtimepath^=" .. base_path)
+
 local utility = require("nvim_training.utility")
 local base_config_path = utility.construct_project_base_path("./plugin/default_config.json")
 utility.load_config_file_into_global_namespace(base_config_path)

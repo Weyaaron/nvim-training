@@ -1,4 +1,4 @@
--- luacheck: globals vim
+-- luacheck: globals vim global_log
 
 local AbsoluteLineTask = require("nvim_training.tasks.movements.absolute_line")
 local RelativeLineTask = require("nvim_training.tasks.movements.relative_line")
@@ -11,7 +11,6 @@ local DollarTask = require("nvim_training.tasks.movements.dollar")
 local charTask = require("nvim_training.tasks.movements.char")
 local StartOfLineTask = require("nvim_training.tasks.movements.start_of_line")
 local QuestionMarkTask = require("nvim_training.tasks.movements.question_mark")
-local TestTask = require("lua.nvim_training.tasks.test_task")
 local utility = require("nvim_training.utility")
 
 local total_task_pool = {

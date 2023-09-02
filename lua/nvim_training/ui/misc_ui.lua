@@ -4,7 +4,7 @@ local MiscUi = {}
 MiscUi.__index = MiscUi
 
 function MiscUi:new()
-	base = BaseUI:new(60, 9, 11, 75)
+	local base = BaseUI:new(60, 9, 11, 75)
 	setmetatable(base, { __index = self })
 	return base
 end

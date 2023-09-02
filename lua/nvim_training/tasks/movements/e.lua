@@ -20,7 +20,7 @@ function eTask:setup()
 	local right_cursor_bound = 7
 	if current_cursor[2] > right_cursor_bound then
 		local new_cursor_pos = math.random(right_cursor_bound)
-		--	vim.api.nvim_win_set_cursor(0, { current_cursor[1], new_cursor_pos })
+		vim.api.nvim_win_set_cursor(0, { current_cursor[1], new_cursor_pos })
 	end
 
 	local cursor_position = vim.api.nvim_win_get_cursor(0)
