@@ -37,7 +37,9 @@ local os = require("os")
 local date_pieces = os.date("*t")
 --This is just fine for current purposes, but might be adjusted later
 local date_as_log_name = date_pieces["year"] .. "-" .. date_pieces["month"] .. "-" .. date_pieces["day"]
-global_log.outfile = "./logs/nvim_training " .. date_as_log_name .. ".log"
+
+--Currently, dirs are not supported in this path ...
+global_log.outfile = "./nvim_training " .. date_as_log_name .. ".log"
 local function log_exit()
 	global_log.info("Exited the current session.")
 end
