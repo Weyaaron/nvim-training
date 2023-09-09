@@ -4,7 +4,7 @@ While I have some experience with software development, I am new to Lua.
 Any feedback on best practices/obvious errors is welcome. 
 
 ## The Architecture
-Most of the task logic is run based on autocmds. The main loop runs with each autocmd and does the 
+Most of the task logic is run based on autocmds. There is a "main loop" that runs with each autocmd and does the 
 following:
 - Check for task completion
 - Update the currently active task if required
@@ -13,23 +13,20 @@ following:
 - Disable the old autocmds and enable the new ones
 
 The class TaskSequence is the top-level class. It manages the classes level and round respectively.
-As of version 0.1, the task sequence starts with choosing new tasks from a pool at random.
-After this initial phase, the task sequence will advance the task queue based on the completion or failure of the current task.
-
+The task sequence starts with choosing new tasks from a pool at random. These tasks will be done
+in order until a round has been finished. A this point the pool will be refreshed. 
 
 ## The Task
 This is the main object this codebase revolves around. The parent class implements the interface in such 
-a way that children require minimal code. As of version 0.1, there are no inheritance chains, but this may 
-change. 
+a way that children require minimal code.
 
 A particular task has a lifecycle implemented by setup, completed or failed, and teardown respectively.
 Setup is called once when the task after the task is considered active. Completed and failed are called to check for 
 completion or failure. 
 Teardown is called once when the task is no longer active.
-Tasks may fail or complete or do neither. Doing both is not allowed, but this is not enforced consistently.
-Doing neither is fine, but there should be a good reason for it. Doing neither implies that the user 
-has 'unlimited' attempts. Tasks should be completed or failed on the first attempt. This is subject to 
-change based on community feedback.
+Tasks may fail or complete or do neither. Doing both is not allowed, but this is not enforced.
+Doing neither is fine, but there should be a good reason for it.
+Currently, Tasks should be completed or failed on the first attempt. 
 
 To ease access to content that may be reused between tasks, a task may load additional data from json during
 setup. This is somewhat of an advanced feature and is not required for getting started.

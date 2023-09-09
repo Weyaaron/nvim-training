@@ -6,6 +6,8 @@ test.lua
 scratch.lua
 current_config.json
 logs
+*.log
+
 notes.md
 
 start.lua
