@@ -20,11 +20,7 @@ It is loosely inspired by https://first20hours.github.io/keyzen-colemak/
 
 # To try it out
 
-As of 2023-08, the version marked as main does support all the currently implemented tasks yet.
-Some tasks are still not fully stable. Development will happen on the development branch, using 
-this branch for testing is as of 2023-08 discouraged.
-
-- Install it using the plugin manager of your choice. Packer is tested, if any other fails, please open an issue. Pinning it to a fixed version is encouraged.
+- Install it using the plugin manager of your choice. [Lazy](https://github.com/folke/lazy.nvim) is tested, if any other fails, please open an issue. Pinning it to a fixed version is encouraged.
 - Make sure you are in an empty buffer.
 - Run `:Training` to start a session.
 
@@ -55,7 +51,7 @@ Unfortunately, the values can not be set individually,
 see [here](https://neovim.io/doc/user/lua-guide.html#lua-guide-variables)
 and [here](https://github.com/neovim/neovim/issues/12544) for Details.
 
-As of 2023-08 and Version 0.2, these names are subject to change. Please check the [default_config.json](plugin/default_config.json) for the current names 
+As of 2023-09 and Version 0.1, these names are subject to change. Please check the [default_config.json](plugin/default_config.json) for the current names 
 on occasion. 
 
 # Available tasks and their tags
