@@ -29,7 +29,6 @@ local total_task_pool = {
 
 local current_window = vim.api.nvim_tabpage_get_win(0)
 local user_interface = require("nvim_training.ui.status_ui"):new()
-local misc_ui = require("nvim_training.ui.misc_ui"):new()
 vim.api.nvim_set_current_win(current_window)
 global_log = require("nvim_training.log")
 
@@ -122,7 +121,6 @@ end
 
 function TaskSequence:advance_to_next_task()
 	user_interface:display(self)
-	misc_ui:display(self)
 	for _, autocmd_el in pairs(self.active_autocmds) do
 		vim.api.nvim_del_autocmd(autocmd_el)
 	end
@@ -142,12 +140,10 @@ function TaskSequence:advance_to_next_task()
 		table.insert(self.active_autocmds, next_autocmd)
 	end
 	user_interface:display(self)
-	misc_ui:display(self)
 end
 
 function TaskSequence:handle_autocmd()
 	user_interface:display(self)
-	misc_ui:display(self)
 	local result = self.current_level:compute_task_result()
 
 	if result:completed() then
@@ -171,7 +167,6 @@ function TaskSequence:handle_autocmd()
 	end
 
 	user_interface:display(self)
-	misc_ui:display(self)
 end
 
 return TaskSequence
