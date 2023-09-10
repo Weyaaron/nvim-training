@@ -18,6 +18,10 @@ and some glitches are to be expected. This is my first project in this particula
 
 It is loosely inspired by https://first20hours.github.io/keyzen-colemak/
 
+
+# In Action
+![GIF](media/recording.gif)
+
 # To try it out
 
 - Install it using the plugin manager of your choice. [Lazy](https://github.com/folke/lazy.nvim) is tested, if any other fails, please open an issue. Pinning it to a fixed version is encouraged.
