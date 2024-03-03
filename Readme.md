@@ -2,6 +2,11 @@
 
 [![License: GPL](https://img.shields.io/badge/License-GPL-brightgreen.svg)](https://opensource.org/license/gpl-3-0/)
 
+
+This code-base is considered legacy and will Eventually be read-only.
+A rewrite is on its way with a better design/less convuloted code-base. Stay tuned 
+for updates :)
+
 This code implements a Neovim Plugin for training your muscle memory.
 
 This plugin fills a gap I have noticed during interaction with vim:
