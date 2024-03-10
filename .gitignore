@@ -1,6 +1,9 @@
 .idea 
 
 
+./scratch
+
+
 *.test
 test.lua
 scratch.lua
