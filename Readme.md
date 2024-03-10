@@ -3,9 +3,10 @@
 [![License: GPL](https://img.shields.io/badge/License-GPL-brightgreen.svg)](https://opensource.org/license/gpl-3-0/)
 
 
-This code-base is considered legacy and will Eventually be read-only.
-A rewrite is on its way with a better design/less convuloted code-base. Stay tuned 
-for updates :)
+# About the current rewrite
+The branch main is almost obsolete, a rewrite is coming along nicely.
+This is taking place on the dev branch, which will remain unstable until 
+further notice.
 
 This code implements a Neovim Plugin for training your muscle memory.
 
@@ -20,12 +21,6 @@ This helps to work on a lot of tasks in a short amount of time.
 As of 2023-08, this code implements a few basic commands for training of movement.
 But it is missing critical features for usability: There is little documentation, no config, 
 and some glitches are to be expected. This is my first project in this particular domain.
-
-It is loosely inspired by https://first20hours.github.io/keyzen-colemak/
-
-
-# In Action
-![GIF](media/recording.gif)
 
 # To try it out
 
