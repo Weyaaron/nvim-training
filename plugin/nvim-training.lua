@@ -22,13 +22,14 @@ local base_path = construct_base_path()
 vim.api.nvim_command("set runtimepath^=" .. base_path)
 
 local utility = require("nvim-training.utility")
+
 local header = require("nvim-training.header")
 
 local YankTask = require("nvim-training.tasks.yank_text_task")
 local MoveWordsTask = require("nvim-training.tasks.move_words_tasks")
 local MoveAbsoluteLine = require("nvim-training.tasks.move_absolute_line_task")
 
-local tasks = { YankTask }
+local tasks = { MoveWordsTask }
 vim.api.nvim_buf_set_lines(0, 0, 25, false, {})
 
 local current_task

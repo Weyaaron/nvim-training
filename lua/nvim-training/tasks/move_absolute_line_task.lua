@@ -1,9 +1,12 @@
 local Task = require("nvim-training.task")
-
+local utility = require("nvim-training.utility")
 local MoveAbsoluteLine = Task:new({ target_line = 5, autocmd = "CursorMoved" })
 MoveAbsoluteLine.__index = MoveAbsoluteLine
 
 function MoveAbsoluteLine:setup()
+	local lorem_ipsum = utility.lorem_ipsum_lines(4)
+
+	utility.update_buffer_respecting_header(lorem_ipsum)
 	local function _inner_update()
 		vim.api.nvim_win_set_cursor(0, { 7, 7 })
 		-- self.highlight = utility.create_highlight(current_config.header_length + 2, 10, 12)

@@ -18,38 +18,38 @@ function MoveWordsTask:intitialize_internals()
 	--Todo: Does it matter that is not the way vim words behave? Atm not I guess.
 	self.custom_lorem_ipsum = string.gsub(self.custom_lorem_ipsum, ".", "")
 
-	self.intitial_word = utility.construct_random_word_from_text(self.custom_lorem_ipsum)
-	self.target_word = utility.traverse_text_wordwise_forward(self.custom_lorem_ipsum, start_word)
-	local lines = utility.split_str(lorem_ipsum, "\n")
-	local target_line = lines[self.start_line_index]
-	local words_in_line = utility.split_str(target_line, " ")
-	self.initial_word = words_in_line[self.start_word_index]
-	self.target_word = words_in_line[self.start_word_index + self.jump_distance]
-	self.start_index_in_line = string.find(target_line, self.initial_word)
-	self.target_index_in_line = string.find(target_line, self.target_word)
+	-- self.start_position = utility.extract_x_y_for_random_word(self.custom_lorem_ipsum)
+	-- print(self.start_position[1])
+	-- self.end_position = utility.traverse_text_n_words_forward(
+	-- self.custom_lorem_ipsum,
+	-- self.start_position[1],
+	-- self.start_position[2],
+	-- 1
+	-- )
 end
 
 function MoveWordsTask:setup()
 	self:intitialize_internals()
-	utility.update_buffer_respecting_header(self.custom_lorem_ipsum)
+
 	local function _inner_update()
-		vim.api.nvim_win_set_cursor(
-			0,
-			{ current_config.header_length + self.start_line_index, self.start_index_in_line - 1 }
-		)
-		self.highlight = utility.create_highlight(
-			current_config.header_length + self.start_line_index - 1,
-			self.target_index_in_line - 1,
-			1
-		)
+		local lorem_ipsum = utility.lorem_ipsum_lines(4)
+		-- local lorem_ipsum = self.custom_lorem_ipsum
+		utility.update_buffer_respecting_header(lorem_ipsum)
+
+		local exmark = utility.place_exmark_on_random_word()
+		utility.traverse_text_n_words_forward_and_construct_exmark(exmark, 5)
+		local x_y = vim.api.nvim_buf_get_extmark_by_id(0, current_config.exmark_name_space, exmark, {})
+		vim.api.nvim_win_set_cursor(0, x_y)
+		self.highlight = utility.create_highlight(x_y[1] - 1, x_y[2], 3)
 	end
 	vim.schedule_wrap(_inner_update)()
 end
 
 function MoveWordsTask:teardown(autocmd_callback_data)
-	local cursor_position_y = vim.api.nvim_win_get_cursor(0)[2]
+	-- local cursor_position_y = vim.api.nvim_win_get_cursor(0)[2]
 
-	return cursor_position_y + 1 == self.target_index_in_line
+	-- return cursor_position_y + 1 == self.target_index_in_line
+	return false
 end
 
 function MoveWordsTask:description()
