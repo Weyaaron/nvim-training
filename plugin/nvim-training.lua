@@ -28,8 +28,12 @@ local header = require("nvim-training.header")
 local YankTask = require("nvim-training.tasks.yank_text_task")
 local MoveWordsTask = require("nvim-training.tasks.move_words_tasks")
 local MoveAbsoluteLine = require("nvim-training.tasks.move_absolute_line_task")
+local MoveEndOfLine = require("nvim-training.tasks.move_to_end_of_line")
+local MoveStartOfLine = require("nvim-training.tasks.move_to_start_of_line")
+local YankEndOfLine = require("nvim-training.tasks.yank_end_of_line")
+local DeleteLine = require("nvim-training.tasks.delete_line_task")
 
-local tasks = { MoveWordsTask }
+local tasks = { DeleteLine }
 vim.api.nvim_buf_set_lines(0, 0, 25, false, {})
 
 local current_task
@@ -42,8 +46,12 @@ local toogle_discard = false
 header.store_key_value_in_header("#d", "Es gibt noch keine Aufgabe")
 header.construct_header()
 local function update_buffer_to_new_task()
-	header.construct_header()
-	utility.update_buffer_respecting_header("\n\n\n\n")
+	function _inner_update()
+		vim.loop.sleep(100)
+		utility.update_buffer_respecting_header("\n\n\n\n")
+		header.construct_header()
+	end
+	vim.schedule_wrap(_inner_update)()
 end
 
 local function loop(autocmd_callback_data)
