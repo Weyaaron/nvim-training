@@ -4,6 +4,7 @@ if vim.g.loaded_training == 1 then
 end
 vim.g.loaded_training = 1
 
+local exposed_funcs = {}
 local function construct_base_path()
 	--https://stackoverflow.com/questions/6380820/get-containing-path-of-lua-file
 	local function script_path()
@@ -22,6 +23,7 @@ local base_path = construct_base_path()
 vim.api.nvim_command("set runtimepath^=" .. base_path)
 
 local utility = require("nvim-training.utility")
+local current_config = require("nvim-training.current_config")
 
 local header = require("nvim-training.header")
 
@@ -32,8 +34,10 @@ local MoveEndOfLine = require("nvim-training.tasks.move_to_end_of_line")
 local MoveStartOfLine = require("nvim-training.tasks.move_to_start_of_line")
 local YankEndOfLine = require("nvim-training.tasks.yank_end_of_line")
 local DeleteLine = require("nvim-training.tasks.delete_line_task")
+local MoveToMark = require("nvim-training.tasks.move_to_mark_task")
 
-local tasks = { DeleteLine }
+-- local tasks = { DeleteLine, YankEndOfLine, MoveStartOfLine }
+local tasks = { MoveToMark }
 vim.api.nvim_buf_set_lines(0, 0, 25, false, {})
 
 local current_task
@@ -78,7 +82,10 @@ local function loop(autocmd_callback_data)
 			failure_count = failure_count + 1
 		end
 	end
-	current_task = tasks[1]:new()
+
+	local index_of_new_task = math.random(#tasks)
+	index_of_new_task = 1
+	current_task = tasks[index_of_new_task]:new()
 
 	header.store_key_value_in_header("_s", success_count)
 	header.store_key_value_in_header("_f", failure_count)
@@ -91,8 +98,17 @@ local function loop(autocmd_callback_data)
 	current_autocmd = vim.api.nvim_create_autocmd({ current_task.autocmd }, { callback = loop })
 	toogle_discard = true
 end
+local function start_training()
+	update_buffer_to_new_task()
+	loop()
+end
 
-vim.cmd("ASToggle")
+function exposed_funcs.setup(args)
+	for i, v in pairs(args) do
+		current_config[i] = v
+	end
+end
 
-update_buffer_to_new_task()
-loop()
+vim.api.nvim_create_user_command("Training", start_training, {})
+
+return exposed_funcs

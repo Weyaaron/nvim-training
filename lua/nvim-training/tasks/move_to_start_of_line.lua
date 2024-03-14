@@ -18,8 +18,7 @@ function MoveStartOfLine:setup()
 end
 
 function MoveStartOfLine:teardown(autocmd_callback_data)
-	local cursor_position_y = vim.api.nvim_win_get_cursor(0)[2]
-	return cursor_position_y == 0
+	return vim.api.nvim_win_get_cursor(0)[2] == 0
 end
 
 function MoveStartOfLine:description()

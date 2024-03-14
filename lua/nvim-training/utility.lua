@@ -15,6 +15,11 @@ function utility.create_highlight(x, y, len)
 	return hl
 end
 
+function utility.move_cursor_to_random_point()
+	local x_start = math.random(3) + current_config.header_length
+	local y_start = math.random(10, 30)
+	vim.api.nvim_win_set_cursor(0, { x_start, y_start })
+end
 function utility.clear_highlight(highlight_obj)
 	vim.api.nvim_buf_clear_namespace(0, highlight_obj.highlight_namespace, 0, -1)
 end
@@ -138,10 +143,7 @@ function utility.split_str(input, sep)
 	return res
 end
 
-function utility.lorem_ipsum_lines(line_length)
-	if not line_length then
-		line_length = 3
-	end
+function utility.lorem_ipsum_lines()
 	local line_size = 70
 	local basic_text =
 		"Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
