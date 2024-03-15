@@ -9,7 +9,6 @@ function YankEndOfLine:setup()
 	local function _inner_update()
 		local lorem_ipsum = utility.lorem_ipsum_lines(4)
 		utility.update_buffer_respecting_header(lorem_ipsum)
-
 		local x_start = math.random(3) + current_config.header_length
 		local y_start = math.random(3, 15)
 		local lines = vim.api.nvim_buf_get_lines(0, x_start - 1, vim.api.nvim_buf_line_count(0), false)

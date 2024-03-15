@@ -16,10 +16,20 @@ function utility.create_highlight(x, y, len)
 end
 
 function utility.move_cursor_to_random_point()
-	local x_start = math.random(3) + current_config.header_length
-	local y_start = math.random(10, 30)
-	vim.api.nvim_win_set_cursor(0, { x_start, y_start })
+	vim.api.nvim_win_set_cursor(0, utility.calculate_random_point_in_text_bounds())
 end
+
+function utility.calculate_random_point_in_text_bounds()
+	local max_lines = vim.api.nvim_buf_line_count(0)
+
+	local x = math.random(current_config.header_length, max_lines)
+
+	local buffer_lines = vim.api.nvim_buf_get_lines(0, config.header_length, vim.api.nvim_buf_line_count(0), false)
+	local line_length = #buffer_lines[1]
+	local y = math.random(0, line_length)
+	return { x, y }
+end
+
 function utility.clear_highlight(highlight_obj)
 	vim.api.nvim_buf_clear_namespace(0, highlight_obj.highlight_namespace, 0, -1)
 end
