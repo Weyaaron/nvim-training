@@ -60,8 +60,11 @@ local function update_buffer_to_new_task()
 	end
 	vim.schedule_wrap(_inner_update)()
 end
-
+local loop_counter = 0
 local function loop(autocmd_callback_data)
+	loop_counter = loop_counter + 1
+	--Todo: Debug the loop?
+	-- print("Loop", loop_counter)
 	vim.loop.sleep(100)
 	if autocmd_callback_data then
 		--Todo: Extend after more event types are used.
@@ -76,14 +79,12 @@ local function loop(autocmd_callback_data)
 	if current_autocmd > 0 then
 		vim.api.nvim_del_autocmd(current_autocmd)
 	end
-	if current_task then
-		local task_res = current_task:teardown(autocmd_callback_data)
-		task_count = task_count + 1
-		if task_res then
-			success_count = success_count + 1
-		else
-			failure_count = failure_count + 1
-		end
+	local task_res = current_task:teardown(autocmd_callback_data)
+	task_count = task_count + 1
+	if task_res then
+		success_count = success_count + 1
+	else
+		failure_count = failure_count + 1
 	end
 
 	local index_of_new_task = math.random(#tasks)
@@ -102,8 +103,15 @@ local function loop(autocmd_callback_data)
 	toogle_discard = true
 end
 local function start_training()
-	update_buffer_to_new_task()
-	loop()
+	local function _inner_update()
+		--Starting with a task that does not use cursor movement somehow solves the issue that the cursor moves during setup ? I have no clue how
+		current_task = tasks[1]:new()
+
+		update_buffer_to_new_task()
+		current_task:setup()
+		current_autocmd = vim.api.nvim_create_autocmd({ current_task.autocmd }, { callback = loop })
+	end
+	vim.schedule_wrap(_inner_update)()
 end
 
 function exposed_funcs.setup(args)
