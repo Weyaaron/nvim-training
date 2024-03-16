@@ -12,7 +12,7 @@ function MoveWordsTask:intitialize_internals()
 
 	self.start_line_index = math.random(4)
 	self.start_word_index = 2
-	local lorem_ipsum = utility.lorem_ipsum_lines()
+	local lorem_ipsum = table.concat(utility.lorem_ipsum_as_lines(), "\n")
 	self.custom_lorem_ipsum = string.gsub(lorem_ipsum, ",", "")
 
 	--Todo: Does it matter that is not the way vim words behave? Atm not I guess.
