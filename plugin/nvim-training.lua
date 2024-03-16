@@ -37,7 +37,7 @@ local MoveToMark = require("nvim-training.tasks.move_to_mark_task")
 
 local MoveStartOfLine = require("nvim-training.tasks.move_to_start_of_line")
 exposed_funcs.setup({
-	task_list = { MoveStartOfLine },
+	task_list = { MoveAbsoluteLine },
 })
 
 local header = require("nvim-training.header")
@@ -115,27 +115,14 @@ local function loop(autocmd_callback_data)
 	update_buffer_to_new_task()
 	current_task:setup()
 
-	header.store_key_value_in_header("#d", current_task:description())
+	header.store_key_value_in_header("_d_", current_task:description())
 	header.construct_header()
 	current_autocmd = vim.api.nvim_create_autocmd({ current_task.autocmd }, { callback = loop })
 	toogle_discard = true
 end
-local function start_training()
-	local function _inner_update()
-		--Starting with a task that does not use cursor movement somehow solves the issue that the cursor moves during setup ? I have no clue how
-		current_task = current_config.task_list[1]:new()
 
-		update_buffer_to_new_task()
-		current_task:setup()
-		current_autocmd = vim.api.nvim_create_autocmd({ current_task.autocmd }, { callback = loop })
-	end
-	vim.schedule_wrap(_inner_update)()
-end
-
-local function start_training_alt()
+vim.api.nvim_create_user_command("Training", function()
 	loop()
-end
-
-vim.api.nvim_create_user_command("Training", start_training_alt, {})
+end, {})
 
 return exposed_funcs
