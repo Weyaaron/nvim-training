@@ -6,6 +6,11 @@ local utility = {}
 
 local config = require("nvim-training.current_config")
 
+function utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
+	local lorem_ipsum = utility.lorem_ipsum_lines()
+	utility.update_buffer_respecting_header(lorem_ipsum)
+	utility.move_cursor_to_random_point()
+end
 function utility.create_highlight(x, y, len)
 	local hl = {}
 	local highlight_namespace = vim.api.nvim_create_namespace("DefaultNvimTrainingHlSpace")
