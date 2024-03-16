@@ -28,7 +28,7 @@ local current_config = require("nvim-training.current_config")
 local header = require("nvim-training.header")
 
 local YankTask = require("nvim-training.tasks.yank_text_task")
-local MoveWordsTask = require("nvim-training.tasks.move_words_tasks")
+local MoveWordsTask = require("nvim-training.tasks.move_words_task")
 local MoveAbsoluteLine = require("nvim-training.tasks.move_absolute_line_task")
 local MoveEndOfLine = require("nvim-training.tasks.move_to_end_of_line")
 local MoveStartOfLine = require("nvim-training.tasks.move_to_start_of_line")
@@ -40,7 +40,7 @@ local TestTask = require("nvim-training.tasks.test_task")
 
 -- local tasks = { DeleteLine, YankEndOfLine, MoveStartOfLine }
 local tasks = { MoveRandomXY }
-local tasks = { TestTask }
+local tasks = { MoveWordsTask }
 vim.api.nvim_buf_set_lines(0, 0, 25, false, {})
 
 local current_task
