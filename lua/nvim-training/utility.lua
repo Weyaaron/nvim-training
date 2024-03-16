@@ -23,7 +23,7 @@ end
 function utility.calculate_random_point_in_text_bounds()
 	local max_lines = vim.api.nvim_buf_line_count(0)
 
-	local x = math.random(current_config.header_length, max_lines)
+	local x = math.random(current_config.header_length + 1, max_lines)
 
 	local buffer_lines =
 		vim.api.nvim_buf_get_lines(0, current_config.header_length, vim.api.nvim_buf_line_count(0), false)

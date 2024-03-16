@@ -4,8 +4,9 @@ local header = {}
 
 local utility = require("nvim-training.utility")
 local current_config = require("nvim-training.current_config")
-local header_values = { _h = "Status", _s = 0, _f = 0 }
-local initial_header = "------_h-------\n\nYour next Task: #d\n\nSuccesses: _s, Failures: _f\n--------------"
+local header_values = { _h = "Status", _s_ = 0, _f = 0, _d_ = "Empty Description", _streak_ = 0, _maxstreak_ = 0 }
+local initial_header =
+	"------_h-------\nYour next Task: _d_\nSuccesses: _s_, Failures: _f_\nCurrent Streak: _streak_ Your best Streak: _maxstreak_\n--------------"
 
 function header.clear_highlight(highlight_obj)
 	vim.api.nvim_buf_clear_namespace(0, highlight_obj.highlight_namespace, 0, -1)

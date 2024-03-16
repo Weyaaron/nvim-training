@@ -25,30 +25,41 @@ vim.api.nvim_command("set runtimepath^=" .. base_path)
 local utility = require("nvim-training.utility")
 local current_config = require("nvim-training.current_config")
 
+function exposed_funcs.setup(args)
+	for i, v in pairs(args) do
+		current_config[i] = v
+	end
+end
+
+local MoveAbsoluteLine = require("nvim-training.tasks.move_absolute_line_task")
+local MoveEndOfLine = require("nvim-training.tasks.move_to_end_of_line")
+local MoveToMark = require("nvim-training.tasks.move_to_mark_task")
+
+local MoveStartOfLine = require("nvim-training.tasks.move_to_start_of_line")
+exposed_funcs.setup({
+	task_list = { MoveStartOfLine },
+})
+
 local header = require("nvim-training.header")
 
 local YankTask = require("nvim-training.tasks.yank_text_task")
 local MoveWordsTask = require("nvim-training.tasks.move_words_task")
-local MoveAbsoluteLine = require("nvim-training.tasks.move_absolute_line_task")
-local MoveEndOfLine = require("nvim-training.tasks.move_to_end_of_line")
-local MoveStartOfLine = require("nvim-training.tasks.move_to_start_of_line")
 local YankEndOfLine = require("nvim-training.tasks.yank_end_of_line")
 local DeleteLine = require("nvim-training.tasks.delete_line_task")
-local MoveToMark = require("nvim-training.tasks.move_to_mark_task")
 local MoveRandomXY = require("nvim-training.tasks.move_random_x_y")
 local TestTask = require("nvim-training.tasks.test_task")
 
--- local tasks = { DeleteLine, YankEndOfLine, MoveStartOfLine }
-local tasks = { MoveRandomXY }
-local tasks = { MoveWordsTask }
 vim.api.nvim_buf_set_lines(0, 0, 25, false, {})
+vim.api.nvim_win_set_cursor(0, { 1, 1 })
 
-local current_task
 local task_count = 0
 local success_count = 0
 local failure_count = 0
 local current_autocmd = -1
 local toogle_discard = false
+local current_task
+local current_streak = 0
+local max_streak = 0
 
 header.store_key_value_in_header("#d", "Es gibt noch keine Aufgabe")
 header.construct_header()
@@ -60,40 +71,47 @@ local function update_buffer_to_new_task()
 	end
 	vim.schedule_wrap(_inner_update)()
 end
-local loop_counter = 0
 local function loop(autocmd_callback_data)
-	loop_counter = loop_counter + 1
-	--Todo: Debug the loop?
-	-- print("Loop", loop_counter)
-	vim.loop.sleep(100)
 	if autocmd_callback_data then
-		--Todo: Extend after more event types are used.
-		if autocmd_callback_data["event"] == "TextYankPost" then
+		if autocmd_callback_data then
+			--Todo: Extend after more event types are used.
+			if autocmd_callback_data["event"] == "TextYankPost" then
+				toogle_discard = false
+			end
+		end
+		if toogle_discard then
 			toogle_discard = false
+			return
+		end
+		if current_autocmd > 0 then
+			vim.api.nvim_del_autocmd(current_autocmd)
+		end
+		local task_res = current_task:teardown(autocmd_callback_data)
+		task_count = task_count + 1
+		if task_res then
+			success_count = success_count + 1
+			current_streak = current_streak + 1
+			if current_streak >= max_streak then
+				max_streak = current_streak
+			end
+		else
+			failure_count = failure_count + 1
+			if current_streak >= max_streak then
+				max_streak = current_streak
+			end
+			current_streak = 0
 		end
 	end
-	if toogle_discard then
-		toogle_discard = false
-		return
-	end
-	if current_autocmd > 0 then
-		vim.api.nvim_del_autocmd(current_autocmd)
-	end
-	local task_res = current_task:teardown(autocmd_callback_data)
-	task_count = task_count + 1
-	if task_res then
-		success_count = success_count + 1
-	else
-		failure_count = failure_count + 1
-	end
 
-	local index_of_new_task = math.random(#tasks)
+	local index_of_new_task = math.random(#current_config.task_list)
 	index_of_new_task = 1
-	current_task = tasks[index_of_new_task]:new()
+	current_task = current_config.task_list[index_of_new_task]:new()
 
-	header.store_key_value_in_header("_s", success_count)
-	header.store_key_value_in_header("_f", failure_count)
-	header.store_key_value_in_header("#d", current_task:description())
+	header.store_key_value_in_header("_s_", success_count)
+	header.store_key_value_in_header("_f_", failure_count)
+	header.store_key_value_in_header("_streak_", current_streak)
+	header.store_key_value_in_header("_maxstreak_", max_streak)
+	header.store_key_value_in_header("_d_", current_task:description())
 	update_buffer_to_new_task()
 	current_task:setup()
 
@@ -105,7 +123,7 @@ end
 local function start_training()
 	local function _inner_update()
 		--Starting with a task that does not use cursor movement somehow solves the issue that the cursor moves during setup ? I have no clue how
-		current_task = tasks[1]:new()
+		current_task = current_config.task_list[1]:new()
 
 		update_buffer_to_new_task()
 		current_task:setup()
@@ -114,12 +132,10 @@ local function start_training()
 	vim.schedule_wrap(_inner_update)()
 end
 
-function exposed_funcs.setup(args)
-	for i, v in pairs(args) do
-		current_config[i] = v
-	end
+local function start_training_alt()
+	loop()
 end
 
-vim.api.nvim_create_user_command("Training", start_training, {})
+vim.api.nvim_create_user_command("Training", start_training_alt, {})
 
 return exposed_funcs
