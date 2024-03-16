@@ -15,7 +15,7 @@ function MoveStartOfLine:setup()
 end
 
 function MoveStartOfLine:teardown(autocmd_callback_data)
-	-- utility.clear_highlight(self.highlight)
+	utility.clear_highlight(self.highlight)
 	return vim.api.nvim_win_get_cursor(0)[2] == 0
 end
 
