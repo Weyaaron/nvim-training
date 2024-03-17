@@ -9,7 +9,7 @@ local MoveAbsoluteLine = Task:new({
 MoveAbsoluteLine.__index = MoveAbsoluteLine
 
 function MoveAbsoluteLine:setup()
-	self.target_line = math.random(current_config.header_length, current_config.header_length + 5)
+	self.target_line = math.random(current_config.header_length + 1, current_config.header_length + 5)
 	local function _inner_update()
 		utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
 
@@ -20,7 +20,7 @@ function MoveAbsoluteLine:setup()
 
 		cursor_pos = vim.api.nvim_win_get_cursor(0)
 
-		local lines = vim.api.nvim_buf_get_lines(0, cursor_pos[1] - 1, cursor_pos[1], false)
+		local lines = vim.api.nvim_buf_get_lines(0, self.target_line - 1, self.target_line, false)
 		local line_length = #lines[1]
 		self.highlight = utility.create_highlight(self.target_line - 1, 0, line_length)
 	end
