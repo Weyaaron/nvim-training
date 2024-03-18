@@ -42,10 +42,14 @@ end
 
 function text_traversal.traverse_n_words(char_list, n)
 	for i = 1, n do
+		local current_line = char_list[1][2]
 		char_list = text_traversal.traverse_to_next_char(char_list, " ")
-		--We have to discard the whitespace we found
-		--Todo: Implement multiple Whitespaces
+		--We have to discard the whitespace. Todo: Work with multiple whitespaces!
 		char_list = { unpack(char_list, 2, #char_list) }
+		local new_line = char_list[1][2]
+		if not (new_line == current_line) then
+			i = i + 1
+		end
 	end
 
 	return char_list

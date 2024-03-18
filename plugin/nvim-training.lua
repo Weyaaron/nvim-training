@@ -35,14 +35,15 @@ local MoveAbsoluteLine = require("nvim-training.tasks.move_absolute_line_task")
 local MoveEndOfLine = require("nvim-training.tasks.move_to_end_of_line")
 local MoveToMark = require("nvim-training.tasks.move_to_mark_task")
 
+local YankWordTask = require("nvim-training.tasks.yank_word_task")
+local MoveWordsTask = require("nvim-training.tasks.move_words_task")
 local MoveStartOfLine = require("nvim-training.tasks.move_to_start_of_line")
 exposed_funcs.setup({
-	task_list = { MoveAbsoluteLine },
+	task_list = { MoveWordsTask },
 })
 
 local header = require("nvim-training.header")
 
-local YankTask = require("nvim-training.tasks.yank_text_task")
 local MoveWordsTask = require("nvim-training.tasks.move_words_task")
 local YankEndOfLine = require("nvim-training.tasks.yank_end_of_line")
 local DeleteLine = require("nvim-training.tasks.delete_line_task")
