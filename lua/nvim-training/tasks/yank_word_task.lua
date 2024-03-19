@@ -2,37 +2,54 @@ local utility = require("nvim-training.utility")
 local current_config = require("nvim-training.current_config")
 local YankTask = require("nvim-training.tasks.yank_task")
 local text_traversal = require("nvim-training.text_traversal")
-local YankWordTask = YankTask:new({ target_text = "", autocmd = "TextYankPost" })
+local YankWordTask = YankTask:new({ target_text = "", jump_distance = 2, autocmd = "TextYankPost" })
 YankWordTask.__index = YankWordTask
 
 function YankWordTask:setup()
 	local function _inner_update()
-		utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
-		local starting_point = utility.calculate_random_point_in_text_bounds()
+		self.custom_lorem_ipsum = string.gsub(utility.lorem_ipsum_lines(), ",", "")
+		self.custom_lorem_ipsum = string.gsub(self.custom_lorem_ipsum, "%.", "")
+		utility.update_buffer_respecting_header(self.custom_lorem_ipsum)
 
+		local starting_point = utility.calculate_random_point_in_text_bounds()
+		local max_lines = vim.api.nvim_buf_line_count(0)
+		--Todo: Replace this with an actuall model of words in the text
+		while starting_point[1] >= max_lines - 2 do
+			starting_point = utility.calculate_random_point_in_text_bounds()
+		end
+		starting_point = { 10, 65 }
+		vim.api.nvim_win_set_cursor(0, starting_point)
 		local char_list =
-			text_traversal.construct_index_table_from_text_lines(utility.split_str(utility.lorem_ipsum_lines(), "\n"))
+			text_traversal.construct_index_table_from_text_lines(utility.split_str(self.custom_lorem_ipsum))
 
 		char_list = text_traversal.traverse_to_x_y(
 			char_list,
 			starting_point[1] - current_config.header_length,
 			starting_point[2]
 		)
-		--Todo: Improv alg
-		-- local first_word_bound = text_traversal.traverse_n_words(char_list, 1)
-		-- starting_point = { first_word_bound[1][2], first_word_bound[1][3] }
-		vim.api.nvim_win_set_cursor(0, starting_point)
+		local copy_of_char_list = char_list
+		vim.api.nvim_win_set_cursor(0, { starting_point[1], starting_point[2] - 1 })
 
-		char_list = text_traversal.traverse_n_words(char_list, self.jump_distance - 1)
-		-- print(starting_point[1], starting_point[2], #char_list)
+		char_list = text_traversal.traverse_n_words(char_list, self.jump_distance)
 
 		self.end_pos = { 0, 0 }
 		if #char_list > 0 then
 			self.highlight =
 				utility.create_highlight(current_config.header_length + char_list[1][2] - 1, char_list[1][3] - 1, 1)
 
-			self.end_pos = { char_list[1][2], char_list[1][3] }
+			self.end_pos = { char_list[1][2] + current_config.header_length, char_list[1][3] - 1 }
 		end
+		local length_diff = #copy_of_char_list - #char_list
+		local char_list_between_traversals = { unpack(copy_of_char_list, 1, length_diff) }
+		local final_text = ""
+
+		-- print(length_diff, char_list_between_traversals[1][1])
+		for i = 1, #char_list_between_traversals do
+			final_text = final_text .. char_list_between_traversals[i][1]
+		end
+		-- print(final_text)
+
+		self.target_text = final_text
 	end
 	vim.schedule_wrap(_inner_update)()
 end
