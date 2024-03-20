@@ -21,7 +21,7 @@ function MoveWordsTask:setup()
 		while starting_point[1] >= max_lines - 2 do
 			starting_point = utility.calculate_random_point_in_text_bounds()
 		end
-		starting_point = { 10, 6}
+		starting_point = { 10, 6 }
 		local char_list =
 			text_traversal.construct_index_table_from_text_lines(utility.split_str(self.custom_lorem_ipsum))
 

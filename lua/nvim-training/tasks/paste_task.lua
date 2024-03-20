@@ -1,0 +1,35 @@
+local utility = require("nvim-training.utility")
+local Task = require("nvim-training.task")
+
+local Paste = Task:new({ autocmd = "TextChanged", choosen_reg = "", reg_content = "-Content-", choosen_mode = "" })
+Paste.__index = Paste
+
+function Paste:setup()
+	self.reg_options = { "a", "s", "1" }
+	self.choosen_reg = self.reg_options[math.random(#self.reg_options)]
+	local options_for_choosen_mode = { "P", "p" }
+	self.choosen_mode = options_for_choosen_mode[math.random(2)]
+
+	local function _inner_update()
+		vim.loop.sleep(500)
+		utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
+		vim.cmd(":let @" .. self.choosen_reg .. "= '" .. self.reg_content .. "'")
+	end
+	vim.schedule_wrap(_inner_update)()
+end
+
+function Paste:teardown(autocmd_callback_data)
+	local cursor_pos = vim.api.nvim_win_get_cursor(0)
+	local lines = vim.api.nvim_buf_get_lines(0, cursor_pos[1] - 1, cursor_pos[1], false)
+	local search = string.find(lines[1], self.reg_content)
+	if not search then
+		return false
+	end
+	return search < cursor_pos[2]
+end
+
+function Paste:description()
+	return "Paste the text from register '" .. self.choosen_reg .. "' using " .. self.choosen_mode
+end
+
+return Paste
