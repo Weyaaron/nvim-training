@@ -39,8 +39,9 @@ local YankWordTask = require("nvim-training.tasks.yank_word_task")
 local MoveWordsTask = require("nvim-training.tasks.move_words_task")
 local MoveStartOfLine = require("nvim-training.tasks.move_to_start_of_line")
 local PasteTask = require("nvim-training.tasks.paste_task")
+local YankIntoRegister = require("nvim-training.tasks.yank_into_register_task")
 exposed_funcs.setup({
-	task_list = { PasteTask },
+	task_list = { MoveStartOfLine },
 })
 
 local header = require("nvim-training.header")

@@ -2,24 +2,20 @@ local Task = require("nvim-training.task")
 local utility = require("nvim-training.utility")
 local current_config = require("nvim-training.current_config")
 
-local possible_marks = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }
 local MoveToMark = Task:new({
 	target_line = 0,
 	autocmd = "CursorMoved",
-	mark_names = possible_marks,
+	mark_names = current_config.possible_marks_list,
 	target_mark_index = 1,
 })
 
 MoveToMark.__index = MoveToMark
 
 function MoveToMark:setup()
-	self.target_mark_index = math.random(#possible_marks)
+	self.target_mark_index = math.random(#self.mark_names)
 	self.target_line = math.random(current_config.header_length, current_config.header_length + 5)
 	local function _inner_update()
-		local lorem_ipsum = utility.lorem_ipsum_lines()
-		utility.update_buffer_respecting_header(lorem_ipsum)
-
-		utility.move_cursor_to_random_point()
+		utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
 		local cursor_pos = vim.api.nvim_win_get_cursor(0)
 		if cursor_pos[1] == self.target_line then
 			vim.api.nvim_win_set_cursor(0, { cursor_pos[1] + 1, cursor_pos[2] })

@@ -1,12 +1,12 @@
 local utility = require("nvim-training.utility")
 local Task = require("nvim-training.task")
+local current_config = require("nvim-training.current_config")
 
 local Paste = Task:new({ autocmd = "TextChanged", choosen_reg = "", reg_content = "-Content-", choosen_mode = "" })
 Paste.__index = Paste
 
 function Paste:setup()
-	self.reg_options = { "a", "s", "1" }
-	self.choosen_reg = self.reg_options[math.random(#self.reg_options)]
+	self.choosen_reg = current_config.possible_register_list[math.random(#current_config.possible_register_list)]
 	local options_for_choosen_mode = { "P", "p" }
 	self.choosen_mode = options_for_choosen_mode[math.random(2)]
 
