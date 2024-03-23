@@ -2,18 +2,18 @@ local Task = require("nvim-training.task")
 local utility = require("nvim-training.utility")
 local current_config = require("nvim-training.current_config")
 
-local MoveToMark = Task:new({
-	target_line = 0,
-	autocmd = "CursorMoved",
-	mark_names = current_config.possible_marks_list,
-	target_mark_index = 1,
-})
+local MoveToMark = {}
 
 MoveToMark.__index = MoveToMark
 
-function MoveToMark:setup()
+function MoveToMark:new()
+	local base = Task:new()
+	setmetatable(base, { __index = MoveToMark })
+
+	self.target_line = 0
+	self.autocmd = "CursorMoved"
+	self.mark_names = current_config.possible_marks_list
 	self.target_mark_index = math.random(#self.mark_names)
-	self.target_line = math.random(current_config.header_length, current_config.header_length + 5)
 	local function _inner_update()
 		utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
 		local cursor_pos = vim.api.nvim_win_get_cursor(0)
@@ -29,6 +29,7 @@ function MoveToMark:setup()
 		self.highlight = utility.create_highlight(self.target_line - 1, 0, line_length)
 	end
 	vim.schedule_wrap(_inner_update)()
+	return base
 end
 
 function MoveToMark:teardown(autocmd_callback_data)

@@ -1,10 +1,14 @@
 local utility = require("nvim-training.utility")
 local Task = require("nvim-training.task")
 
-local MoveStartOfLine = Task:new({ autocmd = "CursorMoved" })
-MoveStartOfLine.__index = MoveStartOfLine
+local MoveStartOfLine = {}
 
-function MoveStartOfLine:setup()
+MoveStartOfLine.__index = MoveStartOfLine
+function MoveStartOfLine:new()
+	local base = Task:new()
+	setmetatable(base, { __index = MoveStartOfLine })
+	self.autocmd = "CursorMoved"
+
 	local function _inner_update()
 		utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
 
@@ -16,6 +20,7 @@ function MoveStartOfLine:setup()
 		self.highlight = utility.create_highlight(cursor_pos[1] - 1, 0, 1)
 	end
 	vim.schedule_wrap(_inner_update)()
+	return base
 end
 
 function MoveStartOfLine:teardown(autocmd_callback_data)

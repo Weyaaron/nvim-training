@@ -24,11 +24,7 @@ function header.construct_header()
 	end
 	local str_as_lines = utility.split_str(constructed_header, "\n")
 
-	local function basic_update()
-		vim.api.nvim_buf_set_lines(0, 0, current_config.header_length, false, str_as_lines)
-	end
-
-	vim.schedule_wrap(basic_update)()
+	vim.api.nvim_buf_set_lines(0, 0, current_config.header_length, false, str_as_lines)
 end
 
 return header

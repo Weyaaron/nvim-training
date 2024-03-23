@@ -3,12 +3,15 @@ local current_config = require("nvim-training.current_config")
 local Task = require("nvim-training.task")
 local text_traversal = require("nvim-training.text_traversal")
 
-local MoveWordsTask = Task:new({ autocmd = "CursorMoved", jump_distance = 5 })
+local MoveWordsTask = {}
 MoveWordsTask.__index = MoveWordsTask
 
 function MoveWordsTask:setup()
+	local base = Task:new()
+	setmetatable(base, { __index = MoveWordsTask })
+	self.autocmd = "CursorMoved"
+
 	self.jump_distance = math.random(2, 9)
-	self.jump_distance = 2
 	local function _inner_update()
 		self.custom_lorem_ipsum = string.gsub(utility.lorem_ipsum_lines(), ",", "")
 		self.custom_lorem_ipsum = string.gsub(self.custom_lorem_ipsum, "%.", "")
@@ -42,15 +45,13 @@ function MoveWordsTask:setup()
 		end
 	end
 
-	--Todo: Place end exmark
 	vim.schedule_wrap(_inner_update)()
+	return base
 end
 
 function MoveWordsTask:teardown(autocmd_callback_data)
 	local cursor_pos = vim.api.nvim_win_get_cursor(0)
-	local comp = (cursor_pos[1] == self.end_pos[1]) and (cursor_pos[2] == self.end_pos[2])
-	-- print(cursor_pos[1], cursor_pos[2], self.end_pos[1], self.end_pos[2], comp)
-	return comp
+	return (cursor_pos[1] == self.end_pos[1]) and (cursor_pos[2] == self.end_pos[2])
 end
 
 function MoveWordsTask:description()

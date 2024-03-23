@@ -2,22 +2,19 @@ local Task = require("nvim-training.task")
 local utility = require("nvim-training.utility")
 local current_config = require("nvim-training.current_config")
 
-local YankIntoRegisterTask = Task:new({
-	target_line = 0,
-	autocmd = "TextYankPost",
-	possible_registers = current_config.possible_register_list,
-	choosen_register = "",
-})
-
+local YankIntoRegisterTask = {}
 YankIntoRegisterTask.__index = YankIntoRegisterTask
 
 function YankIntoRegisterTask:setup()
+	local base = Task:new()
+	setmetatable(base, { __index = YankIntoRegisterTask })
+
+	self.target_line = 0
+	self.autocmd = "TextYankPost"
+	self.possible_registers = current_config.possible_register_list
 	self.choosen_register = self.possible_registers[#self.possible_register_list]
 	local function _inner_update()
-		local lorem_ipsum = utility.lorem_ipsum_lines()
-		utility.update_buffer_respecting_header(lorem_ipsum)
-
-		utility.update_buffer_respecting_header()
+		utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
 
 		local cursor_pos = vim.api.nvim_win_get_cursor(0)
 
@@ -26,6 +23,7 @@ function YankIntoRegisterTask:setup()
 		self.highlight = utility.create_highlight(cursor_pos[1] - 1, cursor_pos[2], line_length)
 	end
 	vim.schedule_wrap(_inner_update)()
+	return base
 end
 
 function YankIntoRegisterTask:teardown(autocmd_callback_data)

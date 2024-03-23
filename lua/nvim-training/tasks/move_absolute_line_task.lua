@@ -2,13 +2,13 @@ local Task = require("nvim-training.task")
 local utility = require("nvim-training.utility")
 local current_config = require("nvim-training.current_config")
 
-local MoveAbsoluteLine = Task:new({
-	target_line = 0,
-	autocmd = "CursorMoved",
-})
+local MoveAbsoluteLine = {}
 MoveAbsoluteLine.__index = MoveAbsoluteLine
 
-function MoveAbsoluteLine:setup()
+function MoveAbsoluteLine:new()
+	local base = Task:new()
+
+	setmetatable(base, { __index = MoveAbsoluteLine })
 	self.target_line = math.random(current_config.header_length + 1, current_config.header_length + 5)
 	local function _inner_update()
 		utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
@@ -25,6 +25,7 @@ function MoveAbsoluteLine:setup()
 		self.highlight = utility.create_highlight(self.target_line - 1, 0, line_length)
 	end
 	vim.schedule_wrap(_inner_update)()
+	return base
 end
 
 function MoveAbsoluteLine:teardown(autocmd_callback_data)

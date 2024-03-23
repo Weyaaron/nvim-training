@@ -41,7 +41,7 @@ local MoveStartOfLine = require("nvim-training.tasks.move_to_start_of_line")
 local PasteTask = require("nvim-training.tasks.paste_task")
 local YankIntoRegister = require("nvim-training.tasks.yank_into_register_task")
 exposed_funcs.setup({
-	task_list = { MoveStartOfLine },
+	task_list = { PasteTask },
 })
 
 local header = require("nvim-training.header")
@@ -66,15 +66,9 @@ local max_streak = 0
 
 header.store_key_value_in_header("#d", "Es gibt noch keine Aufgabe")
 header.construct_header()
-local function update_buffer_to_new_task()
-	function _inner_update()
-		vim.loop.sleep(100)
-		utility.update_buffer_respecting_header("\n\n\n\n")
-		header.construct_header()
-	end
-	vim.schedule_wrap(_inner_update)()
-end
+
 local function loop(autocmd_callback_data)
+	vim.loop.sleep(200)
 	if autocmd_callback_data then
 		if autocmd_callback_data then
 			--Todo: Extend after more event types are used.
@@ -115,11 +109,11 @@ local function loop(autocmd_callback_data)
 	header.store_key_value_in_header("_streak_", current_streak)
 	header.store_key_value_in_header("_maxstreak_", max_streak)
 	header.store_key_value_in_header("_d_", current_task:description())
-	update_buffer_to_new_task()
-	current_task:setup()
-
 	header.store_key_value_in_header("_d_", current_task:description())
-	header.construct_header()
+
+	vim.schedule_wrap(function()
+		header.construct_header()
+	end)()
 	current_autocmd = vim.api.nvim_create_autocmd({ current_task.autocmd }, { callback = loop })
 	toogle_discard = true
 end

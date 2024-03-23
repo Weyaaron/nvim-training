@@ -1,11 +1,13 @@
 local utility = require("nvim-training.utility")
-local current_config = require("nvim-training.current_config")
 local Task = require("nvim-training.task")
 
-local MoveEndOfLine = Task:new({ autocmd = "CursorMoved" })
+local MoveEndOfLine = {}
 MoveEndOfLine.__index = MoveEndOfLine
 
-function MoveEndOfLine:setup()
+function MoveEndOfLine:new()
+	local base = Task:new({ autocmd = "CursorMoved" })
+	setmetatable(base, { __index = MoveEndOfLine })
+
 	local function _inner_update()
 		utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
 		local cursor_pos = vim.api.nvim_win_get_cursor(0)
@@ -19,6 +21,7 @@ function MoveEndOfLine:setup()
 		self.highlight = utility.create_highlight(cursor_pos[1] - 1, self.cursor_target, 1)
 	end
 	vim.schedule_wrap(_inner_update)()
+	return base
 end
 
 function MoveEndOfLine:teardown(autocmd_callback_data)
