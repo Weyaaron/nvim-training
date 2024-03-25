@@ -25,7 +25,9 @@ rewrite from a previous attempt at this particular problem. The first
 one had a atrocious code-base, I hope this one will work out better  ;)
 
 # In Action
-[The Plugin in Action](./media/screencast.gif')
+[The Plugin in Action](./media/screencast.gif)
+
+
 # To try it out
 
 - Install it using the plugin manager of your choice. [Lazy](https://github.com/folke/lazy.nvim) is tested, if any other fails, please open an issue. Pinning it to a fixed version is encouraged.
@@ -38,6 +40,8 @@ training_module.setup({})
 - Run `:Training` to start a session.
 
 # Available tasks
+TODO: List some of the task implemented.
+
 
 # Some tasks currently in the pipeline 
 
@@ -52,7 +56,6 @@ training_module.setup({})
 - Competing with others. Your progress matters to you, not to others. 
 - Provide help/guides on how to solve a particular task. Basic familiarity with vim is assumed.
 - Constrain the user on how to solve a particular task
-
 
 # How to get started with contributing
 Contributions are welcome! Any input is appreciated, be it a bug report, a feature request, or a pull request.
