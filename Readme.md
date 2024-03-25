@@ -25,8 +25,7 @@ rewrite from a previous attempt at this particular problem. The first
 one had a atrocious code-base, I hope this one will work out better  ;)
 
 # In Action
-[The Plugin in Action](./media/screencast.gif)
-
+![GIF](media/screencast.gif)
 
 # To try it out
 
