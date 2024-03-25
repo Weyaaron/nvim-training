@@ -17,17 +17,15 @@ A training session consists of a series of tasks, each of which is small and eas
 The plugin will recognize when a task is completed and automatically start the next one.
 This helps to work on a lot of tasks in a short amount of time.
 
-As of 2024-03, this code implements a few basic commands.
+As of 2024-03, the current version implemens a couple of tasks.
 A lot more are under way.
 
 This is my first second in this particular domain, it is actually a 
 rewrite from a previous attempt at this particular problem. The first 
 one had a atrocious code-base, I hope this one will work out better  ;)
 
-
 # In Action
-TODO: Insert GIF
-
+[The Plugin in Action](./media/screencast.gif')
 # To try it out
 
 - Install it using the plugin manager of your choice. [Lazy](https://github.com/folke/lazy.nvim) is tested, if any other fails, please open an issue. Pinning it to a fixed version is encouraged.
@@ -66,7 +64,7 @@ If you want to start working on something, please open an issue first. This help
 
 
 # Roadmap (As of 2024-03)
-- Finish the rewrite by implementing the missing features from the old code-base.
+TODO After rewrite is done
 
 # [License](/LICENSE)
 [GPL](LICENSE)

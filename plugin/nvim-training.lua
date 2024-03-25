@@ -121,7 +121,6 @@ local function loop(autocmd_callback_data)
 	end
 
 	local index_of_new_task = math.random(#current_config.task_list)
-	index_of_new_task = 1
 	current_task = current_config.task_list[index_of_new_task]:new()
 
 	header.store_key_value_in_header("_s_", success_count)
@@ -129,7 +128,6 @@ local function loop(autocmd_callback_data)
 	header.store_key_value_in_header("_streak_", current_streak)
 	header.store_key_value_in_header("_maxstreak_", max_streak)
 	header.store_key_value_in_header("_d_", current_task:description())
-
 	vim.schedule_wrap(function()
 		header.construct_header()
 	end)()
