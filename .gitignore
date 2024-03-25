@@ -5,12 +5,16 @@ dump.txt
 ./scratch
 
 
+
+
 *.test
 test.lua
 scratch.lua
 current_config.json
 logs
 *.log
+
+start_locally.lua
 
 notes.md
 

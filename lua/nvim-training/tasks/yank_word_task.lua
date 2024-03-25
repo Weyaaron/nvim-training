@@ -2,10 +2,16 @@ local utility = require("nvim-training.utility")
 local current_config = require("nvim-training.current_config")
 local YankTask = require("nvim-training.tasks.yank_task")
 local text_traversal = require("nvim-training.text_traversal")
-local YankWordTask = YankTask:new({ target_text = "", jump_distance = 2, autocmd = "TextYankPost" })
+local YankWordTask = {}
 YankWordTask.__index = YankWordTask
 
 function YankWordTask:setup()
+	local base = YankTask:new()
+	setmetatable(base, { __index = YankWordTask })
+	self.autocmd = "TextYankPost"
+	self.target_text = ""
+	self.jump_distance = 2
+
 	local function _inner_update()
 		self.custom_lorem_ipsum = string.gsub(utility.lorem_ipsum_lines(), ",", "")
 		self.custom_lorem_ipsum = string.gsub(self.custom_lorem_ipsum, "%.", "")
@@ -52,6 +58,7 @@ function YankWordTask:setup()
 		self.target_text = final_text
 	end
 	vim.schedule_wrap(_inner_update)()
+	return base
 end
 
 function YankWordTask:description()

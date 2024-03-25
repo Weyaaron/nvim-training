@@ -22,38 +22,14 @@ end
 local base_path = construct_base_path()
 vim.api.nvim_command("set runtimepath^=" .. base_path)
 
-local utility = require("nvim-training.utility")
+local header = require("nvim-training.header")
 local current_config = require("nvim-training.current_config")
 
+local temp_config_container = {}
 function exposed_funcs.setup(args)
-	for i, v in pairs(args) do
-		current_config[i] = v
-	end
+	--This stores the values for later resolution
+	temp_config_container = args
 end
-
-local MoveAbsoluteLine = require("nvim-training.tasks.move_absolute_line_task")
-local MoveEndOfLine = require("nvim-training.tasks.move_to_end_of_line")
-local MoveToMark = require("nvim-training.tasks.move_to_mark_task")
-
-local YankWordTask = require("nvim-training.tasks.yank_word_task")
-local MoveWordsTask = require("nvim-training.tasks.move_words_task")
-local MoveStartOfLine = require("nvim-training.tasks.move_to_start_of_line")
-local PasteTask = require("nvim-training.tasks.paste_task")
-local YankIntoRegister = require("nvim-training.tasks.yank_into_register_task")
-exposed_funcs.setup({
-	task_list = { PasteTask },
-})
-
-local header = require("nvim-training.header")
-
-local MoveWordsTask = require("nvim-training.tasks.move_words_task")
-local YankEndOfLine = require("nvim-training.tasks.yank_end_of_line")
-local DeleteLine = require("nvim-training.tasks.delete_line_task")
-local MoveRandomXY = require("nvim-training.tasks.move_random_x_y")
-local TestTask = require("nvim-training.tasks.test_task")
-
-vim.api.nvim_buf_set_lines(0, 0, 25, false, {})
-vim.api.nvim_win_set_cursor(0, { 1, 1 })
 
 local task_count = 0
 local success_count = 0
@@ -64,8 +40,52 @@ local current_task
 local current_streak = 0
 local max_streak = 0
 
-header.store_key_value_in_header("#d", "Es gibt noch keine Aufgabe")
-header.construct_header()
+local function check_config()
+	local provided_tasks = temp_config_container.task_list
+	local length = 0
+	if provided_tasks then
+		length = #provided_tasks
+	end
+	if length == 0 then
+		print(
+			"You did not provide any tasks! Please run setup with a dictionary containing 'task_list' pointing to a list of strings that match names provided in the readme"
+		)
+
+		return false
+	end
+
+	--We load tasks this way to minimize startup
+	local task_index = require("nvim-training.task_index")
+
+	local resolved_modules = {}
+
+	for i, v in pairs(temp_config_container.task_list) do
+		local resolved_mod = task_index[v]
+		if not resolved_mod then
+			print(
+				"The setup function was called with the task name '"
+					.. v
+					.. "'. This task does not exist! Please check for spelling, including capitalisation."
+			)
+			return false
+		end
+		resolved_modules[#resolved_modules + 1] = resolved_mod
+	end
+	temp_config_container.task_list = resolved_modules
+
+	for i, v in pairs(temp_config_container) do
+		current_config[i] = v
+	end
+
+	return true
+end
+
+local function init()
+	vim.api.nvim_buf_set_lines(0, 0, 25, false, {})
+	vim.api.nvim_win_set_cursor(0, { 1, 1 })
+	header.store_key_value_in_header("#d", "Es gibt noch keine Aufgabe")
+	header.construct_header()
+end
 
 local function loop(autocmd_callback_data)
 	vim.loop.sleep(200)
@@ -109,7 +129,6 @@ local function loop(autocmd_callback_data)
 	header.store_key_value_in_header("_streak_", current_streak)
 	header.store_key_value_in_header("_maxstreak_", max_streak)
 	header.store_key_value_in_header("_d_", current_task:description())
-	header.store_key_value_in_header("_d_", current_task:description())
 
 	vim.schedule_wrap(function()
 		header.construct_header()
@@ -119,7 +138,11 @@ local function loop(autocmd_callback_data)
 end
 
 vim.api.nvim_create_user_command("Training", function()
-	loop()
+	if check_config() then
+		init()
+		loop()
+	else
+		print("Your provided config is not valid. Please use the setup function as described in the readme")
+	end
 end, {})
-
 return exposed_funcs

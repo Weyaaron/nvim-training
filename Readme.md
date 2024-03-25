@@ -26,10 +26,18 @@ TODO: Insert GIF
 # To try it out
 
 - Install it using the plugin manager of your choice. [Lazy](https://github.com/folke/lazy.nvim) is tested, if any other fails, please open an issue. Pinning it to a fixed version is encouraged.
+
+- Run the setup in your lua-config:
+
+local training_module = require("nvim-training")
+training_module.setup({})
 - Make sure you are in an empty buffer.
 - Run `:Training` to start a session.
 
-# Available tasks and their tags
+# Available tasks
+
+
+--Todo: Fix setup vs new everywhere it is used
 
 # Some tasks currently in the pipeline 
 

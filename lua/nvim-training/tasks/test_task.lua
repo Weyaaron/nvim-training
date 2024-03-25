@@ -3,10 +3,14 @@ local text_traversal = require("nvim-training.text_traversal")
 local current_config = require("nvim-training.current_config")
 local Task = require("nvim-training.task")
 
-local TestTask = Task:new({ autocmd = "CursorMoved" })
+local TestTask = {}
 TestTask.__index = TestTask
 
 function TestTask:setup()
+	local base = Task:new()
+	setmetatable(base, { __index = TestTask })
+	self.autocmd = "TextYankPost"
+	self.target_text = ""
 	local function _inner_update()
 		local lorem_ipsum_full_text = utility.lorem_ipsum_lines()
 		local lorem_ipsum_in_line_format = utility.split_str(lorem_ipsum_full_text, "\n")
@@ -36,6 +40,8 @@ function TestTask:setup()
 		::continue::
 	end
 	vim.schedule_wrap(_inner_update)()
+
+	return base
 end
 
 function TestTask:teardown(autocmd_callback_data)

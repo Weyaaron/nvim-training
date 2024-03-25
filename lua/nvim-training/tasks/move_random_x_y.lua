@@ -5,7 +5,7 @@ local current_config = require("nvim-training.current_config")
 local MoveRandomXY = {}
 MoveRandomXY.__index = MoveRandomXY
 
-function MoveRandomXY:setup()
+function MoveRandomXY:new()
 	local base = Task:new()
 	setmetatable(base, { __index = MoveRandomXY })
 
