@@ -1,7 +1,10 @@
 .idea 
 
+dump.txt
 
 ./scratch
+
+
 
 
 *.test
@@ -10,6 +13,8 @@ scratch.lua
 current_config.json
 logs
 *.log
+
+start_locally.lua
 
 notes.md
 
