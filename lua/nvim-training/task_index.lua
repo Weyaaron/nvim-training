@@ -14,6 +14,13 @@ local DeleteLine = require("nvim-training.tasks.delete_line_task")
 local MoveRandomXY = require("nvim-training.tasks.move_random_x_y")
 local TestTask = require("nvim-training.tasks.test_task")
 
-local name_module_dict = { MoveToMark = MoveToMark, PasteTask = PasteTask }
+local name_module_dict = { MoveToMark = MoveToMark, PasteTask = PasteTask, MoveEndOfLine = MoveEndOfLine }
+local name_module_dict = { MoveEndOfLine = MoveEndOfLine, MoveStartOfLine = MoveStartOfLine }
+
+for i, v in pairs(name_module_dict) do
+	print(i)
+	name_module_dict[string.lower(i)] = name_module_dict[i]
+end
+-- print('len' + tostring(#name_module_dict))
 
 return name_module_dict

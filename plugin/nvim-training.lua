@@ -5,6 +5,8 @@ end
 vim.g.loaded_training = 1
 
 local exposed_funcs = {}
+
+
 local function construct_base_path()
 	--https://stackoverflow.com/questions/6380820/get-containing-path-of-lua-file
 	local function script_path()
@@ -60,7 +62,7 @@ local function check_config()
 	local resolved_modules = {}
 
 	for i, v in pairs(temp_config_container.task_list) do
-		local resolved_mod = task_index[v]
+		local resolved_mod = task_index[string.lower(v)]
 		if not resolved_mod then
 			print(
 				"The setup function was called with the task name '"
@@ -81,6 +83,7 @@ local function check_config()
 end
 
 local function init()
+        vim.cmd("e training.txt")
 	vim.api.nvim_buf_set_lines(0, 0, 25, false, {})
 	vim.api.nvim_win_set_cursor(0, { 1, 1 })
 	header.store_key_value_in_header("#d", "Es gibt noch keine Aufgabe")
@@ -144,3 +147,5 @@ vim.api.nvim_create_user_command("Training", function()
 	end
 end, {})
 return exposed_funcs
+
+

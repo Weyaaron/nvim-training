@@ -3,9 +3,11 @@
 [![License: GPL](https://img.shields.io/badge/License-GPL-brightgreen.svg)](https://opensource.org/license/gpl-3-0/)
 
 # About the current rewrite
-The branch main is almost obsolete, a rewrite is coming along nicely.
-This is taking place on the dev branch, which will remain unstable until 
-further notice.
+The repository is currently in an unstable stage, I am doing a rewrite. 
+Please be patient, I work irregularly on this. 
+In particular, installation currently does not work as intented.
+
+ 
 
 This code implements a Neovim Plugin for training your muscle memory.
 
