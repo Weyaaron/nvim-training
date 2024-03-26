@@ -5,7 +5,7 @@ local config = {
 	task_list = {},
 	possible_marks_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" },
 	possible_register_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" },
-        next_task_algorithm = 'random'
+        next_task_algorithm = 'random',
 }
 
 return config
