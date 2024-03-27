@@ -55,7 +55,6 @@ function text_traversal.traverse_n_words(char_list, n)
 			-- print("Moved lines", current_line, new_line)
 		end
 	end
-	print(start_chars)
 
 	return char_list
 end

@@ -3,11 +3,11 @@
 [![License: GPL](https://img.shields.io/badge/License-GPL-brightgreen.svg)](https://opensource.org/license/gpl-3-0/)
 
 # About the current rewrite
-The repository is currently in an unstable stage, I am doing a rewrite. 
-Please be patient, I work irregularly on this. 
+The repository is currently in an unstable stage, I am doing a rewrite.
+Please be patient, I work irregularly on this.
 In particular, installation currently does not work as intented.
 
- 
+
 
 This code implements a Neovim Plugin for training your muscle memory.
 
@@ -22,8 +22,8 @@ This helps to work on a lot of tasks in a short amount of time.
 As of 2024-03, the current version implemens a couple of tasks.
 A lot more are under way.
 
-This is my first second in this particular domain, it is actually a 
-rewrite from a previous attempt at this particular problem. The first 
+This is my first second in this particular domain, it is actually a
+rewrite from a previous attempt at this particular problem. The first
 one had a atrocious code-base, I hope this one will work out better  ;)
 
 # In Action
@@ -34,19 +34,28 @@ one had a atrocious code-base, I hope this one will work out better  ;)
 - Install it using the plugin manager of your choice. [Lazy](https://github.com/folke/lazy.nvim) is tested, if any other fails, please open an issue. Pinning it to a fixed version is encouraged.
 
 - Run the setup in your lua-config:
-
+lua`
 local training_module = require("nvim-training")
 training_module.setup({})
+`
 - Make sure you are in an empty buffer.
 - Run `:Training` to start a session.
 
+
+--Todo:  Configure a  proper preview
+
+
 # Available tasks
-TODO: List some of the task implemented.
+
+| Name | Description | File-Link |
+| -------- | -------- | -------- |
+| MoveToEndOfLine     | Move the cursor to the end of the Line. | [File](./lua/nvim-training/tasks/move_to_end_of_line.lua)
+| MoveToStartOfLine     | Move the cursor to the start of the Line. | [File](./lua/nvim-training/tasks/move_to_start_of_line.lua)
+
+# Some tasks currently in the pipeline
 
 
-# Some tasks currently in the pipeline 
-
-# Goals 
+# Goals
 - Ease of use. Starting a session should be seamless. The UI should not get in the way.
 - Fast and flow-inducing. There should be no waiting time between tasks and as little friction between tasks as possible.
 - (Eventually) Community-driven. Adding new tasks is encouraged, both by providing the interfaces and the documentation required.
@@ -54,14 +63,14 @@ TODO: List some of the task implemented.
 
 # Non-Goals
 - Implement puzzles. A solution to the current task should be obvious and small, at most a few keystrokes on a vanilla setup.
-- Competing with others. Your progress matters to you, not to others. 
+- Competing with others. Your progress matters to you, not to others.
 - Provide help/guides on how to solve a particular task. Basic familiarity with vim is assumed.
 - Constrain the user on how to solve a particular task
 
 # How to get started with contributing
 Contributions are welcome! Any input is appreciated, be it a bug report, a feature request, or a pull request.
 This is my first project in lua, therefore, some junk and bad practices are to be expected. Any feedback/suggestions
-are welcome. 
+are welcome.
 
 First of all, you should have a look at the issues. Maybe someone else has already raised your concern.
 If you want to start working on something, please open an issue first. This helps to avoid duplicate work and to get feedback early on.

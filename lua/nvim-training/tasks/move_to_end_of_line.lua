@@ -5,9 +5,9 @@ local MoveEndOfLine = {}
 MoveEndOfLine.__index = MoveEndOfLine
 
 function MoveEndOfLine:new()
-	local base = Task:new({ autocmd = "CursorMoved" })
+	local base = Task:new()
 	setmetatable(base, { __index = MoveEndOfLine })
-
+	self.autocmd = "CursorMoved"
 	local function _inner_update()
 		utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
 		local cursor_pos = vim.api.nvim_win_get_cursor(0)
@@ -30,7 +30,7 @@ function MoveEndOfLine:teardown(autocmd_callback_data)
 end
 
 function MoveEndOfLine:description()
-	return "Move to the end of the current line"
+	return "Move to the end of the current line."
 end
 
 return MoveEndOfLine

@@ -6,6 +6,7 @@ dump.txt
 training.txt
 
 
+dev_setup.lua
 
 
 *.test

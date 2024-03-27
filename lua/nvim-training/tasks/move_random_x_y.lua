@@ -18,7 +18,7 @@ function MoveRandomXY:new()
 	end
 	vim.schedule_wrap(_inner_update)()
 
-    return base
+	return base
 end
 
 function MoveRandomXY:teardown(autocmd_callback_data)

@@ -14,5 +14,4 @@ end
 
 return TaskScheduler
 
-
--- function (all_tasks, prev_task, prev_task_res, 
+-- function (all_tasks, prev_task, prev_task_res,

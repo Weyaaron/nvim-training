@@ -28,7 +28,7 @@ function TestTask:setup()
 		char_list =
 			text_traversal.traverse_to_x_y(char_list, random_point[1] - current_config.header_length, random_point[2])
 
-		print(random_point[1], random_point[2], #char_list)
+		-- print(random_point[1], random_point[2], #char_list)
 		-- goto continue
 		for i = 1, 10 do
 			char_list = text_traversal.traverse_n_words(char_list, 1)

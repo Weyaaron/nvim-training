@@ -10,7 +10,7 @@ function YankTask:new()
 end
 function YankTask:teardown(autocmd_callback_data)
 	local event_data = vim.deepcopy(vim.v.event)
-	print(self.target_text, "--", event_data.regcontents[1])
+	-- print(self.target_text, "--", event_data.regcontents[1])
 	return event_data.regcontents[1] == self.target_text
 end
 
