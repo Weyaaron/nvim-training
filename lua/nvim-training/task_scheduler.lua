@@ -1,17 +1,22 @@
 local TaskScheduler = {}
 TaskScheduler.__index = TaskScheduler
 
-function TaskScheduler:new(args)
-	local base = args or {}
-	setmetatable(base, { __index = self })
+function TaskScheduler:new(initial_tasks, kwargs)
+	local base = {}
+	setmetatable(base, { __index = TaskScheduler })
+	base.initial_tasks = initial_tasks
+	base.kwargs = kwargs
+	base.default_kwargs = {}
 
 	return base
 end
 
-function TaskScheduler:next()
+function TaskScheduler:next(previous, result)
 	return
 end
 
-return TaskScheduler
+function TaskScheduler:accepted_kwargs()
+	return self.default_kwargs
+end
 
--- function (all_tasks, prev_task, prev_task_res,
+return TaskScheduler

@@ -1,3 +1,4 @@
+local task_scheduler = require("nvim-training.task_scheduler")
 if vim.g.loaded_training == 1 then
 	print("Already loaded")
 	return
@@ -32,7 +33,8 @@ local toogle_discard = false
 local current_task
 local current_streak = 0
 local max_streak = 0
-
+local task_scheduler_instance
+local previous_task_result
 local function construct_and_check_config()
 	local provided_tasks = current_config.task_list
 	local length = 0
@@ -66,6 +68,45 @@ local function construct_and_check_config()
 	end
 	current_config.task_list = resolved_modules
 
+	local scheduler_index = require("nvim-training.scheduler_index")
+	local scheduler_name = current_config.task_scheduler
+	local resolved_scheduler = scheduler_index[string.lower(current_config.task_scheduler)]
+
+	--Todo:  Split the config into the external and internal
+	if not resolved_scheduler then
+		print(
+			"The setup function was called with the scheduler name '"
+				.. current_config.task_scheduler
+				.. "'. This scheduler does not exist! Please check for spelling/the right  plugin version."
+		)
+		return false
+	end
+	--Todo: Deal with kwargs
+	task_scheduler_instance = resolved_scheduler:new(current_config.task_list, current_config.task_scheduler_kwargs)
+	local expected_args = task_scheduler_instance:accepted_kwargs()
+
+	for i, v in pairs(current_config.task_scheduler_kwargs) do
+		if not expected_args[i] then
+			print(
+				"You provided the kwarg '"
+					.. tostring(i)
+					.. "' that is not understood by the scheduler '"
+					.. scheduler_name
+					.. "'. Please check for spelling or remove it."
+			)
+		end
+	end
+	for i, v in pairs(expected_args) do
+		if not current_config.task_scheduler_kwargs[i] then
+			print(
+				"You did not provide a value for the scheduler kwarg named'"
+					.. i
+					.. "'. The default value '"
+					.. tostring(v)
+					.. "' will be used."
+			)
+		end
+	end
 	return true
 end
 
@@ -78,7 +119,7 @@ local function init()
 end
 
 local function loop(autocmd_callback_data)
-	vim.loop.sleep(200)
+	vim.loop.sleep(500)
 	if autocmd_callback_data then
 		if autocmd_callback_data then
 			--Todo: Extend after more event types are used.
@@ -93,9 +134,9 @@ local function loop(autocmd_callback_data)
 		if current_autocmd > 0 then
 			vim.api.nvim_del_autocmd(current_autocmd)
 		end
-		local task_res = current_task:teardown(autocmd_callback_data)
+		previous_task_result = current_task:teardown(autocmd_callback_data)
 		task_count = task_count + 1
-		if task_res then
+		if previous_task_result then
 			success_count = success_count + 1
 			current_streak = current_streak + 1
 			if current_streak >= max_streak then
@@ -110,8 +151,7 @@ local function loop(autocmd_callback_data)
 		end
 	end
 
-	local index_of_new_task = math.random(#current_config.task_list)
-	current_task = current_config.task_list[index_of_new_task]:new()
+	current_task = task_scheduler_instance:next(current_task, previous_task_result):new()
 
 	header.store_key_value_in_header("_s_", success_count)
 	header.store_key_value_in_header("_f_", failure_count)
