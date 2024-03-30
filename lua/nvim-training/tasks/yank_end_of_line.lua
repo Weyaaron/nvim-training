@@ -2,13 +2,15 @@ local utility = require("nvim-training.utility")
 local current_config = require("nvim-training.current_config")
 local YankTask = require("nvim-training.tasks.yank_task")
 
-local YankEndOfLine = {}
+local YankEndOfLine = YankTask:new()
 YankEndOfLine.__index = YankEndOfLine
 
 function YankEndOfLine:new()
 	local base = YankTask:new()
 
-	setmetatable(base, { __index = YankTask })
+	setmetatable(base, { __index = YankEndOfLine })
+
+	self.autocmd = "TextYankPost"
 	local function _inner_update()
 		utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
 		local x_start = math.random(3) + current_config.header_length

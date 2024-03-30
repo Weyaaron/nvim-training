@@ -22,7 +22,8 @@ function MoveRandomXY:new()
 end
 
 function MoveRandomXY:teardown(autocmd_callback_data)
-	return { self.target_x, self.target_y } == vim.api.nvim_win_get_cursor(0)
+	local cursor_pos = vim.api.nvim_win_get_cursor(0)
+	return cursor_pos[1] == self.target_x + 1 and cursor_pos[2] == self.target_y
 end
 
 function MoveRandomXY:description()

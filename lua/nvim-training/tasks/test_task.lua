@@ -3,12 +3,13 @@ local text_traversal = require("nvim-training.text_traversal")
 local current_config = require("nvim-training.current_config")
 local Task = require("nvim-training.task")
 
-local TestTask = {}
+local TestTask = Task:new()
 TestTask.__index = TestTask
 
-function TestTask:setup()
+
+function TestTask:new()
 	local base = Task:new()
-	setmetatable(base, { __index = TestTask })
+	setmetatable(base, { __index = TestTask})
 	self.autocmd = "TextYankPost"
 	self.target_text = ""
 	local function _inner_update()
@@ -46,10 +47,6 @@ end
 
 function TestTask:teardown(autocmd_callback_data)
 	return false
-end
-
-function TestTask:description()
-	return "For Test Purposes only!"
 end
 
 return TestTask
