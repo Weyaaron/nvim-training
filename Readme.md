@@ -2,13 +2,6 @@
 
 [![License: GPL](https://img.shields.io/badge/License-GPL-brightgreen.svg)](https://opensource.org/license/gpl-3-0/)
 
-# About the current rewrite
-The repository is currently in an unstable stage, I am doing a rewrite.
-Please be patient, I work irregularly on this.
-In particular, installation currently does not work as intented.
-
-
-
 This code implements a Neovim Plugin for training your muscle memory.
 
 This plugin fills a gap I have noticed during interaction with vim:
@@ -22,28 +15,27 @@ This helps to work on a lot of tasks in a short amount of time.
 As of 2024-03, the current version implemens a couple of tasks.
 A lot more are under way.
 
-This is my first second in this particular domain, it is actually a
-rewrite from a previous attempt at this particular problem. The first
-one had a atrocious code-base, I hope this one will work out better  ;)
-
 # In Action
 ![GIF](media/screencast.gif)
 
 # To try it out
 
-- Install it using the plugin manager of your choice. [Lazy](https://github.com/folke/lazy.nvim) is tested, if any other fails, please open an issue. Pinning it to a fixed version is encouraged.
+- Install it using the plugin manager of your choice.
+[Lazy](https://github.com/folke/lazy.nvim) is tested, if any other fails, please open an issue. Pinning it to a fixed version is encouraged.
 
 - Run the setup in your lua-config:
-lua`
-local training_module = require("nvim-training")
-training_module.setup({})
-`
-- Make sure you are in an empty buffer.
+```lua
+local training = require("nvim-training")
+training.setup({
+	task_list = { "MoveEndOfLine", "MoveStartOfLine" },
+	task_scheduler = "RandomScheduler",
+	task_scheduler_kwargs = { },
+})
+```
+Running this setup is actually mandatory. This helps with stability and the user experience, since it 
+allows the removeal of buggy tasks and encourages users to train what they are interested in. 
+Example configurations are provided below.
 - Run `:Training` to start a session.
-
-
---Todo:  Configure a  proper preview
-
 
 # Available tasks
 
@@ -51,9 +43,6 @@ training_module.setup({})
 | -------- | -------- | -------- |
 | MoveToEndOfLine     | Move the cursor to the end of the Line. | [File](./lua/nvim-training/tasks/move_to_end_of_line.lua)
 | MoveToStartOfLine     | Move the cursor to the start of the Line. | [File](./lua/nvim-training/tasks/move_to_start_of_line.lua)
-
-# Some tasks currently in the pipeline
-
 
 # Goals
 - Ease of use. Starting a session should be seamless. The UI should not get in the way.
@@ -75,9 +64,6 @@ are welcome.
 First of all, you should have a look at the issues. Maybe someone else has already raised your concern.
 If you want to start working on something, please open an issue first. This helps to avoid duplicate work and to get feedback early on.
 
-
-# Roadmap (As of 2024-03)
-TODO After rewrite is done
 
 # [License](/LICENSE)
 [GPL](LICENSE)
