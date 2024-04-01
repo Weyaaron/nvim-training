@@ -1,5 +1,5 @@
 local utility = require("nvim-training.utility")
-local current_config = require("nvim-training.current_config")
+local internal_config = require("nvim-training.internal_config")
 local Task = require("nvim-training.task")
 local text_traversal = require("nvim-training.text_traversal")
 
@@ -30,7 +30,7 @@ function MoveWordsTask:setup()
 
 		char_list = text_traversal.traverse_to_x_y(
 			char_list,
-			starting_point[1] - current_config.header_length,
+			starting_point[1] - internal_config.header_length,
 			starting_point[2]
 		)
 		vim.api.nvim_win_set_cursor(0, starting_point)
@@ -39,9 +39,9 @@ function MoveWordsTask:setup()
 		self.end_pos = { 0, 0 }
 		if #char_list > 0 then
 			self.highlight =
-				utility.create_highlight(current_config.header_length + char_list[1][2] - 1, char_list[1][3] - 1, 1)
+				utility.create_highlight(internal_config.header_length + char_list[1][2] - 1, char_list[1][3] - 1, 1)
 
-			self.end_pos = { char_list[1][2] + current_config.header_length, char_list[1][3] - 1 }
+			self.end_pos = { char_list[1][2] + internal_config.header_length, char_list[1][3] - 1 }
 		end
 	end
 

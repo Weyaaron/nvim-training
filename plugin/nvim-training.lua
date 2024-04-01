@@ -23,7 +23,7 @@ local base_path = construct_base_path()
 vim.api.nvim_command("set runtimepath^=" .. base_path)
 
 local header = require("nvim-training.header")
-local current_config = require("nvim-training.current_config")
+local user_config= require("nvim-training.user_config")
 
 local task_count = 0
 local success_count = 0
@@ -36,7 +36,7 @@ local max_streak = 0
 local task_scheduler_instance
 local previous_task_result
 local function construct_and_check_config()
-	local provided_tasks = current_config.task_list
+	local provided_tasks = user_config.task_list
 	local length = 0
 	if provided_tasks then
 		length = #provided_tasks
@@ -54,7 +54,7 @@ local function construct_and_check_config()
 
 	local resolved_modules = {}
 
-	for i, v in pairs(current_config.task_list) do
+	for i, v in pairs(user_config.task_list) do
 		local resolved_mod = task_index[string.lower(v)]
 		if not resolved_mod then
 			print(
@@ -66,26 +66,26 @@ local function construct_and_check_config()
 		end
 		resolved_modules[#resolved_modules + 1] = resolved_mod
 	end
-	current_config.task_list = resolved_modules
+	user_config.task_list = resolved_modules
 
 	local scheduler_index = require("nvim-training.scheduler_index")
-	local scheduler_name = current_config.task_scheduler
-	local resolved_scheduler = scheduler_index[string.lower(current_config.task_scheduler)]
+	local scheduler_name = user_config.task_scheduler
+	local resolved_scheduler = scheduler_index[string.lower(user_config.task_scheduler)]
 
 	--Todo:  Split the config into the external and internal
 	if not resolved_scheduler then
 		print(
 			"The setup function was called with the scheduler name '"
-				.. current_config.task_scheduler
+				.. user_config.task_scheduler
 				.. "'. This scheduler does not exist! Please check for spelling/the right  plugin version."
 		)
 		return false
 	end
 	--Todo: Deal with kwargs
-	task_scheduler_instance = resolved_scheduler:new(current_config.task_list, current_config.task_scheduler_kwargs)
+	task_scheduler_instance = resolved_scheduler:new(user_config.task_list, user_config.task_scheduler_kwargs)
 	local expected_args = task_scheduler_instance:accepted_kwargs()
 
-	for i, v in pairs(current_config.task_scheduler_kwargs) do
+	for i, v in pairs(user_config.task_scheduler_kwargs) do
 		if not expected_args[i] then
 			print(
 				"You provided the kwarg '"
@@ -97,7 +97,7 @@ local function construct_and_check_config()
 		end
 	end
 	for i, v in pairs(expected_args) do
-		if not current_config.task_scheduler_kwargs[i] then
+		if not user_config.task_scheduler_kwargs[i] then
 			print(
 				"You did not provide a value for the scheduler kwarg named'"
 					.. i

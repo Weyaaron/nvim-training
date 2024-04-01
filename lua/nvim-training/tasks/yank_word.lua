@@ -1,5 +1,5 @@
 local utility = require("nvim-training.utility")
-local current_config = require("nvim-training.current_config")
+local internal_config = require("nvim-training.internal_config")
 local YankTask = require("nvim-training.tasks.yank_task")
 local text_traversal = require("nvim-training.text_traversal")
 local YankWordTask = {}
@@ -30,7 +30,7 @@ function YankWordTask:setup()
 
 		char_list = text_traversal.traverse_to_x_y(
 			char_list,
-			starting_point[1] - current_config.header_length,
+			starting_point[1] - internal_config.header_length,
 			starting_point[2]
 		)
 		local copy_of_char_list = char_list
@@ -41,9 +41,9 @@ function YankWordTask:setup()
 		self.end_pos = { 0, 0 }
 		if #char_list > 0 then
 			self.highlight =
-				utility.create_highlight(current_config.header_length + char_list[1][2] - 1, char_list[1][3] - 1, 1)
+				utility.create_highlight(internal_config.header_length + char_list[1][2] - 1, char_list[1][3] - 1, 1)
 
-			self.end_pos = { char_list[1][2] + current_config.header_length, char_list[1][3] - 1 }
+			self.end_pos = { char_list[1][2] + internal_config.header_length, char_list[1][3] - 1 }
 		end
 		local length_diff = #copy_of_char_list - #char_list
 		local char_list_between_traversals = { unpack(copy_of_char_list, 1, length_diff) }

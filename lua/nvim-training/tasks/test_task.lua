@@ -1,6 +1,5 @@
 local utility = require("nvim-training.utility")
 local text_traversal = require("nvim-training.text_traversal")
-local current_config = require("nvim-training.current_config")
 local Task = require("nvim-training.task")
 
 local TestTask = Task:new()

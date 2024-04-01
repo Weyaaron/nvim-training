@@ -6,8 +6,8 @@ local MoveEndOfFile = require("nvim-training.tasks.move_end_of_file")
 local exported_tasks = {
 	MoveEndOfLine = MoveEndOfLine,
 	MoveStartOfLine = MoveStartOfLine,
-	MoveStartOfFile = MoveStartOfFile,
 	MoveEndOfFile = MoveEndOfFile,
+	MoveStartOfFile = MoveStartOfFile,
 }
 
 for i, v in pairs(exported_tasks) do

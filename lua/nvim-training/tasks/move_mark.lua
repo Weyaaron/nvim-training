@@ -1,6 +1,6 @@
 local Task = require("nvim-training.task")
 local utility = require("nvim-training.utility")
-local current_config = require("nvim-training.current_config")
+local internal_config = require("nvim-training.internal_config")
 
 local MoveToMark = {}
 
@@ -12,7 +12,7 @@ function MoveToMark:new()
 
 	self.target_line = 0
 	self.autocmd = "CursorMoved"
-	self.mark_names = current_config.possible_marks_list
+	self.mark_names = internal_config.possible_marks_list
 	self.target_mark_index = math.random(#self.mark_names)
 	local function _inner_update()
 		utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()

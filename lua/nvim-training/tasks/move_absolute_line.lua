@@ -1,6 +1,6 @@
 local Task = require("nvim-training.task")
 local utility = require("nvim-training.utility")
-local current_config = require("nvim-training.current_config")
+local internal_config = require("nvim-training.internal_config")
 
 local MoveAbsoluteLine = {}
 MoveAbsoluteLine.__index = MoveAbsoluteLine
@@ -9,7 +9,7 @@ function MoveAbsoluteLine:new()
 	local base = Task:new()
 
 	setmetatable(base, { __index = MoveAbsoluteLine })
-	self.target_line = math.random(current_config.header_length + 1, current_config.header_length + 5)
+	self.target_line = math.random(internal_config.header_length + 1, internal_config.header_length + 5)
 	local function _inner_update()
 		utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
 

@@ -1,5 +1,5 @@
 -- luacheck: globals vim
-local current_config = require("nvim-training.current_config")
+local internal_config = require("nvim-training.internal_config")
 local utility = {}
 
 function utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
@@ -23,10 +23,10 @@ end
 function utility.calculate_random_point_in_text_bounds()
 	local max_lines = vim.api.nvim_buf_line_count(0)
 
-	local x = math.random(current_config.header_length + 1, max_lines)
+	local x = math.random(internal_config.header_length + 1, max_lines)
 
 	local buffer_lines =
-		vim.api.nvim_buf_get_lines(0, current_config.header_length, vim.api.nvim_buf_line_count(0), false)
+		vim.api.nvim_buf_get_lines(0, internal_config.header_length, vim.api.nvim_buf_line_count(0), false)
 	local line_length = #buffer_lines[1]
 	local y = math.random(0, line_length)
 	return { x, y }
@@ -38,10 +38,10 @@ end
 
 function utility.update_buffer_respecting_header(input_str)
 	local str_as_lines = utility.split_str(input_str, "\n")
-	vim.api.nvim_buf_set_lines(0, current_config.header_length, current_config.buffer_length, false, {})
+	vim.api.nvim_buf_set_lines(0, internal_config.header_length, internal_config.buffer_length, false, {})
 
-	local end_index = current_config.header_length + #str_as_lines
-	vim.api.nvim_buf_set_lines(0, current_config.header_length, end_index, false, str_as_lines)
+	local end_index = internal_config.header_length + #str_as_lines
+	vim.api.nvim_buf_set_lines(0, internal_config.header_length, end_index, false, str_as_lines)
 end
 
 function utility.split_str(input, sep)

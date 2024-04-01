@@ -1,5 +1,4 @@
 local utility = require("nvim-training.utility")
-local current_config = require("nvim-training.current_config")
 local Task = require("nvim-training.task")
 
 local DeleteLineTask = {}
