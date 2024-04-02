@@ -1,4 +1,8 @@
 
+This is just a place to store some rambly notes 
+of mine. Will be updated/deleted occassionally.
+Please refer to the issues in github for any 
+currently relevant issues. 
 
 
 

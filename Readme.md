@@ -1,4 +1,4 @@
-# nvim_training
+# nvim-training
 
 [![License: GPL](https://img.shields.io/badge/License-GPL-brightgreen.svg)](https://opensource.org/license/gpl-3-0/)
 
@@ -18,31 +18,50 @@ A lot more are under way.
 # In Action
 ![GIF](media/screencast.gif)
 
-# To try it out
+# Installation
 
-- Install it using the plugin manager of your choice.
-[Lazy](https://github.com/folke/lazy.nvim) is tested, if any other fails, please open an issue. Pinning it to a fixed version is encouraged.
+Install it using the plugin manager of your choice.
+[Lazy](https://github.com/folke/lazy.nvim) is tested, if any other fails, please open an issue. Pinning your local installation to a fixed version is encouraged.
 
-- Run the setup in your lua-config:
+# Mandatory Setup
+The setup is actually mandatory, the plugin wont start without it. This ensures that you train with tasks that feel productive to you.
+The lines below are sufficient to get started, and there are a few more examples sprinkled throughout the document.
+Simply place them in your init.lua:
+
 ```lua
 local training = require("nvim-training")
 training.setup({
-	task_list = { "MoveEndOfLine", "MoveStartOfLine" },
-	task_scheduler = "RandomScheduler",
-	task_scheduler_kwargs = { },
+	task_list = { "MoveEndOfLine", "MoveStartOfLine" }, -- This is a list of strings that will be resolved to the actual tasks
+	task_scheduler = "RandomScheduler",  -- The default scheduler will pick a new tasks at random from the provided list. 
 })
 ```
-Running this setup is actually mandatory. This helps with stability and the user experience, since it 
-allows the removeal of buggy tasks and encourages users to train what they are interested in. 
-Example configurations are provided below.
-- Run `:Training` to start a session.
+This document lists all the other available options for each 
+of the keys, see below.
+
+# Starting a Session
+Once the setup has been done, simply run `:Training` to start a session.
+Some care is taken to avoid overwritting your files, but just to be 
+safe you may start in an empty buffer/directory. 
 
 # Available tasks
 
-| Name | Description | File-Link |
+| Name | Description | Notes |
 | -------- | -------- | -------- |
-| MoveToEndOfLine     | Move the cursor to the end of the Line. | [File](./lua/nvim-training/tasks/move_to_end_of_line.lua)
-| MoveToStartOfLine     | Move the cursor to the start of the Line. | [File](./lua/nvim-training/tasks/move_to_start_of_line.lua)
+| MoveEndOfLine   | Move the cursor to the end of the line. |
+| MoveStartOfLine | Move the cursor to the start of the line. |
+| MoveStartOfFile | Move the cursor to the start of the file. |
+| MoveEndOfFile | Move the cursor to the end of the file. |
+
+
+To train with all of them enabled, you may use the following call to setup:
+
+```lua
+local training = require("nvim-training")
+training.setup({
+	task_list = { "MoveEndOfLine", "MoveStartOfLine", "MoveEndOfFile", "MoveStartOfFile",}
+	task_scheduler = "RandomScheduler",
+})
+```
 
 # Goals
 - Ease of use. Starting a session should be seamless. The UI should not get in the way.
