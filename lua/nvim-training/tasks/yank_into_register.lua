@@ -29,11 +29,10 @@ end
 function YankIntoRegisterTask:teardown(autocmd_callback_data)
 	utility.clear_highlight(self.highlight)
 	return false
-	-- return self.target_line == vim.api.nvim_win_get_cursor(0)[1]
 end
 
 function YankIntoRegisterTask:description()
-	return "Use yy to copy the line the cursor is in into register " .. self.choosen_register
+	return "Copy the line the cursor is in into register " .. self.choosen_register
 end
 
 return YankIntoRegisterTask

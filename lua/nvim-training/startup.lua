@@ -54,13 +54,11 @@ function startup.check_scheduler()
 	return true
 end
 function startup.construct_scheduler()
-	print("Scheduler resolved")
 	local scheduler_index = require("nvim-training.scheduler_index")
 	local new_scheduler_instance = scheduler_index[string.lower(user_config.task_scheduler)]:new(
 		user_config.resolved_task_list,
 		user_config.task_scheduler_kwargs
 	)
-	print(new_scheduler_instance)
 	user_config.resolved_task_scheduler = new_scheduler_instance
 end
 

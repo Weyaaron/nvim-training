@@ -51,6 +51,7 @@ safe you may start in an empty buffer/directory.
 | MoveStartOfLine | Move the cursor to the start of the line. |
 | MoveStartOfFile | Move the cursor to the start of the file. |
 | MoveEndOfFile | Move the cursor to the end of the file. |
+| Increment | Increment/Decrement the value under the cursor.| Does not include values like dates, booleans, just numbers
 
 
 To train with all of them enabled, you may use the following call to setup:
