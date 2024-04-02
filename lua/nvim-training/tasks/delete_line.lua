@@ -21,7 +21,7 @@ function DeleteLineTask:teardown(autocmd_callback_data)
 	return new_line_length == self.line_length - 1
 end
 function DeleteLineTask:description()
-	return "Delete the current line"
+	return "Delete the line the cursor is in."
 end
 
 return DeleteLineTask

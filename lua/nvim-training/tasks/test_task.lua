@@ -5,10 +5,9 @@ local Task = require("nvim-training.task")
 local TestTask = Task:new()
 TestTask.__index = TestTask
 
-
 function TestTask:new()
 	local base = Task:new()
-	setmetatable(base, { __index = TestTask})
+	setmetatable(base, { __index = TestTask })
 	self.autocmd = "TextYankPost"
 	self.target_text = ""
 	local function _inner_update()
@@ -37,7 +36,6 @@ function TestTask:new()
 					utility.create_highlight(current_config.header_length + char_list[1][2] - 1, char_list[1][3] - 1, 1)
 			end
 		end
-		::continue::
 	end
 	vim.schedule_wrap(_inner_update)()
 

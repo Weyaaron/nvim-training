@@ -33,7 +33,7 @@ function YankIntoRegisterTask:teardown(autocmd_callback_data)
 end
 
 function YankIntoRegisterTask:description()
-	return "Use yy to copy the current line into register " .. self.choosen_register
+	return "Use yy to copy the line the cursor is in into register " .. self.choosen_register
 end
 
 return YankIntoRegisterTask

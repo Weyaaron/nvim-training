@@ -29,7 +29,7 @@ function MoveStartOfLine:teardown(autocmd_callback_data)
 end
 
 function MoveStartOfLine:description()
-	return "Move to the start of the current line."
+	return "Move to the start of the line the cursor is in."
 end
 
 return MoveStartOfLine
