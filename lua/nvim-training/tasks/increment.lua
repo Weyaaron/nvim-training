@@ -11,7 +11,7 @@ function Increment:new()
 	self.autocmd = "CursorMoved"
 	local modes = { "Increment", "Decrement" }
 	self.inital_value = math.random(-100, 100)
-        self.inital_value = 0
+	self.inital_value = 0
 	self.mode = modes[math.random(#modes)]
 	if self.mode == "Increment" then
 		self.updated_value = self.inital_value + 1
