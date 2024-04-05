@@ -32,34 +32,55 @@ Simply place them in your init.lua:
 local training = require("nvim-training")
 training.setup({
 	task_list = { "MoveEndOfLine", "MoveStartOfLine" }, -- This is a list of strings that will be resolved to the actual tasks
-	task_scheduler = "RandomScheduler",  -- The default scheduler will pick a new tasks at random from the provided list. 
+	task_scheduler = "RandomScheduler",  -- The default scheduler will pick a new tasks at random from the provided list.
 })
 ```
-This document lists all the other available options for each 
+This document lists all the other available options for each
 of the keys, see below.
 
 # Starting a Session
 Once the setup has been done, simply run `:Training` to start a session.
-Some care is taken to avoid overwritting your files, but just to be 
-safe you may start in an empty buffer/directory. 
+Some care is taken to avoid overwritting your files, but just to be
+safe you may start in an empty buffer/directory.
 
 # Available tasks
 
+## Movements
 | Name | Description | Notes |
 | -------- | -------- | -------- |
 | MoveEndOfLine   | Move the cursor to the end of the line. |
 | MoveStartOfLine | Move the cursor to the start of the line. |
 | MoveStartOfFile | Move the cursor to the start of the file. |
 | MoveEndOfFile | Move the cursor to the end of the file. |
+
+
+## Searching
+| Name | Description | Notes |
+| -------- | -------- | -------- |
+| SearchForward| Search for target-string forwards. |
+
+
+## Miscelaneous
+
+| Name | Description | Notes |
+| -------- | -------- | -------- |
 | Increment | Increment/Decrement the value under the cursor.| Does not include values like dates, booleans, just numbers
 
 
-To train with all of them enabled, you may use the following call to setup:
+## Example of a setup that includes all tasks
+To train with all of the tasks enabled, you may use the following call to setup:
 
 ```lua
 local training = require("nvim-training")
 training.setup({
-	task_list = { "MoveEndOfLine", "MoveStartOfLine", "MoveEndOfFile", "MoveStartOfFile",}
+	task_list = {
+		"MoveEndOfLine",
+		"MoveStartOfLine",
+		"MoveEndOfFile",
+		"MoveStartOfFile",
+		"SearchForward",
+		"Increment",
+	},
 	task_scheduler = "RandomScheduler",
 })
 ```

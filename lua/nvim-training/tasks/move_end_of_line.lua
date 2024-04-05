@@ -30,7 +30,7 @@ function MoveEndOfLine:teardown(autocmd_callback_data)
 end
 
 function MoveEndOfLine:description()
-	return "Move to the end of the current line."
+	return "Move to the end of the line the cursor is in."
 end
 
 return MoveEndOfLine
