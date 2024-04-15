@@ -85,6 +85,8 @@ training.setup({
 		"MoveStartOfFile",
 		"SearchForward",
 		"Increment",
+		"YankEndOfLine",
+		"YankIntoRegister",
 	},
 	task_scheduler = "RandomScheduler",
 })
