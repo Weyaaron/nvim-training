@@ -11,9 +11,10 @@ end
 function YankTask:teardown(autocmd_callback_data)
 	-- local event_data = vim.deepcopy(vim.v.event)
 	-- print(self.target_text, "--", event_data.regcontents[1])
-	local clipboard_content = vim.fn.getreg('"')
+	local register = self.chosen_register or ''
+	local register_content = vim.fn.getreg('"' .. register)
 
-	local yank_success = self.target_text == clipboard_content
+	local yank_success = self.target_text == register_content
 	return yank_success
 	-- return event_data.regcontents[1] == self.target_text
 end
