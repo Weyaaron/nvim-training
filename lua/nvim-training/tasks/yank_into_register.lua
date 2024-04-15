@@ -12,7 +12,7 @@ function YankIntoRegister:new()
 	-- self.target_line = 0
 	self.autocmd = "TextYankPost"
 	self.possible_registers = user_config.possible_register_list
-	self.chosen_register = self.possible_registers[#self.possible_registers]
+	self.chosen_register = self.possible_registers[math.random(#self.possible_registers)]
 	
 	local function _inner_update()
 		utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
