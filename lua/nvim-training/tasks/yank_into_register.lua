@@ -2,12 +2,12 @@ local utility = require("nvim-training.utility")
 local user_config = require("nvim-training.user_config")
 local YankTask = require("nvim-training.tasks.yank")
 
-local YankIntoRegisterTask = YankTask:new()
-YankIntoRegisterTask.__index = YankIntoRegisterTask
+local YankIntoRegister = YankTask:new()
+YankIntoRegister.__index = YankIntoRegister
 
-function YankIntoRegisterTask:new()
+function YankIntoRegister:new()
 	local base = YankTask:new()
-	setmetatable(base, { __index = YankIntoRegisterTask })
+	setmetatable(base, { __index = YankIntoRegister })
 
 	-- self.target_line = 0
 	self.autocmd = "TextYankPost"
@@ -29,8 +29,8 @@ function YankIntoRegisterTask:new()
 	return base
 end
 
-function YankIntoRegisterTask:description()
+function YankIntoRegister:description()
 	return "Copy the line the cursor is in into register " .. self.chosen_register
 end
 
-return YankIntoRegisterTask
+return YankIntoRegister
