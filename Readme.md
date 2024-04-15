@@ -59,6 +59,11 @@ safe you may start in an empty buffer/directory.
 | -------- | -------- | -------- |
 | SearchForward| Search for target-string forwards. |
 
+## Text Manipulation
+| Name | Description | Notes |
+| -------- | -------- | -------- |
+| YankEndOfLine| Copy text from the cursor to the end of the line. |
+| YankIntoRegister| Copy text into a specified register. |
 
 ## Miscelaneous
 
