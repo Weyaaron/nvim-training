@@ -32,8 +32,7 @@ function TestTask:new()
 		for i = 1, 10 do
 			char_list = text_traversal.traverse_n_words(char_list, 1)
 			if #char_list > 0 then
-				self.highlight =
-					utility.create_highlight(current_config.header_length + char_list[1][2] - 1, char_list[1][3] - 1, 1)
+				utility.create_highlight(current_config.header_length + char_list[1][2] - 1, char_list[1][3] - 1, 1)
 			end
 		end
 	end

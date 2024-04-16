@@ -13,7 +13,7 @@ function YankIntoRegister:new()
 	self.autocmd = "TextYankPost"
 	self.possible_registers = user_config.possible_register_list
 	self.chosen_register = self.possible_registers[math.random(#self.possible_registers)]
-	
+
 	local function _inner_update()
 		utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
 
@@ -21,8 +21,8 @@ function YankIntoRegister:new()
 
 		local lines = vim.api.nvim_buf_get_lines(0, cursor_pos[1] - 1, cursor_pos[1], false)
 		local line_length = #lines[1]
-		self.highlight = utility.create_highlight(cursor_pos[1] - 1, cursor_pos[2], line_length)
-		
+		utility.create_highlight(cursor_pos[1] - 1, cursor_pos[2], line_length)
+
 		self.target_text = lines[1] .. "\n"
 	end
 	vim.schedule_wrap(_inner_update)()

@@ -8,12 +8,8 @@ function utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
 	utility.move_cursor_to_random_point()
 end
 function utility.create_highlight(x, y, len)
-	--Todo: Improve by removing the unnecessary table
-	local hl = {}
-	hl.highlight_namespace = vim.api.nvim_create_namespace("DefaultNvimTrainingHlSpace")
 	vim.api.nvim_set_hl(0, "UnderScore", { underline = true })
-	vim.api.nvim_buf_add_highlight(0, hl.highlight_namespace, "UnderScore", x, y, y + len)
-	return hl
+	vim.api.nvim_buf_add_highlight(0, internal_config.global_hl_namespace, "UnderScore", x, y, y + len)
 end
 
 function utility.move_cursor_to_random_point()
@@ -32,8 +28,8 @@ function utility.calculate_random_point_in_text_bounds()
 	return { x, y }
 end
 
-function utility.clear_highlight(highlight_obj)
-	vim.api.nvim_buf_clear_namespace(0, highlight_obj.highlight_namespace, 0, -1)
+function utility.clear_highlight()
+	vim.api.nvim_buf_clear_namespace(0, internal_config.global_hl_namespace, 0, -1)
 end
 
 function utility.update_buffer_respecting_header(input_str)
