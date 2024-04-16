@@ -22,14 +22,14 @@ function MoveAbsoluteLine:new()
 
 		local lines = vim.api.nvim_buf_get_lines(0, self.target_line - 1, self.target_line, false)
 		local line_length = #lines[1]
-		self.highlight = utility.create_highlight(self.target_line - 1, 0, line_length)
+		utility.create_highlight(self.target_line - 1, 0, line_length)
 	end
 	vim.schedule_wrap(_inner_update)()
 	return base
 end
 
 function MoveAbsoluteLine:teardown(autocmd_callback_data)
-	utility.clear_highlight(self.highlight)
+	utility.clear_highlight()
 	return self.target_line == vim.api.nvim_win_get_cursor(0)[1]
 end
 

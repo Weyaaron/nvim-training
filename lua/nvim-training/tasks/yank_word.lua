@@ -40,8 +40,7 @@ function YankWordTask:setup()
 
 		self.end_pos = { 0, 0 }
 		if #char_list > 0 then
-			self.highlight =
-				utility.create_highlight(internal_config.header_length + char_list[1][2] - 1, char_list[1][3] - 1, 1)
+			utility.create_highlight(internal_config.header_length + char_list[1][2] - 1, char_list[1][3] - 1, 1)
 
 			self.end_pos = { char_list[1][2] + internal_config.header_length, char_list[1][3] - 1 }
 		end

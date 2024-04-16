@@ -14,7 +14,7 @@ function MoveRandomXY:new()
 	self.autocmd = "CursorMoved"
 	local function _inner_update()
 		utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
-		self.highlight = utility.create_highlight(self.target_x, self.target_y, 1)
+		utility.reate_highlight(self.target_x, self.target_y, 1)
 	end
 	vim.schedule_wrap(_inner_update)()
 
