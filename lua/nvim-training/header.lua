@@ -18,6 +18,7 @@ end
 
 function header.construct_header()
 	local constructed_header = initial_header
+	constructed_header = "-" .. "-" .. "[" .. "[" .. constructed_header .. "-" .. "-" .. "]" .. "]"
 
 	for key, el in pairs(header_values) do
 		constructed_header = string.gsub(constructed_header, key, el)

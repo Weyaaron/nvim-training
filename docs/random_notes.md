@@ -20,3 +20,5 @@ r: Replace
 t: Search, analogous to 
 d: deletion 
 n: Usefull during search
+
+Todo: Fix broken search if tasks does not exist
