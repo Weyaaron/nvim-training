@@ -4,6 +4,8 @@ local MoveStartOfFile = require("nvim-training.tasks.move_start_of_file")
 local MoveEndOfFile = require("nvim-training.tasks.move_end_of_file")
 local SearchForward = require("nvim-training.tasks.search_forward")
 local Increment = require("nvim-training.tasks.increment")
+local YankEndOfLine = require("nvim-training.tasks.yank_end_of_line")
+local YankIntoRegister = require("nvim-training.tasks.yank_into_register")
 
 local exported_tasks = {
 	MoveEndOfLine = MoveEndOfLine,
@@ -12,6 +14,8 @@ local exported_tasks = {
 	MoveEndOfFile = MoveEndOfFile,
 	MoveStartOfFile = MoveStartOfFile,
 	Increment = Increment,
+	YankEndOfLine = YankEndOfLine,
+	YankIntoRegister = YankIntoRegister,
 }
 
 for i, v in pairs(exported_tasks) do
