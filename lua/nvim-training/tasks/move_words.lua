@@ -13,8 +13,7 @@ function MoveWordsTask:setup()
 
 	self.jump_distance = math.random(2, 9)
 	local function _inner_update()
-		self.custom_lorem_ipsum = string.gsub(utility.lorem_ipsum_lines(), ",", "")
-		self.custom_lorem_ipsum = string.gsub(self.custom_lorem_ipsum, "%.", "")
+		self.custom_lorem_ipsum = utility.lorem_ipsum_lines():gsub(",", ""):gsub("%.", "")
 		utility.update_buffer_respecting_header(self.custom_lorem_ipsum)
 
 		local starting_point = utility.calculate_random_point_in_text_bounds()

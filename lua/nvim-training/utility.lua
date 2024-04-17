@@ -73,10 +73,10 @@ function utility.lorem_ipsum_lines()
 
 	local line_array = {}
 	for i = 1, #basic_text, line_size do
-		local current_text = string.sub(basic_text, i, i + line_size)
+		local current_text = basic_text:sub(i, i + line_size)
 		line_array[#line_array + 1] = current_text
 	end
-	local result = table.concat(line_array, "\n")
+	local result = line_array:concat("\n")
 	return result
 end
 

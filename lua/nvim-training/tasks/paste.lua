@@ -27,7 +27,7 @@ end
 function Paste:teardown(autocmd_callback_data)
 	local cursor_pos = vim.api.nvim_win_get_cursor(0)
 	local lines = vim.api.nvim_buf_get_lines(0, cursor_pos[1] - 1, cursor_pos[1], false)
-	local search = string.find(lines[1], self.reg_content)
+	local search = lines[1]:find(self.reg_content)
 	if not search then
 		return false
 	end
