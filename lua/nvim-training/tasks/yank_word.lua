@@ -1,7 +1,5 @@
 local utility = require("nvim-training.utility")
-local internal_config = require("nvim-training.internal_config")
 local YankTask = require("nvim-training.tasks.yank")
-local text_traversal = require("nvim-training.text_traversal")
 local YankWord = YankTask:new()
 YankWord.__index = YankWord
 
@@ -22,7 +20,7 @@ function YankWord:new()
 end
 
 function YankWord:description()
-	return "Yank the text in between the cursor and the highlight"
+	return "Yank the highlighted word"
 end
 
 return YankWord
