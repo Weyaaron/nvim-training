@@ -5,7 +5,7 @@ function startup.construct_config()
 	local task_index = require("nvim-training.task_index")
 
 	for i, v in pairs(user_config.task_list) do
-		local resolved_mod = task_index[string.lower(v)]
+		local resolved_mod = task_index[v:lower()]
 		if not resolved_mod then
 			print(
 				"The setup function was called with the task name '"
@@ -55,7 +55,7 @@ function startup.check_scheduler()
 end
 function startup.construct_scheduler()
 	local scheduler_index = require("nvim-training.scheduler_index")
-	local new_scheduler_instance = scheduler_index[string.lower(user_config.task_scheduler)]:new(
+	local new_scheduler_instance = scheduler_index[user_config.task_scheduler:lower()]:new(
 		user_config.resolved_task_list,
 		user_config.task_scheduler_kwargs
 	)

@@ -53,18 +53,16 @@ safe you may start in an empty buffer/directory.
 | MoveStartOfFile | Move the cursor to the start of the file. |
 | MoveEndOfFile | Move the cursor to the end of the file. |
 
-
 ## Searching
 | Name | Description | Notes |
 | -------- | -------- | -------- |
 | SearchForward| Search for target-string forwards. |
 
-## Text Manipulation
+## Yanks, Deletions, etc
 | Name | Description | Notes |
 | -------- | -------- | -------- |
 | YankEndOfLine| Copy text from the cursor to the end of the line. |
 | YankIntoRegister| Copy text into a specified register. |
-| YankWord| Copy the highlighted word. |
 
 ## Miscelaneous
 
@@ -72,6 +70,13 @@ safe you may start in an empty buffer/directory.
 | -------- | -------- | -------- |
 | Increment | Increment/Decrement the value under the cursor.| Does not include values like dates, booleans, just numbers
 
+## Composite Tasks (Tasks that have multiple parts)
+| Name | Description | Notes |
+| -------- | -------- | -------- |
+| YankWord| Move to the the highlighted word and copy it. |
+
+There is an [open discussion](https://github.com/Weyaaron/nvim-training/issues/13) if tasks like this should be included.
+If you have an option, feel free to add it.
 
 ## Example of a setup that includes all tasks
 To train with all of the tasks enabled, you may use the following call to setup:
