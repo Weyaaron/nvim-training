@@ -33,15 +33,17 @@ lazy.setup(plugin_list)
 ```
 
 # Mandatory Setup
-The setup is mandatory, the plugin wont start without it. This ensures that you train with tasks that feel productive to you.
-The lines below are sufficient to get started, and there are a few more examples sprinkled throughout the document.
-Simply place code similar to the following in your init.lua:
+The setup is mandatory, the plugin wont start a training session without it. This ensures that you train with tasks that feel productive to you.
+The lines below are sufficient to get started.
+Simply place them in your init.lua:
 
 ```lua
 local training = require("nvim-training")
 training.setup({
-	task_list = { "MoveEndOfLine", "MoveStartOfLine" }, -- This is a list of strings that will be resolved to the actual tasks
-	task_scheduler = "RandomScheduler",  -- The default scheduler will pick a new tasks at random from the provided list.
+	task_list = { "MoveEndOfLine", "MoveStartOfLine" }, -- This is a list of strings that will be resolved to the actual tasks. (Mandatory)
+	task_scheduler = "RandomScheduler",  -- The default scheduler will pick a new tasks at random from the provided list. (Mandatory)
+	possible_marks_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }, --A list of possible marks. (Optional, this is the default)
+	possible_register_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }, -- A list of possible registers. (Optional, this the default)
 })
 ```
 
@@ -51,6 +53,11 @@ Some care is taken to avoid overwritting your files, but just to be
 safe you may start in an empty buffer/directory.
 
 # Available tasks
+
+The following sections lists the tasks that are available.
+The code may ship with many more, but their state is
+unfinished. Accesing them might be possible, but
+is your own risk.
 
 ## Movements
 | Name | Description | Notes |
@@ -121,13 +128,16 @@ training.setup({
 # How to get started with contributing
 Contributions are welcome! Any input is appreciated, be it a bug report, a feature request, or a pull request.
 This is my first project in lua, therefore, some junk and bad practices are to be expected. Any feedback/suggestions
-are welcome.
+are appreciated.
 
 # Best Practices for contributing
 
 - Please open the PR to the branch named 'dev'. This ensures that there will be some buffer between the stable main and the current
 development version.
 - Opening a issue first is encouraged to discuss any ideas. This helps to avoid duplicate work and to get feedback early on.
+- You may have a look at [dev-setup](/docs/dev_setup.md) which describes a setup that increases productivity
+in development.
+
 
 # [License](/LICENSE)
 [GPL](LICENSE)
