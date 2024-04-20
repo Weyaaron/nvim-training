@@ -1,11 +1,12 @@
-local Task = require("nvim-training.task")
+local LuaTask = require("nvim-training.tasks.lua_task")
 local utility = require("nvim-training.utility")
 local internal_config = require("nvim-training.internal_config")
 local template_index = require("nvim-training.template_index")
-local MoveFunctions = {}
+
+local MoveFunctions = LuaTask:new()
 MoveFunctions.__index = MoveFunctions
 function MoveFunctions:new()
-	local base = Task:new()
+	local base = LuaTask:new()
 	setmetatable(base, { __index = MoveFunctions })
 	self.search_target = ""
 	self.position = { 15, 5 }

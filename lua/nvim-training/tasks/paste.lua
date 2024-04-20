@@ -2,7 +2,7 @@ local utility = require("nvim-training.utility")
 local Task = require("nvim-training.task")
 local user_config = require("nvim-training.user_config")
 
-local Paste = {}
+local Paste = Task:new()
 Paste.__index = Paste
 
 function Paste:new()

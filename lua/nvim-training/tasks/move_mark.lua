@@ -2,7 +2,7 @@ local Task = require("nvim-training.task")
 local utility = require("nvim-training.utility")
 local internal_config = require("nvim-training.internal_config")
 
-local MoveToMark = {}
+local MoveToMark = Task:new()
 
 MoveToMark.__index = MoveToMark
 
@@ -34,7 +34,7 @@ end
 
 function MoveToMark:teardown(autocmd_callback_data)
 	self:teardown_all_marks()
-	utility.clear_highlight()
+	utility.clear_all_our_highlights()
 	return self.target_line == vim.api.nvim_win_get_cursor(0)[1]
 end
 

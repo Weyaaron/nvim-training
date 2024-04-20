@@ -52,7 +52,7 @@ function utility.random_col_index_at(index)
 	return math.random(0, #utility.get_line(index))
 end
 
-function utility.clear_highlight()
+function utility.clear_all_our_highlights()
 	vim.api.nvim_buf_clear_namespace(0, internal_config.global_hl_namespace, 0, -1)
 end
 
@@ -110,8 +110,10 @@ function utility.lorem_ipsum_lines()
 	local line_size = 70
 
 	local line_array = {}
-	for i = 1, #template_index.LoremIpsum, line_size do
-		local current_text = string.sub(template_index.LoremIpsum, i, i + line_size)
+
+	local lorem_ipsum_as_line = string.gsub(template_index.LoremIpsum, "\n", " ")
+	for i = 1, #lorem_ipsum_as_line, line_size do
+		local current_text = string.sub(lorem_ipsum_as_line, i, i + line_size)
 		line_array[#line_array + 1] = current_text
 	end
 	return table.concat(line_array, "\n")

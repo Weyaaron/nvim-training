@@ -1,7 +1,7 @@
 local Task = require("nvim-training.task")
 local utility = require("nvim-training.utility")
 
-local PlaceMark = {}
+local PlaceMark = Task:new()
 PlaceMark.__index = PlaceMark
 
 function PlaceMark:new()

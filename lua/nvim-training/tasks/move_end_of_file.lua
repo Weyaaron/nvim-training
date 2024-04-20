@@ -1,7 +1,7 @@
 local utility = require("nvim-training.utility")
 local Task = require("nvim-training.task")
 
-local MoveToEndOfFile = {}
+local MoveToEndOfFile = Task:new()
 MoveToEndOfFile.__index = MoveToEndOfFile
 
 function MoveToEndOfFile:new()

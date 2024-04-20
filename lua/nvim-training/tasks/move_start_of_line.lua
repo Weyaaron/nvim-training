@@ -1,7 +1,7 @@
 local utility = require("nvim-training.utility")
 local Task = require("nvim-training.task")
 
-local MoveStartOfLine = {}
+local MoveStartOfLine = Task:new()
 
 MoveStartOfLine.__index = MoveStartOfLine
 function MoveStartOfLine:new()
@@ -24,7 +24,7 @@ function MoveStartOfLine:new()
 end
 
 function MoveStartOfLine:teardown(autocmd_callback_data)
-	utility.clear_highlight()
+	utility.clear_all_our_highlights()
 	return vim.api.nvim_win_get_cursor(0)[2] == 0
 end
 
