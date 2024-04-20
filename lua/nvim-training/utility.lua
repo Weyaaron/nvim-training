@@ -18,12 +18,11 @@ function utility.move_cursor_to_random_point()
 	vim.api.nvim_win_set_cursor(0, utility.calculate_random_point_in_text_bounds())
 end
 
-function utility.highlight_random_word()
-	local x = utility.random_line_index()
-	local line = utility.get_line(x)
-	local wordParams = utility.get_word_params(line)
+function utility.select_random_word_bounds_at_line(i)
+	local line = utility.get_line(i)
+	local wordParams = utility.get_word_bounds(line)
 	local selected = wordParams[math.random(1, #wordParams)]
-	return utility.create_highlight(x, selected[1]-1, selected[2])
+	return selected;
 end
 
 function utility.calculate_random_point_in_text_bounds()
@@ -32,7 +31,7 @@ function utility.calculate_random_point_in_text_bounds()
 	return { x, y }
 end
 
-function utility.get_word_params(s) -- { start_index, length }
+function utility.get_word_bounds(s) -- { start_index, length }
   local words = {}
 	-- words as consequent groups of alphanumeric chars with underline '_'
   for start, _, finish in s:gmatch("()([%w_]+)()") do 

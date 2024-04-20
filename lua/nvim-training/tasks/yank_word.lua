@@ -13,7 +13,10 @@ function YankWord:new()
 	local function _inner_update()
 		utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
 
-		self.target_text = utility.highlight_random_word()
+		local i = utility.random_line_index()
+		local selected = utility.select_random_word_bounds_at_line(i)
+
+		self.target_text = utility.create_highlight(i, selected[1]-1, selected[2])
 	end
 	vim.schedule_wrap(_inner_update)()
 	return base
