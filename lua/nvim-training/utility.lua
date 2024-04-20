@@ -8,33 +8,52 @@ function utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
 	utility.update_buffer_respecting_header(lorem_ipsum)
 	utility.move_cursor_to_random_point()
 end
+
 function utility.create_highlight(x, y, len)
-	--Todo: Improve by removing the unnecessary table
-	local hl = {}
-	hl.highlight_namespace = vim.api.nvim_create_namespace("DefaultNvimTrainingHlSpace")
 	vim.api.nvim_set_hl(0, "UnderScore", { underline = true })
-	vim.api.nvim_buf_add_highlight(0, hl.highlight_namespace, "UnderScore", x, y, y + len)
-	return hl
+	vim.api.nvim_buf_add_highlight(0, internal_config.global_hl_namespace, "UnderScore", x, y, y + len)
 end
 
 function utility.move_cursor_to_random_point()
 	vim.api.nvim_win_set_cursor(0, utility.calculate_random_point_in_text_bounds())
 end
 
+function utility.select_random_word_bounds_at_line(i)
+	local line = utility.get_line(i)
+	local wordParams = utility.get_word_bounds(line)
+	return wordParams[math.random(1, #wordParams)]
+end
+
 function utility.calculate_random_point_in_text_bounds()
-	local max_lines = vim.api.nvim_buf_line_count(0)
-
-	local x = math.random(internal_config.header_length + 1, max_lines)
-
-	local buffer_lines =
-		vim.api.nvim_buf_get_lines(0, internal_config.header_length, vim.api.nvim_buf_line_count(0), false)
-	local line_length = #buffer_lines[1]
-	local y = math.random(0, line_length)
+	local x = utility.random_line_index()
+	local y = utility.random_col_index_at(x)
 	return { x, y }
 end
 
-function utility.clear_highlight(highlight_obj)
-	vim.api.nvim_buf_clear_namespace(0, highlight_obj.highlight_namespace, 0, -1)
+function utility.get_word_bounds(s) -- { start_index, length }
+	local words = {}
+	-- words as consequent groups of alphanumeric chars with underline '_'
+	for start, _, finish in s:gmatch("()([%w_]+)()") do
+		words[#words + 1] = { start, finish - start }
+	end
+	return words
+end
+
+function utility.random_line_index()
+	local line_count = vim.api.nvim_buf_line_count(0)
+	return math.random(internal_config.header_length + 1, line_count - 1)
+end
+
+function utility.get_line(index)
+	return vim.api.nvim_buf_get_lines(0, index, index + 1, true)[1]
+end
+
+function utility.random_col_index_at(index)
+	return math.random(0, #utility.get_line(index))
+end
+
+function utility.clear_highlight()
+	vim.api.nvim_buf_clear_namespace(0, internal_config.global_hl_namespace, 0, -1)
 end
 
 function utility.update_buffer_respecting_header(input_str)
@@ -95,8 +114,7 @@ function utility.lorem_ipsum_lines()
 		local current_text = string.sub(template_index.LoremIpsum, i, i + line_size)
 		line_array[#line_array + 1] = current_text
 	end
-	local result = table.concat(line_array, "\n")
-	return result
+	return table.concat(line_array, "\n")
 end
 
 return utility

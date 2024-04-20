@@ -4,7 +4,7 @@ function text_traversal.construct_index_table_from_text_lines(lines)
 	local result = {}
 	for i = 1, #lines do
 		for ii = 1, #lines[i] do
-			local current_char = string.sub(lines[i], ii, ii)
+			local current_char = lines[1]:sub(ii, ii)
 			result[#result + 1] = { current_char, i, ii }
 		end
 	end

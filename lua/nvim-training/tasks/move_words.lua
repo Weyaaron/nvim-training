@@ -13,8 +13,7 @@ function MoveWordsTask:setup()
 
 	self.jump_distance = math.random(2, 9)
 	local function _inner_update()
-		self.custom_lorem_ipsum = string.gsub(utility.lorem_ipsum_lines(), ",", "")
-		self.custom_lorem_ipsum = string.gsub(self.custom_lorem_ipsum, "%.", "")
+		self.custom_lorem_ipsum = utility.lorem_ipsum_lines():gsub(",", ""):gsub("%.", "")
 		utility.update_buffer_respecting_header(self.custom_lorem_ipsum)
 
 		local starting_point = utility.calculate_random_point_in_text_bounds()
@@ -38,8 +37,7 @@ function MoveWordsTask:setup()
 
 		self.end_pos = { 0, 0 }
 		if #char_list > 0 then
-			self.highlight =
-				utility.create_highlight(internal_config.header_length + char_list[1][2] - 1, char_list[1][3] - 1, 1)
+			utility.create_highlight(internal_config.header_length + char_list[1][2] - 1, char_list[1][3] - 1, 1)
 
 			self.end_pos = { char_list[1][2] + internal_config.header_length, char_list[1][3] - 1 }
 		end

@@ -24,7 +24,7 @@ function Increment:new()
 		local cursor_pos = vim.api.nvim_win_get_cursor(0)
 
 		local lines = vim.api.nvim_buf_get_lines(0, cursor_pos[1] - 1, vim.api.nvim_buf_line_count(0), false)
-		local left_half = string.sub(lines[1], 0, cursor_pos[2])
+		local left_half = lines[1]:sub(0, cursor_pos[2])
 		local updated_line = left_half
 			.. " "
 			.. tostring(self.inital_value)

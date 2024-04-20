@@ -1,6 +1,6 @@
 local utility = require("nvim-training.utility")
-local user_config = require("nvim-training.user_config")
-local YankTask = require("nvim-training.tasks.yank_task")
+local internal_config = require("nvim-training.internal_config")
+local YankTask = require("nvim-training.tasks.yank")
 
 local YankEndOfLine = YankTask:new()
 YankEndOfLine.__index = YankEndOfLine
@@ -13,7 +13,7 @@ function YankEndOfLine:new()
 	self.autocmd = "TextYankPost"
 	local function _inner_update()
 		utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
-		local x_start = math.random(3) + user_config.header_length
+		local x_start = math.random(3) + internal_config.header_length
 		local y_start = math.random(3, 15)
 		local lines = vim.api.nvim_buf_get_lines(0, x_start - 1, vim.api.nvim_buf_line_count(0), false)
 		self.target_text = string.sub(lines[1], y_start + 1, #lines[1])

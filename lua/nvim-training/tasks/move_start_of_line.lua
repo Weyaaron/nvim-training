@@ -17,14 +17,14 @@ function MoveStartOfLine:new()
 			--This prevents starting in the first column
 			vim.api.nvim_win_set_cursor(0, { cursor_pos[1], 1 })
 		end
-		self.highlight = utility.create_highlight(cursor_pos[1] - 1, 0, 1)
+		utility.create_highlight(cursor_pos[1] - 1, 0, 1)
 	end
 	vim.schedule_wrap(_inner_update)()
 	return base
 end
 
 function MoveStartOfLine:teardown(autocmd_callback_data)
-	utility.clear_highlight(self.highlight)
+	utility.clear_highlight()
 	return vim.api.nvim_win_get_cursor(0)[2] == 0
 end
 

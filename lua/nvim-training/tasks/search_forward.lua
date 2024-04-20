@@ -29,7 +29,7 @@ function SearchForward:new()
 		self.search_target = string.sub(full_word, 0, search_len)
 		local start_index_for_hl = string.find(target_line, self.search_target)
 
-		self.highlight = utility.create_highlight(cursor_pos[1] + line_offset - 2, start_index_for_hl - 1, search_len)
+		utility.create_highlight(cursor_pos[1] + line_offset - 2, start_index_for_hl - 1, search_len)
 		self.x_target = internal_config.header_length + line_offset
 		self.y_target = start_index_for_hl
 	end
@@ -39,7 +39,7 @@ function SearchForward:new()
 end
 
 function SearchForward:teardown(autocmd_callback_data)
-	utility.clear_highlight(self.highlight)
+	utility.clear_highlight()
 	local cursor_pos = vim.api.nvim_win_get_cursor(0)
 	vim.schedule_wrap(function()
 		vim.cmd("noh")
