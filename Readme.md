@@ -64,6 +64,7 @@ safe you may start in an empty buffer/directory.
 | -------- | -------- | -------- |
 | YankEndOfLine| Copy text from the cursor to the end of the line. |
 | YankIntoRegister| Copy text into a specified register. |
+| YankWord| Copy the highlighted word. |
 
 ## Miscelaneous
 
@@ -87,6 +88,7 @@ training.setup({
 		"Increment",
 		"YankEndOfLine",
 		"YankIntoRegister",
+		"YankWord",
 	},
 	task_scheduler = "RandomScheduler",
 })

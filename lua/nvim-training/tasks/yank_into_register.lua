@@ -21,7 +21,7 @@ function YankIntoRegister:new()
 
 		local lines = vim.api.nvim_buf_get_lines(0, cursor_pos[1] - 1, cursor_pos[1], false)
 		local line_length = #lines[1]
-		utility.create_highlight(cursor_pos[1] - 1, cursor_pos[2], line_length)
+		utility.create_highlight(cursor_pos[1] - 1, 0, line_length)
 
 		self.target_text = lines[1] .. "\n"
 	end
