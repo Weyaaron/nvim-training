@@ -92,6 +92,13 @@ is your own risk.
 There is an [open discussion](https://github.com/Weyaaron/nvim-training/issues/13) if tasks like this should be included.
 If you have an opinion, feel free to add it.
 
+## Programming Tasks  (Currently, all of these will be in lua, support for more languages might happen)
+
+| Name | Description | Notes |
+| -------- | -------- | -------- |
+| CommentLine| Change the current line into a comment. | This assumes the use of a plugin, it is not tested with the buildin-commenting-feature.
+
+
 ## Example of a setup that includes all tasks
 To train with all of the tasks enabled, you may use the following call to setup:
 
@@ -108,6 +115,7 @@ training.setup({
 		"YankEndOfLine",
 		"YankIntoRegister",
 		"YankWord",
+        "CommentLine",
 	},
 	task_scheduler = "RandomScheduler",
 })
@@ -137,7 +145,6 @@ development version.
 - Opening a issue first is encouraged to discuss any ideas. This helps to avoid duplicate work and to get feedback early on.
 - You may have a look at [dev-setup](/docs/dev_setup.md) which describes a setup that increases productivity
 in development.
-
 
 # [License](/LICENSE)
 [GPL](LICENSE)
