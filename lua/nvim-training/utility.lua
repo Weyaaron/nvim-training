@@ -1,5 +1,6 @@
 -- luacheck: globals vim
 local internal_config = require("nvim-training.internal_config")
+local template_index = require("nvim-training.template_index")
 local utility = {}
 
 function utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
@@ -51,7 +52,7 @@ function utility.random_col_index_at(index)
 	return math.random(0, #utility.get_line(index))
 end
 
-function utility.clear_highlight()
+function utility.clear_all_our_highlights()
 	vim.api.nvim_buf_clear_namespace(0, internal_config.global_hl_namespace, 0, -1)
 end
 
@@ -89,14 +90,30 @@ function utility.split_str(input, sep)
 	return res
 end
 
+local function construct_base_path()
+	--https://stackoverflow.com/questions/6380820/get-containing-path-of-lua-file
+	local function script_path()
+		local str = debug.getinfo(2, "S").source:sub(2)
+		local initial_result = str:match("(.*/)")
+		return initial_result
+	end
+
+	local base_path = script_path() .. "../.."
+	return base_path
+end
+
+function utility.construct_project_base_path(file_suffix)
+	return construct_base_path() .. "/" .. file_suffix
+end
+
 function utility.lorem_ipsum_lines()
 	local line_size = 70
-	local basic_text =
-		"Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 
 	local line_array = {}
-	for i = 1, #basic_text, line_size do
-		local current_text = basic_text:sub(i, i + line_size)
+
+	local lorem_ipsum_as_line = string.gsub(template_index.LoremIpsum, "\n", " ")
+	for i = 1, #lorem_ipsum_as_line, line_size do
+		local current_text = string.sub(lorem_ipsum_as_line, i, i + line_size)
 		line_array[#line_array + 1] = current_text
 	end
 	return table.concat(line_array, "\n")

@@ -1,7 +1,7 @@
 local utility = require("nvim-training.utility")
 local Task = require("nvim-training.task")
 
-local DeleteLineTask = {}
+local DeleteLineTask = Task()
 DeleteLineTask.__index = DeleteLineTask
 
 function DeleteLineTask:setup()

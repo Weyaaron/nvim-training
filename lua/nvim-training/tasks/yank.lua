@@ -1,7 +1,7 @@
 local Task = require("nvim-training.task")
 
 local utility = require("nvim-training.utility")
-local YankTask = {}
+local YankTask = Task:new()
 YankTask.__index = YankTask
 
 function YankTask:new()
@@ -10,7 +10,7 @@ function YankTask:new()
 	return base
 end
 function YankTask:teardown(autocmd_callback_data)
-	utility.clear_highlight()
+	utility.clear_all_our_highlights()
 	local register = self.chosen_register or ""
 	local register_content = vim.fn.getreg('"' .. register)
 

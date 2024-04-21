@@ -12,8 +12,7 @@ A training session consists of a series of tasks, each of which is small and eas
 The plugin will recognize when a task is completed and automatically start the next one.
 This helps to work on a lot of tasks in a short amount of time.
 
-As of 2024-03, the current version implemens a couple of tasks.
-A lot more are under way.
+The list of tasks is growing all the time, if you miss a particular one you may open a feature request :)
 
 # In Action
 ![GIF](media/screencast.gif)
@@ -22,21 +21,31 @@ A lot more are under way.
 
 Install it using the plugin manager of your choice.
 [Lazy](https://github.com/folke/lazy.nvim) is tested, if any other fails, please open an issue. Pinning your local installation to a fixed version is encouraged.
+In Lazy, a possible setup might be:
+
+```lua
+local lazy = require("lazy")
+local plugin_list = {
+    -- Your various other plugins ..
+    {"https://github.com/Weyaaron/nvim-training", pin= true}
+}
+lazy.setup(plugin_list)
+```
 
 # Mandatory Setup
-The setup is actually mandatory, the plugin wont start without it. This ensures that you train with tasks that feel productive to you.
-The lines below are sufficient to get started, and there are a few more examples sprinkled throughout the document.
+The setup is mandatory, the plugin wont start a training session without it. This ensures that you train with tasks that feel productive to you.
+The lines below are sufficient to get started.
 Simply place them in your init.lua:
 
 ```lua
 local training = require("nvim-training")
 training.setup({
-	task_list = { "MoveEndOfLine", "MoveStartOfLine" }, -- This is a list of strings that will be resolved to the actual tasks
-	task_scheduler = "RandomScheduler",  -- The default scheduler will pick a new tasks at random from the provided list.
+	task_list = { "MoveEndOfLine", "MoveStartOfLine" }, -- This is a list of strings that will be resolved to the actual tasks. (Mandatory)
+	task_scheduler = "RandomScheduler",  -- The default scheduler will pick a new tasks at random from the provided list. (Mandatory)
+	possible_marks_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }, --A list of possible marks. (Optional, this is the default)
+	possible_register_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }, -- A list of possible registers. (Optional, this the default)
 })
 ```
-This document lists all the other available options for each
-of the keys, see below.
 
 # Starting a Session
 Once the setup has been done, simply run `:Training` to start a session.
@@ -44,6 +53,11 @@ Some care is taken to avoid overwritting your files, but just to be
 safe you may start in an empty buffer/directory.
 
 # Available tasks
+
+The following sections lists the tasks that are available.
+The code may ship with many more, but their state is
+unfinished. Accesing them might be possible, but
+is your own risk.
 
 ## Movements
 | Name | Description | Notes |
@@ -76,7 +90,14 @@ safe you may start in an empty buffer/directory.
 | YankWord| Move to the the highlighted word and copy it. |
 
 There is an [open discussion](https://github.com/Weyaaron/nvim-training/issues/13) if tasks like this should be included.
-If you have an option, feel free to add it.
+If you have an opinion, feel free to add it.
+
+## Programming Tasks  (Currently, all of these will be in lua, support for more languages might happen)
+
+| Name | Description | Notes |
+| -------- | -------- | -------- |
+| CommentLine| Change the current line into a comment. | This assumes the use of a plugin, it is not tested with the buildin-commenting-feature.
+
 
 ## Example of a setup that includes all tasks
 To train with all of the tasks enabled, you may use the following call to setup:
@@ -94,6 +115,7 @@ training.setup({
 		"YankEndOfLine",
 		"YankIntoRegister",
 		"YankWord",
+        "CommentLine",
 	},
 	task_scheduler = "RandomScheduler",
 })
@@ -114,11 +136,15 @@ training.setup({
 # How to get started with contributing
 Contributions are welcome! Any input is appreciated, be it a bug report, a feature request, or a pull request.
 This is my first project in lua, therefore, some junk and bad practices are to be expected. Any feedback/suggestions
-are welcome.
+are appreciated.
 
-First of all, you should have a look at the issues. Maybe someone else has already raised your concern.
-If you want to start working on something, please open an issue first. This helps to avoid duplicate work and to get feedback early on.
+# Best Practices for contributing
 
+- Please open the PR to the branch named 'dev'. This ensures that there will be some buffer between the stable main and the current
+development version.
+- Opening a issue first is encouraged to discuss any ideas. This helps to avoid duplicate work and to get feedback early on.
+- You may have a look at [dev-setup](/docs/dev_setup.md) which describes a setup that increases productivity
+in development.
 
 # [License](/LICENSE)
 [GPL](LICENSE)

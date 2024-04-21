@@ -1,7 +1,7 @@
 local utility = require("nvim-training.utility")
 local Task = require("nvim-training.task")
 
-local MoveToStartOfFile = {}
+local MoveToStartOfFile = Task:new()
 MoveToStartOfFile.__index = MoveToStartOfFile
 
 function MoveToStartOfFile:new()
@@ -17,7 +17,7 @@ function MoveToStartOfFile:new()
 end
 
 function MoveToStartOfFile:teardown(autocmd_callback_data)
-	return vim.api.nvim_win_get_cursor(0)[1] == 0
+	return vim.api.nvim_win_get_cursor(0)[1] == 1
 end
 
 function MoveToStartOfFile:description()

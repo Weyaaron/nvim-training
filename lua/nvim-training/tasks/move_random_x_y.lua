@@ -2,7 +2,7 @@ local Task = require("nvim-training.task")
 local utility = require("nvim-training.utility")
 local internal_config = require("nvim-training.internal_config")
 
-local MoveRandomXY = {}
+local MoveRandomXY = Task()
 MoveRandomXY.__index = MoveRandomXY
 
 function MoveRandomXY:new()

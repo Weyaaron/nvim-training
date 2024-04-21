@@ -10,7 +10,7 @@ function startup.construct_config()
 			print(
 				"The setup function was called with the task name '"
 					.. v
-					.. "'. This task does not exist! Please check for spelling, and ensure you are using the right version of the plugin"
+					.. "'. This task does not exist! Please check for spelling, and ensure you are using the right version of the plugin."
 			)
 		end
 		user_config.resolved_task_list[#user_config.resolved_task_list + 1] = resolved_mod
@@ -63,9 +63,9 @@ function startup.construct_scheduler()
 end
 
 function startup.check_config()
-	if user_config.resolved_task_list == 0 then
+	if #user_config.resolved_task_list == 0 then
 		print(
-			"You did not provide any tasks! Please run setup with a dictionary containing 'task_list' pointing to a list of strings that match names provided in the readme"
+			"You did not provide any tasks! Please run setup with a dictionary containing 'task_list' pointing to a list of strings that match names provided in the readme."
 		)
 
 		return false

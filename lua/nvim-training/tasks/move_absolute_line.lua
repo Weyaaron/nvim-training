@@ -2,7 +2,7 @@ local Task = require("nvim-training.task")
 local utility = require("nvim-training.utility")
 local internal_config = require("nvim-training.internal_config")
 
-local MoveAbsoluteLine = {}
+local MoveAbsoluteLine = Task:new()
 MoveAbsoluteLine.__index = MoveAbsoluteLine
 
 function MoveAbsoluteLine:new()
@@ -29,7 +29,7 @@ function MoveAbsoluteLine:new()
 end
 
 function MoveAbsoluteLine:teardown(autocmd_callback_data)
-	utility.clear_highlight()
+	utility.clear_all_our_highlights()
 	return self.target_line == vim.api.nvim_win_get_cursor(0)[1]
 end
 

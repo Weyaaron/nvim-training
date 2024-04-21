@@ -1,7 +1,7 @@
 local Task = require("nvim-training.task")
 local utility = require("nvim-training.utility")
 
-local Increment = {}
+local Increment = Task:new()
 Increment.__index = Increment
 
 function Increment:new()

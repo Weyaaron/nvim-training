@@ -1,7 +1,7 @@
 local utility = require("nvim-training.utility")
 local Task = require("nvim-training.task")
 
-local MoveEndOfLine = {}
+local MoveEndOfLine = Task:new()
 MoveEndOfLine.__index = MoveEndOfLine
 
 function MoveEndOfLine:new()
@@ -25,7 +25,7 @@ function MoveEndOfLine:new()
 end
 
 function MoveEndOfLine:teardown(autocmd_callback_data)
-	utility.clear_highlight()
+	utility.clear_all_our_highlights()
 	return vim.api.nvim_win_get_cursor(0)[2] == self.cursor_target
 end
 

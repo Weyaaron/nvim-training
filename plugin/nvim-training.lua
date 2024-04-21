@@ -20,7 +20,7 @@ end
 --might be a better way.
 local base_path = construct_base_path()
 vim.api.nvim_command("set runtimepath^=" .. base_path)
-
+local utility = require("nvim-training.utility")
 local header = require("nvim-training.header")
 local user_config = require("nvim-training.user_config")
 local startup = require("nvim-training.startup")
@@ -44,7 +44,12 @@ local function init()
 end
 
 local function loop(autocmd_callback_data)
+	--This sleep helps with some feedback, if we continue instantly the user might not recognize their actions clearly.
 	vim.loop.sleep(500)
+
+	--Unfortunatly, this code is quite involved because some autocmds trigger unintended and
+	--we have to take care of the special case that we start the loop without an actual task at the startup.
+	--The interesting part happens at the end, where we pick a new task and do some setup for it.
 	if autocmd_callback_data then
 		if autocmd_callback_data then
 			--Todo: Extend after more event types are used.
@@ -76,13 +81,26 @@ local function loop(autocmd_callback_data)
 		end
 	end
 
+	--This line is included to ensure that each task starts in the same file. A task may jump around and this ensures
+	--coming back.
+	vim.cmd("sil e training.txt")
+
+	--This line ensures that the highlights of previous tasks are discarded.
+	utility.clear_all_our_highlights()
 	current_task = user_config.resolved_task_scheduler:next(current_task, previous_task_result):new()
+
+	--This gives tasks some options to configure the header, for example with a prefix and a suffix to turn the header into a block comment in a programming language
+	local additional_header_values = current_task:construct_optional_header_args()
+
+	for i, v in pairs(additional_header_values) do
+		header.store_key_value_in_header(i, v)
+	end
 
 	header.store_key_value_in_header("_s_", success_count)
 	header.store_key_value_in_header("_f_", failure_count)
 	header.store_key_value_in_header("_streak_", current_streak)
 	header.store_key_value_in_header("_maxstreak_", max_streak)
-
+	--The description might not be available after task setup right away. This ensures that the header uses the latest information provided by the task.
 	header.store_key_value_in_header("_d_", current_task:description())
 	vim.schedule_wrap(function()
 		header.store_key_value_in_header("_d_", current_task:description())
@@ -97,6 +115,6 @@ vim.api.nvim_create_user_command("Training", function()
 		init()
 		loop()
 	else
-		print("Your provided config is not valid. Please use the setup function as described in the readme.")
+		print("Your provided config is not valid. Please use the setup function as described in the Readme.")
 	end
 end, {})

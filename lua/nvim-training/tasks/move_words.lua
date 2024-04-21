@@ -3,7 +3,7 @@ local internal_config = require("nvim-training.internal_config")
 local Task = require("nvim-training.task")
 local text_traversal = require("nvim-training.text_traversal")
 
-local MoveWordsTask = {}
+local MoveWordsTask = Task:new()
 MoveWordsTask.__index = MoveWordsTask
 
 function MoveWordsTask:setup()

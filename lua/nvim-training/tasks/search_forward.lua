@@ -1,7 +1,7 @@
 local Task = require("nvim-training.task")
 local utility = require("nvim-training.utility")
 local internal_config = require("nvim-training.internal_config")
-local SearchForward = {}
+local SearchForward = Task:new()
 SearchForward.__index = SearchForward
 
 function SearchForward:new()
@@ -39,7 +39,7 @@ function SearchForward:new()
 end
 
 function SearchForward:teardown(autocmd_callback_data)
-	utility.clear_highlight()
+	utility.clear_all_our_highlights()
 	local cursor_pos = vim.api.nvim_win_get_cursor(0)
 	vim.schedule_wrap(function()
 		vim.cmd("noh")
