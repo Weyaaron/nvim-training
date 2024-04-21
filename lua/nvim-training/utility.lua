@@ -2,7 +2,7 @@
 local internal_config = require("nvim-training.internal_config")
 local template_index = require("nvim-training.template_index")
 local utility = {}
-local templates = require("nvim-training.template_index")
+
 function utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
 	local lorem_ipsum = utility.lorem_ipsum_lines()
 	utility.update_buffer_respecting_header(lorem_ipsum)

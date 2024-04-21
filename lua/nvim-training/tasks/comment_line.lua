@@ -37,7 +37,6 @@ end
 function CommentLine:teardown(autocmd_callback_data)
 	local cursor_pos = vim.api.nvim_win_get_cursor(0)
 	local new_line = utility.get_line(cursor_pos[1] - 1)
-	print("c", new_line, ":", new_line:sub(1, 2), ":", new_line[2])
 	return new_line:sub(1, 2) == "--"
 end
 

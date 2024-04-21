@@ -17,7 +17,6 @@ function MoveToStartOfFile:new()
 end
 
 function MoveToStartOfFile:teardown(autocmd_callback_data)
-	print("teardown called", vim.api.nvim_win_get_cursor(0)[1])
 	return vim.api.nvim_win_get_cursor(0)[1] == 1
 end
 

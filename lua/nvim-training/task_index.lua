@@ -3,6 +3,7 @@ local MoveStartOfLine = require("nvim-training.tasks.move_start_of_line")
 local MoveStartOfFile = require("nvim-training.tasks.move_start_of_file")
 local MoveEndOfFile = require("nvim-training.tasks.move_end_of_file")
 local SearchForward = require("nvim-training.tasks.search_forward")
+
 local Increment = require("nvim-training.tasks.increment")
 local YankEndOfLine = require("nvim-training.tasks.yank_end_of_line")
 local YankIntoRegister = require("nvim-training.tasks.yank_into_register")

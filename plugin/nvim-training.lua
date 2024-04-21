@@ -83,8 +83,7 @@ local function loop(autocmd_callback_data)
 
 	--This line is included to ensure that each task starts in the same file. A task may jump around and this ensures
 	--coming back.
-    -- Probably needs some work, not quite sure yet
-	-- vim.cmd("e training.txt")
+	vim.cmd("sil e training.txt")
 
 	--This line ensures that the highlights of previous tasks are discarded.
 	utility.clear_all_our_highlights()
@@ -116,6 +115,6 @@ vim.api.nvim_create_user_command("Training", function()
 		init()
 		loop()
 	else
-		print("Your provided config is not valid. Please use the setup function as described in the readme.")
+		print("Your provided config is not valid. Please use the setup function as described in the Readme.")
 	end
 end, {})
