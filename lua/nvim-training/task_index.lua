@@ -7,7 +7,7 @@ local Increment = require("nvim-training.tasks.increment")
 local YankEndOfLine = require("nvim-training.tasks.yank_end_of_line")
 local YankIntoRegister = require("nvim-training.tasks.yank_into_register")
 local YankWord = require("nvim-training.tasks.yank_word")
-local MoveFunctions = require("nvim-training.tasks.move_functions")
+local CommentLine = require("nvim-training.tasks.comment_line")
 local exported_tasks = {
 	MoveEndOfLine = MoveEndOfLine,
 	SearchForward = SearchForward,
@@ -18,7 +18,7 @@ local exported_tasks = {
 	YankEndOfLine = YankEndOfLine,
 	YankIntoRegister = YankIntoRegister,
 	YankWord = YankWord,
-	MoveFunctions = MoveFunctions,
+	CommentLine = CommentLine,
 }
 
 for i, v in pairs(exported_tasks) do
