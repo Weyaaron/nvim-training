@@ -8,13 +8,13 @@ CommentLine.__index = CommentLine
 function CommentLine:new()
 	local base = LuaTask:new()
 	setmetatable(base, { __index = CommentLine })
-	self.search_target = ""
-	self.position = { 15, 5 }
-	vim.cmd("sil e training.lua")
+	base.search_target = ""
+	base.position = { 15, 5 }
 
-	self.autocmd = "TextChanged"
+	base.autocmd = "TextChanged"
 
 	local function _inner_update()
+		vim.cmd("sil e training.lua")
 		local lua_text = template_index.LuaFunctions
 
 		local line_size = 70

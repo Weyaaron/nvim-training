@@ -17,7 +17,7 @@ function YankWord:new()
 
 		utility.create_highlight(random_line_index, selected[1] - 1, selected[2])
 		local ith_line = utility.get_line(random_line_index)
-		self.target_text = string.sub(ith_line, selected[1], selected[1] + selected[2])
+		base.target_text = string.sub(ith_line, selected[1], selected[1] + selected[2])
 	end
 	vim.schedule_wrap(_inner_update)()
 	return base

@@ -44,6 +44,14 @@ training.setup({
 	task_scheduler = "RandomScheduler",  -- The default scheduler will pick a new tasks at random from the provided list. (Mandatory)
 	possible_marks_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }, --A list of possible marks. (Optional, this is the default)
 	possible_register_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }, -- A list of possible registers. (Optional, this the default)
+	audio_feedback = true, --Enables/Disables audio feedback
+	audio_feedback_success = function() -- What actually happens when audio feedback is run. You may test this or replace it with your own function as you see fit.
+		os.execute("play media/click.flac 2> /dev/null")
+	end,
+	audio_feedback_failure = function()
+		os.execute("play media/clack.flac 2> /dev/null")
+	end,
+
 })
 ```
 

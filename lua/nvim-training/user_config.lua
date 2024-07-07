@@ -6,6 +6,13 @@ local user_config = {
 	task_scheduler = "",
 	resolved_task_scheduler = "",
 	task_scheduler_kwargs = {},
+	audio_feedback = true,
+	audio_feedback_success = function()
+		os.execute("play media/click.flac 2> /dev/null")
+	end,
+	audio_feedback_failure = function()
+		os.execute("play media/clack.flac 2> /dev/null")
+	end,
 }
 
 return user_config

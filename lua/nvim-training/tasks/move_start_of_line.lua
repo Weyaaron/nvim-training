@@ -7,7 +7,7 @@ MoveStartOfLine.__index = MoveStartOfLine
 function MoveStartOfLine:new()
 	local base = Task:new()
 	setmetatable(base, { __index = MoveStartOfLine })
-	self.autocmd = "CursorMoved"
+	base.autocmd = "CursorMoved"
 
 	local function _inner_update()
 		utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()

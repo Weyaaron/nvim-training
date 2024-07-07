@@ -8,8 +8,8 @@ TestTask.__index = TestTask
 function TestTask:new()
 	local base = Task:new()
 	setmetatable(base, { __index = TestTask })
-	self.autocmd = "TextYankPost"
-	self.target_text = ""
+	base.autocmd = "TextYankPost"
+	base.target_text = ""
 	local function _inner_update()
 		local lorem_ipsum_full_text = utility.lorem_ipsum_lines()
 		local lorem_ipsum_in_line_format = utility.split_str(lorem_ipsum_full_text, "\n")

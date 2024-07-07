@@ -9,12 +9,12 @@ function MoveRandomXY:new()
 	local base = Task:new()
 	setmetatable(base, { __index = MoveRandomXY })
 
-	self.target_x = math.random(internal_config.header_length, internal_config.header_length + 5)
-	self.target_y = math.random(5, 25)
-	self.autocmd = "CursorMoved"
+	base.target_x = math.random(internal_config.header_length, internal_config.header_length + 5)
+	base.target_y = math.random(5, 25)
+	base.autocmd = "CursorMoved"
 	local function _inner_update()
 		utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
-		utility.reate_highlight(self.target_x, self.target_y, 1)
+		utility.reate_highlight(base.target_x, base.target_y, 1)
 	end
 	vim.schedule_wrap(_inner_update)()
 

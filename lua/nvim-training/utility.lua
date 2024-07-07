@@ -90,22 +90,6 @@ function utility.split_str(input, sep)
 	return res
 end
 
-local function construct_base_path()
-	--https://stackoverflow.com/questions/6380820/get-containing-path-of-lua-file
-	local function script_path()
-		local str = debug.getinfo(2, "S").source:sub(2)
-		local initial_result = str:match("(.*/)")
-		return initial_result
-	end
-
-	local base_path = script_path() .. "../.."
-	return base_path
-end
-
-function utility.construct_project_base_path(file_suffix)
-	return construct_base_path() .. "/" .. file_suffix
-end
-
 function utility.lorem_ipsum_lines()
 	local line_size = 70
 

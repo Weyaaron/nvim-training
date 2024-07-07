@@ -7,7 +7,7 @@ PlaceMark.__index = PlaceMark
 function PlaceMark:new()
 	local base = Task:new()
 	setmetatable(base, { __index = PlaceMark })
-	self.target_mark = "b"
+	base.target_mark = "b"
 	-- Creating a simple setInterval wrapper
 	local function setInterval(interval, callback)
 		local timer = vim.loop.new_timer()
@@ -16,21 +16,21 @@ function PlaceMark:new()
 		end)
 		return timer
 	end
-	self.success = false
+	base.success = false
 	setInterval(100, function()
 		vim.schedule_wrap(function()
-			local mark_pos = vim.fn.getpos("'" .. self.target_mark)
+			local mark_pos = vim.fn.getpos("'" .. base.target_mark)
 			local cursor_pos = vim.api.nvim_win_get_cursor(0)
 			local is_placed = cursor_pos[1] == mark_pos[2] and cursor_pos[2] + 1 == mark_pos[3]
 			print(cursor_pos[1], mark_pos[2], cursor_pos[2], mark_pos[3], is_placed)
 			if is_placed then
-				self.success = true
+				base.success = true
 				vim.api.nvim_exec_autocmds("CursorMoved", {})
 			end
 		end)()
 	end)
 
-	self.autocmd = "CursorMoved"
+	base.autocmd = "CursorMoved"
 
 	local function _inner_update()
 		utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()

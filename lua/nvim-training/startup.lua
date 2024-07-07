@@ -22,7 +22,7 @@ function startup.check_scheduler()
 		print(
 			"The setup function was called with the scheduler name '"
 				.. user_config.task_scheduler
-				.. "'. This scheduler does not exist! Please check for spelling/the right  plugin version."
+				.. "'. This scheduler does not exist! Please check for spelling/the right plugin version."
 		)
 		return false
 	end
@@ -54,11 +54,16 @@ function startup.check_scheduler()
 	return true
 end
 function startup.construct_scheduler()
+	local new_scheduler_instance = nil
 	local scheduler_index = require("nvim-training.scheduler_index")
-	local new_scheduler_instance = scheduler_index[user_config.task_scheduler:lower()]:new(
-		user_config.resolved_task_list,
-		user_config.task_scheduler_kwargs
-	)
+	if scheduler_index[user_config.task_scheduler] then
+		new_scheduler_instance = scheduler_index[user_config.task_scheduler:lower()]:new(
+			user_config.resolved_task_list,
+			user_config.task_scheduler_kwargs
+		)
+	else
+		print("No scheduler with name " .. tostring(user_config.task_scheduler) .. "found")
+	end
 	user_config.resolved_task_scheduler = new_scheduler_instance
 end
 

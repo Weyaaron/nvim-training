@@ -9,19 +9,19 @@ function Paste:new()
 	local base = Task:new()
 
 	setmetatable(base, { __index = Paste })
-	self.autocmd = "TextChanged"
-	self.reg_content = "-Content-"
+	base.autocmd = "TextChanged"
+	base.reg_content = "-Content-"
 
-	self.choosen_reg = user_config.possible_register_list[math.random(#user_config.possible_register_list)]
+	base.choosen_reg = user_config.possible_register_list[math.random(#user_config.possible_register_list)]
 	local options_for_choosen_mode = { "P", "p" }
-	self.choosen_mode = options_for_choosen_mode[math.random(2)]
+	base.choosen_mode = options_for_choosen_mode[math.random(2)]
 
 	local function _inner_update()
 		utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
-		vim.cmd(":let @" .. self.choosen_reg .. "= '" .. self.reg_content .. "'")
+		vim.cmd(":let @" .. base.choosen_reg .. "= '" .. base.reg_content .. "'")
 	end
 	vim.schedule_wrap(_inner_update)()
-	return self
+	return base
 end
 
 function Paste:teardown(autocmd_callback_data)
