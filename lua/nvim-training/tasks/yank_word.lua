@@ -6,8 +6,8 @@ YankWord.__index = YankWord
 function YankWord:new()
 	local base = YankTask:new()
 	setmetatable(base, { __index = YankWord })
-	self.autocmd = "TextYankPost"
-	self.target_text = ""
+	base.autocmd = "TextYankPost"
+	base.target_text = ""
 
 	local function _inner_update()
 		utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()

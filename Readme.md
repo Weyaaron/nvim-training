@@ -67,6 +67,11 @@ The code may ship with many more, but their state is
 unfinished. Accesing them might be possible, but
 is your own risk.
 
+# Disabled Tasks
+There might be cases where Tasks have to be
+retracted. If this is the case, you may need
+to update your call to setup to exclude them.
+
 ## Movements
 | Name | Description | Notes |
 | -------- | -------- | -------- |
@@ -84,7 +89,6 @@ is your own risk.
 | Name | Description | Notes |
 | -------- | -------- | -------- |
 | YankEndOfLine| Copy text from the cursor to the end of the line. |
-| YankIntoRegister| Copy text into a specified register. |
 
 ## Miscelaneous
 
@@ -121,7 +125,6 @@ training.setup({
 		"SearchForward",
 		"Increment",
 		"YankEndOfLine",
-		"YankIntoRegister",
 		"YankWord",
         "CommentLine",
 	},
