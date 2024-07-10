@@ -122,6 +122,8 @@ vim.api.nvim_create_user_command("Training", function()
 		init()
 		loop()
 	else
-		print("Your provided config is not valid. Please use the setup function as described in the Readme.")
+		print(
+			"Your provided config is not valid. Please use the setup function as described in the Readme. You may use ':checkhealth' to get an overview of the provided configuration."
+		)
 	end
 end, {})
