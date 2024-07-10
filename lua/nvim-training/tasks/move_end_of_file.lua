@@ -17,11 +17,11 @@ function MoveToEndOfFile:new()
 end
 
 function MoveToEndOfFile:teardown(autocmd_callback_data)
-	local cursor_pos = vim.api.nvim_win_get_cursor(0)[1] == vim.api.nvim_buf_line_count(0)
+	return vim.api.nvim_win_get_cursor(0)[1] == vim.api.nvim_buf_line_count(0)
 end
 
 function MoveToEndOfFile:description()
-	return "Move to the top of the file."
+	return "Move to the end of the file."
 end
 
 return MoveToEndOfFile

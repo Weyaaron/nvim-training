@@ -19,6 +19,8 @@ local current_streak = 0
 local max_streak = 0
 local previous_task_result
 
+local reset_task_list = true
+
 local function init()
 	vim.cmd("e training.txt")
 	vim.api.nvim_buf_set_lines(0, 0, 25, false, {})
@@ -64,6 +66,11 @@ local function loop(autocmd_callback_data)
 			current_streak = 0
 		end
 	end
+	if reset_task_list and success_count == 0 and failure_count == 1 then
+		reset_task_list = false
+		success_count = 0
+		failure_count = 0
+	end
 
 	local at_startup = success_count == 0 and failure_count == 0
 
@@ -78,6 +85,7 @@ local function loop(autocmd_callback_data)
 			user_config.audio_feedback_failure()
 		end
 	end
+
 	vim.schedule_wrap(function()
 		--This line is included to ensure that each task starts in the same file. A task may jump around and this ensures
 		--coming back.

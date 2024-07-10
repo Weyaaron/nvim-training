@@ -41,7 +41,7 @@ function CommentLine:teardown(autocmd_callback_data)
 end
 
 function CommentLine:description()
-	return "Change the current line into a comment"
+	return "Change the current line into a single line comment"
 end
 
 return CommentLine
