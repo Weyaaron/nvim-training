@@ -8,12 +8,12 @@ function MoveToStartOfFile:new()
 	local base = Task:new()
 
 	setmetatable(base, { __index = MoveToStartOfFile })
-	self.autocmd = "CursorMoved"
+	base.autocmd = "CursorMoved"
 	local function _inner_update()
 		utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
 	end
 	vim.schedule_wrap(_inner_update)()
-	return self
+	return base
 end
 
 function MoveToStartOfFile:teardown(autocmd_callback_data)

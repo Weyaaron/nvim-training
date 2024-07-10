@@ -1,7 +1,6 @@
 local TaskScheduler = require("nvim-training.task_scheduler")
 
 RandomScheduler = TaskScheduler:new()
-RandomScheduler.__index = RandomScheduler
 
 function RandomScheduler:new(initial_tasks, kwargs)
 	local default_kwargs = {}
@@ -11,7 +10,7 @@ function RandomScheduler:new(initial_tasks, kwargs)
 
 	local base = TaskScheduler:new(initial_tasks, kwargs)
 	setmetatable(base, { __index = RandomScheduler })
-	self.remaining_tasks = initial_tasks
+	base.remaining_tasks = initial_tasks
 
 	return base
 end

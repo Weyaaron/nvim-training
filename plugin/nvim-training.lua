@@ -4,27 +4,11 @@ if vim.g.loaded_training == 1 then
 end
 vim.g.loaded_training = 1
 
-local function construct_base_path()
-	--https://stackoverflow.com/questions/6380820/get-containing-path-of-lua-file
-	local function script_path()
-		local str = debug.getinfo(1, "S").source:sub(2)
-		local initial_result = str:match("(.*/)")
-		return initial_result
-	end
-
-	local base_path = script_path() .. "../"
-	return base_path
-end
-
---This is a construct I am not entirely happy with. There
---might be a better way.
-local base_path = construct_base_path()
-vim.api.nvim_command("set runtimepath^=" .. base_path)
 local utility = require("nvim-training.utility")
+
 local header = require("nvim-training.header")
 local user_config = require("nvim-training.user_config")
 local startup = require("nvim-training.startup")
-
 local task_count = 0
 local success_count = 0
 local failure_count = 0
@@ -34,6 +18,8 @@ local current_task
 local current_streak = 0
 local max_streak = 0
 local previous_task_result
+
+local reset_task_list = true
 
 local function init()
 	vim.cmd("e training.txt")
@@ -80,10 +66,31 @@ local function loop(autocmd_callback_data)
 			current_streak = 0
 		end
 	end
+	if reset_task_list and success_count == 0 and failure_count == 1 then
+		reset_task_list = false
+		success_count = 0
+		failure_count = 0
+	end
 
-	--This line is included to ensure that each task starts in the same file. A task may jump around and this ensures
-	--coming back.
-	vim.cmd("sil e training.txt")
+	local at_startup = success_count == 0 and failure_count == 0
+
+	if previous_task_result == true and not at_startup then
+		if user_config.audio_feedback then
+			user_config.audio_feedback_success()
+		end
+	end
+
+	if previous_task_result == false and not at_startup then
+		if user_config.audio_feedback then
+			user_config.audio_feedback_failure()
+		end
+	end
+
+	vim.schedule_wrap(function()
+		--This line is included to ensure that each task starts in the same file. A task may jump around and this ensures
+		--coming back.
+		vim.cmd("sil e training.txt")
+	end)()
 
 	--This line ensures that the highlights of previous tasks are discarded.
 	utility.clear_all_our_highlights()
@@ -115,6 +122,8 @@ vim.api.nvim_create_user_command("Training", function()
 		init()
 		loop()
 	else
-		print("Your provided config is not valid. Please use the setup function as described in the Readme.")
+		print(
+			"Your provided config is not valid. Please use the setup function as described in the Readme. You may use ':checkhealth' to get an overview of the provided configuration."
+		)
 	end
 end, {})

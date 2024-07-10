@@ -4,15 +4,15 @@ local internal_config = require("nvim-training.internal_config")
 local template_index = require("nvim-training.template_index")
 
 local MoveFunctions = LuaTask:new()
-MoveFunctions.__index = MoveFunctions
+
 function MoveFunctions:new()
 	local base = LuaTask:new()
 	setmetatable(base, { __index = MoveFunctions })
-	self.search_target = ""
-	self.position = { 15, 5 }
+	base.search_target = ""
+	base.position = { 15, 5 }
 	vim.cmd("e training.lua")
 
-	self.autocmd = "CursorMoved"
+	base.autocmd = "CursorMoved"
 
 	local function _inner_update()
 		local lua_text = template_index.LuaFunctions

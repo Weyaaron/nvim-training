@@ -3,8 +3,7 @@ Task.__index = Task
 
 function Task:new(args)
 	local base = args or {}
-	setmetatable(base, { __index = self })
-
+	setmetatable(base, Task)
 	return base
 end
 

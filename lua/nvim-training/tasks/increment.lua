@@ -8,15 +8,15 @@ function Increment:new()
 	local base = Task:new()
 	setmetatable(base, { __index = Increment })
 
-	self.autocmd = "CursorMoved"
+	base.autocmd = "CursorMoved"
 	local modes = { "Increment", "Decrement" }
-	self.inital_value = math.random(-100, 100)
-	self.inital_value = 0
-	self.mode = modes[math.random(#modes)]
-	if self.mode == "Increment" then
-		self.updated_value = self.inital_value + 1
+	base.inital_value = math.random(-100, 100)
+	base.inital_value = 0
+	base.mode = modes[math.random(#modes)]
+	if base.mode == "Increment" then
+		base.updated_value = base.inital_value + 1
 	else
-		self.updated_value = self.inital_value - 1
+		base.updated_value = base.inital_value - 1
 	end
 
 	local function _inner_update()
@@ -27,7 +27,7 @@ function Increment:new()
 		local left_half = lines[1]:sub(0, cursor_pos[2])
 		local updated_line = left_half
 			.. " "
-			.. tostring(self.inital_value)
+			.. tostring(base.inital_value)
 			.. " "
 			.. string.sub(lines[1], cursor_pos[2], #lines[1])
 		vim.api.nvim_buf_set_lines(0, cursor_pos[1] - 1, cursor_pos[1], false, { updated_line })
@@ -52,7 +52,7 @@ function Increment:teardown(autocmd_callback_data)
 end
 
 function Increment:description()
-	return self.mode .. " the value at the cursor."
+	return self.mode .. " the number at the cursor."
 end
 
 return Increment

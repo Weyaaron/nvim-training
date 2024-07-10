@@ -44,6 +44,14 @@ training.setup({
 	task_scheduler = "RandomScheduler",  -- The default scheduler will pick a new tasks at random from the provided list. (Mandatory)
 	possible_marks_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }, --A list of possible marks. (Optional, this is the default)
 	possible_register_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }, -- A list of possible registers. (Optional, this the default)
+	audio_feedback = true, --Enables/Disables audio feedback
+	audio_feedback_success = function() -- What actually happens when audio feedback is run. You may test this or replace it with your own function as you see fit.
+		os.execute("play media/click.flac 2> /dev/null")
+	end,
+	audio_feedback_failure = function()
+		os.execute("play media/clack.flac 2> /dev/null")
+	end,
+
 })
 ```
 
@@ -52,12 +60,17 @@ Once the setup has been done, simply run `:Training` to start a session.
 Some care is taken to avoid overwritting your files, but just to be
 safe you may start in an empty buffer/directory.
 
-# Available tasks
+# Available Tasks
 
 The following sections lists the tasks that are available.
 The code may ship with many more, but their state is
 unfinished. Accesing them might be possible, but
 is your own risk.
+
+# Disabled Tasks
+There might be cases where tasks have to be
+retracted. If this is the case, you may need
+to update your call to setup to exclude them.
 
 ## Movements
 | Name | Description | Notes |
@@ -66,6 +79,7 @@ is your own risk.
 | MoveStartOfLine | Move the cursor to the start of the line. |
 | MoveStartOfFile | Move the cursor to the start of the file. |
 | MoveEndOfFile | Move the cursor to the end of the file. |
+| MoveRandomXY | Move the cursor to a random place in the file. | This task assumes the use of a plugin that provides such a movement. |
 
 ## Searching
 | Name | Description | Notes |
@@ -76,18 +90,17 @@ is your own risk.
 | Name | Description | Notes |
 | -------- | -------- | -------- |
 | YankEndOfLine| Copy text from the cursor to the end of the line. |
-| YankIntoRegister| Copy text into a specified register. |
 
 ## Miscelaneous
 
 | Name | Description | Notes |
 | -------- | -------- | -------- |
-| Increment | Increment/Decrement the value under the cursor.| Does not include values like dates, booleans, just numbers
+| Increment | Increment/Decrement the number under the cursor.|
 
 ## Composite Tasks (Tasks that have multiple parts)
 | Name | Description | Notes |
 | -------- | -------- | -------- |
-| YankWord| Move to the the highlighted word and copy it. |
+| MoveYankWord| Move to the the highlighted word and copy it. |
 
 There is an [open discussion](https://github.com/Weyaaron/nvim-training/issues/13) if tasks like this should be included.
 If you have an opinion, feel free to add it.
@@ -113,9 +126,9 @@ training.setup({
 		"SearchForward",
 		"Increment",
 		"YankEndOfLine",
-		"YankIntoRegister",
 		"YankWord",
         "CommentLine",
+        "MoveRandomXY",
 	},
 	task_scheduler = "RandomScheduler",
 })

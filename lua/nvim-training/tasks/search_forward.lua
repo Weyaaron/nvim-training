@@ -7,9 +7,9 @@ SearchForward.__index = SearchForward
 function SearchForward:new()
 	local base = Task:new()
 	setmetatable(base, { __index = SearchForward })
-	self.search_target = ""
+	base.search_target = ""
 
-	self.autocmd = "CursorMoved"
+	base.autocmd = "CursorMoved"
 
 	local function _inner_update()
 		utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
@@ -26,12 +26,12 @@ function SearchForward:new()
 
 		local search_len = 3
 		local full_word = words_in_line[word_offset]
-		self.search_target = string.sub(full_word, 0, search_len)
-		local start_index_for_hl = string.find(target_line, self.search_target)
+		base.search_target = string.sub(full_word, 0, search_len)
+		local start_index_for_hl = string.find(target_line, base.search_target)
 
 		utility.create_highlight(cursor_pos[1] + line_offset - 2, start_index_for_hl - 1, search_len)
-		self.x_target = internal_config.header_length + line_offset
-		self.y_target = start_index_for_hl
+		base.x_target = internal_config.header_length + line_offset
+		base.y_target = start_index_for_hl
 	end
 	vim.schedule_wrap(_inner_update)()
 
