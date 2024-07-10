@@ -1,5 +1,8 @@
 local user_config = {
-	task_list = {},
+	task_list = {
+		"MoveStartOfLine",
+		"MoveEndOfFile",
+	},
 	resolved_task_list = {},
 	possible_marks_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" },
 	possible_register_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" },

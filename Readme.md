@@ -100,7 +100,7 @@ to update your call to setup to exclude them.
 ## Composite Tasks (Tasks that have multiple parts)
 | Name | Description | Notes |
 | -------- | -------- | -------- |
-| YankWord| Move to the the highlighted word and copy it. |
+| MoveYankWord| Move to the the highlighted word and copy it. |
 
 There is an [open discussion](https://github.com/Weyaaron/nvim-training/issues/13) if tasks like this should be included.
 If you have an opinion, feel free to add it.
