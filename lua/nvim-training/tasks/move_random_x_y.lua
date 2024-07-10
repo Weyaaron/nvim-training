@@ -2,7 +2,7 @@ local Task = require("nvim-training.task")
 local utility = require("nvim-training.utility")
 local internal_config = require("nvim-training.internal_config")
 
-local MoveRandomXY = Task()
+local MoveRandomXY = Task:new()
 MoveRandomXY.__index = MoveRandomXY
 
 function MoveRandomXY:new()
@@ -14,7 +14,7 @@ function MoveRandomXY:new()
 	base.autocmd = "CursorMoved"
 	local function _inner_update()
 		utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
-		utility.reate_highlight(base.target_x, base.target_y, 1)
+		utility.create_highlight(base.target_x, base.target_y, 1)
 	end
 	vim.schedule_wrap(_inner_update)()
 

@@ -52,7 +52,7 @@ function Increment:teardown(autocmd_callback_data)
 end
 
 function Increment:description()
-	return self.mode .. " the value at the cursor."
+	return self.mode .. " the number at the cursor."
 end
 
 return Increment

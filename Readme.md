@@ -60,7 +60,7 @@ Once the setup has been done, simply run `:Training` to start a session.
 Some care is taken to avoid overwritting your files, but just to be
 safe you may start in an empty buffer/directory.
 
-# Available tasks
+# Available Tasks
 
 The following sections lists the tasks that are available.
 The code may ship with many more, but their state is
@@ -68,7 +68,7 @@ unfinished. Accesing them might be possible, but
 is your own risk.
 
 # Disabled Tasks
-There might be cases where Tasks have to be
+There might be cases where tasks have to be
 retracted. If this is the case, you may need
 to update your call to setup to exclude them.
 
@@ -79,6 +79,7 @@ to update your call to setup to exclude them.
 | MoveStartOfLine | Move the cursor to the start of the line. |
 | MoveStartOfFile | Move the cursor to the start of the file. |
 | MoveEndOfFile | Move the cursor to the end of the file. |
+| MoveRandomXY | Move the cursor to a random place in the file. | This task assumes the use of a plugin that provides such a movement. |
 
 ## Searching
 | Name | Description | Notes |
@@ -94,7 +95,7 @@ to update your call to setup to exclude them.
 
 | Name | Description | Notes |
 | -------- | -------- | -------- |
-| Increment | Increment/Decrement the value under the cursor.| Does not include values like dates, booleans, just numbers
+| Increment | Increment/Decrement the number under the cursor.|
 
 ## Composite Tasks (Tasks that have multiple parts)
 | Name | Description | Notes |
@@ -127,6 +128,7 @@ training.setup({
 		"YankEndOfLine",
 		"YankWord",
         "CommentLine",
+        "MoveRandomXY",
 	},
 	task_scheduler = "RandomScheduler",
 })
