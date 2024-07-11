@@ -86,21 +86,11 @@ to update your call to setup to exclude them.
 | -------- | -------- | -------- |
 | SearchForward| Search for target-string forwards. |
 
-## Yanks, Deletions, etc
-| Name | Description | Notes |
-| -------- | -------- | -------- |
-| YankEndOfLine| Copy text from the cursor to the end of the line. |
-
 ## Miscelaneous
 
 | Name | Description | Notes |
 | -------- | -------- | -------- |
 | Increment | Increment/Decrement the number under the cursor.|
-
-## Composite Tasks (Tasks that have multiple parts)
-| Name | Description | Notes |
-| -------- | -------- | -------- |
-| MoveYankWord| Move to the the highlighted word and copy it. |
 
 There is an [open discussion](https://github.com/Weyaaron/nvim-training/issues/13) if tasks like this should be included.
 If you have an opinion, feel free to add it.
