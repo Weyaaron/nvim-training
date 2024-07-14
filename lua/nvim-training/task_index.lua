@@ -3,10 +3,12 @@ local MoveStartOfLine = require("nvim-training.tasks.move_start_of_line")
 local MoveStartOfFile = require("nvim-training.tasks.move_start_of_file")
 local MoveEndOfFile = require("nvim-training.tasks.move_end_of_file")
 local SearchForward = require("nvim-training.tasks.search_forward")
-
 local Increment = require("nvim-training.tasks.increment")
 local CommentLine = require("nvim-training.tasks.comment_line")
 local MoveRandomXY = require("nvim-training.tasks.move_random_x_y")
+local DeleteInsideMatch = require("nvim-training.tasks.delete_inside_match")
+local YankInsideMatch = require("nvim-training.tasks.yank_inside_match")
+local MoveMatch = require("nvim-training.tasks.move_match")
 
 local exported_tasks = {
 	MoveEndOfLine = MoveEndOfLine,
@@ -17,6 +19,9 @@ local exported_tasks = {
 	Increment = Increment,
 	CommentLine = CommentLine,
 	MoveRandomXY = MoveRandomXY,
+	DeleteInsideMatch = DeleteInsideMatch,
+	YankInsideMatch = YankInsideMatch,
+	MoveMatch = MoveMatch,
 }
 
 for i, v in pairs(exported_tasks) do

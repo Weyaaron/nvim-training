@@ -8,6 +8,44 @@ function utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
 	utility.move_cursor_to_random_point()
 end
 
+function utility.add_pair_and_place_cursor(bracket_pair)
+	local lorem_ipsum = utility.lorem_ipsum_lines()
+	utility.update_buffer_respecting_header(lorem_ipsum)
+
+	utility.move_cursor_to_random_point()
+	local cursor_pos = vim.api.nvim_win_get_cursor(0)
+	local line = utility.get_line(cursor_pos[1] - 1)
+	local distance = 5
+	local start_of_line = string.sub(line, 0, cursor_pos[2])
+	local middle_piece = string.sub(line, cursor_pos[2], cursor_pos[2] + distance)
+	local end_piece = string.sub(line, cursor_pos[2] + distance, #line)
+
+	local new_line = start_of_line .. bracket_pair[1] .. middle_piece .. bracket_pair[2] .. end_piece
+
+	vim.api.nvim_buf_set_lines(0, cursor_pos[1] - 1, cursor_pos[1], false, { new_line })
+
+	utility.create_highlight(cursor_pos[1] - 1, cursor_pos[2], distance + 2)
+
+	if math.random(0, 2) == 0 then
+		vim.api.nvim_win_set_cursor(0, { cursor_pos[1], cursor_pos[2] + distance + 2 })
+	end
+end
+
+function utility.extract_text_in_brackets(text, bracket_pair) --This includes the brackets!
+	local start_index = 0
+	local end_index = 0
+	for i = 1, #text, 1 do
+		if text:sub(i, i) == bracket_pair[1] then
+			start_index = i
+		end
+
+		if text:sub(i, i) == bracket_pair[2] then
+			end_index = i
+		end
+	end
+	return text:sub(start_index, end_index)
+end
+
 function utility.create_highlight(x, y, len)
 	vim.api.nvim_set_hl(0, "UnderScore", { underline = true })
 	vim.api.nvim_buf_add_highlight(0, internal_config.global_hl_namespace, "UnderScore", x, y, y + len)
@@ -19,8 +57,8 @@ end
 
 function utility.select_random_word_bounds_at_line(i)
 	local line = utility.get_line(i)
-	local wordParams = utility.get_word_bounds(line)
-	return wordParams[math.random(1, #wordParams)]
+	local word_params = utility.calculate_word_bounds(line)
+	return word_params[math.random(1, #word_params)]
 end
 
 function utility.calculate_random_point_in_text_bounds()

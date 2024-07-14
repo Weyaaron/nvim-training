@@ -94,11 +94,22 @@ to update your call to setup to exclude them.
 | MoveStartOfFile | Move the cursor to the start of the file. |
 | MoveEndOfFile | Move the cursor to the end of the file. |
 | MoveRandomXY | Move the cursor to a random place in the file. | This task assumes the use of a plugin that provides such a movement. |
+| MoveMatch| Move the cursor using %. |
 
 ## Searching
 | Name | Description | Notes |
 | -------- | -------- | -------- |
 | SearchForward| Search for target-string forwards. |
+
+## Deletion
+| Name | Description | Notes |
+| -------- | -------- | -------- |
+| DeleteInsideMatch | Delete inside the current match.|
+
+## Yanking
+| Name | Description | Notes |
+| -------- | -------- | -------- |
+| YankInsideMatch| Yank inside the current match. |
 
 ## Miscelaneous
 
@@ -133,6 +144,9 @@ training.setup({
 		"YankWord",
         "CommentLine",
         "MoveRandomXY",
+        "DeleteInsideMatch",
+        "YankInsideMatch",
+        "MoveMatch",
 	},
 	task_scheduler = "RandomScheduler",
 })
