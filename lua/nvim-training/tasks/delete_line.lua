@@ -1,7 +1,7 @@
 local utility = require("nvim-training.utility")
 local Task = require("nvim-training.task")
 
-local DeleteLineTask = Task()
+local DeleteLineTask = Task:new()
 DeleteLineTask.__index = DeleteLineTask
 
 function DeleteLineTask:setup()
@@ -17,11 +17,10 @@ function DeleteLineTask:setup()
 	return base
 end
 function DeleteLineTask:teardown(autocmd_callback_data)
-	local new_line_length = vim.api.nvim_buf_line_count(0)
-	return new_line_length == self.line_length - 1
+	return vim.api.nvim_buf_line_count(0) == self.line_length - 1
 end
 function DeleteLineTask:description()
-	return "Delete the line the cursor is in."
+	return "Delete the current line."
 end
 
 return DeleteLineTask

@@ -93,6 +93,7 @@ to update your call to setup to exclude them.
 | MoveStartOfLine | Move the cursor to the start of the line. |
 | MoveStartOfFile | Move the cursor to the start of the file. |
 | MoveEndOfFile | Move the cursor to the end of the file. |
+| MoveAbsoluteLine | Move the cursor to a absolute line. |
 | MoveRandomXY | Move the cursor to a random place in the file. | This task assumes the use of a plugin that provides such a movement. |
 | MoveMatch| Move the cursor using %. |
 | MoveWord| Move the cursor using w. |
@@ -108,6 +109,7 @@ to update your call to setup to exclude them.
 | Name | Description | Notes |
 | -------- | -------- | -------- |
 | DeleteInsideMatch | Delete inside the current match.|
+| DeleteLine| Delete the current line.|
 
 ## Yanking
 | Name | Description | Notes |

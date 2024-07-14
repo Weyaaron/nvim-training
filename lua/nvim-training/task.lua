@@ -7,8 +7,6 @@ function Task:new(args)
 	return base
 end
 
-function Task:setup() end
-
 function Task:teardown(autocmd_callback_data) end
 function Task:description()
 	return "Not implemented yet"
