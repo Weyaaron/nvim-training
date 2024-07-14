@@ -3,13 +3,12 @@ local template_index = require("nvim-training.template_index")
 local utility = {}
 
 function utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
-	local lorem_ipsum = utility.lorem_ipsum_lines()
-	utility.update_buffer_respecting_header(lorem_ipsum)
+	utility.update_buffer_respecting_header(utility.load_template(template_index.LoremIpsum))
 	utility.move_cursor_to_random_point()
 end
 
 function utility.add_pair_and_place_cursor(bracket_pair)
-	local lorem_ipsum = utility.lorem_ipsum_lines()
+	local lorem_ipsum = utility.load_template(template_index.LoremIpsum)
 	utility.update_buffer_respecting_header(lorem_ipsum)
 
 	utility.move_cursor_to_random_point()
@@ -158,17 +157,17 @@ function utility.split_str(input, sep)
 	return res
 end
 
-function utility.lorem_ipsum_lines()
+function utility.load_template(template_path)
 	local line_size = 70
 
-	local line_array = {}
+	local lines = {}
 
-	local lorem_ipsum_as_line = string.gsub(template_index.LoremIpsum, "\n", " ")
-	for i = 1, #lorem_ipsum_as_line, line_size do
-		local current_text = string.sub(lorem_ipsum_as_line, i, i + line_size)
-		line_array[#line_array + 1] = current_text
+	local template_as_line = string.gsub(template_path, "\n", " ")
+	for i = 1, #template_as_line, line_size do
+		local current_text = string.sub(template_as_line, i, i + line_size)
+		lines[#lines + 1] = current_text
 	end
-	return table.concat(line_array, "\n")
+	return table.concat(lines, "\n")
 end
 
 return utility
