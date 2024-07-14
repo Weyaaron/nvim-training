@@ -95,6 +95,9 @@ to update your call to setup to exclude them.
 | MoveEndOfFile | Move the cursor to the end of the file. |
 | MoveRandomXY | Move the cursor to a random place in the file. | This task assumes the use of a plugin that provides such a movement. |
 | MoveMatch| Move the cursor using %. |
+| MoveWord| Move the cursor using w. |
+| MoveWordEnd| Move the cursor using e. |
+
 
 ## Searching
 | Name | Description | Notes |
@@ -147,6 +150,10 @@ training.setup({
         "DeleteInsideMatch",
         "YankInsideMatch",
         "MoveMatch",
+        "DeleteLine",
+        "MoveAbsoluteLine",
+        "MoveWord",
+        "MoveWordEnd",
 	},
 	task_scheduler = "RandomScheduler",
 })

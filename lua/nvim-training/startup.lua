@@ -7,7 +7,7 @@ function startup.resolve_task_list()
 	local task_index = require("nvim-training.task_index")
 
 	for i, v in pairs(user_config.task_list) do
-		local resolved_mod = task_index[v:lower()]
+		local resolved_mod = task_index[v]
 		if not resolved_mod then
 			print(
 				"The setup function was called with the task name '"

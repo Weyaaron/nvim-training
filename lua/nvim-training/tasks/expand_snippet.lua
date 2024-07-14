@@ -23,7 +23,7 @@ function ExpandSnippet:new()
 end
 
 function ExpandSnippet:teardown(autocmd_callback_data)
-	local ith_line = utility.get_line(self.target_line - 1)
+	local ith_line = utility.get_line(self.target_line)
 	print("Line" .. ith_line)
 end
 

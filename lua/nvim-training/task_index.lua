@@ -9,6 +9,11 @@ local MoveRandomXY = require("nvim-training.tasks.move_random_x_y")
 local DeleteInsideMatch = require("nvim-training.tasks.delete_inside_match")
 local YankInsideMatch = require("nvim-training.tasks.yank_inside_match")
 local MoveMatch = require("nvim-training.tasks.move_match")
+local MoveWord = require("nvim-training.tasks.move_word")
+local MoveWordEnd = require("nvim-training.tasks.move_word_end")
+local DeleteLine = require("nvim-training.tasks.delete_line")
+local MoveAbsoluteLine = require("nvim-training.tasks.move_absolute_line")
+local MoveWORD = require("nvim-training.tasks.move_WORD")
 
 local exported_tasks = {
 	MoveEndOfLine = MoveEndOfLine,
@@ -22,10 +27,11 @@ local exported_tasks = {
 	DeleteInsideMatch = DeleteInsideMatch,
 	YankInsideMatch = YankInsideMatch,
 	MoveMatch = MoveMatch,
+	MoveWordEnd = MoveWordEnd,
+	MoveWord = MoveWord,
+	DeleteLine = DeleteLine,
+	MoveAbsoluteLine = MoveAbsoluteLine,
+	MoveWORD = MoveWORD,
 }
-
-for i, v in pairs(exported_tasks) do
-	exported_tasks[string.lower(i)] = exported_tasks[i]
-end
 
 return exported_tasks

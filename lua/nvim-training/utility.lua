@@ -67,13 +67,44 @@ function utility.calculate_random_point_in_text_bounds()
 	return { x, y }
 end
 
-function utility.get_word_bounds(s) -- { start_index, length }
-	local words = {}
-	-- words as consequent groups of alphanumeric chars with underline '_'
-	for start, _, finish in s:gmatch("()([%w_]+)()") do
-		words[#words + 1] = { start, finish - start }
+function calculate_text_piece_bounds(input_str, patterns) -- { start_index, end_index}, 0-indexed
+	local pieces = {}
+
+	for i, pattern_el in pairs(patterns) do
+		for start, _, finish in input_str:gmatch(pattern_el) do
+			pieces[#pieces + 1] = { start - 1, finish - 1 }
+		end
 	end
-	return words
+
+	table.sort(pieces, function(a, b)
+		return a[1] < b[1]
+	end)
+
+	return pieces
+end
+
+function utility.calculate_WORD_bounds(input_str) -- { start_index, end_index}, 0-indexed
+	--Defined as non-whitespace characters surrounded by whitespace
+	local match_strs = { "()%s*(%S+)%s*()" }
+	return calculate_text_piece_bounds(input_str, match_strs)
+end
+
+function utility.calculate_word_bounds(s) -- { start_index, end_index}, 0-indexed
+	-- words as consequent groups of alphanumeric chars with underline '_', the second matches match . and , respectivly
+	local match_strs = { "()([%w_]+)()", "()(%.)()", "()(,)()" }
+	return calculate_text_piece_bounds(s, match_strs)
+end
+
+function utility.calculate_word_index_from_cursor_pos(word_bounds, cursor_pos)
+	local index = 0
+	for i, v in pairs(word_bounds) do
+		local word_start = v[1]
+		local word_end = v[2]
+		if cursor_pos <= word_end and cursor_pos >= word_start then
+			index = i
+		end
+	end
+	return index
 end
 
 function utility.random_line_index()
@@ -82,7 +113,7 @@ function utility.random_line_index()
 end
 
 function utility.get_line(index)
-	return vim.api.nvim_buf_get_lines(0, index, index + 1, true)[1]
+	return vim.api.nvim_buf_get_lines(0, index - 1, index, true)[1]
 end
 
 function utility.random_col_index_at(index)
