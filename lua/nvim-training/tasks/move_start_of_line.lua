@@ -23,8 +23,7 @@ function MoveStartOfLine:new()
 	return base
 end
 
-function MoveStartOfLine:teardown(autocmd_callback_data)
-	utility.clear_all_our_highlights()
+function MoveStartOfLine:teardown()
 	return vim.api.nvim_win_get_cursor(0)[2] == 0
 end
 

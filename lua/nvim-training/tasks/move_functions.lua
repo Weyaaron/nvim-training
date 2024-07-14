@@ -1,6 +1,5 @@
 local LuaTask = require("nvim-training.tasks.lua_task")
 local utility = require("nvim-training.utility")
-local internal_config = require("nvim-training.internal_config")
 local template_index = require("nvim-training.template_index")
 
 local MoveFunctions = LuaTask:new()

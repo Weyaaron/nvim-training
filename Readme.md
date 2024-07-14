@@ -14,6 +14,20 @@ This helps to work on a lot of tasks in a short amount of time.
 
 The list of tasks is growing all the time, if you miss a particular one you may open a feature request :)
 
+# About stability
+
+This code-base may evolve to points where breaking changes will be made.
+As of 07-2024, I consider the userbase small enough to 'just do' them.
+This may change in the future, let me know with suggestions for best
+practices :)
+
+# For beginners
+
+Hi, welcome. Since this plugin is aimed at beginners, I will help out with any
+issues about getting started. Just message me over on aaronwey@posteo.de
+and I will help you out. Depending on the issue, your feedback may be used
+to improve the setup for everyone :)
+
 # In Action
 ![GIF](media/screencast.gif)
 
@@ -134,7 +148,8 @@ training.setup({
 - Implement puzzles. A solution to the current task should be obvious and small, at most a few keystrokes on a vanilla setup.
 - Competing with others. Your progress matters to you, not to others.
 - Provide help/guides on how to solve a particular task. Basic familiarity with vim is assumed.
-- Constrain the user on how to solve a particular task
+- Constrain the user on how to solve a particular task.
+- Support for everyones personal setup. Some settings may mess up some tasks, but support for these cases is limited. I try to accomodate about 80% of the users.
 
 # How to get started with contributing
 Contributions are welcome! Any input is appreciated, be it a bug report, a feature request, or a pull request.

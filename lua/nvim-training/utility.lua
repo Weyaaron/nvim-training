@@ -1,4 +1,3 @@
--- luacheck: globals vim
 local internal_config = require("nvim-training.internal_config")
 local template_index = require("nvim-training.template_index")
 local utility = {}
