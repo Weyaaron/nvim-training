@@ -39,7 +39,6 @@ function SearchForward:new()
 end
 
 function SearchForward:teardown(autocmd_callback_data)
-	utility.clear_all_our_highlights()
 	local cursor_pos = vim.api.nvim_win_get_cursor(0)
 	vim.schedule_wrap(function()
 		vim.cmd("noh")

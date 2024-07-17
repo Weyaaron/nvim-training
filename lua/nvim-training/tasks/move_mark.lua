@@ -34,7 +34,6 @@ end
 function MoveToMark:teardown(autocmd_callback_data)
 	vim.api.nvim_buf_set_mark(0, self.target_mark_name, 0, 0, {})
 
-	utility.clear_all_our_highlights()
 	return self.target_line == vim.api.nvim_win_get_cursor(0)[1]
 end
 

@@ -1,14 +1,7 @@
 local user_config = {
-	task_list = {
-		"MoveStartOfLine",
-		"MoveEndOfFile",
-	},
-	resolved_task_list = {},
 	possible_marks_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" },
 	possible_register_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" },
-	task_scheduler = "",
-	resolved_task_scheduler = "",
-	task_scheduler_kwargs = {},
+	bracket_pairs = { { "(", ")" }, { "{", "}" }, { "[", "]" } },
 	audio_feedback = true,
 	audio_feedback_success = function()
 		os.execute("play media/click.flac 2> /dev/null")

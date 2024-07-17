@@ -1,12 +1,56 @@
--- luacheck: globals vim
 local internal_config = require("nvim-training.internal_config")
 local template_index = require("nvim-training.template_index")
 local utility = {}
 
 function utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
-	local lorem_ipsum = utility.lorem_ipsum_lines()
-	utility.update_buffer_respecting_header(lorem_ipsum)
+	utility.update_buffer_respecting_header(utility.load_template(template_index.LoremIpsum))
 	utility.move_cursor_to_random_point()
+end
+
+function utility.get_keys(t)
+	local keys = {}
+	for key, _ in pairs(t) do
+		table.insert(keys, key)
+	end
+	return keys
+end
+
+function utility.add_pair_and_place_cursor(bracket_pair)
+	local lorem_ipsum = utility.load_template(template_index.LoremIpsum)
+	utility.update_buffer_respecting_header(lorem_ipsum)
+
+	utility.move_cursor_to_random_point()
+	local cursor_pos = vim.api.nvim_win_get_cursor(0)
+	local line = utility.get_line(cursor_pos[1] - 1)
+	local distance = 5
+	local start_of_line = string.sub(line, 0, cursor_pos[2])
+	local middle_piece = string.sub(line, cursor_pos[2], cursor_pos[2] + distance)
+	local end_piece = string.sub(line, cursor_pos[2] + distance, #line)
+
+	local new_line = start_of_line .. bracket_pair[1] .. middle_piece .. bracket_pair[2] .. end_piece
+
+	vim.api.nvim_buf_set_lines(0, cursor_pos[1] - 1, cursor_pos[1], false, { new_line })
+
+	utility.create_highlight(cursor_pos[1] - 1, cursor_pos[2], distance + 2)
+
+	if math.random(0, 2) == 0 then
+		vim.api.nvim_win_set_cursor(0, { cursor_pos[1], cursor_pos[2] + distance + 2 })
+	end
+end
+
+function utility.extract_text_in_brackets(text, bracket_pair) --This includes the brackets!
+	local start_index = 0
+	local end_index = 0
+	for i = 1, #text, 1 do
+		if text:sub(i, i) == bracket_pair[1] then
+			start_index = i
+		end
+
+		if text:sub(i, i) == bracket_pair[2] then
+			end_index = i
+		end
+	end
+	return text:sub(start_index, end_index)
 end
 
 function utility.create_highlight(x, y, len)
@@ -20,8 +64,8 @@ end
 
 function utility.select_random_word_bounds_at_line(i)
 	local line = utility.get_line(i)
-	local wordParams = utility.get_word_bounds(line)
-	return wordParams[math.random(1, #wordParams)]
+	local word_params = utility.calculate_word_bounds(line)
+	return word_params[math.random(1, #word_params)]
 end
 
 function utility.calculate_random_point_in_text_bounds()
@@ -30,13 +74,44 @@ function utility.calculate_random_point_in_text_bounds()
 	return { x, y }
 end
 
-function utility.get_word_bounds(s) -- { start_index, length }
-	local words = {}
-	-- words as consequent groups of alphanumeric chars with underline '_'
-	for start, _, finish in s:gmatch("()([%w_]+)()") do
-		words[#words + 1] = { start, finish - start }
+function calculate_text_piece_bounds(input_str, patterns) -- { start_index, end_index}, 0-indexed
+	local pieces = {}
+
+	for i, pattern_el in pairs(patterns) do
+		for start, _, finish in input_str:gmatch(pattern_el) do
+			pieces[#pieces + 1] = { start - 1, finish - 1 }
+		end
 	end
-	return words
+
+	table.sort(pieces, function(a, b)
+		return a[1] < b[1]
+	end)
+
+	return pieces
+end
+
+function utility.calculate_WORD_bounds(input_str) -- { start_index, end_index}, 0-indexed
+	--Defined as non-whitespace characters surrounded by whitespace
+	local match_strs = { "()%s*(%S+)%s*()" }
+	return calculate_text_piece_bounds(input_str, match_strs)
+end
+
+function utility.calculate_word_bounds(s) -- { start_index, end_index}, 0-indexed
+	-- words as consequent groups of alphanumeric chars with underline '_', the second matches match . and , respectivly
+	local match_strs = { "()([%w_]+)()", "()(%.)()", "()(,)()" }
+	return calculate_text_piece_bounds(s, match_strs)
+end
+
+function utility.calculate_word_index_from_cursor_pos(word_bounds, cursor_pos)
+	local index = 0
+	for i, v in pairs(word_bounds) do
+		local word_start = v[1]
+		local word_end = v[2]
+		if cursor_pos <= word_end and cursor_pos >= word_start then
+			index = i
+		end
+	end
+	return index
 end
 
 function utility.random_line_index()
@@ -45,7 +120,7 @@ function utility.random_line_index()
 end
 
 function utility.get_line(index)
-	return vim.api.nvim_buf_get_lines(0, index, index + 1, true)[1]
+	return vim.api.nvim_buf_get_lines(0, index - 1, index, true)[1]
 end
 
 function utility.random_col_index_at(index)
@@ -90,17 +165,17 @@ function utility.split_str(input, sep)
 	return res
 end
 
-function utility.lorem_ipsum_lines()
+function utility.load_template(template_path)
 	local line_size = 70
 
-	local line_array = {}
+	local lines = {}
 
-	local lorem_ipsum_as_line = string.gsub(template_index.LoremIpsum, "\n", " ")
-	for i = 1, #lorem_ipsum_as_line, line_size do
-		local current_text = string.sub(lorem_ipsum_as_line, i, i + line_size)
-		line_array[#line_array + 1] = current_text
+	local template_as_line = string.gsub(template_path, "\n", " ")
+	for i = 1, #template_as_line, line_size do
+		local current_text = string.sub(template_as_line, i, i + line_size)
+		lines[#lines + 1] = current_text
 	end
-	return table.concat(line_array, "\n")
+	return table.concat(lines, "\n")
 end
 
 return utility

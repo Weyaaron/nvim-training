@@ -25,7 +25,6 @@ function MoveEndOfLine:new()
 end
 
 function MoveEndOfLine:teardown(autocmd_callback_data)
-	utility.clear_all_our_highlights()
 	return vim.api.nvim_win_get_cursor(0)[2] == self.cursor_target
 end
 

@@ -1,5 +1,3 @@
--- luacheck: globals vim
-
 local header = {}
 
 local utility = require("nvim-training.utility")

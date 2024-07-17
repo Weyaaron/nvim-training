@@ -7,6 +7,7 @@ MoveAbsoluteLine.__index = MoveAbsoluteLine
 
 function MoveAbsoluteLine:new()
 	local base = Task:new()
+	base.autocmd = "CursorMoved"
 
 	setmetatable(base, { __index = MoveAbsoluteLine })
 	base.target_line = math.random(internal_config.header_length + 1, internal_config.header_length + 5)
@@ -29,7 +30,6 @@ function MoveAbsoluteLine:new()
 end
 
 function MoveAbsoluteLine:teardown(autocmd_callback_data)
-	utility.clear_all_our_highlights()
 	return self.target_line == vim.api.nvim_win_get_cursor(0)[1]
 end
 

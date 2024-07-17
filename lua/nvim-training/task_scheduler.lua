@@ -1,10 +1,10 @@
 local TaskScheduler = {}
 TaskScheduler.__index = TaskScheduler
 
-function TaskScheduler:new(initial_tasks, kwargs)
+function TaskScheduler:new(task_collections, kwargs)
 	local base = {}
 	setmetatable(base, { __index = TaskScheduler })
-	base.initial_tasks = initial_tasks
+	base.task_collections = task_collections
 	base.kwargs = kwargs
 	base.default_kwargs = {}
 
@@ -12,7 +12,6 @@ function TaskScheduler:new(initial_tasks, kwargs)
 end
 
 function TaskScheduler:next(previous, result)
-	return
 end
 
 function TaskScheduler:accepted_kwargs()

@@ -1,26 +1,21 @@
-local MoveEndOfLine = require("nvim-training.tasks.move_end_of_line")
-local MoveStartOfLine = require("nvim-training.tasks.move_start_of_line")
-local MoveStartOfFile = require("nvim-training.tasks.move_start_of_file")
-local MoveEndOfFile = require("nvim-training.tasks.move_end_of_file")
-local SearchForward = require("nvim-training.tasks.search_forward")
-
-local Increment = require("nvim-training.tasks.increment")
-local CommentLine = require("nvim-training.tasks.comment_line")
-local MoveRandomXY = require("nvim-training.tasks.move_random_x_y")
-
 local exported_tasks = {
-	MoveEndOfLine = MoveEndOfLine,
-	SearchForward = SearchForward,
-	MoveStartOfLine = MoveStartOfLine,
-	MoveEndOfFile = MoveEndOfFile,
-	MoveStartOfFile = MoveStartOfFile,
-	Increment = Increment,
-	CommentLine = CommentLine,
-	MoveRandomXY = MoveRandomXY,
+	MoveEndOfLine = require("nvim-training.tasks.move_end_of_line"),
+	MoveStartOfLine = require("nvim-training.tasks.move_start_of_line"),
+	MoveStartOfFile = require("nvim-training.tasks.move_start_of_file"),
+	MoveEndOfFile = require("nvim-training.tasks.move_end_of_file"),
+	SearchForward = require("nvim-training.tasks.search_forward"),
+	Increment = require("nvim-training.tasks.increment"),
+	CommentLine = require("nvim-training.tasks.comment_line"),
+	CommentLineBlock = require("nvim-training.tasks.comment_line_block"),
+	MoveRandomXY = require("nvim-training.tasks.move_random_x_y"),
+	DeleteInsideMatch = require("nvim-training.tasks.delete_inside_match"),
+	YankInsideMatch = require("nvim-training.tasks.yank_inside_match"),
+	MoveMatch = require("nvim-training.tasks.move_match"),
+	MoveWord = require("nvim-training.tasks.move_word"),
+	MoveWordEnd = require("nvim-training.tasks.move_word_end"),
+	DeleteLine = require("nvim-training.tasks.delete_line"),
+	MoveAbsoluteLine = require("nvim-training.tasks.move_absolute_line"),
+	MoveWORD = require("nvim-training.tasks.move_WORD"),
 }
-
-for i, v in pairs(exported_tasks) do
-	exported_tasks[string.lower(i)] = exported_tasks[i]
-end
 
 return exported_tasks
