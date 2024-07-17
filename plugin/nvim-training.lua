@@ -1,3 +1,4 @@
+local internal_config = require("nvim-training.internal_config")
 if vim.g.loaded_training == 1 then
 	print("Already loaded")
 	return
@@ -8,7 +9,6 @@ local utility = require("nvim-training.utility")
 
 local header = require("nvim-training.header")
 local user_config = require("nvim-training.user_config")
-local startup = require("nvim-training.startup")
 local task_count = 0
 local success_count = 0
 local failure_count = 0
@@ -18,7 +18,7 @@ local current_task
 local current_streak = 0
 local max_streak = 0
 local previous_task_result
-
+local resoveld_scheduler
 local reset_task_list = true
 
 local function init()
@@ -94,7 +94,7 @@ local function loop(autocmd_callback_data)
 
 	--This line ensures that the highlights of previous tasks are discarded.
 	utility.clear_all_our_highlights()
-	current_task = user_config.resolved_task_scheduler:next(current_task, previous_task_result):new()
+	current_task = resoveld_scheduler:next(current_task, previous_task_result):new()
 
 	--This gives tasks some options to configure the header, for example with a prefix and a suffix to turn the header into a block comment in a programming language
 	local additional_header_values = current_task:construct_optional_header_args()
@@ -117,13 +117,87 @@ local function loop(autocmd_callback_data)
 	toogle_discard = true
 end
 
-vim.api.nvim_create_user_command("Training", function()
-	if startup.construct_and_check_config() then
-		init()
-		loop()
-	else
-		print(
-			"Your provided config is not valid. Please use the setup function as described in the Readme. You may use ':checkhealth' to get an overview of the provided configuration."
-		)
+local function training_cmd(opts)
+	local collection_index = require("nvim-training.task_collection_index")
+
+	local fargs = opts.fargs
+	local scheduler = fargs[1]
+
+	if not scheduler then
+		print("You did not provide a scheduler, 'RandomScheduler' will be used.")
+		scheduler = "RandomScheduler"
 	end
-end, {})
+
+	local provided_collections = {}
+	for i = 2, #fargs, 1 do
+		if fargs[i] then
+			provided_collections[#provided_collections + 1] = collection_index[fargs[i]]
+		end
+	end
+	if #provided_collections == 0 then
+		print("You did not provide a list of task collections, the collection 'All' will be used.")
+		provided_collections[#provided_collections + 1] = collection_index["All"]
+	end
+
+	local scheduler_index = require("nvim-training.scheduler_index")
+	resoveld_scheduler = scheduler_index[scheduler]:new(provided_collections)
+	init()
+	loop()
+end
+local function training_complete(arg_lead, cmd_line, _)
+	local collection_index = require("nvim-training.task_collection_index")
+	local scheduler_index = require("nvim-training.scheduler_index")
+	local scheduler_keys = utility.get_keys(scheduler_index)
+	local collection_keys = utility.get_keys(collection_index)
+
+	local scheduler_in_cmd_line = false
+	for i, v in pairs(scheduler_keys) do
+		if cmd_line:find(v) then
+			scheduler_in_cmd_line = true
+		end
+	end
+
+	local matching_schedulers = {}
+	for i, scheduler_name in pairs(scheduler_keys) do
+		local sub_str = scheduler_name:sub(1, #arg_lead)
+		if sub_str == arg_lead then
+			matching_schedulers[#matching_schedulers + 1] = scheduler_name
+		end
+	end
+
+	if #matching_schedulers == 0 then
+		matching_schedulers = scheduler_keys
+	end
+
+	local matching_collections = {}
+	for i, collection_name in pairs(collection_keys) do
+		if collection_name:sub(1, #arg_lead) == arg_lead then
+			matching_collections[#matching_collections + 1] = collection_name
+		end
+	end
+	if #matching_collections == 0 then
+		matching_collections = collection_keys
+	end
+
+	local matching_and_not_already_prodived_collections = {}
+
+	for i, v in pairs(matching_collections) do
+		--  The additional space fixes an issue where substrings of taskcollections  are found
+		if not cmd_line:find(" " .. v .. " ") then
+			matching_and_not_already_prodived_collections[#matching_and_not_already_prodived_collections + 1] = v
+		end
+	end
+	if #matching_schedulers == 0 then
+		matching_schedulers = scheduler_keys
+	end
+
+	if not scheduler_in_cmd_line then
+		return matching_schedulers
+	end
+	return matching_and_not_already_prodived_collections
+end
+
+vim.api.nvim_create_user_command("Training", training_cmd, {
+	complete = training_complete,
+	nargs = "*",
+})

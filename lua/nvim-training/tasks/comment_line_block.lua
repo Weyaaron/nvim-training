@@ -28,7 +28,7 @@ function CommentLineBlock:teardown()
 end
 
 function CommentLineBlock:description()
-	return "Change the current line into a block comment"
+	return "Change the current line into a block comment."
 end
 
 return CommentLineBlock

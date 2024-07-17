@@ -7,6 +7,14 @@ function utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
 	utility.move_cursor_to_random_point()
 end
 
+function utility.get_keys(t)
+	local keys = {}
+	for key, _ in pairs(t) do
+		table.insert(keys, key)
+	end
+	return keys
+end
+
 function utility.add_pair_and_place_cursor(bracket_pair)
 	local lorem_ipsum = utility.load_template(template_index.LoremIpsum)
 	utility.update_buffer_respecting_header(lorem_ipsum)
