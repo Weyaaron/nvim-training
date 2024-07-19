@@ -17,7 +17,7 @@ function MoveStartOfLine:new()
 end
 function MoveStartOfLine:activate()
 	local function _inner_update()
-		utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
+		utility.set_buffer_to_rectangle_and_place_cursor_randomly()
 
 		local cursor_pos = vim.api.nvim_win_get_cursor(0)
 		if cursor_pos[2] == 0 then

@@ -1,5 +1,6 @@
 local Task = require("nvim-training.task")
 local utility = require("nvim-training.utility")
+local internal_config = require("nvim-training.internal_config")
 
 local Increment = {}
 Increment.__index = Increment
@@ -27,9 +28,19 @@ function Increment:new()
 end
 function Increment:activate()
 	local function _inner_update()
-		utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
-		local cursor_pos = vim.api.nvim_win_get_cursor(0)
+		local line = ""
 
+		for i = 1, internal_config.line_length do
+			if not i == internal_config.line_length / 2 then
+				line = line .. " "
+			else
+				line = line .. "0"
+			end
+		end
+		utility.set_buffer_to_rectangle_with_line(line)
+
+		local cursor_pos = vim.api.nvim_win_get_cursor(0)
+		--Todo: Fix this!!!!!!!!!!!!!!!!!!!!!!
 		local lines = vim.api.nvim_buf_get_lines(0, cursor_pos[1] - 1, vim.api.nvim_buf_line_count(0), false)
 		local left_half = lines[1]:sub(0, cursor_pos[2])
 		local updated_line = left_half

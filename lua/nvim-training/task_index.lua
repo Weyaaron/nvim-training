@@ -23,6 +23,7 @@ local exported_tasks = {
 	-- InsertChar= require("nvim-training.tasks.insert_char"), Currently broken
 	--DeleteWord = require("nvim-training.tasks.delete_word"),
 	-- Todo: Implement adding, probably similar problem = require("nvim-training.tasks.insert_char"), Currently broken
+	-- Todo: Migrate the remaining task to rectangle if possible
 }
 
 return exported_tasks

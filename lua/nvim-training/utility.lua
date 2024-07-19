@@ -7,6 +7,27 @@ function utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
 	utility.move_cursor_to_random_point()
 end
 
+function utility.set_buffer_to_rectangle_and_place_cursor_randomly()
+	local lorem_ipsum = utility.load_template(template_index.LoremIpsum)
+	local lorem_lines = utility.split_str(lorem_ipsum, "\n")
+	--The last line is cut, we want to avoid running into it if possible -> -1
+	local random_line = lorem_lines[math.random(#lorem_lines - 1)]
+
+	utility.update_buffer_respecting_header(utility.load_rectangle_with_line(random_line))
+	-- utility.move_cursor_to_random_point()
+	local x_pos = internal_config.header_length + 4
+	local y = utility.random_col_index_at(x_pos)
+	vim.api.nvim_win_set_cursor(0, { x_pos, y })
+end
+
+function utility.set_buffer_to_rectangle_with_line(middle_line)
+	utility.update_buffer_respecting_header(utility.load_rectangle_with_line(middle_line))
+	-- utility.move_cursor_to_random_point()
+	local x_pos = internal_config.header_length + 4
+	local y = utility.random_col_index_at(x_pos)
+	vim.api.nvim_win_set_cursor(0, { x_pos, y })
+end
+
 function utility.get_keys(t)
 	local keys = {}
 	for key, _ in pairs(t) do
@@ -72,6 +93,11 @@ function utility.calculate_random_point_in_text_bounds()
 	local x = utility.random_line_index()
 	local y = utility.random_col_index_at(x)
 	return { x, y }
+end
+
+function utility.calculate_random_point_in_line_bound(x)
+	local y = utility.random_col_index_at(x)
+	return { y }
 end
 
 function calculate_text_piece_bounds(input_str, patterns) -- { start_index, end_index}, 0-indexed
@@ -179,6 +205,16 @@ function utility.load_template(template_path)
 		lines[#lines + 1] = current_text
 	end
 	return table.concat(lines, "\n")
+end
+
+function utility.load_rectangle_with_line(middle_line)
+	local rectange_template = utility.load_template(template_index.Rectangle)
+	local rectangle_lines = utility.split_str(rectange_template, "\n")
+	--The last line is cut, we want to avoid running into it if possible -> -1
+
+	local result = { rectangle_lines[1], "\n", middle_line, "\n", rectangle_lines[2] }
+
+	return table.concat(result, "\n")
 end
 
 return utility
