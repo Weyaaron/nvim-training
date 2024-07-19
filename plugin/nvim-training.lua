@@ -1,4 +1,3 @@
-local internal_config = require("nvim-training.internal_config")
 if vim.g.loaded_training == 1 then
 	print("Already loaded")
 	return
@@ -50,7 +49,7 @@ local function loop(autocmd_callback_data)
 		if current_autocmd > 0 then
 			vim.api.nvim_del_autocmd(current_autocmd)
 		end
-		previous_task_result = current_task:teardown(autocmd_callback_data)
+		previous_task_result = current_task:deactivate(autocmd_callback_data)
 		task_count = task_count + 1
 		if previous_task_result then
 			success_count = success_count + 1
@@ -95,6 +94,7 @@ local function loop(autocmd_callback_data)
 	--This line ensures that the highlights of previous tasks are discarded.
 	utility.clear_all_our_highlights()
 	current_task = resoveld_scheduler:next(current_task, previous_task_result):new()
+	current_task:activate()
 
 	--This gives tasks some options to configure the header, for example with a prefix and a suffix to turn the header into a block comment in a programming language
 	local additional_header_values = current_task:construct_optional_header_args()
@@ -113,7 +113,7 @@ local function loop(autocmd_callback_data)
 		header.store_key_value_in_header("_d_", current_task:description())
 		header.construct_header()
 	end)()
-	current_autocmd = vim.api.nvim_create_autocmd({ current_task.autocmd }, { callback = loop })
+	current_autocmd = vim.api.nvim_create_autocmd({ current_task:metadata().autocmd }, { callback = loop })
 	toogle_discard = true
 end
 

@@ -1,27 +1,23 @@
-.idea 
 
 dump.txt
-
 scratch
 training.txt
-
+training.lua
 
 dev_setup.lua
 
-
-*.test
 test.lua
 scratch.lua
 current_config.json
 logs
-*.log
-
 start_locally.lua
-
 notes.md
-
 start.lua
 
+*.test
+*.log
+
+.idea 
 
 
 # Compiled Lua sources

@@ -33,7 +33,7 @@ function MoveFunctions:new()
 	return base
 end
 
-function MoveFunctions:teardown(autocmd_callback_data)
+function MoveFunctions:deactivate(autocmd_callback_data)
 	local cursor_pos = vim.api.nvim_win_get_cursor(0)
 	print(cursor_pos[1], cursor_pos[2])
 	return false

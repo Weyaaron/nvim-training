@@ -22,8 +22,9 @@ end
 local index = {
 	All = TaskCollection:new("All", "All of the current tasks", all_task_keys),
 	Movements = TaskCollection:new("All", "All tasks involving movements", movement_tasks),
-	AllExludingMovements = TaskCollection:new("All", "All tasks involving movements", non_movement_tasks),
-	Programming = TaskCollection:new("All", "All tasks involving programming", { "CommentLine", "CommentLineBlock" }),
+	-- AllExludingMovements = TaskCollection:new("All", "All tasks involving movements", non_movement_tasks),
+	-- Programming = TaskCollection:new("All", "All tasks involving programming", { "CommentLine", "CommentLineBlock" }),
+	-- Testing = TaskCollection:new("All", "All tasks involving programming", { "MoveWord" }),
 }
 
 return index

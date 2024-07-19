@@ -21,7 +21,7 @@ function utility.add_pair_and_place_cursor(bracket_pair)
 
 	utility.move_cursor_to_random_point()
 	local cursor_pos = vim.api.nvim_win_get_cursor(0)
-	local line = utility.get_line(cursor_pos[1] - 1)
+	local line = utility.get_line(cursor_pos[1])
 	local distance = 5
 	local start_of_line = string.sub(line, 0, cursor_pos[2])
 	local middle_piece = string.sub(line, cursor_pos[2], cursor_pos[2] + distance)
@@ -166,13 +166,11 @@ function utility.split_str(input, sep)
 end
 
 function utility.load_template(template_path)
-	local line_size = 70
-
 	local lines = {}
 
 	local template_as_line = string.gsub(template_path, "\n", " ")
-	for i = 1, #template_as_line, line_size do
-		local current_text = string.sub(template_as_line, i, i + line_size)
+	for i = 1, #template_as_line, internal_config.line_length do
+		local current_text = string.sub(template_as_line, i, i + internal_config.line_length)
 		lines[#lines + 1] = current_text
 	end
 	return table.concat(lines, "\n")

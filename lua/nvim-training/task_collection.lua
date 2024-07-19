@@ -13,7 +13,13 @@ function TaskCollection:new(name, desc, task_names)
 	for key, value in pairs(task_names) do
 		local new_val = task_index[value]
 		if not new_val then
-			print("Unable to load '" .. value .. "' into collection '".. name .."'. Please check spelling/report an issue!")
+			print(
+				"Unable to load '"
+					.. value
+					.. "' into collection '"
+					.. name
+					.. "'. Please check spelling/report an issue!"
+			)
 		end
 		base.tasks[#base.tasks + 1] = task_index[value]
 	end

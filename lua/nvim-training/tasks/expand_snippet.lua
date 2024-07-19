@@ -2,7 +2,8 @@ local Task = require("nvim-training.task")
 local utility = require("nvim-training.utility")
 
 local internal_config = require("nvim-training.internal_config")
-local ExpandSnippet = Task:new()
+local ExpandSnippet = {}
+setmetatable(ExpandSnippet, { __index = Task })
 
 ExpandSnippet.__index = ExpandSnippet
 
@@ -22,7 +23,7 @@ function ExpandSnippet:new()
 	return base
 end
 
-function ExpandSnippet:teardown(autocmd_callback_data)
+function ExpandSnippet:deactivate(autocmd_callback_data)
 	local ith_line = utility.get_line(self.target_line)
 	print("Line" .. ith_line)
 end

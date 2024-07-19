@@ -10,7 +10,7 @@ function YankTask:new()
 	return base
 end
 
-function YankTask:teardown(autocmd_callback_data)
+function YankTask:deactivate(autocmd_callback_data)
 	local register = self.chosen_register
 	local register_content = vim.fn.getreg('"' .. register)
 

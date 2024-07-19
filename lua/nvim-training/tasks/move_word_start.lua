@@ -44,7 +44,7 @@ function MoveWordStart:new()
 	return base
 end
 
-function MoveWordStart:teardown(autocmd_args)
+function MoveWordStart:deactivate(autocmd_args)
 	print(vim.api.nvim_win_get_cursor(0)[2], self.target_y_pos)
 	return vim.api.nvim_win_get_cursor(0)[2] == self.target_y_pos
 end

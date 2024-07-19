@@ -1,14 +1,21 @@
 local utility = require("nvim-training.utility")
 local Task = require("nvim-training.task")
-local MoveWordEnd = Task:new()
+local MoveWordEnd = {}
 MoveWordEnd.__index = MoveWordEnd
 
+setmetatable(MoveWordEnd, { __index = Task })
+MoveWordEnd.__metadata = {
+	autocmd = "CursorMoved",
+	desc = "Move to the end of the current 'word'.",
+	instruction = "Move to the end of the current 'word'.",
+}
 function MoveWordEnd:new()
 	local base = Task:new()
 	setmetatable(base, { __index = MoveWordEnd })
-	base.autocmd = "CursorMoved"
 	base.target_y_pos = 0
-
+	return base
+end
+function MoveWordEnd:activate()
 	local function _inner_update()
 		local cursor_at_line_start = false
 
@@ -32,19 +39,14 @@ function MoveWordEnd:new()
 		if cursor_is_at_wordend then
 			offset = 1
 		end
-		base.target_y_pos = word_positions[word_index + offset][2] - 1
+		self.target_y_pos = word_positions[word_index + offset][2] - 1
 	end
 	vim.schedule_wrap(_inner_update)()
-	return base
 end
 
-function MoveWordEnd:teardown(autocmd_args)
+function MoveWordEnd:deactivate(autocmd_args)
 	local current_cursor_pos = vim.api.nvim_win_get_cursor(0)
 	return current_cursor_pos[2] == self.target_y_pos
-end
-
-function MoveWordEnd:description()
-	return "Move to the end of the current 'word'."
 end
 
 return MoveWordEnd
