@@ -124,7 +124,12 @@ function utility.get_line(index)
 end
 
 function utility.random_col_index_at(index)
-	return math.random(0, #utility.get_line(index))
+	local line_length = #utility.get_line(index)
+	-- local right_bound = math.max(line_length, 40)
+	--        -- 10 - Werte zwischen 0 und 10
+	-- local left_bound = math.min(20, line_length)
+	return math.random(0, line_length)
+	--Todo: Does this work out as intendet? If yes, use
 end
 
 function utility.clear_all_our_highlights()
