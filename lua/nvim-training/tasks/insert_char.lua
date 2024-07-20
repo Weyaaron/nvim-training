@@ -5,7 +5,7 @@ local InsertChar = {}
 InsertChar.__index = InsertChar
 
 --Todo: Update once implementation work
-InsertChar.__metadata = { autocmd = "TextChangedI", desc = "Insert char", instruction = "Move" }
+InsertChar.__metadata = { autocmd = "TextChangedI", desc = "Insert char", instructions = "Move" }
 
 function InsertChar:new()
 	local base = Task:new()
@@ -26,7 +26,7 @@ function InsertChar:deactivate(autocmd_callback_data)
 	print("c" .. tostring(char_at_cursor))
 	return char_at_cursor == "x"
 end
-function InsertChar:description()
+function InsertChar:instructions()
 	return "Insert the character 'x' at the cursor and leave InsertMode."
 end
 

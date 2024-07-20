@@ -9,7 +9,7 @@ setmetatable(CommentLineBlock, { __index = TaskLua })
 CommentLineBlock.__metadata = {
 	autocmd = "TextChanged",
 	desc = "Change the current line into a block comment.",
-	instruction = "Change the current line into a block comment.",
+	instructions = "Change the current line into a block comment.",
 }
 function CommentLineBlock:new()
 	local base = TaskLua:new()

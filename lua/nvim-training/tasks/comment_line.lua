@@ -10,7 +10,7 @@ setmetatable(CommentLine, { __index = TaskLua })
 CommentLine.__metadata = {
 	autocmd = "TextChanged",
 	desc = "Change the current line into a single line comment.",
-	instruction = "Change the current line into a single line comment.",
+	instructions = "Change the current line into a single line comment.",
 }
 function CommentLine:new()
 	local base = TaskLua:new()

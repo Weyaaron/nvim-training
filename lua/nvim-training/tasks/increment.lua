@@ -1,13 +1,13 @@
 local Task = require("nvim-training.task")
 local utility = require("nvim-training.utility")
 local internal_config = require("nvim-training.internal_config")
-
+--Todo: Fix the zeros
 local Increment = {}
 Increment.__index = Increment
 Increment.__metadata = {
 	autocmd = "CursorMoved",
 	desc = "Increment the value at the cursor.",
-	instruction = "Increment/Decrement the value at the cursor.",
+	instructions = "Increment/Decrement the value at the cursor.",
 }
 
 setmetatable(Increment, { __index = Task })
@@ -67,7 +67,7 @@ function Increment:deactivate(autocmd_callback_data)
 	return word_found
 end
 
-function Increment:description()
+function Increment:instructions()
 	return self.mode .. " the number at the cursor."
 end
 

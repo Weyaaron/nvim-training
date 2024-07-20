@@ -5,7 +5,7 @@ local DeleteLineTask = {}
 DeleteLineTask.__index = DeleteLineTask
 
 DeleteLineTask.__metadata =
-	{ autocmd = "TextChanged", desc = "Delete the current line.", instruction = "Delete the current line." }
+	{ autocmd = "TextChanged", desc = "Delete the current line.", instructions = "Delete the current line." }
 
 setmetatable(DeleteLineTask, { __index = Task })
 function DeleteLineTask:new()

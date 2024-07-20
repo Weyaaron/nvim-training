@@ -6,7 +6,7 @@ local internal_config = require("nvim-training.internal_config")
 local MoveMark = {}
 MoveMark.__index = MoveMark
 setmetatable(MoveMark, { __index = Task })
-MoveMark.__metadata = { autocmd = "CursorMoved", desc = "Move to a mark", instruction = "" }
+MoveMark.__metadata = { autocmd = "CursorMoved", desc = "Move to a mark", instructions = "" }
 
 function MoveMark:new()
 	local base = Task:new()
@@ -39,7 +39,7 @@ function MoveMark:deactivate(autocmd_callback_data)
 	return self.target_line == vim.api.nvim_win_get_cursor(0)[1]
 end
 
-function MoveMark:description()
+function MoveMark:instructions()
 	return "Move to mark " .. self.target_mark_name
 end
 

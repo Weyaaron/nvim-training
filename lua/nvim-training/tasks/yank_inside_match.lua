@@ -9,7 +9,7 @@ setmetatable(YankInsideMatch, { __index = TaskYank })
 YankInsideMatch.__metadata = {
 	autocmd = "TextYankPost",
 	desc = "Yank inside the current match.",
-	instruction = "Yank inside the current match.",
+	instructions = "Yank inside the current match.",
 }
 function YankInsideMatch:new()
 	local base = TaskYank:new()

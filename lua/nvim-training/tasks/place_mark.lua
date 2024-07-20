@@ -4,7 +4,7 @@ local utility = require("nvim-training.utility")
 local PlaceMark = {}
 PlaceMark.__index = PlaceMark
 setmetatable(PlaceMark, { __index = Task })
-PlaceMark.__metadata = { autocmd = "CursorMoved", desc = "Place a mark", instruction = "" }
+PlaceMark.__metadata = { autocmd = "CursorMoved", desc = "Place a mark", instructions = "" }
 
 function PlaceMark:new()
 	local base = Task:new()
@@ -46,7 +46,7 @@ function PlaceMark:deactivate(autocmd_callback_data)
 	return self.success
 end
 
-function PlaceMark:description()
+function PlaceMark:instructions()
 	return "Place the mark '" .. self.target_mark .. "'"
 end
 

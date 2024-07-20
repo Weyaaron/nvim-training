@@ -7,7 +7,7 @@ setmetatable(MoveEndOfLine, { __index = Task })
 MoveEndOfLine.__metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move to the end of the current line.",
-	instruction = "Move to the end of the current line.",
+	instructions = "Move to the end of the current line.",
 }
 function MoveEndOfLine:new()
 	local base = Task:new()

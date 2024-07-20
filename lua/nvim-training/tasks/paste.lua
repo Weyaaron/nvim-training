@@ -5,7 +5,7 @@ local user_config = require("nvim-training.user_config")
 local Paste = {}
 Paste.__index = Paste
 
-Paste.__metadata = { autocmd = "TextChanged", desc = "Paste from a given register.", instruction = "" }
+Paste.__metadata = { autocmd = "TextChanged", desc = "Paste from a given register.", instructions = "" }
 
 setmetatable(Paste, { __index = Task })
 function Paste:new()
@@ -35,7 +35,7 @@ function Paste:deactivate(autocmd_callback_data)
 	return search < cursor_pos[2]
 end
 
-function Paste:description()
+function Paste:instructions()
 	return "Paste the text from register '" .. self.choosen_reg .. "'"
 end
 

@@ -5,7 +5,7 @@ local TaskYank = require("nvim-training.tasks.task_yank")
 local YankIntoRegister = {}
 YankIntoRegister.__index = YankIntoRegister
 
-YankIntoRegister.__metadata = { autocmd = "TextYankPost", desc = "Copy a line into a register.", instruction = "" }
+YankIntoRegister.__metadata = { autocmd = "TextYankPost", desc = "Copy a line into a register.", instructions = "" }
 
 setmetatable(YankIntoRegister, { __index = TaskYank })
 function YankIntoRegister:new()
@@ -30,7 +30,7 @@ function YankIntoRegister:activate()
 	vim.schedule_wrap(_inner_update)()
 end
 
-function YankIntoRegister:description()
+function YankIntoRegister:instructions()
 	return "Copy the current line into register " .. self.chosen_register
 end
 

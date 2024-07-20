@@ -8,7 +8,7 @@ YankEndOfLine.__index = YankEndOfLine
 YankEndOfLine.__metadata = {
 	autocmd = "TextYankPost",
 	desc = "Yank to the end of the current line.",
-	instruction = "Yank to the end of the current line.",
+	instructions = "Yank to the end of the current line.",
 }
 
 setmetatable(YankEndOfLine, { __index = TaskYank })

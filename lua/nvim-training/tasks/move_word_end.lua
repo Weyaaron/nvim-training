@@ -7,7 +7,7 @@ setmetatable(MoveWordEnd, { __index = Task })
 MoveWordEnd.__metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move to the end of the current 'word'.",
-	instruction = "Move to the end of the current 'word'.",
+	instructions = "Move to the end of the current 'word'.",
 }
 function MoveWordEnd:new()
 	local base = Task:new()

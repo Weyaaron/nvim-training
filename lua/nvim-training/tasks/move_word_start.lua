@@ -1,5 +1,7 @@
 local utility = require("nvim-training.utility")
 local Task = require("nvim-training.task")
+
+--Todo:
 local MoveWordStart = Task:new()
 MoveWordStart.__index = MoveWordStart
 
@@ -49,7 +51,7 @@ function MoveWordStart:deactivate(autocmd_args)
 	return vim.api.nvim_win_get_cursor(0)[2] == self.target_y_pos
 end
 
-function MoveWordStart:description()
+function MoveWordStart:instructions()
 	return "Move to the beginning of the curent 'word'."
 end
 

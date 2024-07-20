@@ -4,8 +4,11 @@ local MoveToStartOfFile = {}
 MoveToStartOfFile.__index = MoveToStartOfFile
 
 setmetatable(MoveToStartOfFile, { __index = TaskStartRandomCursor })
-MoveToStartOfFile.__metadata =
-	{ autocmd = "CursorMoved", desc = "Move to the start of the file.", instruction = "Move to the start of the file." }
+MoveToStartOfFile.__metadata = {
+	autocmd = "CursorMoved",
+	desc = "Move to the start of the file.",
+	instructions = "Move to the start of the file.",
+}
 function MoveToStartOfFile:new()
 	local base = TaskStartRandomCursor:new()
 	setmetatable(base, { __index = MoveToStartOfFile })

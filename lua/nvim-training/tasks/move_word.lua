@@ -3,7 +3,7 @@ local Task = require("nvim-training.task")
 local MoveWord = {}
 MoveWord.__index = MoveWord
 setmetatable(MoveWord, { __index = Task })
-MoveWord.__metadata = { autocmd = "CursorMoved", desc = "Move using 'word'-movent", instruction = "Move a word." }
+MoveWord.__metadata = { autocmd = "CursorMoved", desc = "Move using 'word'-movent", instructions = "Move a word." }
 
 function MoveWord:new()
 	local base = Task:new()

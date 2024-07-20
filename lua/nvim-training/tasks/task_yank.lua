@@ -5,7 +5,7 @@ TaskYank.__index = TaskYank
 
 setmetatable(TaskYank, { __index = Task })
 
-TaskYank.__metadata = { autocmd = "", desc = "", instruction = "" }
+TaskYank.__metadata = { autocmd = "", desc = "", instructions = "" }
 
 function TaskYank:new()
 	local base = Task:new()

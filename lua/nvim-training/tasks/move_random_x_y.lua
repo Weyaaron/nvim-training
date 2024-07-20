@@ -6,7 +6,7 @@ local MoveRandomXY = {}
 MoveRandomXY.__index = MoveRandomXY
 
 MoveRandomXY.__metadata =
-	{ autocmd = "CursorMoved", desc = "Move to the random highlight.", instruction = "Move to the random highlight." }
+	{ autocmd = "CursorMoved", desc = "Move to the random highlight.", instructions = "Move to the random highlight." }
 setmetatable(MoveRandomXY, { __index = Task })
 function MoveRandomXY:new()
 	local base = Task:new()

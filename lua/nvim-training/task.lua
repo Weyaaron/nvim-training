@@ -14,12 +14,9 @@ function Task:metadata()
 	return self.__metadata
 end
 function Task:deactivate(autocmd_callback_data) end
-function Task:description()
-	return self.__metadata.instruction
-end
 
-function Task:instruction()
-	return self.__metadata.desc
+function Task:instructions()
+	return self.__metadata.instructions
 end
 
 function Task:construct_optional_header_args()

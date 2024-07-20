@@ -4,7 +4,7 @@ local template_index = require("nvim-training.template_index")
 local MoveWORD = {}
 MoveWORD.__index = MoveWORD
 
-MoveWORD.__metadata = { autocmd = "CursorMoved", desc = "Move using 'word'-movent", instruction = "Move" }
+MoveWORD.__metadata = { autocmd = "CursorMoved", desc = "Move using 'word'-movent", instructions = "Move" }
 
 setmetatable(MoveWORD, { __index = Task })
 
@@ -54,7 +54,7 @@ function MoveWORD:deactivate(autocmd_args)
 	return vim.api.nvim_win_get_cursor(0)[2] == self.target_y_pos
 end
 
-function MoveWORD:description()
+function MoveWORD:instructions()
 	return "Move a 'WORD'."
 end
 

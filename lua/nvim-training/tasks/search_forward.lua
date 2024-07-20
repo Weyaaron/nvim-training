@@ -5,7 +5,7 @@ local SearchForward = {}
 SearchForward.__index = SearchForward
 
 setmetatable(SearchForward, { __index = Task })
-SearchForward.__metadata = { autocmd = "CursorMoved", desc = "Move using 'word'-movent", instruction = "Move" }
+SearchForward.__metadata = { autocmd = "CursorMoved", desc = "Move using 'word'-movent", instructions = "Move" }
 function SearchForward:new()
 	local base = Task:new()
 	setmetatable(base, { __index = SearchForward })
@@ -48,7 +48,7 @@ function SearchForward:deactivate(autocmd_callback_data)
 	return cursor_pos[1] == self.x_target and cursor_pos[2] == self.y_target - 1
 end
 
-function SearchForward:description()
+function SearchForward:instructions()
 	return "Search for '" .. self.search_target .. "'"
 end
 

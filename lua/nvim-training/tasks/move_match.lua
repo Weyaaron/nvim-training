@@ -9,7 +9,7 @@ MoveMatch.__index = MoveMatch
 setmetatable(MoveMatch, { __index = Task })
 
 MoveMatch.__metadata =
-	{ autocmd = "CursorMoved", desc = "Move to the current match.", instruction = "Move to the current match." }
+	{ autocmd = "CursorMoved", desc = "Move to the current match.", instructions = "Move to the current match." }
 function MoveMatch:new()
 	local base = Task:new()
 	setmetatable(base, { __index = MoveMatch })

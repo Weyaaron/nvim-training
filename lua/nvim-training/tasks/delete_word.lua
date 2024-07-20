@@ -3,7 +3,7 @@ local Task = require("nvim-training.task")
 
 local DeleteWordTask = Task:new()
 DeleteWordTask.__index = DeleteWordTask
-
+--Todo: Fxi
 function DeleteWordTask:new()
 	local base = Task:new()
 	setmetatable(base, { __index = DeleteWordTask })
@@ -39,7 +39,7 @@ function DeleteWordTask:deactivate(autocmd_callback_data)
 	local word_positions = utility.calculate_word_bounds(line)
 	return self.word_position_length - 1 == #word_positions
 end
-function DeleteWordTask:description()
+function DeleteWordTask:instructions()
 	return "Delete using the 'word'-motion."
 end
 

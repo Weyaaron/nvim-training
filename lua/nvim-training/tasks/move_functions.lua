@@ -39,7 +39,7 @@ function MoveFunctions:deactivate(autocmd_callback_data)
 	return false
 end
 
-function MoveFunctions:description()
+function MoveFunctions:instructions()
 	return "Search for '" .. self.search_target .. "'"
 end
 

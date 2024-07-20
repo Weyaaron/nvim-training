@@ -9,7 +9,7 @@ setmetatable(DeleteInsideMatch, { __index = Task })
 DeleteInsideMatch.__metadata = {
 	autocmd = "TextChanged",
 	desc = "Delete inside the current bracket pair.",
-	instruction = "Delete inside the current bracket pair.",
+	instructions = "Delete inside the current bracket pair.",
 }
 function DeleteInsideMatch:new()
 	local base = Task:new()

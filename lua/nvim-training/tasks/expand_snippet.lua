@@ -28,7 +28,7 @@ function ExpandSnippet:deactivate(autocmd_callback_data)
 	print("Line" .. ith_line)
 end
 
-function ExpandSnippet:description()
+function ExpandSnippet:instructions()
 	return "Expand the snippet at the cursor into 'sn a b c'"
 end
 
