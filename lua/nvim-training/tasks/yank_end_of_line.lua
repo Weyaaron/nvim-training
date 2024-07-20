@@ -1,30 +1,31 @@
 local utility = require("nvim-training.utility")
 local internal_config = require("nvim-training.internal_config")
-local YankTask = require("nvim-training.tasks.yank")
+local TaskYank = require("nvim-training.tasks.task_yank")
 
-local YankEndOfLine = YankTask:new()
+local YankEndOfLine = {}
 YankEndOfLine.__index = YankEndOfLine
 
+YankEndOfLine.__metadata = {
+	autocmd = "TextYankPost",
+	desc = "Yank to the end of the current line.",
+	instruction = "Yank to the end of the current line.",
+}
+
+setmetatable(YankEndOfLine, { __index = TaskYank })
 function YankEndOfLine:new()
-	local base = YankTask:new()
-
+	local base = TaskYank:new()
 	setmetatable(base, { __index = YankEndOfLine })
-
-	base.autocmd = "TextYankPost"
-	local function _inner_update()
-		utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
-		local x_start = math.random(3) + internal_config.header_length
-		local y_start = math.random(3, 15)
-		local lines = vim.api.nvim_buf_get_lines(0, x_start - 1, vim.api.nvim_buf_line_count(0), false)
-		base.target_text = string.sub(lines[1], y_start + 1, #lines[1])
-		vim.api.nvim_win_set_cursor(0, { x_start, y_start })
-	end
-	vim.schedule_wrap(_inner_update)()
+	base.chosen_register = '"'
 	return base
 end
-
-function YankEndOfLine:description()
-	return "Yank the text from the cursor to the end of the line"
+function YankEndOfLine:activate()
+	local function _inner_update()
+		utility.set_buffer_to_rectangle_and_place_cursor_randomly()
+		local cursor_pos = vim.api.nvim_win_get_cursor(0)
+		local line = utility.get_line(cursor_pos[1])
+		self.target_text = string.sub(line, cursor_pos[2] + 1, #line)
+	end
+	vim.schedule_wrap(_inner_update)()
 end
 
 return YankEndOfLine
