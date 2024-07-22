@@ -1,3 +1,4 @@
+local utility = require("nvim-training.utility")
 local Task = {}
 Task.__index = Task
 Task.__metadata = {}
@@ -18,6 +19,7 @@ function Task:deactivate(autocmd_callback_data) end
 function Task:instructions()
 	return self.__metadata.instructions
 end
+
 
 function Task:construct_optional_header_args()
 	--This might someday be merged with description, but remains a special case for the time being.

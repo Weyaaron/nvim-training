@@ -5,8 +5,12 @@ local internal_config = require("nvim-training.internal_config")
 local MoveRandomXY = {}
 MoveRandomXY.__index = MoveRandomXY
 
-MoveRandomXY.__metadata =
-	{ autocmd = "CursorMoved", desc = "Move to the random highlight.", instructions = "Move to the random highlight." }
+MoveRandomXY.__metadata = {
+	autocmd = "CursorMoved",
+	desc = "Move to the random highlight.",
+	instructions = "Move to the random highlight.",
+	notes = "This task assumes the existence of a plugin that provides such a motion",
+}
 setmetatable(MoveRandomXY, { __index = Task })
 function MoveRandomXY:new()
 	local base = Task:new()

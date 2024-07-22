@@ -1,3 +1,4 @@
+local task_collection_index = require("nvim-training.task_collection_index")
 if vim.g.loaded_training == 1 then
 	print("Already loaded")
 	return
