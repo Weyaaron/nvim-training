@@ -39,7 +39,7 @@ local function loop(autocmd_callback_data)
 	if autocmd_callback_data then
 		if autocmd_callback_data then
 			--Todo: Extend after more event types are used.
-			if autocmd_callback_data["event"] == "TextYankPost" then
+			if autocmd_callback_data["event"] == "TextYankPost" or autocmd_callback_data["event"] == "InsertLeave" then
 				toogle_discard = false
 			end
 		end
@@ -114,6 +114,7 @@ local function loop(autocmd_callback_data)
 		header.store_key_value_in_header("_d_", current_task:instructions())
 		header.construct_header()
 	end)()
+
 	current_autocmd = vim.api.nvim_create_autocmd({ current_task:metadata().autocmd }, { callback = loop })
 	toogle_discard = true
 end

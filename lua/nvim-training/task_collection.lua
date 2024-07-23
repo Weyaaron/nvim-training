@@ -46,8 +46,6 @@ function TaskCollection:render_markdown(table_header)
 		end
 		-- lines[#lines + 1] = "| " .. task_name .. task_index[task_name]:new():render_markdown()
 		lines[#lines + 1] = "| " .. table.concat(pieces, " | ") .. " |"
-
-		-- print(vim.inspect(tag_pieces), vim.inspect(pieces))
 	end
 
 	table.sort(lines)

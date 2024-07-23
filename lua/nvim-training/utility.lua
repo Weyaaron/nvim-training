@@ -6,7 +6,7 @@ function utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
 	utility.update_buffer_respecting_header(utility.load_template(template_index.LoremIpsum))
 	utility.move_cursor_to_random_point()
 end
-
+--Todo: Fix this naming
 function utility.set_buffer_to_rectangle_and_place_cursor_randomly()
 	local lorem_ipsum = utility.load_template(template_index.LoremIpsum)
 	local lorem_lines = utility.split_str(lorem_ipsum, "\n")

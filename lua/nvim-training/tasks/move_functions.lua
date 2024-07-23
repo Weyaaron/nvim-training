@@ -11,7 +11,6 @@ function MoveFunctions:new()
 	base.position = { 15, 5 }
 	vim.cmd("e training.lua")
 
-
 	local function _inner_update()
 		local lua_text = template_index.LuaFunctions
 
@@ -34,7 +33,6 @@ end
 
 function MoveFunctions:deactivate(autocmd_callback_data)
 	local cursor_pos = vim.api.nvim_win_get_cursor(0)
-	print(cursor_pos[1], cursor_pos[2])
 	return false
 end
 

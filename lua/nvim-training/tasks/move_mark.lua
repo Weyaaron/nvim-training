@@ -6,13 +6,16 @@ local internal_config = require("nvim-training.internal_config")
 local MoveMark = {}
 MoveMark.__index = MoveMark
 setmetatable(MoveMark, { __index = Task })
-MoveMark.__metadata = { autocmd = "CursorMoved", desc = "Move to a mark", instructions = "" , tags = "mark, movement, vertical"}
+MoveMark.__metadata =
+	{ autocmd = "CursorMoved", desc = "Move to a mark", instructions = "", tags = "mark, movement, vertical" }
 
 function MoveMark:new()
 	local base = Task:new()
 	setmetatable(base, { __index = MoveMark })
 	base.target_mark_name = user_config.possible_marks_list[math.random(#user_config.possible_marks_list)]
 	base.target_line = math.random(internal_config.header_length, internal_config.header_length + 4)
+	-- base.target_mark_name = "r"
+	-- base.target_line = 11
 	return base
 end
 

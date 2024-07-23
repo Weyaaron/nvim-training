@@ -7,8 +7,12 @@ MoveMatch.__index = MoveMatch
 --Todo: Rework these kinds of tasks to stay in the middle of the screen instead of jumping around like a madmen
 setmetatable(MoveMatch, { __index = Task })
 
-MoveMatch.__metadata =
-	{ autocmd = "CursorMoved", desc = "Move to the current match.", instructions = "Move to the current match." , tags = "match, movement"}
+MoveMatch.__metadata = {
+	autocmd = "CursorMoved",
+	desc = "Move to the current match.",
+	instructions = "Move to the current match.",
+	tags = "match, movement",
+}
 function MoveMatch:new()
 	local base = Task:new()
 	setmetatable(base, { __index = MoveMatch })

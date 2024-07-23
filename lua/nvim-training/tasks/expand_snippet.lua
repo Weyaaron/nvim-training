@@ -24,7 +24,6 @@ end
 
 function ExpandSnippet:deactivate(autocmd_callback_data)
 	local ith_line = utility.get_line(self.target_line)
-	print("Line" .. ith_line)
 end
 
 function ExpandSnippet:instructions()

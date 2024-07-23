@@ -4,7 +4,7 @@ local utility = require("nvim-training.utility")
 local PlaceMark = {}
 PlaceMark.__index = PlaceMark
 setmetatable(PlaceMark, { __index = Task })
-PlaceMark.__metadata = { autocmd = "CursorMoved", desc = "Place a mark", instructions = "", tags ="marks" }
+PlaceMark.__metadata = { autocmd = "CursorMoved", desc = "Place a mark", instructions = "", tags = "marks" }
 
 function PlaceMark:new()
 	local base = Task:new()
@@ -28,7 +28,6 @@ function PlaceMark:activate()
 			local mark_pos = vim.fn.getpos("'" .. self.target_mark)
 			local cursor_pos = vim.api.nvim_win_get_cursor(0)
 			local is_placed = cursor_pos[1] == mark_pos[2] and cursor_pos[2] + 1 == mark_pos[3]
-			print(cursor_pos[1], mark_pos[2], cursor_pos[2], mark_pos[3], is_placed)
 			if is_placed then
 				self.success = true
 				vim.api.nvim_exec_autocmds("CursorMoved", {})

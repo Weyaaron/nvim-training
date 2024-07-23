@@ -41,7 +41,7 @@ The scheduler and the list
 of task collections. The scheduler is responsible for choosing the
 next task. The possible choices are listed below.
 A task collection is a set of tasks with some common attributes,
-some examples are given below. Support for custom collections 
+some examples are given below. Support for custom collections
 is under way.
 
 You may choose all of the settings
@@ -114,6 +114,8 @@ not necesarrily reflected in the code.
 | CommentLine| Change the current line into a comment. | This assumes the use of a plugin, it is not tested with the buildin-commenting-feature.
 | CommentLineBlock| Change the current line into a block-comment. | This assumes the use of a plugin, it is not tested with the buildin-commenting-feature.
 
+
+
 # Configuration
 A interface for configuration is provided. A example call is provided:
 ```lua
@@ -123,7 +125,7 @@ training.configure({
 	possible_register_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }, -- A list of possible registers. (Optional, this the default)
 	audio_feedback = true, --Enables/Disables audio feedback
 	audio_feedback_success = function() -- What actually happens when audio feedback is run. You may test this or replace it with your own function as you see fit.
-		os.execute("play media/click.flac 2> /dev/null")
+		os.execute("play media/click.flac 2> /dev/null")--This command is available from the package 'sox'
 	end,
 	audio_feedback_failure = function()
 		os.execute("play media/clack.flac 2> /dev/null")

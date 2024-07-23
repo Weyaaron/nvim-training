@@ -3,6 +3,7 @@ local Task = require("nvim-training.task")
 
 local DeleteCharTask = {}
 DeleteCharTask.__index = DeleteCharTask
+setmetatable(DeleteCharTask, { __index = Task })
 DeleteCharTask.__metadata = {
 	autocmd = "TextChanged",
 	desc = "Delete the char at the cursor.",
@@ -10,7 +11,6 @@ DeleteCharTask.__metadata = {
 	tags = "deletion, movement",
 }
 
-setmetatable(DeleteCharTask, { __index = Task })
 function DeleteCharTask:new()
 	local base = Task:new()
 	setmetatable(base, { __index = DeleteCharTask })

@@ -14,19 +14,20 @@ local exported_tasks = {
 	MoveStartOfLine = require("nvim-training.tasks.move_start_of_line"),
 	MoveWORD = require("nvim-training.tasks.move_WORD"),
 	MoveWord = require("nvim-training.tasks.move_word"),
+	MoveWordStart = require("nvim-training.tasks.move_word_start"),
 	MoveWordEnd = require("nvim-training.tasks.move_word_end"),
 	Paste = require("nvim-training.tasks.paste"),
 	SearchForward = require("nvim-training.tasks.search_forward"),
 	YankEndOfLine = require("nvim-training.tasks.yank_end_of_line"),
 	YankInsideMatch = require("nvim-training.tasks.yank_inside_match"),
 	YankIntoRegister = require("nvim-training.tasks.yank_into_register"),
+	InsertChar = require("nvim-training.tasks.insert_char"), -- Currently broken
+	AppendChar = require("nvim-training.tasks.append_char"), -- Currently broken
 	-- Barrier of tasks done, todo: Fix them
-	-- InsertChar= require("nvim-training.tasks.insert_char"), Currently broken
-	-- Todo: Implement adding, probably similar problem = require("nvim-training.tasks.insert_char"), Currently broken
+	--DeleteWord = require("nvim-training.tasks.delete_word"), Not quite done
 	-- Todo: Migrate the remaining task to rectangle if possible
-	-- MoveMark = require("nvim-training.tasks.move_mark"),
+	-- MoveMark = require("nvim-training.tasks.move_mark"), --This one keeps being broken
 	-- PlaceMark= require("nvim-training.tasks.place_mark"),
-	-- DeleteWord= require("nvim-training.tasks.place_mark"),
 	-- MoveWordStart ?? How
 	-- MoveyankWork ...
 }
