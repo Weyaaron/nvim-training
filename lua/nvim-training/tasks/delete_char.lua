@@ -7,6 +7,7 @@ DeleteCharTask.__metadata = {
 	autocmd = "TextChanged",
 	desc = "Delete the char at the cursor.",
 	instructions = "Delete the char at the cursor.",
+	tags = "deletion, movement",
 }
 
 setmetatable(DeleteCharTask, { __index = Task })

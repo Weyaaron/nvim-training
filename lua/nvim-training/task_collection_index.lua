@@ -19,10 +19,22 @@ for key, value in pairs(all_task_keys) do
 	end
 end
 
+local test_tag = "movement"
+
+local tasks_with_tag = {}
+
+for key, value in pairs(task_index) do
+	local current_tag = value.__metadata.tags or ""
+	if current_tag:find(test_tag) then
+		tasks_with_tag[#tasks_with_tag + 1] = key
+	end
+end
+
 local index = {
 	All = TaskCollection:new("All", "All of the current tasks", all_task_keys),
 	Movements = TaskCollection:new("Movements", "All tasks involving movements", movement_tasks),
 	AllExludingMovements = TaskCollection:new("All", "All tasks involving movements", non_movement_tasks),
+	TasksWithTag = TaskCollection:new("All", "Tasks with tag", tasks_with_tag),
 	-- Programming = TaskCollection:new("All", "All tasks involving programming", { "CommentLine", "CommentLineBlock" }),
 	-- Testing = TaskCollection:new("All", "All tasks involving programming", { "MoveWord" }),
 }

@@ -8,6 +8,7 @@ MoveWordEnd.__metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move to the end of the current 'word'.",
 	instructions = "Move to the end of the current 'word'.",
+	tags = "movement, word, end, vertical",
 }
 function MoveWordEnd:new()
 	local base = Task:new()

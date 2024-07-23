@@ -1,5 +1,4 @@
 local utility = require("nvim-training.utility")
-local internal_config = require("nvim-training.internal_config")
 local TaskYank = require("nvim-training.tasks.task_yank")
 
 local YankEndOfLine = {}
@@ -9,6 +8,7 @@ YankEndOfLine.__metadata = {
 	autocmd = "TextYankPost",
 	desc = "Yank to the end of the current line.",
 	instructions = "Yank to the end of the current line.",
+	tags = "end, line, yank",
 }
 
 setmetatable(YankEndOfLine, { __index = TaskYank })

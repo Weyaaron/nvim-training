@@ -5,7 +5,12 @@ local TaskYank = require("nvim-training.tasks.task_yank")
 local YankIntoRegister = {}
 YankIntoRegister.__index = YankIntoRegister
 
-YankIntoRegister.__metadata = { autocmd = "TextYankPost", desc = "Copy a line into a register.", instructions = "" }
+YankIntoRegister.__metadata = {
+	autocmd = "TextYankPost",
+	desc = "Copy a line into a register.",
+	instructions = "",
+	tags = "register, copy, line, vertical",
+}
 
 setmetatable(YankIntoRegister, { __index = TaskYank })
 function YankIntoRegister:new()

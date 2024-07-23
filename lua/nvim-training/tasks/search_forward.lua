@@ -5,7 +5,12 @@ local SearchForward = {}
 SearchForward.__index = SearchForward
 
 setmetatable(SearchForward, { __index = Task })
-SearchForward.__metadata = { autocmd = "CursorMoved", desc = "Move using 'word'-movent", instructions = "Move" }
+SearchForward.__metadata = {
+	autocmd = "CursorMoved",
+	desc = "Move using 'word'-movent",
+	instructions = "Move",
+	tags = "search, movement, diagonal",
+}
 function SearchForward:new()
 	local base = Task:new()
 	setmetatable(base, { __index = SearchForward })

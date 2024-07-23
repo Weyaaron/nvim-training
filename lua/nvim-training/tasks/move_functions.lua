@@ -11,7 +11,6 @@ function MoveFunctions:new()
 	base.position = { 15, 5 }
 	vim.cmd("e training.lua")
 
-	base.autocmd = "CursorMoved"
 
 	local function _inner_update()
 		local lua_text = template_index.LuaFunctions

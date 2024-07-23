@@ -7,7 +7,6 @@ DeleteWordTask.__index = DeleteWordTask
 function DeleteWordTask:new()
 	local base = Task:new()
 	setmetatable(base, { __index = DeleteWordTask })
-	base.autocmd = "TextChanged"
 
 	local function _inner_update()
 		local cursor_at_line_start = false

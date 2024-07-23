@@ -3,8 +3,12 @@ local MoveToEndOfFile = {}
 MoveToEndOfFile.__index = MoveToEndOfFile
 
 setmetatable(MoveToEndOfFile, { __index = TaskStartRandomCursor })
-MoveToEndOfFile.__metadata =
-	{ autocmd = "CursorMoved", desc = "Move to the end the file.", instructions = "Move to the end of the file." }
+MoveToEndOfFile.__metadata = {
+	autocmd = "CursorMoved",
+	desc = "Move to the end the file.",
+	instructions = "Move to the end of the file.",
+	tags = "move, end, file, vertical",
+}
 function MoveToEndOfFile:new()
 	local base = TaskStartRandomCursor:new()
 

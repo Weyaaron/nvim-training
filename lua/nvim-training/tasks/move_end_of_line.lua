@@ -8,6 +8,7 @@ MoveEndOfLine.__metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move to the end of the current line.",
 	instructions = "Move to the end of the current line.",
+	tags = "move, end, line, horizontal",
 }
 function MoveEndOfLine:new()
 	local base = Task:new()

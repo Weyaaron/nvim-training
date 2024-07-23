@@ -4,8 +4,12 @@ local internal_config = require("nvim-training.internal_config")
 
 local MoveAbsoluteLine = {}
 
-MoveAbsoluteLine.__metadata =
-	{ autocmd = "CursorMoved", desc = "Move to the highlighted line", instructions = "Move to the highlighted line." }
+MoveAbsoluteLine.__metadata = {
+	autocmd = "CursorMoved",
+	desc = "Move to the highlighted line",
+	instructions = "Move to the highlighted line.",
+	tags = "move, line, vertical",
+}
 MoveAbsoluteLine.__index = MoveAbsoluteLine
 
 setmetatable(MoveAbsoluteLine, { __index = Task })

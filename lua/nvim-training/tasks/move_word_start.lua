@@ -1,14 +1,13 @@
 local utility = require("nvim-training.utility")
 local Task = require("nvim-training.task")
 
---Todo:
+--Todo: Apply new paradigm
 local MoveWordStart = Task:new()
 MoveWordStart.__index = MoveWordStart
 
 function MoveWordStart:new()
 	local base = Task:new()
 	setmetatable(base, { __index = MoveWordStart })
-	base.autocmd = "CursorMoved"
 	base.target_y_pos = 0
 
 	local function _inner_update()

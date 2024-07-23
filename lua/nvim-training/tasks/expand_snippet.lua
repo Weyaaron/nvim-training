@@ -12,7 +12,6 @@ function ExpandSnippet:new()
 	setmetatable(base, { __index = ExpandSnippet })
 
 	base.target_line = internal_config.header_length + 1
-	base.autocmd = "InsertLeave"
 	local function _inner_update()
 		local text = "sn\n"
 		utility.update_buffer_respecting_header(text)

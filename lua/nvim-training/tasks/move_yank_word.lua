@@ -6,7 +6,6 @@ MoveYankWord.__index = MoveYankWord
 function MoveYankWord:new()
 	local base = YankTask:new()
 	setmetatable(base, { __index = MoveYankWord })
-	base.autocmd = "TextYankPost"
 	base.target_text = ""
 
 	local function _inner_update()

@@ -11,7 +11,8 @@ CommentLine.__metadata = {
 	autocmd = "TextChanged",
 	desc = "Change the current line into a single line comment.",
 	instructions = "Change the current line into a single line comment.",
-	notes = "This assumes the use of a plugin, it is not tested with the buildin-commenting-feature. ",
+	notes = "Not available in vanilla-vim, needs plugin.",
+	tags = "programming, plugin, change",
 }
 function CommentLine:new()
 	local base = TaskLua:new()

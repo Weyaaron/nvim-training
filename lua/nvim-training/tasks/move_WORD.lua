@@ -3,15 +3,13 @@ local Task = require("nvim-training.task")
 local template_index = require("nvim-training.template_index")
 local MoveWORD = {}
 MoveWORD.__index = MoveWORD
-
-MoveWORD.__metadata = { autocmd = "CursorMoved", desc = "Move using 'word'-movent", instructions = "Move" }
-
 setmetatable(MoveWORD, { __index = Task })
+MoveWORD.__metadata =
+	{ autocmd = "CursorMoved", desc = "Move using 'word'-movent", instructions = "Move", tags = "movement, WORD" }
 
 function MoveWORD:new()
 	local base = Task:new()
 	setmetatable(base, { __index = MoveWORD })
-	base.autocmd = "CursorMoved"
 	base.target_y_pos = 0
 	return base
 end
