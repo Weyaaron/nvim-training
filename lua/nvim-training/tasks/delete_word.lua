@@ -1,8 +1,7 @@
 local utility = require("nvim-training.utility")
 local Task = require("nvim-training.task")
 
-local DeleteWordTask = Task:new()
-DeleteWordTask.__index = DeleteWordTask
+local DeleteWordTask = {}
 
 DeleteWordTask.__index = DeleteWordTask
 setmetatable(DeleteWordTask, { __index = Task })

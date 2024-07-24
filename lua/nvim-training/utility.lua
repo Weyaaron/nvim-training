@@ -217,4 +217,30 @@ function utility.load_rectangle_with_line(middle_line)
 	return table.concat(result, "\n")
 end
 
+function utility.filter_tasks_by_tags(tasks, tag_list)
+	local tasks_with_tag = {}
+	for i, tag_el in pairs(tag_list) do
+		for ii, task_el in pairs(tasks) do
+			local current_tag = task_el.__metadata.tags or ""
+			if current_tag:find(tag_el) then
+				tasks_with_tag[#tasks_with_tag + 1] = ii
+			end
+		end
+	end
+	return tasks_with_tag
+end
+
+function utility.discard_tasks_by_tags(tasks, tag_list)
+	local tasks_with_tag = {}
+	for i, tag_el in pairs(tag_list) do
+		for ii, task_el in pairs(tasks) do
+			local current_tag = task_el.__metadata.tags or ""
+			if current_tag:find(tag_el) == nil then
+				tasks_with_tag[#tasks_with_tag + 1] = ii
+			end
+		end
+	end
+	return tasks_with_tag
+end
+
 return utility

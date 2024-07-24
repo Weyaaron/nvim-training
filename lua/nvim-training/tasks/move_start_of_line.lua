@@ -6,7 +6,7 @@ MoveStartOfLine.__metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move to the start of the current line.",
 	instructions = "Move to the start of the current line.",
-	tags = "start, line, move",
+	tags = "start, line, movement",
 }
 
 setmetatable(MoveStartOfLine, { __index = Task })

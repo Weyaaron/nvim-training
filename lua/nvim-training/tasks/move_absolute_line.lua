@@ -8,7 +8,7 @@ MoveAbsoluteLine.__metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move to the highlighted line",
 	instructions = "Move to the highlighted line.",
-	tags = "move, line, vertical",
+	tags = "movement, line, vertical",
 }
 MoveAbsoluteLine.__index = MoveAbsoluteLine
 

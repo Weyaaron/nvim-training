@@ -5,38 +5,17 @@ local task_index = require("nvim-training.task_index")
 local all_task_keys = utility.get_keys(task_index)
 table.sort(all_task_keys)
 
-local prefix = "Move"
---This is currently work in progress
-
-local movement_tasks = {}
-local non_movement_tasks = {}
-
-for key, value in pairs(all_task_keys) do
-	if value:sub(1, #prefix) == prefix then
-		movement_tasks[#movement_tasks + 1] = value
-	else
-		non_movement_tasks[#non_movement_tasks + 1] = value
-	end
-end
-
-local test_tag = "movement"
-
-local tasks_with_tag = {}
-
-for key, value in pairs(task_index) do
-	local current_tag = value.__metadata.tags or ""
-	if current_tag:find(test_tag) then
-		tasks_with_tag[#tasks_with_tag + 1] = key
-	end
-end
+local movement_tasks = utility.filter_tasks_by_tags(task_index, { "movement" })
+local change_tasks = utility.filter_tasks_by_tags(task_index, { "change" })
+local non_movements = utility.discard_tasks_by_tags(task_index, { "movement" })
+local yank = utility.filter_tasks_by_tags(task_index, { "yanking" })
 
 local index = {
-	All = TaskCollection:new("All", "All of the current tasks", all_task_keys),
-	Movements = TaskCollection:new("Movements", "All tasks involving movements", movement_tasks),
-	AllExludingMovements = TaskCollection:new("All", "All tasks involving movements", non_movement_tasks),
-	TasksWithTag = TaskCollection:new("All", "Tasks with tag", tasks_with_tag),
-	-- Programming = TaskCollection:new("All", "All tasks involving programming", { "CommentLine", "CommentLineBlock" }),
-	Testing = TaskCollection:new("All", "All tasks involving programming", { "MoveWordStart" }),
+	All = TaskCollection:new("All", "All of the current tasks.", all_task_keys),
+	Change = TaskCollection:new("Change", "All tasks involving some change to the buffer.", change_tasks),
+	Movement = TaskCollection:new("Movements", "All tasks involving movement.", movement_tasks),
+	NonMovement = TaskCollection:new("NonMovements", "All tasks not involving movement.", non_movements),
+	Yanking = TaskCollection:new("Yanking", "All tasks involving yanking", yank),
 }
 
 return index
