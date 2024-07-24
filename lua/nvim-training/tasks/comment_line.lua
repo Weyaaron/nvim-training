@@ -12,7 +12,7 @@ CommentLine.__metadata = {
 	desc = "Change the current line into a single line comment.",
 	instructions = "Change the current line into a single line comment.",
 	notes = "Not available in vanilla-vim, needs plugin.",
-	tags = "programming, plugin, change",
+	tags = "programming, plugin, change, commenting",
 }
 function CommentLine:new()
 	local base = TaskLua:new()

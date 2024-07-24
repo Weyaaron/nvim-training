@@ -5,9 +5,9 @@ MoveWord.__index = MoveWord
 setmetatable(MoveWord, { __index = Task })
 MoveWord.__metadata = {
 	autocmd = "CursorMoved",
-	desc = "Move using 'word'-movent",
-	instructions = "Move a word.",
-	tags = "movement, word, horizontal",
+	desc = "Move using w.",
+	instructions = "Move using w.",
+	tags = "movement, word, horizontal, w",
 }
 
 function MoveWord:new()

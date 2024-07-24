@@ -45,7 +45,7 @@ function TaskCollection:render_markdown(table_header)
 			pieces[#pieces + 1] = current_task.__metadata.notes
 		end
 		-- lines[#lines + 1] = "| " .. task_name .. task_index[task_name]:new():render_markdown()
-		lines[#lines + 1] = "| " .. table.concat(pieces, " | ") .. " |"
+		lines[#lines + 1] = "|" .. table.concat(pieces, " | ") .. " |"
 	end
 
 	table.sort(lines)

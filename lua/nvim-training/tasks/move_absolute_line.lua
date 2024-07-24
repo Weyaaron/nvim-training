@@ -6,8 +6,8 @@ local MoveAbsoluteLine = {}
 
 MoveAbsoluteLine.__metadata = {
 	autocmd = "CursorMoved",
-	desc = "Move to the highlighted line",
-	instructions = "Move to the highlighted line.",
+	desc = "Move to the absolute line.",
+	instructions = "Move to the absolute line with the highlight.",
 	tags = "movement, line, vertical",
 }
 MoveAbsoluteLine.__index = MoveAbsoluteLine

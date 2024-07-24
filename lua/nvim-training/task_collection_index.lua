@@ -8,14 +8,18 @@ table.sort(all_task_keys)
 local movement_tasks = utility.filter_tasks_by_tags(task_index, { "movement" })
 local change_tasks = utility.filter_tasks_by_tags(task_index, { "change" })
 local non_movements = utility.discard_tasks_by_tags(task_index, { "movement" })
-local yank = utility.filter_tasks_by_tags(task_index, { "yanking" })
+local yank = utility.filter_tasks_by_tags(task_index, { "yank" })
 
 local index = {
-	All = TaskCollection:new("All", "All of the current tasks.", all_task_keys),
-	Change = TaskCollection:new("Change", "All tasks involving some change to the buffer.", change_tasks),
-	Movement = TaskCollection:new("Movements", "All tasks involving movement.", movement_tasks),
-	NonMovement = TaskCollection:new("NonMovements", "All tasks not involving movement.", non_movements),
-	Yanking = TaskCollection:new("Yanking", "All tasks involving yanking", yank),
+	All = TaskCollection:new(
+		"All",
+		"All supported tasks. Does involve tasks that are designed with plugins in mind!",
+		all_task_keys
+	),
+	Change = TaskCollection:new("Change", "Tasks involving some change to the buffer.", change_tasks),
+	Movement = TaskCollection:new("Movements", "Tasks involving movement.", movement_tasks),
+	NonMovement = TaskCollection:new("NonMovements", "Tasks not involving movement.", non_movements),
+	Yanking = TaskCollection:new("Yanking", "Tasks involving yanking", yank),
 }
 
 return index

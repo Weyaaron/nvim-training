@@ -8,7 +8,7 @@ MoveF.__metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move using F.",
 	instructions = "",
-	tags = "movement, f, horizontal",
+	tags = "movement, F, horizontal",
 }
 
 function MoveF:new()

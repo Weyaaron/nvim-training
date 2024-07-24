@@ -8,7 +8,7 @@ DeleteLineTask.__metadata = {
 	autocmd = "TextChanged",
 	desc = "Delete the current line.",
 	instructions = "Delete the current line.",
-	tags = "deletion, line",
+	tags = "deletion, line, change",
 }
 
 setmetatable(DeleteLineTask, { __index = Task })

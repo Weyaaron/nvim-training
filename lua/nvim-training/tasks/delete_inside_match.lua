@@ -10,7 +10,7 @@ DeleteInsideMatch.__metadata = {
 	autocmd = "TextChanged",
 	desc = "Delete inside the current bracket pair.",
 	instructions = "Delete inside the current bracket pair.",
-	tags = "deletion, match, inside,",
+	tags = "deletion, match, inside, change",
 }
 function DeleteInsideMatch:new()
 	local base = Task:new()

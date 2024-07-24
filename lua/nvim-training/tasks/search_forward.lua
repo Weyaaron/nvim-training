@@ -7,8 +7,8 @@ SearchForward.__index = SearchForward
 setmetatable(SearchForward, { __index = Task })
 SearchForward.__metadata = {
 	autocmd = "CursorMoved",
-	desc = "Move using 'word'-movent",
-	instructions = "Move",
+	desc = "Search forwards for a target-string.",
+	instructions = "",
 	tags = "search, movement, diagonal",
 }
 function SearchForward:new()
@@ -54,7 +54,7 @@ function SearchForward:deactivate(autocmd_callback_data)
 end
 
 function SearchForward:instructions()
-	return "Search for '" .. self.search_target .. "'"
+	return "Search forwards for '" .. self.search_target .. "'"
 end
 
 return SearchForward

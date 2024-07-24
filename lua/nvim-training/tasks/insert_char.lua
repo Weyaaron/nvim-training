@@ -6,7 +6,12 @@ local Task = require("nvim-training.task")
 local InsertChar = {}
 InsertChar.__index = InsertChar
 setmetatable(InsertChar, { __index = Task })
-InsertChar.__metadata = { autocmd = "InsertLeave", desc = "Insert char", instructions = "", tags = "change, insertion" }
+InsertChar.__metadata = {
+	autocmd = "InsertLeave",
+	desc = "Insert a char at the current position.",
+	instructions = "",
+	tags = "change, insertion, char",
+}
 
 function InsertChar:new()
 	local base = Task:new()

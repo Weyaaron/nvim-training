@@ -8,8 +8,9 @@ setmetatable(MoveWordStart, { __index = Task })
 
 MoveWordStart.__metadata = {
 	autocmd = "CursorMoved",
-	desc = "Move to the start of the 'word'.",
-	instructions = "Move to the start of the current word.",
+	desc = "Move to the start of the current 'word'.",
+	instructions = "Move to the start of the current 'word'.",
+
 	tags = "movement, word, horizontal",
 }
 function MoveWordStart:new()

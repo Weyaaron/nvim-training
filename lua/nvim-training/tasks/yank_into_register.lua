@@ -7,7 +7,7 @@ YankIntoRegister.__index = YankIntoRegister
 
 YankIntoRegister.__metadata = {
 	autocmd = "TextYankPost",
-	desc = "Copy a line into a register.",
+	desc = "Yank a line into a register.",
 	instructions = "",
 	tags = "register, copy, line, vertical",
 }

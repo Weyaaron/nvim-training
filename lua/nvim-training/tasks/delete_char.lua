@@ -6,9 +6,9 @@ DeleteCharTask.__index = DeleteCharTask
 setmetatable(DeleteCharTask, { __index = Task })
 DeleteCharTask.__metadata = {
 	autocmd = "TextChanged",
-	desc = "Delete the char at the cursor.",
-	instructions = "Delete the char at the cursor.",
-	tags = "deletion, change",
+	desc = "Delete the current char.",
+	instructions = "Delete the current char.",
+	tags = "deletion, change, char",
 }
 
 function DeleteCharTask:new()
