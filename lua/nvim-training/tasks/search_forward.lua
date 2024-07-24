@@ -1,16 +1,25 @@
 local Task = require("nvim-training.task")
 local utility = require("nvim-training.utility")
 local internal_config = require("nvim-training.internal_config")
-local SearchForward = Task:new()
+local SearchForward = {}
 SearchForward.__index = SearchForward
 
+setmetatable(SearchForward, { __index = Task })
+SearchForward.__metadata = {
+	autocmd = "CursorMoved",
+	desc = "Search forwards for a target-string.",
+	instructions = "",
+	tags = "search, movement, diagonal",
+}
 function SearchForward:new()
 	local base = Task:new()
 	setmetatable(base, { __index = SearchForward })
 	base.search_target = ""
 
-	base.autocmd = "CursorMoved"
+	return base
+end
 
+function SearchForward:activate()
 	local function _inner_update()
 		utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
 
@@ -26,19 +35,17 @@ function SearchForward:new()
 
 		local search_len = 3
 		local full_word = words_in_line[word_offset]
-		base.search_target = string.sub(full_word, 0, search_len)
-		local start_index_for_hl = string.find(target_line, base.search_target)
+		self.search_target = string.sub(full_word, 0, search_len)
+		local start_index_for_hl = string.find(target_line, self.search_target)
 
 		utility.create_highlight(cursor_pos[1] + line_offset - 2, start_index_for_hl - 1, search_len)
-		base.x_target = internal_config.header_length + line_offset
-		base.y_target = start_index_for_hl
+		self.x_target = internal_config.header_length + line_offset
+		self.y_target = start_index_for_hl
 	end
 	vim.schedule_wrap(_inner_update)()
-
-	return base
 end
 
-function SearchForward:teardown(autocmd_callback_data)
+function SearchForward:deactivate(autocmd_callback_data)
 	local cursor_pos = vim.api.nvim_win_get_cursor(0)
 	vim.schedule_wrap(function()
 		vim.cmd("noh")
@@ -46,8 +53,8 @@ function SearchForward:teardown(autocmd_callback_data)
 	return cursor_pos[1] == self.x_target and cursor_pos[2] == self.y_target - 1
 end
 
-function SearchForward:description()
-	return "Search for '" .. self.search_target .. "'"
+function SearchForward:instructions()
+	return "Search forwards for '" .. self.search_target .. "'"
 end
 
 return SearchForward

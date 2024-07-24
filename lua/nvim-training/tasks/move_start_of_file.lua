@@ -1,27 +1,23 @@
-local utility = require("nvim-training.utility")
-local Task = require("nvim-training.task")
+local TaskStartRandomCursor = require("nvim-training.tasks.task_random_cursor_start")
 
-local MoveToStartOfFile = Task:new()
+local MoveToStartOfFile = {}
 MoveToStartOfFile.__index = MoveToStartOfFile
 
+setmetatable(MoveToStartOfFile, { __index = TaskStartRandomCursor })
+MoveToStartOfFile.__metadata = {
+	autocmd = "CursorMoved",
+	desc = "Move to the start of the file.",
+	instructions = "Move to the start of the file.",
+	tags = "start, file, vertical",
+}
 function MoveToStartOfFile:new()
-	local base = Task:new()
-
+	local base = TaskStartRandomCursor:new()
 	setmetatable(base, { __index = MoveToStartOfFile })
-	base.autocmd = "CursorMoved"
-	local function _inner_update()
-		utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
-	end
-	vim.schedule_wrap(_inner_update)()
 	return base
 end
 
-function MoveToStartOfFile:teardown(autocmd_callback_data)
+function MoveToStartOfFile:deactivate(autocmd_callback_data)
 	return vim.api.nvim_win_get_cursor(0)[1] == 1
-end
-
-function MoveToStartOfFile:description()
-	return "Move to the top of the file."
 end
 
 return MoveToStartOfFile

@@ -2,11 +2,10 @@ local utility = require("nvim-training.utility")
 local YankTask = require("nvim-training.tasks.yank")
 local MoveYankWord = YankTask:new()
 MoveYankWord.__index = MoveYankWord
-
+--
 function MoveYankWord:new()
 	local base = YankTask:new()
 	setmetatable(base, { __index = MoveYankWord })
-	base.autocmd = "TextYankPost"
 	base.target_text = ""
 
 	local function _inner_update()
@@ -23,7 +22,7 @@ function MoveYankWord:new()
 	return base
 end
 
-function MoveYankWord:description()
+function MoveYankWord:instructions()
 	return "Yank the highlighted word"
 end
 

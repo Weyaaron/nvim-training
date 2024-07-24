@@ -2,40 +2,42 @@ local utility = require("nvim-training.utility")
 local Task = require("nvim-training.task")
 local user_config = require("nvim-training.user_config")
 
-local Paste = Task:new()
+local Paste = {}
 Paste.__index = Paste
+
+setmetatable(Paste, { __index = Task })
+Paste.__metadata =
+	{ autocmd = "TextChanged", desc = "Paste from a given register.", instructions = "", tags = "paste, register" }
 
 function Paste:new()
 	local base = Task:new()
 
 	setmetatable(base, { __index = Paste })
-	base.autocmd = "TextChanged"
 	base.reg_content = "-Content-"
-
 	base.choosen_reg = user_config.possible_register_list[math.random(#user_config.possible_register_list)]
-	local options_for_choosen_mode = { "P", "p" }
-	base.choosen_mode = options_for_choosen_mode[math.random(2)]
-
-	local function _inner_update()
-		utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
-		vim.cmd(":let @" .. base.choosen_reg .. "= '" .. base.reg_content .. "'")
-	end
-	vim.schedule_wrap(_inner_update)()
 	return base
 end
 
-function Paste:teardown(autocmd_callback_data)
+function Paste:activate()
+	local function _inner_update()
+		utility.set_buffer_to_rectangle_and_place_cursor_randomly()
+		vim.cmd(":let @" .. self.choosen_reg .. "= '" .. self.reg_content .. "'")
+	end
+	vim.schedule_wrap(_inner_update)()
+end
+
+function Paste:deactivate(autocmd_callback_data)
 	local cursor_pos = vim.api.nvim_win_get_cursor(0)
-	local lines = vim.api.nvim_buf_get_lines(0, cursor_pos[1] - 1, cursor_pos[1], false)
-	local search = lines[1]:find(self.reg_content)
+	local line = utility.get_line(cursor_pos[1])
+	local search = line:find(self.reg_content)
 	if not search then
 		return false
 	end
 	return search < cursor_pos[2]
 end
 
-function Paste:description()
-	return "Paste the text from register '" .. self.choosen_reg .. "' using " .. self.choosen_mode
+function Paste:instructions()
+	return "Paste the text from register '" .. self.choosen_reg .. "'"
 end
 
 return Paste

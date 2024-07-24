@@ -6,6 +6,27 @@ function utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
 	utility.update_buffer_respecting_header(utility.load_template(template_index.LoremIpsum))
 	utility.move_cursor_to_random_point()
 end
+--Todo: Fix this naming
+function utility.set_buffer_to_rectangle_and_place_cursor_randomly()
+	local lorem_ipsum = utility.load_template(template_index.LoremIpsum)
+	local lorem_lines = utility.split_str(lorem_ipsum, "\n")
+	--The last line is cut, we want to avoid running into it if possible -> -1
+	local random_line = lorem_lines[math.random(#lorem_lines - 1)]
+
+	utility.update_buffer_respecting_header(utility.load_rectangle_with_line(random_line))
+	-- utility.move_cursor_to_random_point()
+	local x_pos = internal_config.header_length + 4
+	local y = utility.random_col_index_at(x_pos)
+	vim.api.nvim_win_set_cursor(0, { x_pos, y })
+end
+
+function utility.set_buffer_to_rectangle_with_line(middle_line)
+	utility.update_buffer_respecting_header(utility.load_rectangle_with_line(middle_line))
+	-- utility.move_cursor_to_random_point()
+	local x_pos = internal_config.header_length + 4
+	local y = utility.random_col_index_at(x_pos)
+	vim.api.nvim_win_set_cursor(0, { x_pos, y })
+end
 
 function utility.get_keys(t)
 	local keys = {}
@@ -21,7 +42,7 @@ function utility.add_pair_and_place_cursor(bracket_pair)
 
 	utility.move_cursor_to_random_point()
 	local cursor_pos = vim.api.nvim_win_get_cursor(0)
-	local line = utility.get_line(cursor_pos[1] - 1)
+	local line = utility.get_line(cursor_pos[1])
 	local distance = 5
 	local start_of_line = string.sub(line, 0, cursor_pos[2])
 	local middle_piece = string.sub(line, cursor_pos[2], cursor_pos[2] + distance)
@@ -74,6 +95,11 @@ function utility.calculate_random_point_in_text_bounds()
 	return { x, y }
 end
 
+function utility.calculate_random_point_in_line_bound(x)
+	local y = utility.random_col_index_at(x)
+	return { y }
+end
+
 function calculate_text_piece_bounds(input_str, patterns) -- { start_index, end_index}, 0-indexed
 	local pieces = {}
 
@@ -124,7 +150,12 @@ function utility.get_line(index)
 end
 
 function utility.random_col_index_at(index)
-	return math.random(0, #utility.get_line(index))
+	local line_length = #utility.get_line(index)
+	-- local right_bound = math.max(line_length, 40)
+	--        -- 10 - Werte zwischen 0 und 10
+	-- local left_bound = math.min(20, line_length)
+	return math.random(0, line_length)
+	--Todo: Does this work out as intendet? If yes, use
 end
 
 function utility.clear_all_our_highlights()
@@ -166,16 +197,50 @@ function utility.split_str(input, sep)
 end
 
 function utility.load_template(template_path)
-	local line_size = 70
-
 	local lines = {}
 
 	local template_as_line = string.gsub(template_path, "\n", " ")
-	for i = 1, #template_as_line, line_size do
-		local current_text = string.sub(template_as_line, i, i + line_size)
+	for i = 1, #template_as_line, internal_config.line_length do
+		local current_text = string.sub(template_as_line, i, i + internal_config.line_length)
 		lines[#lines + 1] = current_text
 	end
 	return table.concat(lines, "\n")
+end
+
+function utility.load_rectangle_with_line(middle_line)
+	local rectange_template = utility.load_template(template_index.Rectangle)
+	local rectangle_lines = utility.split_str(rectange_template, "\n")
+	--The last line is cut, we want to avoid running into it if possible -> -1
+
+	local result = { rectangle_lines[1], "\n", middle_line, "\n", rectangle_lines[2] }
+
+	return table.concat(result, "\n")
+end
+
+function utility.filter_tasks_by_tags(tasks, tag_list)
+	local tasks_with_tag = {}
+	for i, tag_el in pairs(tag_list) do
+		for ii, task_el in pairs(tasks) do
+			local current_tag = task_el.__metadata.tags or ""
+			if current_tag:find(tag_el) then
+				tasks_with_tag[#tasks_with_tag + 1] = ii
+			end
+		end
+	end
+	return tasks_with_tag
+end
+
+function utility.discard_tasks_by_tags(tasks, tag_list)
+	local tasks_with_tag = {}
+	for i, tag_el in pairs(tag_list) do
+		for ii, task_el in pairs(tasks) do
+			local current_tag = task_el.__metadata.tags or ""
+			if current_tag:find(tag_el) == nil then
+				tasks_with_tag[#tasks_with_tag + 1] = ii
+			end
+		end
+	end
+	return tasks_with_tag
 end
 
 return utility

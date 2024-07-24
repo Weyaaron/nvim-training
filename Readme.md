@@ -41,7 +41,7 @@ The scheduler and the list
 of task collections. The scheduler is responsible for choosing the
 next task. The possible choices are listed below.
 A task collection is a set of tasks with some common attributes,
-some examples are given below. Support for custom collections 
+some examples are given below. Support for custom collections
 is under way.
 
 You may choose all of the settings
@@ -55,64 +55,52 @@ After autocompletion, a call might look like:
 
 Both arguments 'Scheduler' and all 'Task-Collection's are optional, if not provided a default value will be used.
 
-
 Some care is taken to avoid overwritting your files, but just to be
 safe you may start in an empty buffer/directory.
 
+## Currently supported tasks
+| Name | Description | Tags | Notes
+| --- | -------- | -------- | -------- |
+|AppendChar | Insert a char next to the cursor. |  append,  insertion, change |
+|CommentLine | Change the current line into a single line comment. |  change,  commenting,  plugin, programming | Not available in vanilla-vim, needs plugin. |
+|DeleteChar | Delete the current char. |  change,  char, deletion |
+|DeleteInsideMatch | Delete inside the current bracket pair. |  change,  inside,  match, deletion |
+|DeleteLine | Delete the current line. |  change,  line, deletion |
+|Increment | Increment the value at the cursor. |  change,  char, increment |
+|InsertChar | Insert a char at the current position. |  char,  insertion, change |
+|MoveAbsoluteLine | Move to the absolute line. |  line,  vertical, movement |
+|MoveEndOfFile | Move to the end the file. |  end,  file,  vertical, movement |
+|MoveEndOfLine | Move to the end of the current line. |  end,  horizontal,  line, movement |
+|MoveF | Move using F. |  F,  horizontal, movement |
+|MoveMatch | Move to the current match. |  movement, match |
+|MoveRandom | Move to the random target. |  diagonal,  movement, plugin | This task assumes the existence of a plugin that provides such a motion. |
+|MoveStartOfFile | Move to the start of the file. |  file,  vertical, start |
+|MoveStartOfLine | Move to the start of the current line. |  line,  movement, start |
+|MoveT | Move using T. |  T,  horizontal, movement |
+|MoveWORD | Move using W. |  W,  WORD, movement |
+|MoveWord | Move using w. |  horizontal,  w,  word, movement |
+|MoveWordEnd | Move to the end of the current 'word'. |  end,  vertical,  word, movement |
+|MoveWordStart | Move to the start of the current 'word'. |  horizontal,  word, movement |
+|Movef | Move using f. |  f,  horizontal, movement |
+|Movet | Move using t. |  horizontal,  t, movement |
+|Paste | Paste from a given register. |  register, paste |
+|SearchForward | Search forwards for a target-string. |  diagonal,  movement, search |
+|YankEndOfLine | Yank to the end of the current line. |  line,  yank, end |
+|YankInsideMatch | Yank inside the current match. |  inside,  match, yank |
+|YankIntoRegister | Yank a line into a register. |  copy,  line,  vertical, register |
 
-# Task-Collections (As of 2024-07 very much work in progress)
+# Task-Collections
 
-The following tables list some of the available task collections and their
-contents. Since there is work under way to automate the section of this readme,
-it is considered work in progress. For example, the order of this list is
-not necesarrily reflected in the code.
+The following table lists the available collections. They will grow over
+time and support for your own custom collections is on the roadmap.
 
-## All
-| Name | Description | Notes |
-| -------- | -------- | -------- |
-| MoveEndOfLine   | Move the cursor to the end of the line. |
-| MoveStartOfLine | Move the cursor to the start of the line. |
-| MoveStartOfFile | Move the cursor to the start of the file. |
-| MoveEndOfFile | Move the cursor to the end of the file. |
-| MoveAbsoluteLine | Move the cursor to a absolute line. |
-| MoveRandomXY | Move the cursor to a random place in the file. | This task assumes the use of a plugin that provides such a movement. |
-| MoveMatch| Move the cursor using %. |
-| MoveWord| Move the cursor using w. |
-| MoveWordEnd| Move the cursor using e. |
-| SearchForward| Search for target-string forwards. |
-| DeleteInsideMatch | Delete inside the current match.|
-| DeleteLine| Delete the current line.|
-| YankInsideMatch| Yank inside the current match. |
-
-## Movements
-| Name | Description | Notes |
-| -------- | -------- | -------- |
-| MoveEndOfLine   | Move the cursor to the end of the line. |
-| MoveStartOfLine | Move the cursor to the start of the line. |
-| MoveStartOfFile | Move the cursor to the start of the file. |
-| MoveEndOfFile | Move the cursor to the end of the file. |
-| MoveAbsoluteLine | Move the cursor to a absolute line. |
-| MoveRandomXY | Move the cursor to a random place in the file. | This task assumes the use of a plugin that provides such a movement. |
-| MoveMatch| Move the cursor using %. |
-| MoveWord| Move the cursor using w. |
-| MoveWordEnd| Move the cursor using e. |
-
-
-## AllExcludingMovements
-| Name | Description | Notes |
-| -------- | -------- | -------- |
-| Increment | Increment/Decrement the number under the cursor.|
-| DeleteInsideMatch | Delete inside the current match.|
-| DeleteLine| Delete the current line.|
-| YankInsideMatch| Yank inside the current match. |
-
-
-## Programming (Currently, all of these will be in lua, support for more languages might happen)
-
-| Name | Description | Notes |
-| -------- | -------- | -------- |
-| CommentLine| Change the current line into a comment. | This assumes the use of a plugin, it is not tested with the buildin-commenting-feature.
-| CommentLineBlock| Change the current line into a block-comment. | This assumes the use of a plugin, it is not tested with the buildin-commenting-feature.
+| Name | Description | Link
+| ----------- | -------- | -------- |
+| All  | All supported tasks. Does involve tasks that are designed with plugins in mind!| [All](/docs/collections/All.md)
+| Change  | Tasks involving some change to the buffer.| [Change](/docs/collections/Change.md)
+| Movements  | Tasks involving movement.| [Movements](/docs/collections/Movements.md)
+| NonMovements  | Tasks not involving movement.| [NonMovements](/docs/collections/NonMovements.md)
+| Yanking  | Tasks involving yanking| [Yanking](/docs/collections/Yanking.md)
 
 # Configuration
 A interface for configuration is provided. A example call is provided:
@@ -123,7 +111,7 @@ training.configure({
 	possible_register_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }, -- A list of possible registers. (Optional, this the default)
 	audio_feedback = true, --Enables/Disables audio feedback
 	audio_feedback_success = function() -- What actually happens when audio feedback is run. You may test this or replace it with your own function as you see fit.
-		os.execute("play media/click.flac 2> /dev/null")
+		os.execute("play media/click.flac 2> /dev/null")--This command is available from the package 'sox'
 	end,
 	audio_feedback_failure = function()
 		os.execute("play media/clack.flac 2> /dev/null")

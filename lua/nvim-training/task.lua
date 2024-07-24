@@ -1,15 +1,23 @@
+local utility = require("nvim-training.utility")
 local Task = {}
 Task.__index = Task
+Task.__metadata = {}
 
-function Task:new(args)
-	local base = args or {}
+function Task:new()
+	local base = {}
 	setmetatable(base, Task)
 	return base
 end
 
-function Task:teardown(autocmd_callback_data) end
-function Task:description()
-	return "Not implemented yet"
+function Task:activate() end
+
+function Task:metadata()
+	return self.__metadata
+end
+function Task:deactivate(autocmd_callback_data) end
+
+function Task:instructions()
+	return self.__metadata.instructions
 end
 
 function Task:construct_optional_header_args()

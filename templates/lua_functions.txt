@@ -1,4 +1,4 @@
-function hallo()
+local function hallo()
 
 
 end

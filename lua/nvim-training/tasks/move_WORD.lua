@@ -1,15 +1,21 @@
 local utility = require("nvim-training.utility")
 local Task = require("nvim-training.task")
 local template_index = require("nvim-training.template_index")
-local MoveWORD = Task:new()
+
+local MoveWORD = {}
 MoveWORD.__index = MoveWORD
+setmetatable(MoveWORD, { __index = Task })
+MoveWORD.__metadata =
+	{ autocmd = "CursorMoved", desc = "Move using W.", instructions = "Move using W.", tags = "movement, W, WORD" }
 
 function MoveWORD:new()
 	local base = Task:new()
 	setmetatable(base, { __index = MoveWORD })
-	base.autocmd = "CursorMoved"
 	base.target_y_pos = 0
+	return base
+end
 
+function MoveWORD:activate()
 	local function _inner_update()
 		local cursor_at_line_start = false
 		local current_cursor_pos = vim.api.nvim_win_get_cursor(0)
@@ -37,19 +43,14 @@ function MoveWORD:new()
 		if cursor_is_at_wordend then
 			offset = 1
 		end
-		base.target_y_pos = word_positions[word_index_cursor + 1 + offset][1]
-		utility.create_highlight(current_cursor_pos[1] - 1, base.target_y_pos, 1)
+		self.target_y_pos = word_positions[word_index_cursor + 1 + offset][1]
+		utility.create_highlight(current_cursor_pos[1] - 1, self.target_y_pos, 1)
 	end
 	vim.schedule_wrap(_inner_update)()
-	return base
 end
 
-function MoveWORD:teardown(autocmd_args)
+function MoveWORD:deactivate(autocmd_args)
 	return vim.api.nvim_win_get_cursor(0)[2] == self.target_y_pos
-end
-
-function MoveWORD:description()
-	return "Move a 'WORD'."
 end
 
 return MoveWORD

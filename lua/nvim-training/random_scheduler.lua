@@ -1,6 +1,9 @@
 local TaskScheduler = require("nvim-training.task_scheduler")
 
-RandomScheduler = TaskScheduler:new()
+RandomScheduler = {}
+
+RandomScheduler.__index = RandomScheduler
+setmetatable(RandomScheduler, { __index = TaskScheduler })
 
 function RandomScheduler:new(task_collections, kwargs)
 	local default_kwargs = {}

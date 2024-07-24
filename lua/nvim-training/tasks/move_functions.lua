@@ -11,8 +11,6 @@ function MoveFunctions:new()
 	base.position = { 15, 5 }
 	vim.cmd("e training.lua")
 
-	base.autocmd = "CursorMoved"
-
 	local function _inner_update()
 		local lua_text = template_index.LuaFunctions
 
@@ -33,13 +31,12 @@ function MoveFunctions:new()
 	return base
 end
 
-function MoveFunctions:teardown(autocmd_callback_data)
+function MoveFunctions:deactivate(autocmd_callback_data)
 	local cursor_pos = vim.api.nvim_win_get_cursor(0)
-	print(cursor_pos[1], cursor_pos[2])
 	return false
 end
 
-function MoveFunctions:description()
+function MoveFunctions:instructions()
 	return "Search for '" .. self.search_target .. "'"
 end
 
