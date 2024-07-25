@@ -37,6 +37,7 @@ function utility.get_keys(t)
 end
 
 function utility.add_pair_and_place_cursor(bracket_pair)
+	--Todo: Rework the following lines into using rectangle
 	local lorem_ipsum = utility.load_template(template_index.LoremIpsum)
 	utility.update_buffer_respecting_header(lorem_ipsum)
 

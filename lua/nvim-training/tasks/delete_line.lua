@@ -20,7 +20,7 @@ end
 
 function DeleteLineTask:activate()
 	local function _inner_update()
-		utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
+		utility.set_buffer_to_rectangle_and_place_cursor_randomly()
 		self.line_length = vim.api.nvim_buf_line_count(0)
 	end
 	vim.schedule_wrap(_inner_update)()

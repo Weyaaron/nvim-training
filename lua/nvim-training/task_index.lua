@@ -1,7 +1,5 @@
 local exported_tasks = {
-	-- CommentLineBlock = require("nvim-training.tasks.comment_line_block"),
 	AppendChar = require("nvim-training.tasks.append_char"),
-	CommentLine = require("nvim-training.tasks.comment_line"),
 	DeleteChar = require("nvim-training.tasks.delete_char"),
 	DeleteInsideMatch = require("nvim-training.tasks.delete_inside_match"),
 	DeleteLine = require("nvim-training.tasks.delete_line"),
@@ -28,6 +26,8 @@ local exported_tasks = {
 	YankInsideMatch = require("nvim-training.tasks.yank_inside_match"),
 	YankIntoRegister = require("nvim-training.tasks.yank_into_register"),
 	-- Barrier of tasks done, todo: Fix them
+	-- CommentLineBlock = require("nvim-training.tasks.comment_line_block"),
+	-- CommentLine = require("nvim-training.tasks.comment_line"), --Currently broken, cursor outside windwo
 	--DeleteWord = require("nvim-training.tasks.delete_word"), Not quite done
 	-- Todo: Migrate the remaining task to rectangle if possible
 	-- MoveMark = require("nvim-training.tasks.move_mark"), --This one keeps being broken

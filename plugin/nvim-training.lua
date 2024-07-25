@@ -9,6 +9,7 @@ local utility = require("nvim-training.utility")
 
 local header = require("nvim-training.header")
 local user_config = require("nvim-training.user_config")
+local audio = require("nvim-training.audio")
 local task_count = 0
 local success_count = 0
 local failure_count = 0
@@ -22,6 +23,7 @@ local resoveld_scheduler
 local reset_task_list = true
 
 local function init()
+	--Todo: Check if file exists
 	vim.cmd("e training.txt")
 	vim.api.nvim_buf_set_lines(0, 0, 25, false, {})
 	vim.api.nvim_win_set_cursor(0, { 1, 1 })
@@ -76,13 +78,13 @@ local function loop(autocmd_callback_data)
 
 	if previous_task_result == true and not at_startup then
 		if user_config.audio_feedback then
-			user_config.audio_feedback_success()
+			audio.audio_feedback_success()
 		end
 	end
 
 	if previous_task_result == false and not at_startup then
 		if user_config.audio_feedback then
-			user_config.audio_feedback_failure()
+			audio.audio_feedback_failure()
 		end
 	end
 
