@@ -1,6 +1,6 @@
 local utility = require("nvim-training.utility")
 local user_config = require("nvim-training.user_config")
-local TaskYank = require("nvim-training.tasks.task_yank")
+local Yank = require("nvim-training.tasks.yank")
 
 local YankIntoRegister = {}
 YankIntoRegister.__index = YankIntoRegister
@@ -12,9 +12,9 @@ YankIntoRegister.__metadata = {
 	tags = "register, copy, line, vertical",
 }
 
-setmetatable(YankIntoRegister, { __index = TaskYank })
+setmetatable(YankIntoRegister, { __index = Yank })
 function YankIntoRegister:new()
-	local base = TaskYank:new()
+	local base = Yank:new()
 	setmetatable(base, YankIntoRegister)
 	base.chosen_register = user_config.possible_register_list[math.random(#user_config.possible_register_list)]
 	base.chosen_register = "a"

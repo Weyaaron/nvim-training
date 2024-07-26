@@ -1,11 +1,11 @@
 local utility = require("nvim-training.utility")
-local TaskYank = require("nvim-training.tasks.task_yank")
+local Yank = require("nvim-training.tasks.yank")
 local user_config = require("nvim-training.user_config")
 
 local YankInsideMatch = {}
 YankInsideMatch.__index = YankInsideMatch
 
-setmetatable(YankInsideMatch, { __index = TaskYank })
+setmetatable(YankInsideMatch, { __index = Yank })
 YankInsideMatch.__metadata = {
 	autocmd = "TextYankPost",
 	desc = "Yank inside the current match.",
@@ -13,7 +13,7 @@ YankInsideMatch.__metadata = {
 	tags = "yank, inside, match",
 }
 function YankInsideMatch:new()
-	local base = TaskYank:new()
+	local base = Yank:new()
 	setmetatable(base, { __index = YankInsideMatch })
 	return base
 end

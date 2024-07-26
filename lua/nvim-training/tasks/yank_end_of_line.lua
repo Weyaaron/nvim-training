@@ -1,5 +1,5 @@
 local utility = require("nvim-training.utility")
-local TaskYank = require("nvim-training.tasks.task_yank")
+local Yank = require("nvim-training.tasks.yank")
 
 local YankEndOfLine = {}
 YankEndOfLine.__index = YankEndOfLine
@@ -11,9 +11,9 @@ YankEndOfLine.__metadata = {
 	tags = "end, line, yank",
 }
 
-setmetatable(YankEndOfLine, { __index = TaskYank })
+setmetatable(YankEndOfLine, { __index = Yank })
 function YankEndOfLine:new()
-	local base = TaskYank:new()
+	local base = Yank:new()
 	setmetatable(base, { __index = YankEndOfLine })
 	base.chosen_register = '"'
 	return base

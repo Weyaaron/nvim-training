@@ -1,9 +1,10 @@
 local utility = require("nvim-training.utility")
-local Task = require("nvim-training.task")
+local Move = require("nvim-training.tasks.move")
+local movements = require("nvim-training.movements")
 
 local MoveEndOfLine = {}
 MoveEndOfLine.__index = MoveEndOfLine
-setmetatable(MoveEndOfLine, { __index = Task })
+setmetatable(MoveEndOfLine, { __index = Move })
 MoveEndOfLine.__metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move to the end of the current line.",

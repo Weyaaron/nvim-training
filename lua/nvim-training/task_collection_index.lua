@@ -1,6 +1,7 @@
 local TaskCollection = require("nvim-training.task_collection")
 local utility = require("nvim-training.utility")
 local task_index = require("nvim-training.task_index")
+local user_config = require("nvim-training.user_config")
 
 local all_task_keys = utility.get_keys(task_index)
 table.sort(all_task_keys)

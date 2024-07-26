@@ -1,4 +1,3 @@
-local task_collection_index = require("nvim-training.task_collection_index")
 if vim.g.loaded_training == 1 then
 	print("Already loaded")
 	return
@@ -7,6 +6,8 @@ vim.g.loaded_training = 1
 
 local utility = require("nvim-training.utility")
 
+local scheduler_index = require("nvim-training.scheduler_index")
+local collection_index = require("nvim-training.task_collection_index")
 local header = require("nvim-training.header")
 local user_config = require("nvim-training.user_config")
 local audio = require("nvim-training.audio")
@@ -122,8 +123,6 @@ local function loop(autocmd_callback_data)
 end
 
 local function training_cmd(opts)
-	local collection_index = require("nvim-training.task_collection_index")
-
 	local fargs = opts.fargs
 	local scheduler = fargs[1]
 
@@ -143,14 +142,11 @@ local function training_cmd(opts)
 		provided_collections[#provided_collections + 1] = collection_index["All"]
 	end
 
-	local scheduler_index = require("nvim-training.scheduler_index")
 	resoveld_scheduler = scheduler_index[scheduler]:new(provided_collections)
 	init()
 	loop()
 end
 local function training_complete(arg_lead, cmd_line, _)
-	local collection_index = require("nvim-training.task_collection_index")
-	local scheduler_index = require("nvim-training.scheduler_index")
 	local scheduler_keys = utility.get_keys(scheduler_index)
 	local collection_keys = utility.get_keys(collection_index)
 
