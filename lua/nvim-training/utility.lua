@@ -1,7 +1,9 @@
 local internal_config = require("nvim-training.internal_config")
 local template_index = require("nvim-training.template_index")
 local utility = {}
-
+function utility.trim(s)
+	return (s:gsub("^%s*(.-)%s*$", "%1"))
+end
 function utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
 	utility.update_buffer_respecting_header(utility.load_template(template_index.LoremIpsum))
 	utility.move_cursor_to_random_point()
@@ -37,6 +39,7 @@ function utility.get_keys(t)
 end
 
 function utility.add_pair_and_place_cursor(bracket_pair)
+	--Todo: Rework the following lines into using rectangle
 	local lorem_ipsum = utility.load_template(template_index.LoremIpsum)
 	utility.update_buffer_respecting_header(lorem_ipsum)
 
@@ -242,5 +245,7 @@ function utility.discard_tasks_by_tags(tasks, tag_list)
 	end
 	return tasks_with_tag
 end
+
+function utility.extract_text_between_cursor_and_target(start_indexes, end_indexes) end
 
 return utility

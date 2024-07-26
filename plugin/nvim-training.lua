@@ -1,4 +1,3 @@
-local task_collection_index = require("nvim-training.task_collection_index")
 if vim.g.loaded_training == 1 then
 	print("Already loaded")
 	return
@@ -7,8 +6,11 @@ vim.g.loaded_training = 1
 
 local utility = require("nvim-training.utility")
 
+local scheduler_index = require("nvim-training.scheduler_index")
+local collection_index = require("nvim-training.task_collection_index")
 local header = require("nvim-training.header")
 local user_config = require("nvim-training.user_config")
+local audio = require("nvim-training.audio")
 local task_count = 0
 local success_count = 0
 local failure_count = 0
@@ -22,6 +24,7 @@ local resoveld_scheduler
 local reset_task_list = true
 
 local function init()
+	--Todo: Check if file exists
 	vim.cmd("e training.txt")
 	vim.api.nvim_buf_set_lines(0, 0, 25, false, {})
 	vim.api.nvim_win_set_cursor(0, { 1, 1 })
@@ -76,13 +79,13 @@ local function loop(autocmd_callback_data)
 
 	if previous_task_result == true and not at_startup then
 		if user_config.audio_feedback then
-			user_config.audio_feedback_success()
+			audio.audio_feedback_success()
 		end
 	end
 
 	if previous_task_result == false and not at_startup then
 		if user_config.audio_feedback then
-			user_config.audio_feedback_failure()
+			audio.audio_feedback_failure()
 		end
 	end
 
@@ -120,8 +123,6 @@ local function loop(autocmd_callback_data)
 end
 
 local function training_cmd(opts)
-	local collection_index = require("nvim-training.task_collection_index")
-
 	local fargs = opts.fargs
 	local scheduler = fargs[1]
 
@@ -141,14 +142,11 @@ local function training_cmd(opts)
 		provided_collections[#provided_collections + 1] = collection_index["All"]
 	end
 
-	local scheduler_index = require("nvim-training.scheduler_index")
 	resoveld_scheduler = scheduler_index[scheduler]:new(provided_collections)
 	init()
 	loop()
 end
 local function training_complete(arg_lead, cmd_line, _)
-	local collection_index = require("nvim-training.task_collection_index")
-	local scheduler_index = require("nvim-training.scheduler_index")
 	local scheduler_keys = utility.get_keys(scheduler_index)
 	local collection_keys = utility.get_keys(collection_index)
 

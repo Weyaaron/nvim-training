@@ -44,9 +44,6 @@ A task collection is a set of tasks with some common attributes,
 some examples are given below. Support for custom collections
 is under way.
 
-You may choose all of the settings
-of a particular session ussing autocompletion by running:
-
 `:Training [Scheduler] [Task-Collection A] [Task Collection B] ...`
 
 After autocompletion, a call might look like:
@@ -102,6 +99,14 @@ time and support for your own custom collections is on the roadmap.
 | NonMovements  | Tasks not involving movement.| [NonMovements](/docs/collections/NonMovements.md)
 | Yanking  | Tasks involving yanking| [Yanking](/docs/collections/Yanking.md)
 
+
+# Schedulers
+
+| Name | Description |
+| ----------- | -------- |
+| RandomScheduler | The next task is chosen at random. |
+| RepeatUntilNSuccess | The current task is repeated until n successes are reached. |
+
 # Configuration
 A interface for configuration is provided. A example call is provided:
 ```lua
@@ -109,14 +114,7 @@ local training = require("nvim-training")
 training.configure({
 	possible_marks_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }, --A list of possible marks. (Optional, this is the default)
 	possible_register_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }, -- A list of possible registers. (Optional, this the default)
-	audio_feedback = true, --Enables/Disables audio feedback
-	audio_feedback_success = function() -- What actually happens when audio feedback is run. You may test this or replace it with your own function as you see fit.
-		os.execute("play media/click.flac 2> /dev/null")--This command is available from the package 'sox'
-	end,
-	audio_feedback_failure = function()
-		os.execute("play media/clack.flac 2> /dev/null")
-	end,
-
+	audio_feedback = true, --Enables/Disables audio feedback, if enabled, requires the 'sox' package providing the 'play' command.
 })
 ```
 

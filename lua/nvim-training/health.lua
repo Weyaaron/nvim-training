@@ -6,7 +6,6 @@ local suffix = "Please check for spelling, and ensure you are using the right ve
 
 M.check = function()
 	vim.health.start("Tasks")
-	local task_list_empty = #user_config.task_list == 0
 	vim.health.ok("Currently work in progress.")
 	--
 	-- if task_list_empty then

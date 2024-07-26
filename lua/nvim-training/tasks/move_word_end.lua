@@ -22,7 +22,7 @@ function MoveWordEnd:activate()
 
 		local current_cursor_pos = vim.api.nvim_win_get_cursor(0)
 		while not cursor_at_line_start do
-			utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
+			utility.set_buffer_to_rectangle_and_place_cursor_randomly()
 			current_cursor_pos = vim.api.nvim_win_get_cursor(0)
 			cursor_at_line_start = current_cursor_pos[2] < 15
 		end
