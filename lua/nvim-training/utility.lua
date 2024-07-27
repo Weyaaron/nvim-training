@@ -4,6 +4,11 @@ local utility = {}
 function utility.trim(s)
 	return (s:gsub("^%s*(.-)%s*$", "%1"))
 end
+
+function utility.get_current_line()
+	local cursor_pos = vim.api.nvim_win_get_cursor(0)
+	return utility.get_line(cursor_pos[1])
+end
 function utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
 	utility.update_buffer_respecting_header(utility.load_template(template_index.LoremIpsum))
 	utility.move_cursor_to_random_point()
@@ -36,6 +41,27 @@ function utility.get_keys(t)
 		table.insert(keys, key)
 	end
 	return keys
+end
+
+function utility.construct_line_with_bracket(bracket_pair, left_index, right_index)
+	print(bracket_pair)
+	local result = ""
+	for i = 1, internal_config.line_length do
+		if i < left_index then
+			result = result .. " "
+		end
+		if i == left_index then
+			result = result .. bracket_pair[1]
+		end
+
+		if i > left_index and i < right_index then
+			result = result .. "x"
+		end
+		if i == right_index then
+			result = result .. bracket_pair[2]
+		end
+	end
+	return result
 end
 
 function utility.add_pair_and_place_cursor(bracket_pair)

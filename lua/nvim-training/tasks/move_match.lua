@@ -22,8 +22,7 @@ end
 function MoveMatch:activate()
 	local function _inner_update()
 		utility.add_pair_and_place_cursor(self.random_bracket_pair)
-		local cursor_pos = vim.api.nvim_win_get_cursor(0)
-		local current_line = utility.get_line(cursor_pos[1])
+		local current_line = utility.get_current_line()
 		self.middle_piece = utility.extract_text_in_brackets(current_line, user_config.bracket_pairs[1])
 	end
 	vim.schedule_wrap(_inner_update)()
