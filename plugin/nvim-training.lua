@@ -4,10 +4,6 @@ if vim.g.loaded_training == 1 then
 end
 vim.g.loaded_training = 1
 
-local utility = require("nvim-training.utility")
-
-local scheduler_index = require("nvim-training.scheduler_index")
-local collection_index = require("nvim-training.task_collection_index")
 local header = require("nvim-training.header")
 local user_config = require("nvim-training.user_config")
 local audio = require("nvim-training.audio")
@@ -98,6 +94,7 @@ local function loop(autocmd_callback_data)
 		vim.cmd("write!")
 	end)()
 
+	local utility = require("nvim-training.utility")
 	--This line ensures that the highlights of previous tasks are discarded.
 	utility.clear_all_our_highlights()
 	current_task = resoveld_scheduler:next(current_task, previous_task_result):new()
@@ -126,6 +123,8 @@ local function loop(autocmd_callback_data)
 end
 
 local function training_cmd(opts)
+	local scheduler_index = require("nvim-training.scheduler_index")
+	local collection_index = require("nvim-training.task_collection_index")
 	local fargs = opts.fargs
 	local scheduler = fargs[1]
 
@@ -150,6 +149,10 @@ local function training_cmd(opts)
 	loop()
 end
 local function training_complete(arg_lead, cmd_line, _)
+	local scheduler_index = require("nvim-training.scheduler_index")
+
+	local utility = require("nvim-training.utility")
+	local collection_index = require("nvim-training.task_collection_index")
 	local scheduler_keys = utility.get_keys(scheduler_index)
 	local collection_keys = utility.get_keys(collection_index)
 
@@ -197,6 +200,28 @@ local function training_complete(arg_lead, cmd_line, _)
 	if not scheduler_in_cmd_line then
 		return matching_schedulers
 	end
+
+	-- local end_of_cmd_line = cmd_line:sub(#cmd_line - 4, #cmd_line)
+	-- print(cmd_line, ",", end_of_cmd_line)
+	--
+	-- local prefix = "Tag:"
+	-- matching_and_not_already_prodived_collections[#matching_and_not_already_prodived_collections + 1] = prefix
+	-- -- if arg_lead == "" then
+	-- -- 	return matching_and_not_already_prodived_collections
+	-- -- end
+	--
+	-- if end_of_cmd_line:find(prefix) then
+	-- 	local tags_with_prefix = {}
+	-- 	for i, v in pairs(task_collection_index_from_tags) do
+	-- 		tags_with_prefix["Tag:" .. i] = "Tag:" .. i
+	-- 	end
+	-- 	return utility.get_keys(tags_with_prefix)
+	-- 	-- return matching_and_not_already_prodived_collections
+	-- end
+	-- for i, v in pairs(task_collection_index_from_tags) do
+	-- 	matching_and_not_already_prodived_collections[#matching_and_not_already_prodived_collections + 1] = v
+	-- 	print(i, v)
+	-- end
 	return matching_and_not_already_prodived_collections
 end
 
