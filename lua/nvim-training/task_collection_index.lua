@@ -10,7 +10,7 @@ local movement_tasks = utility.filter_tasks_by_tags(task_index, { "movement" })
 local change_tasks = utility.filter_tasks_by_tags(task_index, { "change" })
 local non_movements = utility.discard_tasks_by_tags(task_index, { "movement" })
 local yank = utility.filter_tasks_by_tags(task_index, { "yank" })
-
+--Todo: check non-empty check for the buildins
 local index = {
 	All = TaskCollection:new(
 		"All",
@@ -22,5 +22,10 @@ local index = {
 	NonMovement = TaskCollection:new("NonMovements", "Tasks not involving movement.", non_movements),
 	Yanking = TaskCollection:new("Yanking", "Tasks involving yanking", yank),
 }
+
+for name_key, name_table in pairs(user_config.custom_collections) do
+	--Todo: Add proper check for empty collections, maybe check for key duplicates
+	index[name_key] = TaskCollection:new(name_key, "Custom Collection", name_table)
+end
 
 return index
