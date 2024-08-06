@@ -4,6 +4,7 @@ local user_config = {
 	bracket_pairs = { { "(", ")" }, { "{", "}" }, { "[", "]" } },
 	audio_feedback = true,
 	custom_collections = {},
+	enable_counters = true,
 }
 
 return user_config

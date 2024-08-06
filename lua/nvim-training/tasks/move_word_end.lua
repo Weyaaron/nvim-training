@@ -1,8 +1,8 @@
 local utility = require("nvim-training.utility")
 local Task = require("nvim-training.task")
+
 local MoveWordEnd = {}
 MoveWordEnd.__index = MoveWordEnd
-
 setmetatable(MoveWordEnd, { __index = Task })
 MoveWordEnd.__metadata = {
 	autocmd = "CursorMoved",
@@ -10,6 +10,7 @@ MoveWordEnd.__metadata = {
 	instructions = "Move to the end of the current 'word'.",
 	tags = "movement, word, end, vertical",
 }
+
 function MoveWordEnd:new()
 	local base = Task:new()
 	setmetatable(base, { __index = MoveWordEnd })
