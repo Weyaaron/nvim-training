@@ -1,10 +1,9 @@
 local Task = require("nvim-training.task")
 local utility = require("nvim-training.utility")
 local Yank = {}
+
 Yank.__index = Yank
-
 setmetatable(Yank, { __index = Task })
-
 Yank.__metadata = { autocmd = "", desc = "", instructions = "" }
 
 function Yank:new()

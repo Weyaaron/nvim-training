@@ -1,22 +1,28 @@
 local utility = require("nvim-training.utility")
-local Task = require("nvim-training.task")
+local Move = require("nvim-training.tasks.move")
+local user_config = require("nvim-training.user_config")
 
 local MoveWordStart = {}
 MoveWordStart.__index = MoveWordStart
-
-setmetatable(MoveWordStart, { __index = Task })
-
+setmetatable(MoveWordStart, { __index = Move })
 MoveWordStart.__metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move to the start of the current 'word'.",
 	instructions = "Move to the start of the current 'word'.",
-
 	tags = "movement, word, horizontal",
 }
+
 function MoveWordStart:new()
-	local base = Task:new()
+	local base = Move:new()
 	setmetatable(base, { __index = MoveWordStart })
 	base.target_y_pos = 0
+
+	base.counter = 1
+	if user_config.enable_counters then
+		base.counter = math.random(2, 7)
+	end
+
+	base.cursor_target = { 0, 0 }
 	return base
 end
 function MoveWordStart:activate()

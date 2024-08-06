@@ -1,6 +1,7 @@
 local Task = require("nvim-training.task")
-local Move= {}
-Move.__index =Move 
+local Move = {}
+
+Move.__index = Move
 setmetatable(Move, { __index = Task })
 Move.__metadata = { autocmd = "", desc = "", instructions = "" }
 
@@ -16,7 +17,7 @@ function Move:deactivate(autocmd_callback_data)
 	if type(self.cursor_target) == "number" then
 		print("Target has to be type table, current value is " .. tostring(self.cursor_target))
 	end
-	print(vim.inspect(cursor_pos), vim.inspect(self.cursor_target))
+	-- print(vim.inspect(cursor_pos), vim.inspect(self.cursor_target))
 	return cursor_pos[1] == self.cursor_target[1] and cursor_pos[2] == self.cursor_target[2]
 end
 
