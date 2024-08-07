@@ -16,7 +16,8 @@ function RandomScheduler:new(task_collections, kwargs)
 
 	return base
 end
-
+--Not having the name here sucks ....
+--
 function RandomScheduler:next(previous, result)
 	local random_task_collection = self.task_collections[math.random(#self.task_collections)]
 	local rand_int = math.random(#random_task_collection.tasks)

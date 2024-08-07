@@ -18,7 +18,7 @@ local max_streak = 0
 local previous_task_result
 local resoveld_scheduler
 local reset_task_list = true
-
+local session_id
 local function init()
 	--Todo: Check if file exists
 	vim.cmd("e training.txt")
@@ -26,6 +26,9 @@ local function init()
 	vim.api.nvim_win_set_cursor(0, { 1, 1 })
 	header.store_key_value_in_header("#d", "Es gibt noch keine Aufgabe")
 	header.construct_header()
+
+	local utility = require("nvim-training.utility")
+	session_id = utility.uuid()
 end
 
 local function loop(autocmd_callback_data)
@@ -94,6 +97,11 @@ local function loop(autocmd_callback_data)
 	local utility = require("nvim-training.utility")
 	--This line ensures that the highlights of previous tasks are discarded.
 	utility.clear_all_our_highlights()
+
+	local target_data =
+		{ result = previous_task_result, timestamp = os.time(), session_id = session_id, event = "task_done" }
+	utility.write_table_to_path(target_data, "/tmp/dump.txt")
+
 	current_task = resoveld_scheduler:next(current_task, previous_task_result):new()
 	current_task:activate()
 

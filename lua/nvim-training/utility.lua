@@ -274,4 +274,22 @@ end
 
 function utility.extract_text_between_cursor_and_target(start_indexes, end_indexes) end
 
+function utility.write_table_to_path(data, path)
+	local file = io.open(path, "w")
+
+	local data_as_str = vim.json.encode(data)
+	file:write(data_as_str)
+	file:close()
+end
+
+local random = math.random
+function utility.uuid()
+	math.randomseed(os.time())
+	local template = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx"
+	return string.gsub(template, "[xy]", function(c)
+		local v = (c == "x") and random(0, 0xf) or random(8, 0xb)
+		return string.format("%x", v)
+	end)
+end
+
 return utility
