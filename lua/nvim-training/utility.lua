@@ -1,5 +1,6 @@
 local internal_config = require("nvim-training.internal_config")
 local template_index = require("nvim-training.template_index")
+local user_config = require("nvim-training.user_config")
 local utility = {}
 function utility.trim(s)
 	return (s:gsub("^%s*(.-)%s*$", "%1"))
@@ -200,6 +201,12 @@ function utility.update_buffer_respecting_header(input_str)
 	vim.cmd("write!")
 end
 
+function utility.append_lines_to_buffer(input_str)
+	local str_as_lines = utility.split_str(input_str, "\n")
+	local buf_len = vim.api.nvim_buf_line_count(0)
+	vim.api.nvim_buf_set_lines(0, buf_len, buf_len + #str_as_lines, false, str_as_lines)
+end
+
 function utility.split_str(input, sep)
 	if not input then
 		print("No input")
@@ -276,10 +283,14 @@ end
 function utility.extract_text_between_cursor_and_target(start_indexes, end_indexes) end
 
 function utility.apppend_table_to_path(data, path)
+	--Todo: Disable completly, fix the nil event
+	-- Tod
 	local file = io.open(path, "a+")
 
+	table.sort(data)
+
 	local data_as_str = vim.json.encode(data)
-	file:write(data_as_str)
+	file:write(data_as_str .. "\n")
 	file:close()
 end
 
@@ -292,4 +303,43 @@ function utility.uuid()
 	end)
 end
 
+function utility.scandir(directory)
+	local i, t, popen = 0, {}, io.popen
+	local pfile = popen('ls "' .. directory .. '"')
+	for filename in pfile:lines() do
+		i = i + 1
+		t[i] = filename
+	end
+	pfile:close()
+	return t
+end
+
+function utility.load_all_events()
+	local paths = utility.scandir(user_config.base_path)
+	local result = {}
+	for i, v in pairs(paths) do
+		local file = io.open(user_config.base_path .. "/" .. v, "r")
+
+		local data = file:read("a")
+
+		local lines = utility.split_str(data)
+		for ii, line_el in pairs(lines) do
+			if #line_el > 1 then
+				result[#result + 1] = vim.json.decode(line_el)
+			end
+		end
+
+		file:close()
+	end
+	return result
+end
+function utility.count_events_of_type(event_list, type)
+	local counter = 0
+	for i, v in pairs(event_list) do
+		if v["event"] == type then
+			counter = counter + 1
+		end
+	end
+	return counter
+end
 return utility

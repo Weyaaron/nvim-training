@@ -34,23 +34,16 @@ local plugin_list = {
 lazy.setup(plugin_list)
 ```
 
-# Starting a Session
-Two settings influence the current session:
 
-The scheduler and the list
-of task collections. The scheduler is responsible for choosing the
-next task. The possible choices are listed below.
-A task collection is a set of tasks with some common attributes,
-some examples are given below. Support for custom collections
-is under way.
+# Commands
+This plugin uses subcommands of `Training` to activate certain functions.
+All of these commands support completion, just use `Tab` and you will be fine.
+Currently, these are the available options:
 
-`:Training [Scheduler] [Task-Collection A] [Task Collection B] ...`
-
-After autocompletion, a call might look like:
-
-`:Training RandomScheduler All`
-
-Both arguments 'Scheduler' and all 'Task-Collection's are optional, if not provided a default value will be used.
+| Name | Syntax | Description |
+| --- | -------- | -------- |
+| Start | `:Training Start [Scheduler] [Task-Collection A] [Task Collection B] ...`|  Starts a session with the choosen scheduler and the choosen task collections. Both arguments are optional.  |
+| Stop | `:Training Stop`|  Stops a session. |
 
 Some care is taken to avoid overwritting your files, but just to be
 safe you may start in an empty buffer/directory.
@@ -88,7 +81,7 @@ safe you may start in an empty buffer/directory.
 # Task-Collections
 
 The following table lists the available collections. They will grow over
-time and support for your own custom collections is on the roadmap.
+time, for support for custom collections see below.
 
 | Name | Description | Link
 | ----------- | -------- | -------- |
@@ -98,7 +91,6 @@ time and support for your own custom collections is on the roadmap.
 | NonMovements  | Tasks not involving movement.| [NonMovements](/docs/collections/NonMovements.md)
 | Yanking  | Tasks involving yanking| [Yanking](/docs/collections/Yanking.md)
 
-
 # Schedulers
 
 | Name | Description |
@@ -107,7 +99,7 @@ time and support for your own custom collections is on the roadmap.
 | RepeatUntilNSuccess | The current task is repeated until n successes are reached. |
 
 # Configuration
-A interface for configuration is provided. A example call is provided:
+A interface for configuration is provided:
 ```lua
 local training = require("nvim-training")
 training.configure({
@@ -115,8 +107,16 @@ training.configure({
 	possible_register_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }, -- A list of possible registers. (Optional, this the default)
 	audio_feedback = true, --Enables/Disables audio feedback, if enabled, requires the 'sox' package providing the 'play' command.
 	enable_counters = true, --Enables/Disables counters in tasks that support counters.
+	custom_collections = {}, -- A table of tables containing names of tasks, for details read on.
 })
 ```
+
+## Custom Collections
+To add a custom collection, please use its name as a key for a list of task names, for example like this:
+```lua
+	custom_collections = { MyCollection = { "MoveWord", "MoveWORD"}}
+```
+You may provide as many collections as you wish, they will be available in autocompletion.
 
 # About stability
 
