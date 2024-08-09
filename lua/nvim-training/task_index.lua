@@ -38,4 +38,8 @@ local exported_tasks = {
 	-- CommentLine = require("nvim-training.tasks.comment_line"),
 }
 
+for i, v in pairs(exported_tasks) do
+	v.name = i
+end
+
 return exported_tasks

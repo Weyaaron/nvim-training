@@ -18,7 +18,7 @@ local max_streak = 0
 local previous_task_result
 local resoveld_scheduler
 local reset_task_list = true
-
+local session_id
 local function init()
 	--Todo: Check if file exists
 	vim.cmd("e training.txt")
@@ -27,6 +27,9 @@ local function init()
 	vim.api.nvim_win_set_cursor(0, { 1, 1 })
 	header.store_key_value_in_header("#d", "Es gibt noch keine Aufgabe")
 	header.construct_header()
+
+	local utility = require("nvim-training.utility")
+	session_id = utility.uuid()
 end
 
 local function loop(autocmd_callback_data)
@@ -51,6 +54,18 @@ local function loop(autocmd_callback_data)
 			vim.api.nvim_del_autocmd(current_autocmd)
 		end
 		previous_task_result = current_task:deactivate(autocmd_callback_data)
+
+		local target_data = {
+			result = previous_task_result,
+			timestamp = os.time(),
+			session_id = session_id,
+			event = "task_end",
+			task_name = current_task.name,
+		}
+
+		local utility = require("nvim-training.utility")
+		utility.apppend_table_to_path(target_data, "/tmp/" .. tostring(session_id) .. ".json")
+
 		task_count = task_count + 1
 		if previous_task_result then
 			success_count = success_count + 1
@@ -97,8 +112,17 @@ local function loop(autocmd_callback_data)
 	local utility = require("nvim-training.utility")
 	--This line ensures that the highlights of previous tasks are discarded.
 	utility.clear_all_our_highlights()
+
 	current_task = resoveld_scheduler:next(current_task, previous_task_result):new()
 	current_task:activate()
+
+	local target_data = {
+		timestamp = os.time(),
+		session_id = session_id,
+		event = "task_start",
+		task_name = current_task.name,
+	}
+	utility.apppend_table_to_path(target_data, user_config.base_path .. tostring(session_id) .. ".json")
 
 	--This gives tasks some options to configure the header, for example with a prefix and a suffix to turn the header into a block comment in a programming language
 	local additional_header_values = current_task:construct_optional_header_args()
@@ -123,6 +147,14 @@ local function loop(autocmd_callback_data)
 end
 
 local function training_cmd(opts)
+	local utility = require("nvim-training.utility")
+	local target_data = {
+		timestamp = os.time(),
+		session_id = session_id,
+		event = "session_start",
+	}
+	utility.apppend_table_to_path(target_data, user_config.base_path .. tostring(session_id) .. ".json")
+
 	local scheduler_index = require("nvim-training.scheduler_index")
 	local collection_index = require("nvim-training.task_collection_index")
 	local fargs = opts.fargs

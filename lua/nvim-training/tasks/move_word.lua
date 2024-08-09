@@ -27,6 +27,10 @@ function MoveWord:new()
 	return base
 end
 
+function MoveWord:construct_event_data()
+	return { counter = self.counter }
+end
+
 function MoveWord:activate()
 	local function _inner_update()
 		local cursor_at_line_start = false

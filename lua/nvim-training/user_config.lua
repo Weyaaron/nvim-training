@@ -5,6 +5,7 @@ local user_config = {
 	audio_feedback = true,
 	custom_collections = {},
 	enable_counters = true,
+	base_path = "/tmp/",
 }
 
 return user_config
