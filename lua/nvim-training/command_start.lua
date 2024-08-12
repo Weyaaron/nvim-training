@@ -142,8 +142,8 @@ local function loop(autocmd_callback_data)
 end
 local funcs = {}
 
+--Todo: Rework the parsing, cant be bothered atm
 function funcs.execute(args, opts)
-	print(vim.inspect(args), vim.inspect(opts))
 	local utility = require("nvim-training.utility")
 	local target_data = {
 		timestamp = os.time(),

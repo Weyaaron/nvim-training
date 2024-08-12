@@ -11,6 +11,11 @@ function funcs.execute(args, opts)
 	funcs.task_percentages()
 
 	-- utility.append_lines_to_buffer("You started a total of " .. tostring(total_task_starts) .. "Tasks. \n")
+	local events = utility.load_all_events()
+
+	local total_task_starts = utility.count_events_of_type(events, "task_start")
+
+	utility.append_lines_to_buffer("You started a total of " .. tostring(total_task_starts) .. "Tasks. \n")
 	-- for i, v in pairs(events) do
 	-- 	utility.append_lines_to_buffer(vim.inspect(v) .. "\n")
 	-- end
