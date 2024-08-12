@@ -11,11 +11,13 @@ function Yank:new()
 	setmetatable(base, Yank)
 
 	base.chosen_register = '"'
+	base.target_text = '"'
 	return base
 end
 function Yank:deactivate(autocmd_callback_data)
 	local register_content = vim.fn.getreg(self.chosen_register)
 	register_content = utility.split_str(register_content, "\n")[1]
+	-- print(register_content, self.target_text)
 	return self.target_text == register_content
 end
 

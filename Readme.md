@@ -118,6 +118,13 @@ To add a custom collection, please use its name as a key for a list of task name
 ```
 You may provide as many collections as you wish, they will be available in autocompletion.
 
+
+# Currently supported tasks as a grid (The grid is work in progress)
+
+| Name | As a movement | As a change| As a deletion | As a yank  |
+| - | - | - | - | - |
+w |  ✓| ✓ |✓   |✓ 
+
 # About stability
 
 This code-base may evolve to points where breaking changes will be made.

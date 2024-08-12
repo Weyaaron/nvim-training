@@ -1,20 +1,20 @@
-
 local utility = require("nvim-training.utility")
-local Move = require("nvim-training.tasks.move")
+local movements = require("nvim-training.movements")
+local Yank = require("nvim-training.tasks.yank")
 local user_config = require("nvim-training.user_config")
 local YankWord = {}
 
 YankWord.__index = YankWord
-setmetatable(YankWord, { __index = Move })
+setmetatable(YankWord, { __index = Yank })
 YankWord.__metadata = {
-	autocmd = "CursorMoved",
-	desc = "Move using w.",
-	instructions = "Move using w.",
-	tags = "movement, word, horizontal, w",
+	autocmd = "TextYankPost",
+	desc = "Yank using w.",
+	instructions = "",
+	tags = "yank, word, horizontal, w, counter",
 }
 
 function YankWord:new()
-	local base = Move:new()
+	local base = Yank:new()
 	setmetatable(base, { __index = YankWord })
 	base.target_y_pos = 0
 
@@ -23,6 +23,10 @@ function YankWord:new()
 		base.counter = math.random(2, 7)
 	end
 
+	base.counter = 1
+	if user_config.enable_counters then
+		base.counter = math.random(2, 7)
+	end
 	base.cursor_target = { 0, 0 }
 	return base
 end
@@ -43,25 +47,18 @@ function YankWord:activate()
 			end
 		end
 
+		self.cursor_target = movements.words(self.counter)
 		current_cursor_pos = vim.api.nvim_win_get_cursor(0)
+		utility.create_highlight(current_cursor_pos[1] - 1, self.cursor_target[2], 1)
+
 		local line = utility.get_line(current_cursor_pos[1])
-		local word_positions = utility.calculate_word_bounds(line)
-		local word_index_cursor = utility.calculate_word_index_from_cursor_pos(word_positions, current_cursor_pos[2])
-
-		local offset = self.counter
-		local cursor_is_at_wordend = current_cursor_pos[2] == word_positions[word_index_cursor][2]
-
-		if cursor_is_at_wordend then
-			offset = 1
-		end
-		self.cursor_target = { current_cursor_pos[1], word_positions[word_index_cursor + offset][1] }
-		utility.create_highlight(current_cursor_pos[1] - 1, self.target_y_pos, 1)
+		self.target_text = line:sub(current_cursor_pos[2] + 1, self.cursor_target[2])
 	end
 	vim.schedule_wrap(_inner_update)()
 end
 
 function YankWord:instructions()
-	return "Move " .. self.counter .. " word(s) using 'w'."
+	return "Yank " .. self.counter .. " word(s) using 'w'."
 end
 
 return YankWord

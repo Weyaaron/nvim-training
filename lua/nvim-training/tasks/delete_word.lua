@@ -1,25 +1,32 @@
 local utility = require("nvim-training.utility")
-local Task = require("nvim-training.task")
+local Delete = require("nvim-training.tasks.delete")
+local movements = require("nvim-training.movements")
+local user_config = require("nvim-training.user_config")
 
-local DeleteWordTask = {}
+local DeleteWord = {}
 
-DeleteWordTask.__index = DeleteWordTask
-setmetatable(DeleteWordTask, { __index = Task })
-DeleteWordTask.__metadata = {
+DeleteWord.__index = DeleteWord
+setmetatable(DeleteWord, { __index = Delete })
+DeleteWord.__metadata = {
 	autocmd = "TextChanged",
-	desc = "Delete the char at the cursor.",
-	instructions = "Delete the char at the cursor.",
+	desc = "Delete using 'w'.",
+	instructions = "",
 	tags = "deletion, movement,word",
 }
 
-function DeleteWordTask:new()
-	local base = Task:new()
-	setmetatable(base, { __index = DeleteWordTask })
-	base.sub_word = ""
+function DeleteWord:new()
+	local base = Delete:new()
+	setmetatable(base, { __index = DeleteWord })
+	base.target_text = ""
+
+	base.counter = 1
+	if user_config.enable_counters then
+		base.counter = math.random(2, 7)
+	end
 	return base
 end
 
-function DeleteWordTask:activate()
+function DeleteWord:activate()
 	local function _inner_update()
 		local cursor_at_line_start = false
 		local current_cursor_pos = vim.api.nvim_win_get_cursor(0)
@@ -35,34 +42,17 @@ function DeleteWordTask:activate()
 			end
 		end
 
-		-- utility.set_buffer_to_rectangle_with_line(" TestWord,")
-		-- current_cursor_pos = vim.api.nvim_win_get_cursor(0)
-		--
-		-- vim.api.nvim_win_set_cursor(0, { current_cursor_pos[1], 3 })
-
+		self.cursor_target = movements.words(self.counter)
 		current_cursor_pos = vim.api.nvim_win_get_cursor(0)
+		utility.create_highlight(current_cursor_pos[1] - 1, self.cursor_target[2], 1)
+
 		local line = utility.get_line(current_cursor_pos[1])
-		local word_bounds = utility.calculate_word_bounds(line)
-		local word_index = utility.calculate_word_index_from_cursor_pos(word_bounds, current_cursor_pos[2])
-		self.sub_word = line:sub(current_cursor_pos[2] + 1, word_bounds[word_index][2] - 1)
+		self.target_text = line:sub(current_cursor_pos[2] + 1, self.cursor_target[2])
 	end
 	vim.schedule_wrap(_inner_update)()
 end
-function DeleteWordTask:deactivate(autocmd_callback_data)
-	local reg_content = vim.fn.getreg('""')
-	print(reg_content, "_", self.sub_word, "_")
-	return reg_content == self.sub_word
-	-- local cursor_pos = vim.api.nvim_win_get_cursor(0)
-	-- local current_line = utility.get_line(cursor_pos[1])
-	-- local text_inside_brackets = utility.extract_text_in_brackets(current_line, user_config.bracket_pairs[1])
-	-- local current_cursor_pos = vim.api.nvim_win_get_cursor(0)
-	-- local line = utility.get_line(current_cursor_pos[1])
-	-- local word_positions = utility.calculate_word_bounds(line)
-	-- -- return self.word_position_length - 1 == #word_positions
-	-- return false
-end
-function DeleteWordTask:instructions()
-	return "Delete using the 'word'-motion."
-end
 
-return DeleteWordTask
+function DeleteWord:instructions()
+	return "Delete " .. self.counter .. " word(s) using 'w'."
+end
+return DeleteWord

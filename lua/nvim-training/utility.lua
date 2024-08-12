@@ -130,7 +130,7 @@ function utility.calculate_random_point_in_line_bound(x)
 	return { y }
 end
 
-function calculate_text_piece_bounds(input_str, patterns) -- { start_index, end_index}, 0-indexed
+local function calculate_text_piece_bounds(input_str, patterns) -- { start_index, end_index}, 0-indexed
 	local pieces = {}
 
 	for i, pattern_el in pairs(patterns) do
@@ -157,6 +157,8 @@ function utility.calculate_word_bounds(s) -- { start_index, end_index}, 0-indexe
 	local match_strs = { "()([%w_]+)()", "()(%.)()", "()(,)()" }
 	return calculate_text_piece_bounds(s, match_strs)
 end
+
+
 
 function utility.calculate_word_index_from_cursor_pos(word_bounds, cursor_pos)
 	local index = 0
