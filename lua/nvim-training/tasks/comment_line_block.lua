@@ -1,11 +1,11 @@
-local TaskLua = require("nvim-training.tasks.task_lua")
+local Lua = require("nvim-training.tasks.task_lua")
 local utility = require("nvim-training.utility")
 local template_index = require("nvim-training.template_index")
 
 local CommentLineBlock = {}
 CommentLineBlock.__index = CommentLineBlock
 
-setmetatable(CommentLineBlock, { __index = TaskLua })
+setmetatable(CommentLineBlock, { __index = Lua })
 CommentLineBlock.__metadata = {
 	autocmd = "TextChanged",
 	desc = "Change the current line into a block comment.",
@@ -14,7 +14,7 @@ CommentLineBlock.__metadata = {
 	tags = "comment, programming, plugin, change",
 }
 function CommentLineBlock:new()
-	local base = TaskLua:new()
+	local base = Lua:new()
 	setmetatable(base, { __index = CommentLineBlock })
 
 	return base
