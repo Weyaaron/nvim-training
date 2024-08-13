@@ -21,6 +21,7 @@ function MoveWordEnd:activate()
 	local function _inner_update()
 		local cursor_at_line_start = false
 
+
 		local current_cursor_pos = vim.api.nvim_win_get_cursor(0)
 		while not cursor_at_line_start do
 			utility.set_buffer_to_rectangle_and_place_cursor_randomly()

@@ -27,6 +27,7 @@ local function init()
 end
 
 local function loop(autocmd_callback_data)
+	-- print("looped", vim.inspect(autocmd_callback_data))
 	--This sleep helps with some feedback, if we continue instantly the user might not recognize their actions clearly.
 	vim.loop.sleep(500)
 
@@ -36,7 +37,11 @@ local function loop(autocmd_callback_data)
 	if autocmd_callback_data then
 		if autocmd_callback_data then
 			--Todo: Extend after more event types are used.
-			if autocmd_callback_data["event"] == "TextYankPost" or autocmd_callback_data["event"] == "InsertLeave" then
+			if
+				autocmd_callback_data["event"] == "TextYankPost"
+				or autocmd_callback_data["event"] == "InsertLeave"
+				or autocmd_callback_data["event"] == "WinNew"
+			then
 				toogle_discard = false
 			end
 		end

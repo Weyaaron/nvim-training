@@ -1,4 +1,4 @@
-local Lua = require("nvim-training.tasks.task_lua")
+local Lua = require("nvim-training.tasks.lua")
 local utility = require("nvim-training.utility")
 local template_index = require("nvim-training.template_index")
 
