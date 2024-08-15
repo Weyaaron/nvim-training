@@ -158,8 +158,6 @@ function utility.calculate_word_bounds(s) -- { start_index, end_index}, 0-indexe
 	return calculate_text_piece_bounds(s, match_strs)
 end
 
-
-
 function utility.calculate_word_index_from_cursor_pos(word_bounds, cursor_pos)
 	local index = 0
 	for i, v in pairs(word_bounds) do
@@ -285,15 +283,15 @@ end
 function utility.extract_text_between_cursor_and_target(start_indexes, end_indexes) end
 
 function utility.apppend_table_to_path(data, path)
-	--Todo: Disable completly, fix the nil event
-	-- Tod
-	local file = io.open(path, "a+")
+	if user_config.enable_events then
+		local file = io.open(path, "a+")
 
-	table.sort(data)
+		table.sort(data)
 
-	local data_as_str = vim.json.encode(data)
-	file:write(data_as_str .. "\n")
-	file:close()
+		local data_as_str = vim.json.encode(data)
+		file:write(data_as_str .. "\n")
+		file:close()
+	end
 end
 
 function utility.uuid()

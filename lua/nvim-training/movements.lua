@@ -36,19 +36,4 @@ function movements.WORDS(counter)
 	return move_across_word_pos(utility.calculate_WORD_bounds, counter)
 end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 return movements

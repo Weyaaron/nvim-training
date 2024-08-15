@@ -2,6 +2,7 @@ local utility = require("nvim-training.utility")
 local funcs = {}
 
 function funcs.execute(args, opts)
+	print("This subcommand is very much work in progress, stay patient for updates that will make it usefull")
 	vim.cmd("e results.txt")
 	-- local events = utility.load_all_events()
 	--
@@ -12,6 +13,12 @@ function funcs.execute(args, opts)
 
 	-- utility.append_lines_to_buffer("You started a total of " .. tostring(total_task_starts) .. "Tasks. \n")
 	local events = utility.load_all_events()
+
+	if #events == 0 then
+		print(
+			"Unable to load any events. Please change the config path/use this plugin some time to create some events"
+		)
+	end
 
 	local total_task_starts = utility.count_events_of_type(events, "task_start")
 

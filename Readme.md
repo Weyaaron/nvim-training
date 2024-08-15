@@ -129,6 +129,8 @@ w |  ✓| ✓ |✓   |✓
 
 This code-base may evolve to points where breaking changes will be made.
 As of 07-2024, I consider the userbase small enough to 'just do' them.
+The development happens on the branch dev, expect frequent force pushes and
+a lot of instability. Following it is discouraged.
 This may change in the future, let me know with suggestions for best
 practices :)
 

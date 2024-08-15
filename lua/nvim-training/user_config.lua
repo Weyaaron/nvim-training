@@ -5,6 +5,7 @@ local user_config = {
 	audio_feedback = true,
 	custom_collections = {},
 	enable_counters = true,
+	enable_events = true,
 	base_path = "/home/aaron/Training-Events/",
 }
 

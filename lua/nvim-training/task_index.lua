@@ -1,6 +1,6 @@
 local exported_tasks = {
 	AppendChar = require("nvim-training.tasks.append_char"),
-	OpenWindow= require("nvim-training.tasks.open_window"),
+	OpenWindow = require("nvim-training.tasks.open_window"),
 	ChangeWord = require("nvim-training.tasks.change_word"),
 	DeleteChar = require("nvim-training.tasks.delete_char"),
 	DeleteInsideMatch = require("nvim-training.tasks.delete_inside_match"),

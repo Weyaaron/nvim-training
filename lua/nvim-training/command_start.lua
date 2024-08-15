@@ -21,9 +21,6 @@ local function init()
 	vim.api.nvim_win_set_cursor(0, { 1, 1 })
 	header.store_key_value_in_header("#d", "Es gibt noch keine Aufgabe")
 	header.construct_header()
-
-	local utility = require("nvim-training.utility")
-	session_id = utility.uuid()
 end
 
 local function loop(autocmd_callback_data)
@@ -150,6 +147,7 @@ local funcs = {}
 --Todo: Rework the parsing, cant be bothered atm
 function funcs.execute(args, opts)
 	local utility = require("nvim-training.utility")
+	session_id = utility.uuid()
 	local target_data = {
 		timestamp = os.time(),
 		session_id = session_id,
