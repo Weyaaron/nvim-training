@@ -20,6 +20,10 @@ function Task:instructions()
 	return self.__metadata.instructions
 end
 
+function Task:construct_event_data()
+	return {}
+end
+
 function Task:construct_optional_header_args()
 	--This might someday be merged with description, but remains a special case for the time being.
 	return {}

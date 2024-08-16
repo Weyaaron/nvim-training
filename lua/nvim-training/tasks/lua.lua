@@ -1,18 +1,18 @@
 local Task = require("nvim-training.task")
 
-local TaskLua = {}
-TaskLua.__index = TaskLua
+local Lua = {}
+Lua.__index = Lua
 
-setmetatable(TaskLua, { __index = Task })
-function TaskLua:new()
+setmetatable(Lua, { __index = Task })
+function Lua:new()
 	local base = Task:new()
-	setmetatable(base, { __index = TaskLua })
+	setmetatable(base, { __index = Lua })
 	return base
 end
 
-function TaskLua:construct_optional_header_args()
+function Lua:construct_optional_header_args()
 	--This is used to turn the header in lua tasks into a block comment
 	return { _prefix_ = "--[[", _suffix_ = "--]]" }
 end
 
-return TaskLua
+return Lua

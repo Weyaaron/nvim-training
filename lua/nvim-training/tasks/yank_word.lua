@@ -1,21 +1,21 @@
 local utility = require("nvim-training.utility")
-local Move = require("nvim-training.tasks.move")
-local user_config = require("nvim-training.user_config")
 local movements = require("nvim-training.movements")
-local MoveWord = {}
+local Yank = require("nvim-training.tasks.yank")
+local user_config = require("nvim-training.user_config")
+local YankWord = {}
 
-MoveWord.__index = MoveWord
-setmetatable(MoveWord, { __index = Move })
-MoveWord.__metadata = {
-	autocmd = "CursorMoved",
-	desc = "Move using w.",
-	instructions = "Move using w.",
-	tags = "movement, word, horizontal, w",
+YankWord.__index = YankWord
+setmetatable(YankWord, { __index = Yank })
+YankWord.__metadata = {
+	autocmd = "TextYankPost",
+	desc = "Yank using w.",
+	instructions = "",
+	tags = "yank, word, horizontal, w, counter",
 }
 
-function MoveWord:new()
-	local base = Move:new()
-	setmetatable(base, { __index = MoveWord })
+function YankWord:new()
+	local base = Yank:new()
+	setmetatable(base, { __index = YankWord })
 	base.target_y_pos = 0
 
 	base.counter = 1
@@ -23,15 +23,15 @@ function MoveWord:new()
 		base.counter = math.random(2, 7)
 	end
 
+	base.counter = 1
+	if user_config.enable_counters then
+		base.counter = math.random(2, 7)
+	end
 	base.cursor_target = { 0, 0 }
 	return base
 end
 
-function MoveWord:construct_event_data()
-	return { counter = self.counter }
-end
-
-function MoveWord:activate()
+function YankWord:activate()
 	local function _inner_update()
 		local cursor_at_line_start = false
 		local current_cursor_pos = vim.api.nvim_win_get_cursor(0)
@@ -46,15 +46,19 @@ function MoveWord:activate()
 				cursor_at_line_start = false
 			end
 		end
+
 		self.cursor_target = movements.words(self.counter)
 		current_cursor_pos = vim.api.nvim_win_get_cursor(0)
 		utility.create_highlight(current_cursor_pos[1] - 1, self.cursor_target[2], 1)
+
+		local line = utility.get_line(current_cursor_pos[1])
+		self.target_text = line:sub(current_cursor_pos[2] + 1, self.cursor_target[2])
 	end
 	vim.schedule_wrap(_inner_update)()
 end
 
-function MoveWord:instructions()
-	return "Move " .. self.counter .. " word(s) using 'w'."
+function YankWord:instructions()
+	return "Yank " .. self.counter .. " word(s) using 'w'."
 end
 
-return MoveWord
+return YankWord

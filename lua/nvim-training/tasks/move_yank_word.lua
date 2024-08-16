@@ -1,10 +1,10 @@
 local utility = require("nvim-training.utility")
-local YankTask = require("nvim-training.tasks.yank")
-local MoveYankWord = YankTask:new()
+local Yank = require("nvim-training.tasks.yank")
+local MoveYankWord = Yank:new()
 MoveYankWord.__index = MoveYankWord
 --
 function MoveYankWord:new()
-	local base = YankTask:new()
+	local base = Yank:new()
 	setmetatable(base, { __index = MoveYankWord })
 	base.target_text = ""
 

@@ -1,8 +1,14 @@
 local internal_config = require("nvim-training.internal_config")
 local template_index = require("nvim-training.template_index")
+local user_config = require("nvim-training.user_config")
 local utility = {}
 function utility.trim(s)
 	return (s:gsub("^%s*(.-)%s*$", "%1"))
+end
+
+function utility.get_current_line()
+	local cursor_pos = vim.api.nvim_win_get_cursor(0)
+	return utility.get_line(cursor_pos[1])
 end
 function utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
 	utility.update_buffer_respecting_header(utility.load_template(template_index.LoremIpsum))
@@ -36,6 +42,27 @@ function utility.get_keys(t)
 		table.insert(keys, key)
 	end
 	return keys
+end
+
+function utility.construct_line_with_bracket(bracket_pair, left_index, right_index)
+	print(bracket_pair)
+	local result = ""
+	for i = 1, internal_config.line_length do
+		if i < left_index then
+			result = result .. " "
+		end
+		if i == left_index then
+			result = result .. bracket_pair[1]
+		end
+
+		if i > left_index and i < right_index then
+			result = result .. "x"
+		end
+		if i == right_index then
+			result = result .. bracket_pair[2]
+		end
+	end
+	return result
 end
 
 function utility.add_pair_and_place_cursor(bracket_pair)
@@ -103,7 +130,7 @@ function utility.calculate_random_point_in_line_bound(x)
 	return { y }
 end
 
-function calculate_text_piece_bounds(input_str, patterns) -- { start_index, end_index}, 0-indexed
+local function calculate_text_piece_bounds(input_str, patterns) -- { start_index, end_index}, 0-indexed
 	local pieces = {}
 
 	for i, pattern_el in pairs(patterns) do
@@ -172,6 +199,12 @@ function utility.update_buffer_respecting_header(input_str)
 	local end_index = internal_config.header_length + #str_as_lines
 	vim.api.nvim_buf_set_lines(0, internal_config.header_length, end_index, false, str_as_lines)
 	vim.cmd("write!")
+end
+
+function utility.append_lines_to_buffer(input_str)
+	local str_as_lines = utility.split_str(input_str, "\n")
+	local buf_len = vim.api.nvim_buf_line_count(0)
+	vim.api.nvim_buf_set_lines(0, buf_len, buf_len + #str_as_lines, false, str_as_lines)
 end
 
 function utility.split_str(input, sep)
@@ -249,4 +282,66 @@ end
 
 function utility.extract_text_between_cursor_and_target(start_indexes, end_indexes) end
 
+function utility.apppend_table_to_path(data, path)
+	--This will be part of a latter release
+	--
+	-- if user_config.enable_events then
+	-- 	local file = io.open(path, "a+")
+	--
+	-- 	table.sort(data)
+	--
+	-- 	local data_as_str = vim.json.encode(data)
+	-- 	file:write(data_as_str .. "\n")
+	-- 	file:close()
+	-- end
+end
+
+function utility.uuid()
+	math.randomseed(os.time())
+	local template = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx"
+	return string.gsub(template, "[xy]", function(c)
+		local v = (c == "x") and math.random(0, 0xf) or math.random(8, 0xb)
+		return string.format("%x", v)
+	end)
+end
+
+function utility.scandir(directory)
+	local i, t, popen = 0, {}, io.popen
+	local pfile = popen('ls "' .. directory .. '"')
+	for filename in pfile:lines() do
+		i = i + 1
+		t[i] = filename
+	end
+	pfile:close()
+	return t
+end
+
+function utility.load_all_events()
+	local paths = utility.scandir(user_config.base_path)
+	local result = {}
+	for i, v in pairs(paths) do
+		local file = io.open(user_config.base_path .. "/" .. v, "r")
+
+		local data = file:read("a")
+
+		local lines = utility.split_str(data)
+		for ii, line_el in pairs(lines) do
+			if #line_el > 1 then
+				result[#result + 1] = vim.json.decode(line_el)
+			end
+		end
+
+		file:close()
+	end
+	return result
+end
+function utility.count_events_of_type(event_list, type)
+	local counter = 0
+	for i, v in pairs(event_list) do
+		if v["event"] == type then
+			counter = counter + 1
+		end
+	end
+	return counter
+end
 return utility

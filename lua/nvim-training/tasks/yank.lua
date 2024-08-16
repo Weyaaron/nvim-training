@@ -1,23 +1,24 @@
 local Task = require("nvim-training.task")
 local utility = require("nvim-training.utility")
-local TaskYank = {}
-TaskYank.__index = TaskYank
+local Yank = {}
 
-setmetatable(TaskYank, { __index = Task })
+Yank.__index = Yank
+setmetatable(Yank, { __index = Task })
+Yank.__metadata = { autocmd = "", desc = "", instructions = "" }
 
-TaskYank.__metadata = { autocmd = "", desc = "", instructions = "" }
-
-function TaskYank:new()
+function Yank:new()
 	local base = Task:new()
-	setmetatable(base, TaskYank)
+	setmetatable(base, Yank)
 
 	base.chosen_register = '"'
+	base.target_text = '"'
 	return base
 end
-function TaskYank:deactivate(autocmd_callback_data)
+function Yank:deactivate(autocmd_callback_data)
 	local register_content = vim.fn.getreg(self.chosen_register)
 	register_content = utility.split_str(register_content, "\n")[1]
+	-- print(register_content, self.target_text)
 	return self.target_text == register_content
 end
 
-return TaskYank
+return Yank

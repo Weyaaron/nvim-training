@@ -1,21 +1,21 @@
 local utility = require("nvim-training.utility")
-local Move = require("nvim-training.tasks.move")
+local Change = require("nvim-training.tasks.change")
 local user_config = require("nvim-training.user_config")
 local movements = require("nvim-training.movements")
-local MoveWord = {}
+local ChangeWord = {}
 
-MoveWord.__index = MoveWord
-setmetatable(MoveWord, { __index = Move })
-MoveWord.__metadata = {
-	autocmd = "CursorMoved",
-	desc = "Move using w.",
-	instructions = "Move using w.",
-	tags = "movement, word, horizontal, w",
+ChangeWord.__index = ChangeWord
+setmetatable(ChangeWord, { __index = Change })
+ChangeWord.__metadata = {
+	autocmd = "InsertLeave",
+	desc = "Change text using w,c.",
+	instructions = "",
+	tags = "change, word, horizontal, w,c",
 }
 
-function MoveWord:new()
-	local base = Move:new()
-	setmetatable(base, { __index = MoveWord })
+function ChangeWord:new()
+	local base = Change:new()
+	setmetatable(base, { __index = ChangeWord })
 	base.target_y_pos = 0
 
 	base.counter = 1
@@ -24,14 +24,16 @@ function MoveWord:new()
 	end
 
 	base.cursor_target = { 0, 0 }
+	base.base_text = "x"
+	base.new_line_text = ""
 	return base
 end
 
-function MoveWord:construct_event_data()
+function ChangeWord:construct_event_data()
 	return { counter = self.counter }
 end
 
-function MoveWord:activate()
+function ChangeWord:activate()
 	local function _inner_update()
 		local cursor_at_line_start = false
 		local current_cursor_pos = vim.api.nvim_win_get_cursor(0)
@@ -46,15 +48,24 @@ function MoveWord:activate()
 				cursor_at_line_start = false
 			end
 		end
-		self.cursor_target = movements.words(self.counter)
 		current_cursor_pos = vim.api.nvim_win_get_cursor(0)
+
+		local cursor_pos_after_movement = movements.words(self.counter)
+
+		local line = utility.get_line(current_cursor_pos[1])
+		local text_after_deletion = line:sub(0, current_cursor_pos[2])
+			.. self.target_text
+			.. line:sub(cursor_pos_after_movement[2], #line)
+
+		self.cursor_target = current_cursor_pos
+		self.target_line = text_after_deletion
 		utility.create_highlight(current_cursor_pos[1] - 1, self.cursor_target[2], 1)
 	end
 	vim.schedule_wrap(_inner_update)()
 end
 
-function MoveWord:instructions()
-	return "Move " .. self.counter .. " word(s) using 'w'."
+function ChangeWord:instructions()
+	return "Change the text of " .. self.counter .. " word(s) (using w,c) into '" .. self.base_text .. "'."
 end
 
-return MoveWord
+return ChangeWord

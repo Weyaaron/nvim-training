@@ -2,20 +2,21 @@ local utility = require("nvim-training.utility")
 local Move = require("nvim-training.tasks.move")
 local user_config = require("nvim-training.user_config")
 local movements = require("nvim-training.movements")
-local MoveWord = {}
+local SearchWordForward = {}
 
-MoveWord.__index = MoveWord
-setmetatable(MoveWord, { __index = Move })
-MoveWord.__metadata = {
+--Todo: Actually implement, this is intendet to be * based search
+SearchWordForward.__index = SearchWordForward
+setmetatable(SearchWordForward, { __index = Move })
+SearchWordForward.__metadata = {
 	autocmd = "CursorMoved",
-	desc = "Move using w.",
-	instructions = "Move using w.",
+	desc = "Move using *",
+	instructions = "Use '*' and 'n' to go to the next instance of the current word. ",
 	tags = "movement, word, horizontal, w",
 }
 
-function MoveWord:new()
+function SearchWordForward:new()
 	local base = Move:new()
-	setmetatable(base, { __index = MoveWord })
+	setmetatable(base, { __index = SearchWordForward })
 	base.target_y_pos = 0
 
 	base.counter = 1
@@ -27,11 +28,11 @@ function MoveWord:new()
 	return base
 end
 
-function MoveWord:construct_event_data()
+function SearchWordForward:construct_event_data()
 	return { counter = self.counter }
 end
 
-function MoveWord:activate()
+function SearchWordForward:activate()
 	local function _inner_update()
 		local cursor_at_line_start = false
 		local current_cursor_pos = vim.api.nvim_win_get_cursor(0)
@@ -53,8 +54,8 @@ function MoveWord:activate()
 	vim.schedule_wrap(_inner_update)()
 end
 
-function MoveWord:instructions()
+function SearchWordForward:instructions()
 	return "Move " .. self.counter .. " word(s) using 'w'."
 end
 
-return MoveWord
+return SearchWordForward
