@@ -1,7 +1,5 @@
 local exported_tasks = {
-	-- CommentLineBlock = require("nvim-training.tasks.comment_line_block"),
 	AppendChar = require("nvim-training.tasks.append_char"),
-	CommentLine = require("nvim-training.tasks.comment_line"),
 	DeleteChar = require("nvim-training.tasks.delete_char"),
 	DeleteInsideMatch = require("nvim-training.tasks.delete_inside_match"),
 	DeleteLine = require("nvim-training.tasks.delete_line"),
@@ -34,6 +32,8 @@ local exported_tasks = {
 	-- PlaceMark= require("nvim-training.tasks.place_mark"),
 	-- MoveWordStart ?? How
 	-- MoveyankWork ...
+	-- CommentLineBlock = require("nvim-training.tasks.comment_line_block"),
+	-- CommentLine = require("nvim-training.tasks.comment_line"),
 }
 
 return exported_tasks

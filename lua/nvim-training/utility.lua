@@ -51,7 +51,7 @@ function utility.add_pair_and_place_cursor(bracket_pair)
 	local new_line = start_of_line .. bracket_pair[1] .. middle_piece .. bracket_pair[2] .. end_piece
 
 	vim.api.nvim_buf_set_lines(0, cursor_pos[1] - 1, cursor_pos[1], false, { new_line })
-
+	vim.cmd("write!")
 	utility.create_highlight(cursor_pos[1] - 1, cursor_pos[2], distance + 2)
 
 	if math.random(0, 2) == 0 then
@@ -168,6 +168,7 @@ function utility.update_buffer_respecting_header(input_str)
 
 	local end_index = internal_config.header_length + #str_as_lines
 	vim.api.nvim_buf_set_lines(0, internal_config.header_length, end_index, false, str_as_lines)
+	vim.cmd("write!")
 end
 
 function utility.split_str(input, sep)
