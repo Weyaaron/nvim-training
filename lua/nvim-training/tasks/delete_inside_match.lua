@@ -27,9 +27,7 @@ function DeleteInsideMatch:activate()
 
 		local cursor_pos = vim.api.nvim_win_get_cursor(0)
 		vim.api.nvim_win_set_cursor(0, { cursor_pos[1], left_bound - 1 })
-
-		local current_line = utility.get_line(cursor_pos[1])
-		self.target_text = utility.extract_text_in_brackets(current_line, user_config.bracket_pairs[1])
+		self.target_text = line:sub(left_bound, right_bound)
 	end
 	vim.schedule_wrap(_inner_update)()
 end
