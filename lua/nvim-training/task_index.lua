@@ -34,6 +34,8 @@ local exported_tasks = {
 	-- PlaceMark= require("nvim-training.tasks.place_mark"),
 	-- MoveWordStart ?? How
 	-- MoveyankWork ...
+	-- CommentLineBlock = require("nvim-training.tasks.comment_line_block"),
+	-- CommentLine = require("nvim-training.tasks.comment_line"),
 }
 
 return exported_tasks
