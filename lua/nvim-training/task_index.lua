@@ -5,6 +5,7 @@ local exported_tasks = {
 	DeleteInsideMatch = require("nvim-training.tasks.delete_inside_match"),
 	DeleteLine = require("nvim-training.tasks.delete_line"),
 	DeleteWord = require("nvim-training.tasks.delete_word"),
+	DeleteWORD = require("nvim-training.tasks.delete_WORD"),
 	Increment = require("nvim-training.tasks.increment"),
 	InsertChar = require("nvim-training.tasks.insert_char"),
 	MoveAbsoluteLine = require("nvim-training.tasks.move_absolute_line"),
@@ -30,6 +31,7 @@ local exported_tasks = {
 	YankInsideMatch = require("nvim-training.tasks.yank_inside_match"),
 	YankIntoRegister = require("nvim-training.tasks.yank_into_register"),
 	YankWord = require("nvim-training.tasks.yank_word"),
+	YankWORD = require("nvim-training.tasks.yank_WORD"),
 	-- Barrier of tasks done, todo: Fix them
 	-- CommentLineBlock = require("nvim-training.tasks.comment_line_block"),
 	-- CommentLine = require("nvim-training.tasks.comment_line"), --Currently broken, cursor outside windwo

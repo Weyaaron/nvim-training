@@ -347,14 +347,26 @@ function utility.load_all_events()
 	end
 	return result
 end
-function utility.filter_by_event_type(event_list, type)
-	local result = {}
-	for i, v in pairs(event_list) do
-		if v["event"] == type then
-			result[#result + 1] = v
-		end
+
+local function construct_words_line_from_template(template_name)
+	local base_template = utility.load_template(template_name)
+	base_template = utility.split_str(base_template, "\n")[1]
+	local words = utility.split_str(base_template, " ")
+
+	for i = #words, 2, -1 do
+		local j = math.random(i)
+		words[i], words[j] = words[j], words[i]
 	end
-	return result
+
+	return table.concat(words, " ")
+end
+
+function utility.construct_words_line()
+	return construct_words_line_from_template(template_index.LoremIpsum)
+end
+
+function utility.construct_WORDS_line()
+	return construct_words_line_from_template(template_index.LoremIpsumWORDS)
 end
 
 function utility.construct_base_path()
