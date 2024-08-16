@@ -10,6 +10,7 @@ local subcommand_tbl = {
 			return {}
 		end,
 	},
-	Analyse = analyze_command,
+	--This will be part of a later release
+	-- Analyse = analyze_command,
 }
 return subcommand_tbl

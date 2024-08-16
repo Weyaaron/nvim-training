@@ -18,6 +18,7 @@ local function init()
 	vim.cmd("e training.txt")
 	vim.cmd("write!")
 	vim.api.nvim_buf_set_lines(0, 0, 25, false, {})
+	vim.cmd("write!")
 	vim.api.nvim_win_set_cursor(0, { 1, 1 })
 	header.store_key_value_in_header("#d", "Es gibt noch keine Aufgabe")
 	header.construct_header()
@@ -60,7 +61,7 @@ local function loop(autocmd_callback_data)
 		}
 
 		local utility = require("nvim-training.utility")
-		utility.apppend_table_to_path(target_data, user_config.base_path .. tostring(session_id) .. ".json")
+		-- utility.apppend_table_to_path(target_data, user_config.base_path .. tostring(session_id) .. ".json")
 
 		task_count = task_count + 1
 		if previous_task_result then
@@ -119,7 +120,7 @@ local function loop(autocmd_callback_data)
 		event = "task_start",
 		task_name = current_task.name,
 	}
-	utility.apppend_table_to_path(target_data, user_config.base_path .. tostring(session_id) .. ".json")
+	-- utility.apppend_table_to_path(target_data, user_config.base_path .. tostring(session_id) .. ".json")
 
 	--This gives tasks some options to configure the header, for example with a prefix and a suffix to turn the header into a block comment in a programming language
 	local additional_header_values = current_task:construct_optional_header_args()
@@ -153,7 +154,7 @@ function funcs.execute(args, opts)
 		session_id = session_id,
 		event = "session_start",
 	}
-	utility.apppend_table_to_path(target_data, user_config.base_path .. tostring(session_id) .. ".json")
+	-- utility.apppend_table_to_path(target_data, user_config.base_path .. tostring(session_id) .. ".json")
 
 	local scheduler_index = require("nvim-training.scheduler_index")
 	local collection_index = require("nvim-training.task_collection_index")
@@ -189,7 +190,7 @@ function funcs.stop()
 		session_id = session_id,
 		event = "session_end",
 	}
-	utility.apppend_table_to_path(target_data, user_config.base_path .. tostring(session_id) .. ".json")
+	-- utility.apppend_table_to_path(target_data, user_config.base_path .. tostring(session_id) .. ".json")
 	print("Session got closed.")
 	--Todo: Delete stuff? Not quite sure
 end

@@ -283,15 +283,17 @@ end
 function utility.extract_text_between_cursor_and_target(start_indexes, end_indexes) end
 
 function utility.apppend_table_to_path(data, path)
-	if user_config.enable_events then
-		local file = io.open(path, "a+")
-
-		table.sort(data)
-
-		local data_as_str = vim.json.encode(data)
-		file:write(data_as_str .. "\n")
-		file:close()
-	end
+	--This will be part of a latter release
+	--
+	-- if user_config.enable_events then
+	-- 	local file = io.open(path, "a+")
+	--
+	-- 	table.sort(data)
+	--
+	-- 	local data_as_str = vim.json.encode(data)
+	-- 	file:write(data_as_str .. "\n")
+	-- 	file:close()
+	-- end
 end
 
 function utility.uuid()

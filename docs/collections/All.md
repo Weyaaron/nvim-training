@@ -2,10 +2,11 @@
 | Name | Description | Tags | Notes 
 | --- | -------- | -------- | -------- |
 |AppendChar | Insert a char next to the cursor. |  append,  insertion, change |
-|CommentLine | Change the current line into a single line comment. |  change,  commenting,  plugin, programming | Not available in vanilla-vim, needs plugin. |
+|ChangeWord | Change text using w,c. |  horizontal,  w,  word, c, change |
 |DeleteChar | Delete the current char. |  change,  char, deletion |
 |DeleteInsideMatch | Delete inside the current bracket pair. |  change,  inside,  match, deletion |
 |DeleteLine | Delete the current line. |  change,  line, deletion |
+|DeleteWord | Delete using 'w'. |  movement, deletion, word |
 |Increment | Increment the value at the cursor. |  change,  char, increment |
 |InsertChar | Insert a char at the current position. |  char,  insertion, change |
 |MoveAbsoluteLine | Move to the absolute line. |  line,  vertical, movement |
@@ -21,6 +22,8 @@
 |MoveWord | Move using w. |  horizontal,  w,  word, movement |
 |MoveWordEnd | Move to the end of the current 'word'. |  end,  vertical,  word, movement |
 |MoveWordStart | Move to the start of the current 'word'. |  horizontal,  word, movement |
+|Move_O | Enter and leave insert mode above the current line. |  insert_mode,  linewise,  movement, O |
+|Move_o | Enter and leave insert mode below the current line. |  insert_mode,  linewise,  movement, o |
 |Movef | Move using f. |  f,  horizontal, movement |
 |Movet | Move using t. |  horizontal,  t, movement |
 |Paste | Paste from a given register. |  register, paste |
@@ -28,3 +31,4 @@
 |YankEndOfLine | Yank to the end of the current line. |  line,  yank, end |
 |YankInsideMatch | Yank inside the current match. |  inside,  match, yank |
 |YankIntoRegister | Yank a line into a register. |  copy,  line,  vertical, register |
+|YankWord | Yank using w. |  counter,  horizontal,  w,  word, yank |

@@ -10,6 +10,7 @@ local movement_tasks = utility.filter_tasks_by_tags(task_index, { "movement" })
 local change_tasks = utility.filter_tasks_by_tags(task_index, { "change" })
 local non_movements = utility.discard_tasks_by_tags(task_index, { "movement" })
 local yank = utility.filter_tasks_by_tags(task_index, { "yank" })
+local window = utility.filter_tasks_by_tags(task_index, { "window" })
 --Todo: check non-empty check for the buildins
 local index = {
 	All = TaskCollection:new(
@@ -21,6 +22,7 @@ local index = {
 	Movement = TaskCollection:new("Movements", "Tasks involving movement.", movement_tasks),
 	NonMovement = TaskCollection:new("NonMovements", "Tasks not involving movement.", non_movements),
 	Yanking = TaskCollection:new("Yanking", "Tasks involving yanking", yank),
+	-- Windows = TaskCollection:new("WindowTasks", "Tasks involving windows", ),
 }
 
 for name_key, name_table in pairs(user_config.custom_collections) do

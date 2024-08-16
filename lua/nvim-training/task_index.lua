@@ -1,6 +1,5 @@
 local exported_tasks = {
 	AppendChar = require("nvim-training.tasks.append_char"),
-	OpenWindow = require("nvim-training.tasks.open_window"),
 	ChangeWord = require("nvim-training.tasks.change_word"),
 	DeleteChar = require("nvim-training.tasks.delete_char"),
 	DeleteInsideMatch = require("nvim-training.tasks.delete_inside_match"),
@@ -41,6 +40,7 @@ local exported_tasks = {
 	-- MoveyankWork ...
 	-- CommentLineBlock = require("nvim-training.tasks.comment_line_block"),
 	-- CommentLine = require("nvim-training.tasks.comment_line"),
+	-- OpenWindow = require("nvim-training.tasks.open_window"),
 }
 
 for i, v in pairs(exported_tasks) do

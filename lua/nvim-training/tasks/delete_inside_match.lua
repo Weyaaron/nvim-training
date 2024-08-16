@@ -8,8 +8,8 @@ setmetatable(DeleteInsideMatch, { __index = Delete })
 
 DeleteInsideMatch.__metadata = {
 	autocmd = "TextChanged",
-	desc = "Delete inside the current bracket pair.",
-	instructions = "Delete inside the current bracket pair.",
+	desc = "Delete inside the current match.",
+	instructions = "Delete inside the current match.",
 	tags = "deletion, match, inside, change",
 }
 function DeleteInsideMatch:new()
