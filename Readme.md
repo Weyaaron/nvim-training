@@ -50,6 +50,7 @@ Currently, these are the available options:
 | --- | -------- | -------- |
 | Start | `:Training Start [Scheduler] [Task-Collection A] [Task Collection B] ...`|  Starts a session with the choosen scheduler and the choosen task collections. Both arguments are optional.  |
 | Stop | `:Training Stop`|  Stops a session. |
+| Analyze | `:Training Analyze`|  Prints some statistics about your progress. |
 
 Some care is taken to avoid overwritting your files, but just to be
 safe you may start in an empty buffer/directory.
@@ -119,6 +120,8 @@ training.configure({
 	audio_feedback = true, --Enables/Disables audio feedback, if enabled, requires the 'sox' package providing the 'play' command.
 	enable_counters = true, --Enables/Disables counters in tasks that support counters.
 	custom_collections = {}, -- A table of tables containing names of tasks, for details read on.
+	enable_events = true, --If the plugin should save events. These are used for the subcommand analyze.
+	base_path = "~/Training-Events/", -- The base-path were these events will be saved.
 })
 ```
 
@@ -134,14 +137,7 @@ training.configure({
 ```
 You may provide as many collections as you wish, they will be available in autocompletion.
 
-# About stability
 
-This code-base may evolve to points where breaking changes will be made.
-As of 07-2024, I consider the userbase small enough to 'just do' them.
-The development happens on the branch dev, expect frequent force pushes and
-a lot of instability. Following it is discouraged.
-This may change in the future, let me know with suggestions for best
-practices :)
 
 # For beginners
 

@@ -11,8 +11,7 @@ local subcommand_tbl = {
 			return {}
 		end,
 	},
-	--This will be part of a later release
-	-- Analyse = analyze_command,
 	ReCreateMD = recreate_md_command,
+	Analyse = analyze_command,
 }
 return subcommand_tbl

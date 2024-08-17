@@ -3,6 +3,8 @@ dump.txt
 scratch
 training.txt
 training.lua
+results.txt
+
 
 dev_setup.lua
 

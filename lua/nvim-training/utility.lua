@@ -205,6 +205,7 @@ function utility.append_lines_to_buffer(input_str)
 	local str_as_lines = utility.split_str(input_str, "\n")
 	local buf_len = vim.api.nvim_buf_line_count(0)
 	vim.api.nvim_buf_set_lines(0, buf_len, buf_len + #str_as_lines, false, str_as_lines)
+	vim.cmd("write!")
 end
 
 function utility.split_str(input, sep)
@@ -296,17 +297,21 @@ end
 function utility.extract_text_between_cursor_and_target(start_indexes, end_indexes) end
 
 function utility.apppend_table_to_path(data, path)
-	--This will be part of a latter release
-	--
-	-- if user_config.enable_events then
-	-- 	local file = io.open(path, "a+")
-	--
-	-- 	table.sort(data)
-	--
-	-- 	local data_as_str = vim.json.encode(data)
-	-- 	file:write(data_as_str .. "\n")
-	-- 	file:close()
-	-- end
+	print(path)
+	--Todo: Fix
+	-- user_config.enable_events = false
+	path = "/tmp/events.json"
+	if user_config.enable_events then
+		local file = io.open(path, "a")
+		print(file)
+
+		table.sort(data)
+
+		local data_as_str = vim.json.encode(data)
+
+		file:write(data_as_str .. "\n")
+		file:close()
+	end
 end
 
 function utility.uuid()
@@ -348,14 +353,14 @@ function utility.load_all_events()
 	end
 	return result
 end
-function utility.count_events_of_type(event_list, type)
-	local counter = 0
+function utility.filter_by_event_type(event_list, type)
+	local result = {}
 	for i, v in pairs(event_list) do
 		if v["event"] == type then
-			counter = counter + 1
+			result[#result + 1] = v
 		end
 	end
-	return counter
+	return result
 end
 
 function utility.construct_base_path()
@@ -369,6 +374,18 @@ function utility.construct_base_path()
 	local base_path = script_path() .. "../.."
 	print(base_path)
 	return base_path
+end
+function utility.count_similar_events(events, cmp_func)
+	local result = {}
+
+	for i, v in pairs(events) do
+		local cmp_result = cmp_func(v)
+		if not result[cmp_result] then
+			result[cmp_result] = 0
+		end
+		result[cmp_result] = result[cmp_result] + 1
+	end
+	return result
 end
 
 return utility
