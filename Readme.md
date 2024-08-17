@@ -15,6 +15,12 @@ This helps to work on a lot of tasks in a short amount of time.
 The list of tasks is growing all the time, if you miss a particular one you may open a feature request :)
 
 
+# Some stats of current tasks
+
+-Supported Tasks: 31
+-Supported Tasks-Collections: 5
+-Supported Schedulers: 2
+
 # In Action
 ![GIF](media/screencast.gif)
 

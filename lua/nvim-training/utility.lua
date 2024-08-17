@@ -254,6 +254,19 @@ function utility.load_rectangle_with_line(middle_line)
 	return table.concat(result, "\n")
 end
 
+function utility.gather_tags(tasks)
+	local result = {}
+	for i, task_el in pairs(tasks) do
+		local current_tag = task_el.__metadata.tags or ""
+		local current_pieces = utility.split_str(current_tag, ", ")
+		for ii, tag_el in pairs(current_pieces) do
+			result[tag_el] = tag_el
+		end
+	end
+	print(vim.inspect(result))
+	return result
+end
+
 function utility.filter_tasks_by_tags(tasks, tag_list)
 	local tasks_with_tag = {}
 	for i, tag_el in pairs(tag_list) do
@@ -344,4 +357,18 @@ function utility.count_events_of_type(event_list, type)
 	end
 	return counter
 end
+
+function utility.construct_base_path()
+	--https://stackoverflow.com/questions/6380820/get-containing-path-of-lua-file
+	local function script_path()
+		local str = debug.getinfo(2, "S").source:sub(2)
+		local initial_result = str:match("(.*/)")
+		return initial_result
+	end
+
+	local base_path = script_path() .. "../.."
+	print(base_path)
+	return base_path
+end
+
 return utility

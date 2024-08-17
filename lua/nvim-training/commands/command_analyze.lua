@@ -1,4 +1,3 @@
-local utility = require("nvim-training.utility")
 local funcs = {}
 
 function funcs.execute(args, opts)
@@ -11,6 +10,7 @@ function funcs.execute(args, opts)
 
 	funcs.task_percentages()
 
+	local utility = require("nvim-training.utility")
 	-- utility.append_lines_to_buffer("You started a total of " .. tostring(total_task_starts) .. "Tasks. \n")
 	local events = utility.load_all_events()
 

@@ -1,5 +1,6 @@
 local internal_config = require("nvim-training.internal_config")
-local function construct_base_path()
+
+function construct_base_path()
 	--https://stackoverflow.com/questions/6380820/get-containing-path-of-lua-file
 	local function script_path()
 		local str = debug.getinfo(2, "S").source:sub(2)
