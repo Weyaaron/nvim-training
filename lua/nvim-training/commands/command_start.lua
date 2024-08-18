@@ -1,6 +1,7 @@
 local header = require("nvim-training.header")
 local user_config = require("nvim-training.user_config")
 local audio = require("nvim-training.audio")
+local parsing = require("nvim-training.utilities.parsing")
 local task_count = 0
 local success_count = 0
 local failure_count = 0
@@ -212,25 +213,14 @@ function funcs.complete(arg_lead)
 			scheduler_in_cmd_line = true
 		end
 	end
-
-	local matching_schedulers = {}
-	for i, scheduler_name in pairs(scheduler_keys) do
-		local sub_str = scheduler_name:sub(1, #arg_lead)
-		if sub_str == arg_lead then
-			matching_schedulers[#matching_schedulers + 1] = scheduler_name
-		end
-	end
+	local matching_schedulers = parsing.complete_from_text_list(arg_lead, scheduler_keys)
 
 	if #matching_schedulers == 0 then
 		matching_schedulers = scheduler_keys
 	end
 
-	local matching_collections = {}
-	for i, collection_name in pairs(collection_keys) do
-		if collection_name:sub(1, #arg_lead) == arg_lead then
-			matching_collections[#matching_collections + 1] = collection_name
-		end
-	end
+	local matching_collections = parsing.complete_from_text_list(arg_lead, collection_keys)
+
 	if #matching_collections == 0 then
 		matching_collections = collection_keys
 	end

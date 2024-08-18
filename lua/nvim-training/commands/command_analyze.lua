@@ -41,15 +41,8 @@ function funcs.stop() end
 
 function funcs.complete(arg_lead)
 	--Todo: Unify the matching
-
-	local matching_stats_types = {}
-	for i, scheduler_name in pairs(stats_map) do
-		local sub_str = scheduler_name:sub(1, #arg_lead)
-		if sub_str == arg_lead then
-			matching_stats_types[#matching_stats_types + 1] = scheduler_name
-		end
-	end
-	return matching_stats_types
+	local parsing = require("nvim-training.utilities.parsing")
+	return parsing.complete_from_text_list(arg_lead, stats_map)
 end
 
 return funcs
