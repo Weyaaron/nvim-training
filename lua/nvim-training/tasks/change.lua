@@ -19,13 +19,10 @@ function Change:deactivate(autocmd_callback_data)
 	if type(self.cursor_target) == "number" then
 		print("Target has to be type table, current value is " .. tostring(self.cursor_target))
 	end
-	-- print(vim.inspect(cursor_pos), vim.inspect(self.cursor_target))
 	local cursor_at_right_place = cursor_pos[1] == self.cursor_target[1] and cursor_pos[2] == self.cursor_target[2]
 	local line = utility.get_line(cursor_pos[1])
 	local line_is_same = line == self.target_line
-	print(line, line_is_same, self.target_line)
 	local text_left_of_cursor = line:sub((cursor_pos[2] + 1) - (#self.base_text - 1), cursor_pos[2] + 1)
-	-- print("'" .. text_left_of_cursor .. "'", "----", line, vim.inspect(self.cursor_target), vim.inspect(cursor_pos))
 	return cursor_at_right_place and (text_left_of_cursor == self.base_text) and line_is_same
 end
 

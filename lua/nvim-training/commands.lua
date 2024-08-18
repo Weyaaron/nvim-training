@@ -4,10 +4,10 @@ local recreate_md_command = require("nvim-training.commands.command_recreate_md"
 local subcommand_tbl = {
 	Start = start_command,
 	Stop = {
-		execute = function(args, opts)
+		execute = function(args)
 			start_command.stop()
 		end,
-		complete = function(subcmd_arg_lead)
+		complete = function()
 			return {}
 		end,
 	},

@@ -6,19 +6,16 @@ vim.g.loaded_training = 1
 
 local function my_cmd(opts)
 	local subcommand_tbl = require("nvim-training.commands")
-	local fargs = opts.fargs
-	local subcommand_key = fargs[1]
-	-- Get the subcommand's arguments, if any
-	local args = #fargs > 1 and vim.list_slice(fargs, 2, #fargs) or {}
+	local subcommand_key = opts.fargs[1]
+	local sub_args = vim.list_slice(opts.fargs, 2, #opts.fargs)
 	local subcommand = subcommand_tbl[subcommand_key]
 	if not subcommand then
-		vim.notify("Training subcommand : " .. subcommand_key, vim.log.levels.ERROR)
+		vim.notify("Training subcommand : " .. subcommand_key .. " is not supported!", vim.log.levels.ERROR)
 		return
 	end
-	subcommand.execute(args, opts)
+	subcommand.execute(sub_args)
 end
 
--- NOTE: the options will vary, based on your use case.
 vim.api.nvim_create_user_command("Training", my_cmd, {
 	nargs = "+",
 	desc = "Train your muscle memory.",

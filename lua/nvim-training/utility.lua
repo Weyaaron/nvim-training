@@ -45,7 +45,6 @@ function utility.get_keys(t)
 end
 
 function utility.construct_line_with_bracket(bracket_pair, left_index, right_index)
-	print(bracket_pair)
 	local result = ""
 	for i = 1, internal_config.line_length do
 		if i < left_index then
@@ -297,10 +296,6 @@ end
 function utility.extract_text_between_cursor_and_target(start_indexes, end_indexes) end
 
 function utility.apppend_table_to_path(data, path)
-	print(path)
-	--Todo: Fix
-	-- user_config.enable_events = false
-	path = "/tmp/events.json"
 	if user_config.enable_events then
 		local file = io.open(path, "a")
 		print(file)

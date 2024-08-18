@@ -14,22 +14,8 @@ local previous_task_result
 local resoveld_scheduler
 local reset_task_list = true
 local session_id
-local function init()
-	local init = require("nvim-training.init")
-	init.configure({})
-	--Todo: Check if file exists
-	vim.cmd("write!")
-	vim.cmd("e training.txt")
-	vim.cmd("sil write!")
-	vim.api.nvim_buf_set_lines(0, 0, 25, false, {})
-	vim.cmd("sil write!")
-	vim.api.nvim_win_set_cursor(0, { 1, 1 })
-	header.store_key_value_in_header("#d", "Es gibt noch keine Aufgabe")
-	header.construct_header()
-end
 
 local function loop(autocmd_callback_data)
-	-- print("looped", vim.inspect(autocmd_callback_data))
 	--This sleep helps with some feedback, if we continue instantly the user might not recognize their actions clearly.
 	vim.loop.sleep(500)
 
@@ -149,8 +135,7 @@ local function loop(autocmd_callback_data)
 end
 local funcs = {}
 
---Todo: Rework the parsing, cant be bothered atm
-function funcs.execute(args, opts)
+function funcs.execute(args)
 	local utility = require("nvim-training.utility")
 	session_id = utility.uuid()
 	local target_data = {
@@ -162,27 +147,40 @@ function funcs.execute(args, opts)
 
 	local scheduler_index = require("nvim-training.scheduler_index")
 	local collection_index = require("nvim-training.task_collection_index")
-	local fargs = opts.fargs
-	local scheduler = scheduler_index[fargs[2]]
+	local scheduler_name = parsing.match_text_list_to_args(utility.get_keys(scheduler_index), args)
+	local scheduler = scheduler_index[scheduler_name]
 
 	if not scheduler then
 		print("You did not provide a scheduler, 'RandomScheduler' will be used.")
 		scheduler = scheduler_index["RandomScheduler"]
 	end
 
+	local provided_collection_names = parsing.match_text_list_to_args(utility.get_keys(collection_index), args)
 	local provided_collections = {}
-	for i = 2, #fargs, 1 do
-		if fargs[i] then
-			provided_collections[#provided_collections + 1] = collection_index[fargs[i]]
-		end
+
+	for i, name_el in pairs(provided_collection_names) do
+		provided_collections[#provided_collections + 1] = collection_index[name_el]
 	end
+
 	if #provided_collections == 0 then
 		print("You did not provide a list of task collections, the collection 'All' will be used.")
 		provided_collections[#provided_collections + 1] = collection_index["All"]
 	end
 
 	resoveld_scheduler = scheduler:new(provided_collections)
-	init()
+
+	local init = require("nvim-training.init")
+	init.configure({})
+	--Todo: Check if file exists
+	vim.cmd("write!")
+	vim.cmd("e training.txt")
+	vim.cmd("write!")
+	vim.api.nvim_buf_set_lines(0, 0, 25, false, {})
+	vim.cmd("write!")
+	vim.api.nvim_win_set_cursor(0, { 1, 1 })
+	header.store_key_value_in_header("#d", "Es gibt noch keine Aufgabe")
+	header.construct_header()
+
 	loop()
 end
 
@@ -196,7 +194,6 @@ function funcs.stop()
 	}
 	utility.apppend_table_to_path(target_data, user_config.base_path .. tostring(session_id) .. ".json")
 	print("Session got closed.")
-	--Todo: Delete stuff? Not quite sure
 end
 
 function funcs.complete(arg_lead)
