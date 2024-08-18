@@ -8,6 +8,7 @@ function module.complete_from_text_list(arg_lead, texts)
 			matching_texts[#matching_texts + 1] = text_el
 		end
 	end
+
 	return matching_texts
 end
 

@@ -30,7 +30,7 @@ end
 
 local module = {}
 
-local function basic_stats(events)
+function module.basic_stats(events)
 	local task_starts = utility.filter_by_event_type(events, "task_start")
 	local sessions = utility.filter_by_event_type(events, "session_start")
 
@@ -73,17 +73,21 @@ local function basic_stats(events)
 	)
 end
 
-local function succes_percentages(events)
+function module.succes_percentages(events)
 	local percentages = calculate_task_percentages(events)
-	table.sort(percentages)
+
+	table.sort(percentages, function(a, b)
+		return a[1] < b[1]
+	end)
 	utility.append_lines_to_buffer("These are all the tasks you finished sorted by percentage of success:")
 	for i, v in pairs(percentages) do
 		utility.append_lines_to_buffer(tostring(i) .. ": " .. tostring(v * 100) .. "%")
 	end
 end
 
-local function task_counter(events)
-	local unique_events = utility.count_similar_events(events, function(a)
+function module.task_counter(events)
+	local events_with_task_name = utility.filter_by_event_type(events, "task_end")
+	local unique_events = utility.count_similar_events(events_with_task_name, function(a)
 		local task_name = a["task_name"]
 		if task_name then
 			return task_name
@@ -92,18 +96,24 @@ local function task_counter(events)
 		end
 	end)
 	utility.append_lines_to_buffer("These are how often you finished the tasks you started:")
-	table.sort(unique_events)
+
+	--This one wont sort no matter what ...
+	local function sort(a, b)
+		print(vim.inspect(a), vim.inspect(b))
+		return a[1] < b[1]
+	end
+	table.sort(unique_events, sort)
+	print(vim.inspect(unique_events))
 	for i, v in pairs(unique_events) do
 		if #i > 0 then --This catches events of the wrong type
 			utility.append_lines_to_buffer(tostring(i) .. ": " .. tostring(v))
 		end
 	end
 end
-function module.all_stats()
-	local events = utility.load_all_events()
-	basic_stats(events)
-	succes_percentages(events)
-	task_counter(events)
+function module.all_stats(events)
+	module.basic_stats(events)
+	module.succes_percentages(events)
+	module.task_counter(events)
 end
 
 return module

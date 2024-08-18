@@ -204,7 +204,7 @@ function utility.append_lines_to_buffer(input_str)
 	local str_as_lines = utility.split_str(input_str, "\n")
 	local buf_len = vim.api.nvim_buf_line_count(0)
 	vim.api.nvim_buf_set_lines(0, buf_len, buf_len + #str_as_lines, false, str_as_lines)
-	vim.cmd("write!")
+	vim.cmd("sil write!")
 end
 
 function utility.split_str(input, sep)
@@ -298,7 +298,6 @@ function utility.extract_text_between_cursor_and_target(start_indexes, end_index
 function utility.apppend_table_to_path(data, path)
 	if user_config.enable_events then
 		local file = io.open(path, "a")
-		print(file)
 
 		table.sort(data)
 
