@@ -1,7 +1,6 @@
 local TaskScheduler = require("nvim-training.task_scheduler")
 
 RepeatNSuccessScheduler = {}
-
 RepeatNSuccessScheduler.__index = RepeatNSuccessScheduler
 setmetatable(RepeatNSuccessScheduler, { __index = TaskScheduler })
 

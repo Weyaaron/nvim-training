@@ -133,9 +133,9 @@ local function loop(autocmd_callback_data)
 	current_autocmd = vim.api.nvim_create_autocmd({ current_task:metadata().autocmd }, { callback = loop })
 	toogle_discard = true
 end
-local funcs = {}
+local module = {}
 
-function funcs.execute(args)
+function module.execute(args)
 	local utility = require("nvim-training.utility")
 	session_id = utility.uuid()
 	local target_data = {
@@ -184,7 +184,7 @@ function funcs.execute(args)
 	loop()
 end
 
-function funcs.stop()
+function module.stop()
 	vim.api.nvim_del_autocmd(current_autocmd)
 	local utility = require("nvim-training.utility")
 	local target_data = {
@@ -196,7 +196,7 @@ function funcs.stop()
 	print("Session got closed.")
 end
 
-function funcs.complete(arg_lead)
+function module.complete(arg_lead)
 	local scheduler_index = require("nvim-training.scheduler_index")
 
 	local utility = require("nvim-training.utility")
@@ -241,4 +241,4 @@ function funcs.complete(arg_lead)
 	return matching_and_not_already_prodived_collections
 end
 
-return funcs
+return module

@@ -1,6 +1,7 @@
 local utility = require("nvim-training.utility")
 local Task = require("nvim-training.task")
 local internal_config = require("nvim-training.internal_config")
+
 local MoveT = {}
 MoveT.__index = MoveT
 setmetatable(MoveT, { __index = Task })

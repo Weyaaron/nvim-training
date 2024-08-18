@@ -1,5 +1,5 @@
 local user_config = require("nvim-training.user_config")
-local exposed_funcs = {}
+local module = {}
 
 --- Check if a file or directory exists in this path
 function exists(file)
@@ -19,7 +19,7 @@ function isdir(path)
 	return exists(path .. "/")
 end
 
-function exposed_funcs.configure(args)
+function module.configure(args)
 	for i, v in pairs(args) do
 		user_config[i] = v
 	end
@@ -34,10 +34,10 @@ function exposed_funcs.configure(args)
 	end
 end
 
-function exposed_funcs.setup(args)
+function module.setup(args)
 	print(
 		"Calling setup in nvim-training has been deprecated. Removing it will work fine, some of the functionality is available with 'configure'"
 	)
 end
 
-return exposed_funcs
+return module

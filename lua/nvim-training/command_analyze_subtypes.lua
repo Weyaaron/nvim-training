@@ -28,7 +28,7 @@ local function calculate_task_percentages(events)
 	return result
 end
 
-local stats_map = {}
+local module = {}
 
 local function basic_stats(events)
 	local task_starts = utility.filter_by_event_type(events, "task_start")
@@ -99,11 +99,11 @@ local function task_counter(events)
 		end
 	end
 end
-function stats_map.all_stats()
+function module.all_stats()
 	local events = utility.load_all_events()
 	basic_stats(events)
 	succes_percentages(events)
 	task_counter(events)
 end
 
-return stats_map
+return module

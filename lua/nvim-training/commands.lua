@@ -1,7 +1,8 @@
 local start_command = require("nvim-training.commands.command_start")
 local analyze_command = require("nvim-training.commands.command_analyze")
 local recreate_md_command = require("nvim-training.commands.command_recreate_md")
-local subcommand_tbl = {
+
+local module = {
 	Start = start_command,
 	Stop = {
 		execute = function(args)
@@ -14,4 +15,4 @@ local subcommand_tbl = {
 	ReCreateMD = recreate_md_command,
 	Analyse = analyze_command,
 }
-return subcommand_tbl
+return module

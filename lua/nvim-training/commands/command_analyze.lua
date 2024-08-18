@@ -1,10 +1,9 @@
 local utility = require("nvim-training.utility")
-local task_index = require("nvim-training.task_index")
-local funcs = {}
+local module = {}
 
 local stats_map = { "All", "%Success", "CounterPerTask" }
 
-function funcs.execute(args, opts)
+function module.execute(args, opts)
 	vim.cmd("e results.txt")
 	vim.api.nvim_buf_set_lines(0, 0, vim.api.nvim_buf_line_count(0), false, {})
 
@@ -37,12 +36,11 @@ function funcs.execute(args, opts)
 	stats_mod.all_stats()
 end
 
-function funcs.stop() end
+function module.stop() end
 
-function funcs.complete(arg_lead)
-	--Todo: Unify the matching
+function module.complete(arg_lead)
 	local parsing = require("nvim-training.utilities.parsing")
 	return parsing.complete_from_text_list(arg_lead, stats_map)
 end
 
-return funcs
+return module
