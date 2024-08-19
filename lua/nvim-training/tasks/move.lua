@@ -17,6 +17,7 @@ function Move:deactivate(autocmd_callback_data)
 	if not type(self.cursor_target) == "table" then
 		print("Target has to be type table, current value is " .. tostring(self.cursor_target))
 	end
+	print(vim.inspect(cursor_pos), vim.inspect(self.cursor_target))
 	return cursor_pos[1] == self.cursor_target[1] and cursor_pos[2] == self.cursor_target[2]
 end
 

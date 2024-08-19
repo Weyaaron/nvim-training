@@ -24,6 +24,7 @@ local exported_tasks = {
 	Move_O = require("nvim-training.tasks.move_O"),
 	Move_o = require("nvim-training.tasks.move_o"),
 	Movef = require("nvim-training.tasks.move_f"),
+	Delete_f = require("nvim-training.tasks.delete_f"),
 	Movet = require("nvim-training.tasks.move_t"),
 	Paste = require("nvim-training.tasks.paste"),
 	SearchForward = require("nvim-training.tasks.search_forward"),

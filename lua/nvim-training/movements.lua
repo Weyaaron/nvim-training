@@ -57,4 +57,16 @@ function movements.WORD_end(counter)
 	return move_word_end(utility.calculate_WORD_bounds, counter)
 end
 
+function movements.f(target)
+	local current_cursor_pos = vim.api.nvim_win_get_cursor(0)
+	local line = utility.get_line(current_cursor_pos[1])
+
+	for i = current_cursor_pos[2], #line do
+		local char = line:sub(i, i)
+		if char == target then
+			return i
+		end
+	end
+end
+
 return movements
