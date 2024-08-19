@@ -8,6 +8,5 @@ end
 
 function module.parse_func_start_indexes(root)
 
--- local query = vim.treesitter.query.parse("lua")
-
+	-- local query = vim.treesitter.query.parse("lua")
 end

@@ -1,6 +1,8 @@
 local utility = require("nvim-training.utility")
 local Task = require("nvim-training.task")
 local internal_config = require("nvim-training.internal_config")
+local user_config = require("nvim-training.user_config")
+
 
 local MoveT = {}
 MoveT.__index = MoveT
@@ -16,9 +18,7 @@ function MoveT:new()
 	local base = Task:new()
 	setmetatable(base, { __index = MoveT })
 	base.target_y_pos = 0
-	base.alphabet = "ABCDEFGabddefg,."
-	--Todo: Reintrocude, maybe with difficulty setting?
-	-- base.alphabet = "ABCDEFGabddefg,.}])><([{012345679"
+	base.alphabet = user_config.task_alphabet
 	base.target_char = "0"
 	return base
 end

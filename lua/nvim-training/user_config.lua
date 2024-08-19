@@ -7,6 +7,9 @@ local user_config = {
 	enable_counters = true,
 	enable_events = true,
 	base_path = "/home/aaron/Training-Events/",
+	task_alphabet = "ABCDEFGabddefg,.",
+	-- enable_events = true,
+	-- base_path = "/home/aaron/Training-Events/",
 }
 
 return user_config

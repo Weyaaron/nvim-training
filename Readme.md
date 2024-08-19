@@ -111,14 +111,16 @@ time, for support for custom collections see below.
 | RepeatUntilNSuccess | The current task is repeated until n successes are reached. |
 
 # Configuration
-A interface for configuration is provided:
+A interface for configuration is provided. These are the default values if you do not change
+anything yourself.
 ```lua
 local training = require("nvim-training")
 training.configure({
-	possible_marks_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }, --A list of possible marks. (Optional, this is the default)
-	possible_register_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }, -- A list of possible registers. (Optional, this the default)
+	possible_marks_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }, --A list of possible marks.
+	possible_register_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }, -- A list of possible registers.
 	audio_feedback = true, --Enables/Disables audio feedback, if enabled, requires the 'sox' package providing the 'play' command.
 	enable_counters = true, --Enables/Disables counters in tasks that support counters.
+	task_alphabet = "ABCDEFGabddefg,.", --The alpabet of targets for tasks like f,T, etc.
 	custom_collections = {}, -- A table of tables containing names of tasks, for details read on.
 	enable_events = true, --If the plugin should save events. These are used for the subcommand analyze.
 	base_path = "~/Training-Events/", -- The base-path were these events will be saved.

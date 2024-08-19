@@ -2,6 +2,7 @@ local utility = require("nvim-training.utility")
 local Delete = require("nvim-training.tasks.delete")
 local internal_config = require("nvim-training.internal_config")
 local movements = require("nvim-training.movements")
+local user_config = require("nvim-training.user_config")
 
 local Delete_f = {}
 Delete_f.__index = Delete_f
@@ -17,9 +18,7 @@ function Delete_f:new()
 	local base = Delete:new()
 	setmetatable(base, { __index = Delete_f })
 	base.target_y_pos = 0
-	base.alphabet = "ABCDEFGabddefg,."
-	--Todo: Reintrocude, maybe with difficulty setting?
-	-- base.alphabet = "ABCDEFGabddefg,.}])><([{012345679"
+	base.alphabet = user_config.task_alphabet
 	base.target_char = "0"
 	return base
 end
