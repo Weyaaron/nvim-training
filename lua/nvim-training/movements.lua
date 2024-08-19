@@ -36,4 +36,25 @@ function movements.WORDS(counter)
 	return move_across_word_pos(utility.calculate_WORD_bounds, counter)
 end
 
+function move_word_end(word_bound_func, counter)
+	local current_cursor_pos = vim.api.nvim_win_get_cursor(0)
+	local line = utility.get_line(current_cursor_pos[1])
+	local word_positions = word_bound_func(line)
+	local word_index = utility.calculate_word_index_from_cursor_pos(word_positions, current_cursor_pos[2])
+
+	local cursor_is_at_wordend = current_cursor_pos[2] == word_positions[word_index][2] - 1
+
+	if cursor_is_at_wordend then
+		counter = counter + 1
+	end
+	return { current_cursor_pos[1], word_positions[word_index + counter - 1][2] - 1 }
+end
+function movements.word_end(counter)
+	return move_word_end(utility.calculate_word_bounds, counter)
+end
+
+function movements.WORD_end(counter)
+	return move_word_end(utility.calculate_WORD_bounds, counter)
+end
+
 return movements

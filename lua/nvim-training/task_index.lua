@@ -43,6 +43,7 @@ local exported_tasks = {
 	-- CommentLineBlock = require("nvim-training.tasks.comment_line_block"),
 	-- CommentLine = require("nvim-training.tasks.comment_line"),
 	-- OpenWindow = require("nvim-training.tasks.open_window"),
+	-- MoveWORDEnd = require("nvim-training.tasks.move_WORD_end"),
 }
 
 for i, v in pairs(exported_tasks) do
