@@ -12,8 +12,8 @@ function TaskCollection:new(name, desc, task_names)
 
 	base.tasks = {}
 	for key, value in pairs(task_names) do
-		local new_val = task_index[value]
-		if not new_val then
+		local resolved_task = task_index[value]
+		if resolved_task == nil then
 			print(
 				"Unable to load '"
 					.. value
@@ -21,8 +21,9 @@ function TaskCollection:new(name, desc, task_names)
 					.. name
 					.. "'. Please check spelling/report an issue!"
 			)
+		else
+			base.tasks[#base.tasks + 1] = resolved_task
 		end
-		base.tasks[#base.tasks + 1] = task_index[value]
 	end
 	return base
 end

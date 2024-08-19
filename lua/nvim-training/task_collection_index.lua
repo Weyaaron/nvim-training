@@ -11,8 +11,7 @@ local change_tasks = utility.filter_tasks_by_tags(task_index, { "change" })
 local non_movements = utility.discard_tasks_by_tags(task_index, { "movement" })
 local yank = utility.filter_tasks_by_tags(task_index, { "yank" })
 local window = utility.filter_tasks_by_tags(task_index, { "window" })
---Todo: check non-empty check for the buildins
-local index = {
+local initial_index = {
 	All = TaskCollection:new(
 		"All",
 		"All supported tasks. Does involve tasks that are designed with plugins in mind!",
@@ -26,8 +25,20 @@ local index = {
 }
 
 for name_key, name_table in pairs(user_config.custom_collections) do
-	--Todo: Add proper check for empty collections, maybe check for key duplicates
-	index[name_key] = TaskCollection:new(name_key, "Custom Collection", name_table)
+	if initial_index[name_key] ~= nil then
+		print("Your custom collection '" .. name_key .. "' is overwriting a buildin-collection.")
+	end
+	initial_index[name_key] = TaskCollection:new(name_key, "Custom Collection", name_table)
 end
 
-return index
+local index_with_sufficient_length = {}
+
+for name, task_collection_el in pairs(initial_index) do
+	if #task_collection_el.tasks == 0 then
+		print("The task collection '" .. name .. "' does not contain any tasks! Please check for typos/open a issue.")
+	else
+		index_with_sufficient_length[name] = task_collection_el
+	end
+end
+
+return index_with_sufficient_length

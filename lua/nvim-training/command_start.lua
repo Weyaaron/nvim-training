@@ -16,9 +16,9 @@ local session_id
 local function init()
 	--Todo: Check if file exists
 	vim.cmd("e training.txt")
-	vim.cmd("write!")
+	vim.cmd("sil write!")
 	vim.api.nvim_buf_set_lines(0, 0, 25, false, {})
-	vim.cmd("write!")
+	vim.cmd("sil write!")
 	vim.api.nvim_win_set_cursor(0, { 1, 1 })
 	header.store_key_value_in_header("#d", "Es gibt noch keine Aufgabe")
 	header.construct_header()
@@ -101,10 +101,10 @@ local function loop(autocmd_callback_data)
 	vim.schedule_wrap(function()
 		--This line is included to ensure that each task starts in the same file. A task may jump around and this ensures
 		--coming back.
-		vim.cmd("write!")
+		vim.cmd("sil write!")
 		vim.cmd("sil e training.txt")
 
-		vim.cmd("write!")
+		vim.cmd("sil write!")
 	end)()
 
 	local utility = require("nvim-training.utility")
