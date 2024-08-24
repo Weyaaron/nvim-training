@@ -6,6 +6,8 @@ Task.__metadata = {}
 function Task:new()
 	local base = {}
 	setmetatable(base, Task)
+	--This is usefull for such a huge swath of tasks that this is worthwile
+	base.counter = utility.calculate_counter()
 	return base
 end
 

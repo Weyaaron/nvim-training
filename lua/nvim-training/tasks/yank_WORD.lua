@@ -1,7 +1,6 @@
 local utility = require("nvim-training.utility")
 local movements = require("nvim-training.movements")
 local Yank = require("nvim-training.tasks.yank")
-local user_config = require("nvim-training.user_config")
 local internal_config = require("nvim-training.internal_config")
 local YankWORD = {}
 
@@ -17,14 +16,6 @@ YankWORD.__metadata = {
 function YankWORD:new()
 	local base = Yank:new()
 	setmetatable(base, { __index = YankWORD })
-	base.target_y_pos = 0
-
-	base.counter = 1
-	if user_config.enable_counters then
-		base.counter = math.random(2, 5)
-	end
-
-	base.cursor_target = { 0, 0 }
 	return base
 end
 
@@ -48,7 +39,7 @@ function YankWORD:activate()
 end
 
 function YankWORD:instructions()
-	return "Yank " .. self.counter .. " word(s) using 'w'."
+	return "Yank " .. self.counter .. " WORDS(s) using 'W'."
 end
 
 return YankWORD

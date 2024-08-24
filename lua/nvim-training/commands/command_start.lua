@@ -15,6 +15,8 @@ local resoveld_scheduler
 local reset_task_list = true
 local session_id
 
+
+--Todo: Improve the screen layout ... Use less header and place it all in the middle
 local function loop(autocmd_callback_data)
 	--This sleep helps with some feedback, if we continue instantly the user might not recognize their actions clearly.
 	vim.loop.sleep(500)
@@ -93,7 +95,6 @@ local function loop(autocmd_callback_data)
 		--coming back.
 		vim.cmd("sil write!")
 		vim.cmd("sil e training.txt")
-
 		vim.cmd("sil write!")
 	end)()
 

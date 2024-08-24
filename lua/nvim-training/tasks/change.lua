@@ -9,9 +9,10 @@ Change.__metadata = { autocmd = "", desc = "", instructions = "" }
 function Change:new()
 	local base = Task:new()
 	setmetatable(base, Change)
+
 	self.cursor_target = { 0, 0 }
 	self.target_text = "x"
-	self.target_line = ""
+	self.target_line = -1
 	return base
 end
 function Change:deactivate(autocmd_callback_data)

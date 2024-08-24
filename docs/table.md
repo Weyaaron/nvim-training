@@ -11,7 +11,7 @@ This table is for internal use only! It shows some tasks and their progression.
 | B| missing | missing| missing| missing|
 | e| missing | missing| missing| missing|
 | E| missing | missing| missing| missing|
-| f| missing | missing| missing| missing|
+| f| done | missing| missing| missing|
 | F| missing | missing| missing| missing|
 | t| missing | missing| missing| missing|
 | T| missing | missing| missing| missing|

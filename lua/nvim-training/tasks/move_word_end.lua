@@ -2,7 +2,6 @@ local utility = require("nvim-training.utility")
 local Move = require("nvim-training.tasks.move")
 local movements = require("nvim-training.movements")
 local user_config = require("nvim-training.user_config")
-
 local internal_config = require("nvim-training.internal_config")
 
 local MoveWordEnd = {}

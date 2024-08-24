@@ -1,7 +1,6 @@
 local utility = require("nvim-training.utility")
 local Delete = require("nvim-training.tasks.delete")
 local movements = require("nvim-training.movements")
-local user_config = require("nvim-training.user_config")
 
 local DeleteWord = {}
 
@@ -17,12 +16,7 @@ DeleteWord.__metadata = {
 function DeleteWord:new()
 	local base = Delete:new()
 	setmetatable(base, { __index = DeleteWord })
-	base.target_text = ""
 
-	base.counter = 1
-	if user_config.enable_counters then
-		base.counter = math.random(2, 5)
-	end
 	return base
 end
 

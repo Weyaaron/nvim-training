@@ -1,6 +1,4 @@
 local Move = require("nvim-training.tasks.move")
-local template_index = require("nvim-training.template_index")
-local user_config = require("nvim-training.user_config")
 local utility = require("nvim-training.utility")
 local movements = require("nvim-training.movements")
 local internal_config = require("nvim-training.internal_config")
@@ -14,12 +12,7 @@ MoveWORD.__metadata =
 function MoveWORD:new()
 	local base = Move:new()
 	setmetatable(base, { __index = MoveWORD })
-	base.target_y_pos = 0
 
-	base.counter = 1
-	if user_config.enable_counters then
-		base.counter = math.random(2, 4)
-	end
 	return base
 end
 

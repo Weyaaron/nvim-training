@@ -17,42 +17,22 @@ Delete_f.__metadata = {
 function Delete_f:new()
 	local base = Delete:new()
 	setmetatable(base, { __index = Delete_f })
-	base.target_y_pos = 0
-	base.alphabet = user_config.task_alphabet
-	base.target_char = "0"
+	self.target_char = utility.calculate_target_char()
 	return base
 end
 
 function Delete_f:activate()
 	local function _inner_update()
-		local offset = math.random(3, 15)
-		local cursor_target_pos = 20
-		local target_char_index = math.random(#self.alphabet)
-		self.target_char = self.alphabet:sub(target_char_index, target_char_index)
-		local line = ""
-		self.target_y_pos = cursor_target_pos + offset
-		for i = 1, internal_config.line_length do
-			local is_target_or_space = false
-			if i == self.target_y_pos then
-				line = line .. self.target_char
-				is_target_or_space = true
-			end
-			if i == self.target_y_pos + 1 or i == self.target_y_pos - 1 then
-				line = line .. " "
-				is_target_or_space = true
-			end
-			if not is_target_or_space then
-				line = line .. "x"
-			end
-		end
+		local target_index = math.random(25, 30)
+		local line = utility.construct_char_line(self.target_char, target_index)
 		utility.set_buffer_to_rectangle_with_line(line)
 
 		local cursor_pos = vim.api.nvim_win_get_cursor(0)
-		vim.api.nvim_win_set_cursor(0, { cursor_pos[1], cursor_target_pos })
+		vim.api.nvim_win_set_cursor(0, { cursor_pos[1], target_index })
 		local target_pos = movements.f(self.target_char)
 		self.cursor_target = { cursor_pos[1], movements.f(self.target_char) }
 
-		self.target_text = line:sub(cursor_target_pos + 1, target_pos)
+		self.target_text = line:sub(target_index + 1, target_pos)
 	end
 	vim.schedule_wrap(_inner_update)()
 end

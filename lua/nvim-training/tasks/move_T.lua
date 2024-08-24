@@ -1,12 +1,10 @@
 local utility = require("nvim-training.utility")
-local Task = require("nvim-training.task")
-local internal_config = require("nvim-training.internal_config")
-local user_config = require("nvim-training.user_config")
-
+local Move = require("nvim-training.tasks.move")
+local movements = require("nvim-training.movements")
 
 local MoveT = {}
 MoveT.__index = MoveT
-setmetatable(MoveT, { __index = Task })
+setmetatable(MoveT, { __index = Move })
 MoveT.__metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move using T.",
@@ -15,47 +13,23 @@ MoveT.__metadata = {
 }
 
 function MoveT:new()
-	local base = Task:new()
+	local base = Move:new()
 	setmetatable(base, { __index = MoveT })
-	base.target_y_pos = 0
-	base.alphabet = user_config.task_alphabet
-	base.target_char = "0"
+	base.target_char = utility.calculate_target_char()
 	return base
 end
 
 function MoveT:activate()
 	local function _inner_update()
-		local offset = math.random(-3, -15)
 		local cursor_target_pos = 30
-		local target_char_index = math.random(#self.alphabet)
-		self.target_char = self.alphabet:sub(target_char_index, target_char_index)
-		local line = ""
-		self.target_y_pos = cursor_target_pos + offset
-		for i = 1, internal_config.line_length do
-			local is_target_or_space = false
-			if i == self.target_y_pos then
-				line = line .. self.target_char
-				is_target_or_space = true
-			end
-			if i == self.target_y_pos + 1 or i == self.target_y_pos - 1 then
-				line = line .. " "
-				is_target_or_space = true
-			end
-			if not is_target_or_space then
-				line = line .. "x"
-			end
-		end
+		local line = utility.construct_char_line(self.target_char, cursor_target_pos)
 		utility.set_buffer_to_rectangle_with_line(line)
-
 		local cursor_pos = vim.api.nvim_win_get_cursor(0)
-		vim.api.nvim_win_set_cursor(0, { cursor_pos[1], cursor_target_pos })
+		vim.api.nvim_win_set_cursor(0, { cursor_pos[1], cursor_target_pos + math.random(5, 10) })
+
+		self.cursor_target = { cursor_pos[1], movements.T(self.target_char) }
 	end
 	vim.schedule_wrap(_inner_update)()
-end
-
-function MoveT:deactivate(autocmd_args)
-	local cursor_pos = vim.api.nvim_win_get_cursor(0)
-	return cursor_pos[2] == self.target_y_pos
 end
 
 function MoveT:instructions()

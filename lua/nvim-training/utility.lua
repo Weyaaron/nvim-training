@@ -2,8 +2,38 @@ local internal_config = require("nvim-training.internal_config")
 local template_index = require("nvim-training.template_index")
 local user_config = require("nvim-training.user_config")
 local utility = {}
+
+function utility.construct_char_line(target_char, target_index)
+	local line = ""
+	for i = 1, internal_config.line_length do
+		local is_target_or_space = false
+		if i == target_index then
+			line = line .. target_char
+			is_target_or_space = true
+		end
+		if i == target_index + 1 or i == target_index - 1 then
+			line = line .. " "
+			is_target_or_space = true
+		end
+		if not is_target_or_space then
+			line = line .. "x"
+		end
+	end
+	return line
+end
 function utility.trim(s)
 	return (s:gsub("^%s*(.-)%s*$", "%1"))
+end
+function utility.calculate_target_char()
+	local target_char_index = math.random(#user_config.task_alphabet)
+	return user_config.task_alphabet:sub(target_char_index, target_char_index)
+end
+function utility.calculate_counter()
+	local counter = 1
+	if user_config.enable_counters then
+		counter = math.random(user_config.counter_bounds[1], user_config.counter_bounds[2])
+	end
+	return counter
 end
 
 function utility.get_current_line()

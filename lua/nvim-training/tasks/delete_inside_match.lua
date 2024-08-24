@@ -15,7 +15,6 @@ DeleteInsideMatch.__metadata = {
 function DeleteInsideMatch:new()
 	local base = Delete:new()
 	setmetatable(base, { __index = DeleteInsideMatch })
-	self.line_length = 0
 	return base
 end
 function DeleteInsideMatch:activate()

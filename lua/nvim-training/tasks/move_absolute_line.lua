@@ -1,22 +1,21 @@
-local Task = require("nvim-training.task")
+local Move = require("nvim-training.tasks.move")
 local utility = require("nvim-training.utility")
 local internal_config = require("nvim-training.internal_config")
 
 local MoveAbsoluteLine = {}
-
+MoveAbsoluteLine.__index = MoveAbsoluteLine
+setmetatable(MoveAbsoluteLine, { __index = Move })
 MoveAbsoluteLine.__metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move to the absolute line.",
 	instructions = "Move to the absolute line with the highlight.",
 	tags = "movement, line, vertical",
 }
-MoveAbsoluteLine.__index = MoveAbsoluteLine
 
-setmetatable(MoveAbsoluteLine, { __index = Task })
 function MoveAbsoluteLine:new()
-	local base = Task:new()
+	local base = Move:new()
 	setmetatable(base, { __index = MoveAbsoluteLine })
-	base.target_line = math.random(internal_config.header_length + 1, internal_config.header_length + 5)
+	base.cursor_target = { math.random(internal_config.header_length + 1, internal_config.header_length + 5), 0 }
 	return base
 end
 
@@ -28,18 +27,13 @@ function MoveAbsoluteLine:activate()
 		if cursor_pos[1] == self.target_line then
 			vim.api.nvim_win_set_cursor(0, { cursor_pos[1] + 1, cursor_pos[2] })
 		end
-
 		cursor_pos = vim.api.nvim_win_get_cursor(0)
 
-		local lines = vim.api.nvim_buf_get_lines(0, self.target_line - 1, self.target_line, false)
-		local line_length = #lines[1]
-		utility.create_highlight(self.target_line - 1, 0, line_length)
+		local line_length = #utility.get_line(cursor_pos[1])
+		utility.create_highlight(self.cursor_target[1] - 1, 0, line_length)
+		self.cursor_target = { self.cursor_target[1], cursor_pos[2] }
 	end
 	vim.schedule_wrap(_inner_update)()
-end
-
-function MoveAbsoluteLine:deactivate(autocmd_callback_data)
-	return self.target_line == vim.api.nvim_win_get_cursor(0)[1]
 end
 
 return MoveAbsoluteLine

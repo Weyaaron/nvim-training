@@ -18,24 +18,12 @@ YankWord.__metadata = {
 function YankWord:new()
 	local base = Yank:new()
 	setmetatable(base, { __index = YankWord })
-	base.target_y_pos = 0
-
-	base.counter = 1
-	if user_config.enable_counters then
-		base.counter = math.random(2, 7)
-	end
-
-	base.counter = 1
-	if user_config.enable_counters then
-		base.counter = math.random(2, 7)
-	end
-	base.cursor_target = { 0, 0 }
 	return base
 end
 
 function YankWord:activate()
 	local function _inner_update()
-		local word_line = utility.construct_WORDS_line()
+		local word_line = utility.construct_words_line()
 		word_line = word_line:sub(0, internal_config.line_length)
 		utility.set_buffer_to_rectangle_with_line(word_line)
 

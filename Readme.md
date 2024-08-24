@@ -120,6 +120,7 @@ training.configure({
 	possible_register_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }, -- A list of possible registers.
 	audio_feedback = true, --Enables/Disables audio feedback, if enabled, requires the 'sox' package providing the 'play' command.
 	enable_counters = true, --Enables/Disables counters in tasks that support counters.
+	counter_bounds = { 1, 5 }, --The lower and upper bound for the counter. WARNING: Setting a high (9+) upper bound may break some tasks.
 	task_alphabet = "ABCDEFGabddefg,.", --The alpabet of targets for tasks like f,T, etc.
 	custom_collections = {}, -- A table of tables containing names of tasks, for details read on.
 	enable_events = true, --If the plugin should save events. These are used for the subcommand analyze.

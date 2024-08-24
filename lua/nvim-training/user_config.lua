@@ -8,6 +8,7 @@ local user_config = {
 	enable_events = true,
 	base_path = "/home/aaron/Training-Events/",
 	task_alphabet = "ABCDEFGabddefg,.",
+	counter_bounds = { 1, 5 },
 	-- enable_events = true,
 	-- base_path = "/home/aaron/Training-Events/",
 }
