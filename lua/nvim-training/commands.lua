@@ -12,7 +12,7 @@ local module = {
 			return {}
 		end,
 	},
-	ReCreateMD = recreate_md_command,
+	-- ReCreateMD = recreate_md_command,
 	Analyse = analyze_command,
 }
 return module

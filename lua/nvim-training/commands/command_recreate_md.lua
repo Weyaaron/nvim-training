@@ -58,7 +58,7 @@ local function generate_collection_list()
 	for i, v in pairs(task_collection_index) do
 		collection_blocks[#collection_blocks + 1] = "| "
 			.. v.name
-			.. "  | "
+			.. " | "
 			.. v.desc
 			.. "| ["
 			.. v.name
@@ -96,7 +96,7 @@ local function generate_stats()
 	-- local file = io.open(path, "w")
 	-- file:write(result)
 	-- file:close()
-	print(result)
+	-- print(result)
 end
 
 local module = {}

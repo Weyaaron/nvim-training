@@ -224,7 +224,7 @@ function module.complete(arg_lead)
 	local matching_and_not_already_prodived_collections = {}
 
 	for i, v in pairs(matching_collections) do
-		--  The additional space fixes an issue where substrings of taskcollections  are found
+		-- The additional space fixes an issue where substrings of taskcollections  are found
 		if not arg_lead:find(" " .. v .. " ") then
 			matching_and_not_already_prodived_collections[#matching_and_not_already_prodived_collections + 1] = v
 		end

@@ -3,8 +3,8 @@
 This table is for internal use only! It shows some tasks and their progression.
 
 
-| Task | move | change | delete | yank  |
-| ---  | ---  | ------ | ---- | ----- |
+| Task | move | change | delete | yank |
+| --- | ---  | ------ | ---- | ----- |
 | w| done | done | done | done |
 | W| missing | missing| missing| missing|
 | b| missing | missing| missing| missing|

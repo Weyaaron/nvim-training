@@ -233,6 +233,7 @@ end
 function utility.append_lines_to_buffer(input_str)
 	local str_as_lines = utility.split_str(input_str, "\n")
 	local buf_len = vim.api.nvim_buf_line_count(0)
+	-- print(vim.inspect(str_as_lines), buf_len)
 	vim.api.nvim_buf_set_lines(0, buf_len, buf_len + #str_as_lines, false, str_as_lines)
 	vim.cmd("sil write!")
 end
@@ -293,7 +294,7 @@ function utility.gather_tags(tasks)
 			result[tag_el] = tag_el
 		end
 	end
-	print(vim.inspect(result))
+	-- print(vim.inspect(result))
 	return result
 end
 
@@ -408,7 +409,7 @@ function utility.construct_base_path()
 	end
 
 	local base_path = script_path() .. "../.."
-	print(base_path)
+	-- print(base_path)
 	return base_path
 end
 function utility.count_similar_events(events, cmp_func)
@@ -420,6 +421,18 @@ function utility.count_similar_events(events, cmp_func)
 			result[cmp_result] = 0
 		end
 		result[cmp_result] = result[cmp_result] + 1
+	end
+	return result
+end
+
+function utility.filter_by_event_type(events, event_type)
+	local result = {}
+
+	for i, v in pairs(events) do
+		local current_type = v["event"]
+		if event_type == current_type then
+			result[#result + 1] = v
+		end
 	end
 	return result
 end

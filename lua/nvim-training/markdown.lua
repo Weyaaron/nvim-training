@@ -1,4 +1,3 @@
-=======
 local task_collection_index = require("nvim-training.task_collection_index")
 
 local function generate_full_task_list()
@@ -41,7 +40,7 @@ local function generate_collection_list()
 	for i, v in pairs(task_collection_index) do
 		collection_blocks[#collection_blocks + 1] = "| "
 			.. v.name
-			.. "  | "
+			.. " | "
 			.. v.desc
 			.. "| ["
 			.. v.name

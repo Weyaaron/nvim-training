@@ -48,9 +48,9 @@ Currently, these are the available options:
 
 | Name | Syntax | Description |
 | --- | -------- | -------- |
-| Start | `:Training Start [Scheduler] [Task-Collection A] [Task Collection B] ...`|  Starts a session with the choosen scheduler and the choosen task collections. Both arguments are optional.  |
-| Stop | `:Training Stop`|  Stops a session. |
-| Analyze | `:Training Analyze`|  Prints some statistics about your progress. |
+| Start | `:Training Start [Scheduler] [Task-Collection A] [Task Collection B] ...`| Starts a session with the choosen scheduler and the choosen task collections. Both arguments are optional. |
+| Stop | `:Training Stop`| Stops a session. |
+| Analyze | `:Training Analyze`| Prints some statistics about your progress. |
 
 Some care is taken to avoid overwritting your files, but just to be
 safe you may start in an empty buffer/directory.
@@ -58,37 +58,39 @@ safe you may start in an empty buffer/directory.
 ## Currently supported tasks
 | Name | Description | Tags | Notes
 | --- | -------- | -------- | -------- |
-|AppendChar | Insert a char next to the cursor. |  append,  insertion, change |
-|ChangeWord | Change text using w,c. |  horizontal,  w,  word, c, change |
-|DeleteChar | Delete the current char. |  change,  char, deletion |
-|DeleteInsideMatch | Delete inside the current bracket pair. |  change,  inside,  match, deletion |
-|DeleteLine | Delete the current line. |  change,  line, deletion |
-|DeleteWord | Delete using 'w'. |  movement, deletion, word |
-|Increment | Increment the value at the cursor. |  change,  char, increment |
-|InsertChar | Insert a char at the current position. |  char,  insertion, change |
-|MoveAbsoluteLine | Move to the absolute line. |  line,  vertical, movement |
-|MoveEndOfFile | Move to the end the file. |  end,  file,  vertical, movement |
-|MoveEndOfLine | Move to the end of the current line. |  end,  horizontal,  line, movement |
-|MoveF | Move using F. |  F,  horizontal, movement |
-|MoveMatch | Move to the current match. |  movement, match |
-|MoveRandom | Move to the random target. |  diagonal,  movement, plugin | This task assumes the existence of a plugin that provides such a motion. |
-|MoveStartOfFile | Move to the start of the file. |  file,  vertical, start |
-|MoveStartOfLine | Move to the start of the current line. |  line,  movement, start |
-|MoveT | Move using T. |  T,  horizontal, movement |
-|MoveWORD | Move using W. |  W,  WORD, movement |
-|MoveWord | Move using w. |  horizontal,  w,  word, movement |
-|MoveWordEnd | Move to the end of the current 'word'. |  end,  vertical,  word, movement |
-|MoveWordStart | Move to the start of the current 'word'. |  horizontal,  word, movement |
-|Move_O | Enter and leave insert mode above the current line. |  insert_mode,  linewise,  movement, O |
-|Move_o | Enter and leave insert mode below the current line. |  insert_mode,  linewise,  movement, o |
-|Movef | Move using f. |  f,  horizontal, movement |
-|Movet | Move using t. |  horizontal,  t, movement |
-|Paste | Paste from a given register. |  register, paste |
-|SearchForward | Search forwards for a target-string. |  diagonal,  movement, search |
-|YankEndOfLine | Yank to the end of the current line. |  line,  yank, end |
-|YankInsideMatch | Yank inside the current match. |  inside,  match, yank |
-|YankIntoRegister | Yank a line into a register. |  copy,  line,  vertical, register |
-|YankWord | Yank using w. |  counter,  horizontal,  w,  word, yank |
+|AppendChar | Insert a char next to the cursor. | append, insertion, change |
+|ChangeWord | Change text using w,c. | horizontal, w, word, c, change |
+|DeleteChar | Delete the current char. | change, char, deletion |
+|DeleteInsideMatch | Delete inside the current match. | change, inside, match, deletion |
+|DeleteLine | Delete the current line. | change, line, deletion |
+|DeleteWORD | Delete using 'W'. | movement, word, deletion |
+|DeleteWord | Delete using 'w'. | movement, word, deletion |
+|Delete_f | Move using f. | f, horizontal, movement |
+|Increment | Increment the value at the cursor. | change, char, increment |
+|InsertChar | Insert a char at the current position. | char, insertion, change |
+|MoveAbsoluteLine | Move to the absolute line. | line, vertical, movement |
+|MoveEndOfFile | Move to the end the file. | end, file, vertical, movement |
+|MoveEndOfLine | Move to the end of the current line. | end, horizontal, line, movement |
+|MoveF | Move using F. | F, horizontal, movement |
+|MoveMatch | Move to the current match. | movement, match |
+|MoveStartOfFile | Move to the start of the file. | file, vertical, start |
+|MoveStartOfLine | Move to the start of the current line. | line, movement, start |
+|MoveT | Move using T. | T, horizontal, movement |
+|MoveWORD | Move using W. | W, WORD, movement |
+|MoveWord | Move using w. | horizontal, w, word, movement |
+|MoveWordEnd | Move to the end of the current 'word'. | end, vertical, word, movement |
+|Move_O | Enter and leave insert mode above the current line. | insert_mode, linewise, movement, O |
+|Move_o | Enter and leave insert mode below the current line. | insert_mode, linewise, movement, o |
+|Movef | Move using f. | f, horizontal, movement |
+|Movet | Move using t. | horizontal, t, movement |
+|Paste | Paste from a given register. | register, paste |
+|SearchForward | Search forwards for a target-string. | diagonal, movement, search |
+|YankEndOfLine | Yank to the end of the current line. | line, yank, end |
+|YankInsideMatch | Yank inside the current match. | inside, match, yank |
+|YankIntoRegister | Yank a line into a register. | copy, line, vertical, register |
+|YankWORD | Yank using w. | counter, horizontal, w, word, yank |
+|YankWord | Yank using w. | counter, horizontal, w, word, yank |
+
 
 # Task-Collections
 
@@ -97,11 +99,11 @@ time, for support for custom collections see below.
 
 | Name | Description | Link
 | ----------- | -------- | -------- |
-| All  | All supported tasks. Does involve tasks that are designed with plugins in mind!| [All](/docs/collections/All.md)
-| Change  | Tasks involving some change to the buffer.| [Change](/docs/collections/Change.md)
-| Movements  | Tasks involving movement.| [Movements](/docs/collections/Movements.md)
-| NonMovements  | Tasks not involving movement.| [NonMovements](/docs/collections/NonMovements.md)
-| Yanking  | Tasks involving yanking| [Yanking](/docs/collections/Yanking.md)
+| All | All supported tasks. Does involve tasks that are designed with plugins in mind!| [All](/docs/collections/All.md)
+| Change | Tasks involving some change to the buffer.| [Change](/docs/collections/Change.md)
+| Movements | Tasks involving movement.| [Movements](/docs/collections/Movements.md)
+| NonMovements | Tasks not involving movement.| [NonMovements](/docs/collections/NonMovements.md)
+| Yanking | Tasks involving yanking| [Yanking](/docs/collections/Yanking.md)
 
 # Schedulers
 

@@ -63,11 +63,11 @@ function module.basic_stats(events)
 
 	local percentage_started = unique_task_started_counter / total_tasks
 	utility.append_lines_to_buffer(
-		"You started"
+		"You started "
 			.. unique_task_started_counter
 			.. " unique tasks, which is a percentage of "
-			.. percentage_started
-			.. " of all the "
+			.. math.floor(percentage_started * 100)
+			.. "% of all the "
 			.. total_tasks
 			.. " available."
 	)
@@ -76,12 +76,17 @@ end
 function module.succes_percentages(events)
 	local percentages = calculate_task_percentages(events)
 
-	table.sort(percentages, function(a, b)
-		return a[1] < b[1]
+	local percentage_as_sortable = {}
+
+	for i, v in pairs(percentages) do
+		percentage_as_sortable[#percentage_as_sortable + 1] = { i, v }
+	end
+	table.sort(percentage_as_sortable, function(a, b)
+		return a[2] > b[2]
 	end)
 	utility.append_lines_to_buffer("These are all the tasks you finished sorted by percentage of success:")
-	for i, v in pairs(percentages) do
-		utility.append_lines_to_buffer(tostring(i) .. ": " .. tostring(v * 100) .. "%")
+	for i, v in pairs(percentage_as_sortable) do
+		utility.append_lines_to_buffer(tostring(v[1]) .. ": " .. tostring(v[2] * 100) .. "%")
 	end
 end
 
@@ -97,17 +102,18 @@ function module.task_counter(events)
 	end)
 	utility.append_lines_to_buffer("These are how often you finished the tasks you started:")
 
-	--This one wont sort no matter what ...
-	local function sort(a, b)
-		print(vim.inspect(a), vim.inspect(b))
-		return a[1] < b[1]
-	end
-	table.sort(unique_events, sort)
-	print(vim.inspect(unique_events))
+	local unique_as_sortable = {}
+
 	for i, v in pairs(unique_events) do
-		if #i > 0 then --This catches events of the wrong type
-			utility.append_lines_to_buffer(tostring(i) .. ": " .. tostring(v))
-		end
+		unique_as_sortable[#unique_as_sortable + 1] = { i, v }
+	end
+
+	local function sort(a, b)
+		return a[2] > b[2]
+	end
+	table.sort(unique_as_sortable, sort)
+	for i, v in pairs(unique_as_sortable) do
+		utility.append_lines_to_buffer(tostring(v[1]) .. ": " .. tostring(v[2]))
 	end
 end
 function module.all_stats(events)
