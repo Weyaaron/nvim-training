@@ -3,6 +3,24 @@ local template_index = require("nvim-training.template_index")
 local user_config = require("nvim-training.user_config")
 local utility = {}
 
+--- Check if a file or directory exists in this path
+function utility.exists(file)
+	local ok, err, code = os.rename(file, file)
+	if not ok then
+		if code == 13 then
+			-- Permission denied, but it exists
+			return true
+		end
+	end
+	return ok, err
+end
+
+--- Check if a directory exists in this path
+function utility.isdir(path)
+	-- "/" works on both Unix and Windows
+	return utility.exists(path .. "/")
+end
+
 function utility.construct_char_line(target_char, target_index)
 	local line = ""
 	for i = 1, internal_config.line_length do
