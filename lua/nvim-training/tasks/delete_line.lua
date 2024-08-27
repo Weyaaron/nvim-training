@@ -3,7 +3,6 @@ local Delete = require("nvim-training.tasks.delete")
 
 local DeleteLine = {}
 DeleteLine.__index = DeleteLine
-
 DeleteLine.__metadata = {
 	autocmd = "TextChanged",
 	desc = "Delete the current line.",

@@ -1,6 +1,7 @@
 local header = require("nvim-training.header")
 local user_config = require("nvim-training.user_config")
 local audio = require("nvim-training.audio")
+local parsing = require("nvim-training.utilities.parsing")
 local task_count = 0
 local success_count = 0
 local failure_count = 0
@@ -13,19 +14,10 @@ local previous_task_result
 local resoveld_scheduler
 local reset_task_list = true
 local session_id
-local function init()
-	--Todo: Check if file exists
-	vim.cmd("e training.txt")
-	vim.cmd("sil write!")
-	vim.api.nvim_buf_set_lines(0, 0, 25, false, {})
-	vim.cmd("sil write!")
-	vim.api.nvim_win_set_cursor(0, { 1, 1 })
-	header.store_key_value_in_header("#d", "Es gibt noch keine Aufgabe")
-	header.construct_header()
-end
 
+
+--Todo: Improve the screen layout ... Use less header and place it all in the middle
 local function loop(autocmd_callback_data)
-	-- print("looped", vim.inspect(autocmd_callback_data))
 	--This sleep helps with some feedback, if we continue instantly the user might not recognize their actions clearly.
 	vim.loop.sleep(500)
 
@@ -61,7 +53,7 @@ local function loop(autocmd_callback_data)
 		}
 
 		local utility = require("nvim-training.utility")
-		-- utility.apppend_table_to_path(target_data, user_config.base_path .. tostring(session_id) .. ".json")
+		utility.apppend_table_to_path(target_data, user_config.base_path .. tostring(session_id) .. ".json")
 
 		task_count = task_count + 1
 		if previous_task_result then
@@ -103,7 +95,6 @@ local function loop(autocmd_callback_data)
 		--coming back.
 		vim.cmd("sil write!")
 		vim.cmd("sil e training.txt")
-
 		vim.cmd("sil write!")
 	end)()
 
@@ -120,7 +111,7 @@ local function loop(autocmd_callback_data)
 		event = "task_start",
 		task_name = current_task.name,
 	}
-	-- utility.apppend_table_to_path(target_data, user_config.base_path .. tostring(session_id) .. ".json")
+	utility.apppend_table_to_path(target_data, user_config.base_path .. tostring(session_id) .. ".json")
 
 	--This gives tasks some options to configure the header, for example with a prefix and a suffix to turn the header into a block comment in a programming language
 	local additional_header_values = current_task:construct_optional_header_args()
@@ -143,10 +134,9 @@ local function loop(autocmd_callback_data)
 	current_autocmd = vim.api.nvim_create_autocmd({ current_task:metadata().autocmd }, { callback = loop })
 	toogle_discard = true
 end
-local funcs = {}
+local module = {}
 
---Todo: Rework the parsing, cant be bothered atm
-function funcs.execute(args, opts)
+function module.execute(args)
 	local utility = require("nvim-training.utility")
 	session_id = utility.uuid()
 	local target_data = {
@@ -154,35 +144,46 @@ function funcs.execute(args, opts)
 		session_id = session_id,
 		event = "session_start",
 	}
-	-- utility.apppend_table_to_path(target_data, user_config.base_path .. tostring(session_id) .. ".json")
+	utility.apppend_table_to_path(target_data, user_config.base_path .. tostring(session_id) .. ".json")
 
 	local scheduler_index = require("nvim-training.scheduler_index")
 	local collection_index = require("nvim-training.task_collection_index")
-	local fargs = opts.fargs
-	local scheduler = scheduler_index[fargs[2]]
+	local scheduler_name = parsing.match_text_list_to_args(utility.get_keys(scheduler_index), args)
+	local scheduler = scheduler_index[scheduler_name]
 
 	if not scheduler then
 		print("You did not provide a scheduler, 'RandomScheduler' will be used.")
 		scheduler = scheduler_index["RandomScheduler"]
 	end
 
+	local provided_collection_names = parsing.match_text_list_to_args(utility.get_keys(collection_index), args)
 	local provided_collections = {}
-	for i = 2, #fargs, 1 do
-		if fargs[i] then
-			provided_collections[#provided_collections + 1] = collection_index[fargs[i]]
-		end
+
+	for i, name_el in pairs(provided_collection_names) do
+		provided_collections[#provided_collections + 1] = collection_index[name_el]
 	end
+
 	if #provided_collections == 0 then
 		print("You did not provide a list of task collections, the collection 'All' will be used.")
 		provided_collections[#provided_collections + 1] = collection_index["All"]
 	end
 
 	resoveld_scheduler = scheduler:new(provided_collections)
-	init()
+
+	local init = require("nvim-training.init")
+	init.configure({})
+	--Todo: Check if file exists
+	vim.cmd("e training.txt")
+	vim.api.nvim_buf_set_lines(0, 0, 25, false, {})
+	vim.cmd("write!")
+	vim.api.nvim_win_set_cursor(0, { 1, 1 })
+	header.store_key_value_in_header("#d", "Es gibt noch keine Aufgabe")
+	header.construct_header()
+
 	loop()
 end
 
-function funcs.stop()
+function module.stop()
 	vim.api.nvim_del_autocmd(current_autocmd)
 	local utility = require("nvim-training.utility")
 	local target_data = {
@@ -190,12 +191,11 @@ function funcs.stop()
 		session_id = session_id,
 		event = "session_end",
 	}
-	-- utility.apppend_table_to_path(target_data, user_config.base_path .. tostring(session_id) .. ".json")
+	utility.apppend_table_to_path(target_data, user_config.base_path .. tostring(session_id) .. ".json")
 	print("Session got closed.")
-	--Todo: Delete stuff? Not quite sure
 end
 
-function funcs.complete(arg_lead)
+function module.complete(arg_lead)
 	local scheduler_index = require("nvim-training.scheduler_index")
 
 	local utility = require("nvim-training.utility")
@@ -209,25 +209,14 @@ function funcs.complete(arg_lead)
 			scheduler_in_cmd_line = true
 		end
 	end
-
-	local matching_schedulers = {}
-	for i, scheduler_name in pairs(scheduler_keys) do
-		local sub_str = scheduler_name:sub(1, #arg_lead)
-		if sub_str == arg_lead then
-			matching_schedulers[#matching_schedulers + 1] = scheduler_name
-		end
-	end
+	local matching_schedulers = parsing.complete_from_text_list(arg_lead, scheduler_keys)
 
 	if #matching_schedulers == 0 then
 		matching_schedulers = scheduler_keys
 	end
 
-	local matching_collections = {}
-	for i, collection_name in pairs(collection_keys) do
-		if collection_name:sub(1, #arg_lead) == arg_lead then
-			matching_collections[#matching_collections + 1] = collection_name
-		end
-	end
+	local matching_collections = parsing.complete_from_text_list(arg_lead, collection_keys)
+
 	if #matching_collections == 0 then
 		matching_collections = collection_keys
 	end
@@ -235,7 +224,7 @@ function funcs.complete(arg_lead)
 	local matching_and_not_already_prodived_collections = {}
 
 	for i, v in pairs(matching_collections) do
-		--  The additional space fixes an issue where substrings of taskcollections  are found
+		-- The additional space fixes an issue where substrings of taskcollections  are found
 		if not arg_lead:find(" " .. v .. " ") then
 			matching_and_not_already_prodived_collections[#matching_and_not_already_prodived_collections + 1] = v
 		end
@@ -251,4 +240,4 @@ function funcs.complete(arg_lead)
 	return matching_and_not_already_prodived_collections
 end
 
-return funcs
+return module

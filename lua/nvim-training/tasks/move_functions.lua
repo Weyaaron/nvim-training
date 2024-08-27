@@ -1,17 +1,32 @@
-local LuaTask = require("nvim-training.tasks.lua_task")
+local Move = require("nvim-training.tasks.move")
 local utility = require("nvim-training.utility")
 local template_index = require("nvim-training.template_index")
 
-local MoveFunctions = LuaTask:new()
+local MoveFunctions = {}
+MoveFunctions.__index = MoveFunctions
+setmetatable(MoveFunctions, { __index = Move })
+
+MoveFunctions.__metadata = {
+	autocmd = "CursorMoved",
+	desc = "Move around function objects.",
+	instructions = "Move to the start of the current function",
+	notes = "Not available in vanilla-vim, needs plugin.",
+	tags = "programming, plugin, movement, function",
+}
 
 function MoveFunctions:new()
-	local base = LuaTask:new()
+	local base = Move:new()
 	setmetatable(base, { __index = MoveFunctions })
-	base.search_target = ""
-	base.position = { 15, 5 }
-	vim.cmd("e training.lua")
+	return base
+end
 
+function MoveFunctions:construct_optional_header_args()
+	--This is used to turn the header in lua tasks into a block comment
+	return { _prefix_ = "--[[", _suffix_ = "--]]" }
+end
+function MoveFunctions:activate()
 	local function _inner_update()
+		vim.cmd("e training.lua")
 		local lua_text = template_index.LuaFunctions
 
 		local line_size = 70
@@ -25,19 +40,13 @@ function MoveFunctions:new()
 		utility.update_buffer_respecting_header(result)
 
 		vim.api.nvim_win_set_cursor(0, { 7, 7 })
+
+		local ts_module = require("nvim-training.treesitter")
+		local root = ts_module.parse_into_root()
+		local indexes = ts_module.parse_func_start_indexes(root)
+		self.cursor_target = { indexes[1][1][1], indexes[1][1][1] }
 	end
 	vim.schedule_wrap(_inner_update)()
-
-	return base
-end
-
-function MoveFunctions:deactivate(autocmd_callback_data)
-	local cursor_pos = vim.api.nvim_win_get_cursor(0)
-	return false
-end
-
-function MoveFunctions:instructions()
-	return "Search for '" .. self.search_target .. "'"
 end
 
 return MoveFunctions

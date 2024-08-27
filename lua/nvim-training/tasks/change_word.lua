@@ -1,6 +1,5 @@
 local utility = require("nvim-training.utility")
 local Change = require("nvim-training.tasks.change")
-local user_config = require("nvim-training.user_config")
 local movements = require("nvim-training.movements")
 local ChangeWord = {}
 
@@ -16,14 +15,7 @@ ChangeWord.__metadata = {
 function ChangeWord:new()
 	local base = Change:new()
 	setmetatable(base, { __index = ChangeWord })
-	base.target_y_pos = 0
 
-	base.counter = 1
-	if user_config.enable_counters then
-		base.counter = math.random(2, 7)
-	end
-
-	base.cursor_target = { 0, 0 }
 	base.base_text = "x"
 	base.new_line_text = ""
 	return base
@@ -35,19 +27,11 @@ end
 
 function ChangeWord:activate()
 	local function _inner_update()
-		local cursor_at_line_start = false
-		local current_cursor_pos = vim.api.nvim_win_get_cursor(0)
-		while not cursor_at_line_start do
-			utility.set_buffer_to_rectangle_and_place_cursor_randomly()
-			current_cursor_pos = vim.api.nvim_win_get_cursor(0)
-			cursor_at_line_start = current_cursor_pos[2] < 15
+		local new_line = utility.construct_words_line()
+		utility.set_buffer_to_rectangle_with_line(new_line)
 
-			local line = utility.get_line(current_cursor_pos[1])
-			local char_at_cursor_pos = line:sub(current_cursor_pos[2] + 1, current_cursor_pos[2] + 1)
-			if char_at_cursor_pos == " " then
-				cursor_at_line_start = false
-			end
-		end
+		local current_cursor_pos = vim.api.nvim_win_get_cursor(0)
+		vim.api.nvim_win_set_cursor(0, { current_cursor_pos[1], 10 })
 		current_cursor_pos = vim.api.nvim_win_get_cursor(0)
 
 		local cursor_pos_after_movement = movements.words(self.counter)

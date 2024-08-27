@@ -2,8 +2,38 @@ local internal_config = require("nvim-training.internal_config")
 local template_index = require("nvim-training.template_index")
 local user_config = require("nvim-training.user_config")
 local utility = {}
+
+function utility.construct_char_line(target_char, target_index)
+	local line = ""
+	for i = 1, internal_config.line_length do
+		local is_target_or_space = false
+		if i == target_index then
+			line = line .. target_char
+			is_target_or_space = true
+		end
+		if i == target_index + 1 or i == target_index - 1 then
+			line = line .. " "
+			is_target_or_space = true
+		end
+		if not is_target_or_space then
+			line = line .. "x"
+		end
+	end
+	return line
+end
 function utility.trim(s)
 	return (s:gsub("^%s*(.-)%s*$", "%1"))
+end
+function utility.calculate_target_char()
+	local target_char_index = math.random(#user_config.task_alphabet)
+	return user_config.task_alphabet:sub(target_char_index, target_char_index)
+end
+function utility.calculate_counter()
+	local counter = 1
+	if user_config.enable_counters then
+		counter = math.random(user_config.counter_bounds[1], user_config.counter_bounds[2])
+	end
+	return counter
 end
 
 function utility.get_current_line()
@@ -45,7 +75,6 @@ function utility.get_keys(t)
 end
 
 function utility.construct_line_with_bracket(bracket_pair, left_index, right_index)
-	print(bracket_pair)
 	local result = ""
 	for i = 1, internal_config.line_length do
 		if i < left_index then
@@ -204,7 +233,9 @@ end
 function utility.append_lines_to_buffer(input_str)
 	local str_as_lines = utility.split_str(input_str, "\n")
 	local buf_len = vim.api.nvim_buf_line_count(0)
+	-- print(vim.inspect(str_as_lines), buf_len)
 	vim.api.nvim_buf_set_lines(0, buf_len, buf_len + #str_as_lines, false, str_as_lines)
+	vim.cmd("sil write!")
 end
 
 function utility.split_str(input, sep)
@@ -254,6 +285,19 @@ function utility.load_rectangle_with_line(middle_line)
 	return table.concat(result, "\n")
 end
 
+function utility.gather_tags(tasks)
+	local result = {}
+	for i, task_el in pairs(tasks) do
+		local current_tag = task_el.__metadata.tags or ""
+		local current_pieces = utility.split_str(current_tag, ", ")
+		for ii, tag_el in pairs(current_pieces) do
+			result[tag_el] = tag_el
+		end
+	end
+	-- print(vim.inspect(result))
+	return result
+end
+
 function utility.filter_tasks_by_tags(tasks, tag_list)
 	local tasks_with_tag = {}
 	for i, tag_el in pairs(tag_list) do
@@ -283,17 +327,16 @@ end
 function utility.extract_text_between_cursor_and_target(start_indexes, end_indexes) end
 
 function utility.apppend_table_to_path(data, path)
-	--This will be part of a latter release
-	--
-	-- if user_config.enable_events then
-	-- 	local file = io.open(path, "a+")
-	--
-	-- 	table.sort(data)
-	--
-	-- 	local data_as_str = vim.json.encode(data)
-	-- 	file:write(data_as_str .. "\n")
-	-- 	file:close()
-	-- end
+	if user_config.enable_events then
+		local file = io.open(path, "a")
+
+		table.sort(data)
+
+		local data_as_str = vim.json.encode(data)
+
+		file:write(data_as_str .. "\n")
+		file:close()
+	end
 end
 
 function utility.uuid()
@@ -335,13 +378,63 @@ function utility.load_all_events()
 	end
 	return result
 end
-function utility.count_events_of_type(event_list, type)
-	local counter = 0
-	for i, v in pairs(event_list) do
-		if v["event"] == type then
-			counter = counter + 1
+
+local function construct_words_line_from_template(template_name)
+	local base_template = utility.load_template(template_name)
+	base_template = utility.split_str(base_template, "\n")[1]
+	local words = utility.split_str(base_template, " ")
+
+	for i = #words, 2, -1 do
+		local j = math.random(i)
+		words[i], words[j] = words[j], words[i]
+	end
+
+	return table.concat(words, " ")
+end
+
+function utility.construct_words_line()
+	return construct_words_line_from_template(template_index.LoremIpsum)
+end
+
+function utility.construct_WORDS_line()
+	return construct_words_line_from_template(template_index.LoremIpsumWORDS)
+end
+
+function utility.construct_base_path()
+	--https://stackoverflow.com/questions/6380820/get-containing-path-of-lua-file
+	local function script_path()
+		local str = debug.getinfo(2, "S").source:sub(2)
+		local initial_result = str:match("(.*/)")
+		return initial_result
+	end
+
+	local base_path = script_path() .. "../.."
+	-- print(base_path)
+	return base_path
+end
+function utility.count_similar_events(events, cmp_func)
+	local result = {}
+
+	for i, v in pairs(events) do
+		local cmp_result = cmp_func(v)
+		if not result[cmp_result] then
+			result[cmp_result] = 0
+		end
+		result[cmp_result] = result[cmp_result] + 1
+	end
+	return result
+end
+
+function utility.filter_by_event_type(events, event_type)
+	local result = {}
+
+	for i, v in pairs(events) do
+		local current_type = v["event"]
+		if event_type == current_type then
+			result[#result + 1] = v
 		end
 	end
-	return counter
+	return result
 end
+
 return utility

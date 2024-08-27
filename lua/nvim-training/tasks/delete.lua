@@ -15,7 +15,6 @@ end
 function Delete:deactivate(autocmd_callback_data)
 	local register_content = vim.fn.getreg('"')
 	register_content = utility.split_str(register_content, "\n")[1]
-	-- print(self.target_text, register_content)
 	return self.target_text == register_content
 end
 

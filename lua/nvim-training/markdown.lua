@@ -15,7 +15,6 @@ local function generate_full_task_list()
 	local file = io.open(path, "w")
 	file:write(result)
 	file:close()
-	print(result)
 end
 
 generate_full_task_list()
@@ -41,7 +40,7 @@ local function generate_collection_list()
 	for i, v in pairs(task_collection_index) do
 		collection_blocks[#collection_blocks + 1] = "| "
 			.. v.name
-			.. "  | "
+			.. " | "
 			.. v.desc
 			.. "| ["
 			.. v.name
@@ -56,7 +55,6 @@ local function generate_collection_list()
 	file:write(table_header .. "\n")
 	file:write(result)
 	file:close()
-	print(result)
 end
 
 generate_collection_list()

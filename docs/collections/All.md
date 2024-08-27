@@ -4,9 +4,11 @@
 |AppendChar | Insert a char next to the cursor. |  append,  insertion, change |
 |ChangeWord | Change text using w,c. |  horizontal,  w,  word, c, change |
 |DeleteChar | Delete the current char. |  change,  char, deletion |
-|DeleteInsideMatch | Delete inside the current bracket pair. |  change,  inside,  match, deletion |
+|DeleteInsideMatch | Delete inside the current match. |  change,  inside,  match, deletion |
 |DeleteLine | Delete the current line. |  change,  line, deletion |
-|DeleteWord | Delete using 'w'. |  movement, deletion, word |
+|DeleteWORD | Delete using 'W'. |  movement,  word, deletion |
+|DeleteWord | Delete using 'w'. |  movement,  word, deletion |
+|Delete_f | Move using f. |  f,  horizontal, movement |
 |Increment | Increment the value at the cursor. |  change,  char, increment |
 |InsertChar | Insert a char at the current position. |  char,  insertion, change |
 |MoveAbsoluteLine | Move to the absolute line. |  line,  vertical, movement |
@@ -14,14 +16,12 @@
 |MoveEndOfLine | Move to the end of the current line. |  end,  horizontal,  line, movement |
 |MoveF | Move using F. |  F,  horizontal, movement |
 |MoveMatch | Move to the current match. |  movement, match |
-|MoveRandom | Move to the random target. |  diagonal,  movement, plugin | This task assumes the existence of a plugin that provides such a motion. |
 |MoveStartOfFile | Move to the start of the file. |  file,  vertical, start |
 |MoveStartOfLine | Move to the start of the current line. |  line,  movement, start |
 |MoveT | Move using T. |  T,  horizontal, movement |
 |MoveWORD | Move using W. |  W,  WORD, movement |
 |MoveWord | Move using w. |  horizontal,  w,  word, movement |
 |MoveWordEnd | Move to the end of the current 'word'. |  end,  vertical,  word, movement |
-|MoveWordStart | Move to the start of the current 'word'. |  horizontal,  word, movement |
 |Move_O | Enter and leave insert mode above the current line. |  insert_mode,  linewise,  movement, O |
 |Move_o | Enter and leave insert mode below the current line. |  insert_mode,  linewise,  movement, o |
 |Movef | Move using f. |  f,  horizontal, movement |
@@ -31,4 +31,5 @@
 |YankEndOfLine | Yank to the end of the current line. |  line,  yank, end |
 |YankInsideMatch | Yank inside the current match. |  inside,  match, yank |
 |YankIntoRegister | Yank a line into a register. |  copy,  line,  vertical, register |
+|YankWORD | Yank using w. |  counter,  horizontal,  w,  word, yank |
 |YankWord | Yank using w. |  counter,  horizontal,  w,  word, yank |

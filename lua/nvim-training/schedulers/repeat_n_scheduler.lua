@@ -1,22 +1,22 @@
 local TaskScheduler = require("nvim-training.task_scheduler")
 
-RepeatNSuccessScheduler = {}
-RepeatNSuccessScheduler.__index = RepeatNSuccessScheduler
-setmetatable(RepeatNSuccessScheduler, { __index = TaskScheduler })
+RepeatNScheduler = {}
+RepeatNScheduler.__index = RepeatNScheduler
+setmetatable(RepeatNScheduler, { __index = TaskScheduler })
 
-function RepeatNSuccessScheduler:new(task_collections, kwargs)
+function RepeatNScheduler:new(task_collections, kwargs)
 	local default_kwargs = {}
 	if not kwargs then
 		kwargs = default_kwargs
 	end
 
 	local base = TaskScheduler:new(task_collections, kwargs)
-	setmetatable(base, { __index = RepeatNSuccessScheduler })
+	setmetatable(base, { __index = RepeatNScheduler })
 
 	--Todo: Add header extension for schedulers
 
-	base.success_limit = 5
-	base.successes = 0
+	base.success_limit = 2
+	base.current_task_count = 0
 	base.task_counter = 1
 	base.all_task = {}
 	for i, task_collection_el in pairs(task_collections) do
@@ -27,16 +27,14 @@ function RepeatNSuccessScheduler:new(task_collections, kwargs)
 	return base
 end
 
-function RepeatNSuccessScheduler:next(previous, result)
-	if result then
-		self.successes = self.successes + 1
-	end
-	if self.successes == self.success_limit then
-		self.successes = 0
+function RepeatNScheduler:next(previous, result)
+	self.current_task_count = self.current_task_count + 1
+	if self.current_task_count == self.success_limit then
+		self.current_task_count = 0
 		self.task_counter = self.task_counter + 1
 	end
 
 	return self.all_task[self.task_counter % #self.all_task + 1]
 end
 
-return RepeatNSuccessScheduler
+return RepeatNScheduler

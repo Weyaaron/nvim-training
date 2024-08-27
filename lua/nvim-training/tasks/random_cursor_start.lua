@@ -1,8 +1,7 @@
 local utility = require("nvim-training.utility")
 local Task = require("nvim-training.task")
---Todo: Work through remaing tasks and apply
-local RandomCursorStart = {}
 
+local RandomCursorStart = {}
 setmetatable(RandomCursorStart, { __index = Task })
 RandomCursorStart.__index = RandomCursorStart
 

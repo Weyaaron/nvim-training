@@ -1,10 +1,10 @@
 local task_index = require("nvim-training.task_index")
 local user_config = require("nvim-training.user_config")
-local M = {}
+local module = {}
 
 local suffix = "Please check for spelling, and ensure you are using the right version of the plugin."
 
-M.check = function()
+module.check = function()
 	vim.health.start("Tasks")
 	vim.health.ok("Currently work in progress.")
 	--
@@ -42,4 +42,4 @@ M.check = function()
 	--Todo: Readd health check of the scheduler after logic rework
 end
 
-return M
+return module

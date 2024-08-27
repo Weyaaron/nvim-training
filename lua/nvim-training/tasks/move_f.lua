@@ -1,9 +1,12 @@
 local utility = require("nvim-training.utility")
-local Task = require("nvim-training.task")
+local Move = require("nvim-training.tasks.move")
 local internal_config = require("nvim-training.internal_config")
+local movements = require("nvim-training.movements")
+local user_config = require("nvim-training.user_config")
 local Move_f = {}
+
 Move_f.__index = Move_f
-setmetatable(Move_f, { __index = Task })
+setmetatable(Move_f, { __index = Move })
 Move_f.__metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move using f.",
@@ -12,12 +15,9 @@ Move_f.__metadata = {
 }
 
 function Move_f:new()
-	local base = Task:new()
+	local base = Move:new()
 	setmetatable(base, { __index = Move_f })
 	base.target_y_pos = 0
-	base.alphabet = "ABCDEFGabddefg,."
-	--Todo: Reintrocude, maybe with difficulty setting?
-	-- base.alphabet = "ABCDEFGabddefg,.}])><([{012345679"
 	base.target_char = "0"
 	return base
 end
@@ -26,8 +26,8 @@ function Move_f:activate()
 	local function _inner_update()
 		local offset = math.random(3, 15)
 		local cursor_target_pos = 20
-		local target_char_index = math.random(#self.alphabet)
-		self.target_char = self.alphabet:sub(target_char_index, target_char_index)
+		local target_char_index = math.random(#user_config.task_alphabet)
+		self.target_char = user_config.task_alphabet:sub(target_char_index, target_char_index)
 		local line = ""
 		self.target_y_pos = cursor_target_pos + offset
 		for i = 1, internal_config.line_length do
@@ -48,13 +48,10 @@ function Move_f:activate()
 
 		local cursor_pos = vim.api.nvim_win_get_cursor(0)
 		vim.api.nvim_win_set_cursor(0, { cursor_pos[1], cursor_target_pos })
+
+		self.cursor_target = { cursor_pos[1], movements.f(self.target_char) - 1 }
 	end
 	vim.schedule_wrap(_inner_update)()
-end
-
-function Move_f:deactivate(autocmd_args)
-	local cursor_pos = vim.api.nvim_win_get_cursor(0)
-	return cursor_pos[2] == self.target_y_pos - 1
 end
 
 function Move_f:instructions()
