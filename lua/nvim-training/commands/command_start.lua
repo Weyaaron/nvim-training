@@ -15,7 +15,6 @@ local resoveld_scheduler
 local reset_task_list = true
 local session_id
 
---Todo: Improve the screen layout ... Use less header and place it all in the middle
 local function loop(autocmd_callback_data)
 	--This sleep helps with some feedback, if we continue instantly the user might not recognize their actions clearly.
 	vim.loop.sleep(500)
@@ -25,7 +24,6 @@ local function loop(autocmd_callback_data)
 	--The interesting part happens at the end, where we pick a new task and do some setup for it.
 	if autocmd_callback_data then
 		if autocmd_callback_data then
-			--Todo: Extend after more event types are used.
 			if
 				autocmd_callback_data["event"] == "TextYankPost"
 				or autocmd_callback_data["event"] == "InsertLeave"
@@ -189,6 +187,7 @@ function module.execute(args)
 	end
 
 	resoveld_scheduler = scheduler:new(provided_collections)
+
 
 	loop()
 end

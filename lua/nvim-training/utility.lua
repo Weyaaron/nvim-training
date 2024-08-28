@@ -3,7 +3,6 @@ local template_index = require("nvim-training.template_index")
 local user_config = require("nvim-training.user_config")
 local utility = {}
 
---- Check if a file or directory exists in this path
 function utility.exists(file)
 	local ok, err, code = os.rename(file, file)
 	if not ok then
@@ -15,9 +14,7 @@ function utility.exists(file)
 	return ok, err
 end
 
---- Check if a directory exists in this path
 function utility.isdir(path)
-	-- "/" works on both Unix and Windows
 	return utility.exists(path .. "/")
 end
 
@@ -62,7 +59,6 @@ function utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
 	utility.update_buffer_respecting_header(utility.load_template(template_index.LoremIpsum))
 	utility.move_cursor_to_random_point()
 end
---Todo: Fix this naming
 function utility.set_buffer_to_rectangle_and_place_cursor_randomly()
 	local lorem_ipsum = utility.load_template(template_index.LoremIpsum)
 	local lorem_lines = utility.split_str(lorem_ipsum, "\n")
@@ -70,7 +66,6 @@ function utility.set_buffer_to_rectangle_and_place_cursor_randomly()
 	local random_line = lorem_lines[math.random(#lorem_lines - 1)]
 
 	utility.update_buffer_respecting_header(utility.load_rectangle_with_line(random_line))
-	-- utility.move_cursor_to_random_point()
 	local x_pos = internal_config.header_length + 4
 	local y = utility.random_col_index_at(x_pos)
 	vim.api.nvim_win_set_cursor(0, { x_pos, y })
@@ -78,7 +73,6 @@ end
 
 function utility.set_buffer_to_rectangle_with_line(middle_line)
 	utility.update_buffer_respecting_header(utility.load_rectangle_with_line(middle_line))
-	-- utility.move_cursor_to_random_point()
 	local x_pos = internal_config.header_length + 4
 	local y = utility.random_col_index_at(x_pos)
 	vim.api.nvim_win_set_cursor(0, { x_pos, y })
@@ -110,45 +104,6 @@ function utility.construct_line_with_bracket(bracket_pair, left_index, right_ind
 		end
 	end
 	return result
-end
-
-function utility.add_pair_and_place_cursor(bracket_pair)
-	--Todo: Rework the following lines into using rectangle
-	local lorem_ipsum = utility.load_template(template_index.LoremIpsum)
-	utility.update_buffer_respecting_header(lorem_ipsum)
-
-	utility.move_cursor_to_random_point()
-	local cursor_pos = vim.api.nvim_win_get_cursor(0)
-	local line = utility.get_line(cursor_pos[1])
-	local distance = 5
-	local start_of_line = string.sub(line, 0, cursor_pos[2])
-	local middle_piece = string.sub(line, cursor_pos[2], cursor_pos[2] + distance)
-	local end_piece = string.sub(line, cursor_pos[2] + distance, #line)
-
-	local new_line = start_of_line .. bracket_pair[1] .. middle_piece .. bracket_pair[2] .. end_piece
-
-	vim.api.nvim_buf_set_lines(0, cursor_pos[1] - 1, cursor_pos[1], false, { new_line })
-	vim.cmd("sil write!")
-	utility.create_highlight(cursor_pos[1] - 1, cursor_pos[2], distance + 2)
-
-	if math.random(0, 2) == 0 then
-		vim.api.nvim_win_set_cursor(0, { cursor_pos[1], cursor_pos[2] + distance + 2 })
-	end
-end
-
-function utility.extract_text_in_brackets(text, bracket_pair) --This includes the brackets!
-	local start_index = 0
-	local end_index = 0
-	for i = 1, #text, 1 do
-		if text:sub(i, i) == bracket_pair[1] then
-			start_index = i
-		end
-
-		if text:sub(i, i) == bracket_pair[2] then
-			end_index = i
-		end
-	end
-	return text:sub(start_index, end_index)
 end
 
 function utility.create_highlight(x, y, len)
@@ -227,12 +182,7 @@ function utility.get_line(index)
 end
 
 function utility.random_col_index_at(index)
-	local line_length = #utility.get_line(index)
-	-- local right_bound = math.max(line_length, 40)
-	--        -- 10 - Werte zwischen 0 und 10
-	-- local left_bound = math.min(20, line_length)
-	return math.random(0, line_length)
-	--Todo: Does this work out as intendet? If yes, use
+	return math.random(0, #utility.get_line(index))
 end
 
 function utility.clear_all_our_highlights()
@@ -251,7 +201,6 @@ end
 function utility.append_lines_to_buffer(input_str)
 	local str_as_lines = utility.split_str(input_str, "\n")
 	local buf_len = vim.api.nvim_buf_line_count(0)
-	-- print(vim.inspect(str_as_lines), buf_len)
 	vim.api.nvim_buf_set_lines(0, buf_len, buf_len + #str_as_lines, false, str_as_lines)
 	vim.cmd("sil write!")
 end
@@ -312,7 +261,6 @@ function utility.gather_tags(tasks)
 			result[tag_el] = tag_el
 		end
 	end
-	-- print(vim.inspect(result))
 	return result
 end
 
@@ -427,7 +375,6 @@ function utility.construct_base_path()
 	end
 
 	local base_path = script_path() .. "../.."
-	-- print(base_path)
 	return base_path
 end
 function utility.count_similar_events(events, cmp_func)

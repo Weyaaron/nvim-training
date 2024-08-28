@@ -4,7 +4,6 @@ local user_config = require("nvim-training.user_config")
 local movements = require("nvim-training.movements")
 local SearchWordForward = {}
 
---Todo: Actually implement, this is intendet to be * based search
 SearchWordForward.__index = SearchWordForward
 setmetatable(SearchWordForward, { __index = Move })
 SearchWordForward.__metadata = {

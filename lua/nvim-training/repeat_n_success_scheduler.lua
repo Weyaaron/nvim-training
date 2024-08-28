@@ -13,7 +13,6 @@ function RepeatNSuccessScheduler:new(task_collections, kwargs)
 	local base = TaskScheduler:new(task_collections, kwargs)
 	setmetatable(base, { __index = RepeatNSuccessScheduler })
 
-	--Todo: Add header extension for schedulers
 
 	base.success_limit = 5
 	base.successes = 0

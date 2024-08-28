@@ -1,7 +1,6 @@
 local utility = require("nvim-training.utility")
 local Task = require("nvim-training.task")
 
---Todo: Rework this such that it does not require to leave insertmode
 
 local InsertChar = {}
 InsertChar.__index = InsertChar

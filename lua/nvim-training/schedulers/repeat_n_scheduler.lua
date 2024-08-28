@@ -13,7 +13,6 @@ function RepeatNScheduler:new(task_collections, kwargs)
 	local base = TaskScheduler:new(task_collections, kwargs)
 	setmetatable(base, { __index = RepeatNScheduler })
 
-	--Todo: Add header extension for schedulers
 
 	base.success_limit = 2
 	base.current_task_count = 0

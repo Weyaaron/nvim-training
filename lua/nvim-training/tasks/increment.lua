@@ -1,7 +1,6 @@
 local Task = require("nvim-training.task")
 local utility = require("nvim-training.utility")
 local internal_config = require("nvim-training.internal_config")
---Todo: Fix the zeros
 local Increment = {}
 Increment.__index = Increment
 Increment.__metadata = {
@@ -41,7 +40,6 @@ function Increment:activate()
 		utility.set_buffer_to_rectangle_with_line(line)
 
 		local cursor_pos = vim.api.nvim_win_get_cursor(0)
-		--Todo: Fix this!!!!!!!!!!!!!!!!!!!!!!
 		local lines = vim.api.nvim_buf_get_lines(0, cursor_pos[1] - 1, vim.api.nvim_buf_line_count(0), false)
 		local left_half = lines[1]:sub(0, cursor_pos[2])
 		local updated_line = left_half
