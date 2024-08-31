@@ -35,7 +35,7 @@ In Lazy, a possible setup might be:
 local lazy = require("lazy")
 local plugin_list = {
     -- Your various other plugins ..
-    {"https://github.com/Weyaaron/nvim-training", pin= true}
+    {"https://github.com/Weyaaron/nvim-training", pin= true, opts = {}} -- Support for configuration with opts is included, see below for the options
 }
 lazy.setup(plugin_list)
 ```
@@ -117,16 +117,19 @@ A interface for configuration is provided. These are the default values if you d
 anything yourself.
 ```lua
 local training = require("nvim-training")
-training.configure({
-	possible_marks_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }, --A list of possible marks.
-	possible_register_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }, -- A list of possible registers.
-	audio_feedback = true, --Enables/Disables audio feedback, if enabled, requires the 'sox' package providing the 'play' command.
-	enable_counters = true, --Enables/Disables counters in tasks that support counters.
-	counter_bounds = { 1, 5 }, --The lower and upper bound for the counter. WARNING: Setting a high (9+) upper bound may break some tasks.
-	task_alphabet = "ABCDEFGabddefg,.", --The alpabet of targets for tasks like f,T, etc.
+training.configure({ -- All of these options work for 'opts' of lazy as well.
+	audio_feedback = true, -- Enables/Disables audio feedback, if enabled, requires the 'sox' package providing the 'play' command.
+	-- This is a fix for the problem that ~ may not resolve properly. According to
+	-- https://pubs.opengroup.org/onlinepubs/009695399/basedefs/xbd_chap08.html
+	-- home must be set on a posix system.
+	base_path = os.getenv("HOME") .. "/Training-Events/",
+	counter_bounds = { 1, 5 },
 	custom_collections = {}, -- A table of tables containing names of tasks, for details read on.
-	enable_events = true, --If the plugin should save events. These are used for the subcommand analyze.
-	base_path = "~/Training-Events/", -- The base-path were these events will be saved.
+	enable_counters = true, -- Enables/Disables counters in tasks that support counters.
+	enable_events = true, -- If the plugin should save events. These are used for the subcommand analyze.
+	possible_marks_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }, -- A list of possible marks.
+	possible_register_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }, -- A list of possible registers.
+	task_alphabet = "ABCDEFGabddefg,.",
 })
 ```
 
@@ -136,7 +139,7 @@ To add a custom collection, please use its name as a key for a list of task name
 ```lua
 local training = require("nvim-training")
 training.configure({
-    --.. your other configs ...
+    -- .. your other configs ...
 	custom_collections = { MyCollection = { "MoveWord", "MoveWORD"}}
 })
 ```

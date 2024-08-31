@@ -15,7 +15,6 @@ local resoveld_scheduler
 local reset_task_list = true
 local session_id
 
-
 --Todo: Improve the screen layout ... Use less header and place it all in the middle
 local function loop(autocmd_callback_data)
 	--This sleep helps with some feedback, if we continue instantly the user might not recognize their actions clearly.
@@ -138,6 +137,27 @@ local module = {}
 
 function module.execute(args)
 	local utility = require("nvim-training.utility")
+	local init = require("nvim-training.init")
+	init.configure({})
+
+	if not init.check_path(user_config.base_path) then
+		print(
+			"Unable to create the path '"
+				.. tostring(user_config.base_path)
+				.. "'. The plugin will not run. If this path does not suit you, use 'configure' to set it or disable events using 'configure'"
+		)
+
+		return
+	end
+
+	--Todo: Check if file exists
+	vim.cmd("e training.txt")
+	vim.api.nvim_buf_set_lines(0, 0, 25, false, {})
+	vim.cmd("write!")
+	vim.api.nvim_win_set_cursor(0, { 1, 1 })
+	header.store_key_value_in_header("#d", "Es gibt noch keine Aufgabe")
+	header.construct_header()
+
 	session_id = utility.uuid()
 	local target_data = {
 		timestamp = os.time(),
@@ -169,16 +189,6 @@ function module.execute(args)
 	end
 
 	resoveld_scheduler = scheduler:new(provided_collections)
-
-	local init = require("nvim-training.init")
-	init.configure({})
-	--Todo: Check if file exists
-	vim.cmd("e training.txt")
-	vim.api.nvim_buf_set_lines(0, 0, 25, false, {})
-	vim.cmd("write!")
-	vim.api.nvim_win_set_cursor(0, { 1, 1 })
-	header.store_key_value_in_header("#d", "Es gibt noch keine Aufgabe")
-	header.construct_header()
 
 	loop()
 end

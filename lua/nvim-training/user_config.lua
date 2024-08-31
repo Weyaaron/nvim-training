@@ -6,11 +6,12 @@ local user_config = {
 	custom_collections = {},
 	enable_counters = true,
 	enable_events = true,
-	base_path = "/home/aaron/Training-Events/",
+	--This is a fix for the problem that  ~ may not resolve properly. According to
+	--https://pubs.opengroup.org/onlinepubs/009695399/basedefs/xbd_chap08.html
+	-- home must be set on a posic system.
+	base_path = os.getenv("HOME") .. "/Training-Events/",
 	task_alphabet = "ABCDEFGabddefg,.",
 	counter_bounds = { 1, 5 },
-	-- enable_events = true,
-	-- base_path = "/home/aaron/Training-Events/",
 }
 
 return user_config
