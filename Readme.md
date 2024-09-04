@@ -119,10 +119,7 @@ anything yourself.
 local training = require("nvim-training")
 training.configure({ -- All of these options work for 'opts' of lazy as well.
 	audio_feedback = true, -- Enables/Disables audio feedback, if enabled, requires the 'sox' package providing the 'play' command.
-	-- This is a fix for the problem that ~ may not resolve properly. According to
-	-- https://pubs.opengroup.org/onlinepubs/009695399/basedefs/xbd_chap08.html
-	-- home must be set on a posix system.
-	base_path = os.getenv("HOME") .. "/Training-Events/",
+	base_path = vim.fn.stdpath("data") .. "/nvim-training/",
 	counter_bounds = { 1, 5 },
 	custom_collections = {}, -- A table of tables containing names of tasks, for details read on.
 	enable_counters = true, -- Enables/Disables counters in tasks that support counters.

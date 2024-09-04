@@ -6,10 +6,7 @@ local user_config = {
 	custom_collections = {},
 	enable_counters = true,
 	enable_events = true,
-	--This is a fix for the problem that  ~ may not resolve properly. According to
-	--https://pubs.opengroup.org/onlinepubs/009695399/basedefs/xbd_chap08.html
-	-- home must be set on a posic system.
-	base_path = os.getenv("HOME") .. "/Training-Events/",
+	base_path = vim.fn.stdpath("data") .. "/nvim-training/",
 	task_alphabet = "ABCDEFGabddefg,.",
 	counter_bounds = { 1, 5 },
 }
