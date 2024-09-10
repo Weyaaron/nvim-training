@@ -11,6 +11,7 @@ local user_config = {
 	possible_register_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" },
 	scheduler_args = { repetitions = 5 },
 	task_alphabet = "ABCDEFGabddefg,.",
+	screen_layout = "basic",
 }
 
 return user_config

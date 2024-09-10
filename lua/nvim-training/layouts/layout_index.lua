@@ -1,4 +1,4 @@
-local renderer_values = {
+local basic_layout_values = {
 	_h = "Status",
 	_s_ = 0,
 	_f_ = 0,
@@ -20,6 +20,7 @@ local minimal_layout_values = {
 	_middle_str_ = "",
 }
 local minimal_template = "_d_\n_middle_str_\n"
+
 local minimal = { name = "minimal", values = minimal_layout_values, template = minimal_template }
 
 local basic = { name = "basic", values = basic_layout_values, template = basic_layout }

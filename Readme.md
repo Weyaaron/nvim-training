@@ -24,6 +24,9 @@ The list of tasks is growing all the time, if you miss a particular one you may 
 # In Action
 ![GIF](media/screencast.gif)
 
+
+This screen layout is the basic one, a more minimal version is available.
+
 # Installation
 
 Install it using the plugin manager of your choice.
@@ -129,6 +132,8 @@ training.configure({ -- All of these options work for 'opts' of lazy as well.
 	possible_marks_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }, -- A list of possible marks.
 	possible_register_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }, -- A list of possible registers.
 	scheduler_args = { repetitions = 5 }, --These args are used to configure all the available schedulers
+	screen_layout = "basic", --This changes the layout of the screen. See below for valid values.
+	task_alphabet = "ABCDEFGabddefg,.",
 	task_alphabet = "ABCDEFGabddefg,.", -- The alphabet of targets used in tasks like f,t etc.
 })
 ```
@@ -145,6 +150,11 @@ training.configure({
 ```
 You may provide as many collections as you wish, they will be available in autocompletion.
 
+## Screen Layouts
+| Name | Description | Stats shown on screen |
+| ----------- | -------- | ----|
+| basic | The default layout, showing some stats. | Total successes, Total failures, Current streak, Best streak |
+| minimal | A minimal layout showing just the curent task. | - |
 
 
 # For beginners
