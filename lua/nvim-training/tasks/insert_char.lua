@@ -1,7 +1,6 @@
 local utility = require("nvim-training.utility")
 local Task = require("nvim-training.task")
 
-
 local InsertChar = {}
 InsertChar.__index = InsertChar
 setmetatable(InsertChar, { __index = Task })
@@ -20,7 +19,8 @@ end
 
 function InsertChar:activate()
 	local function _inner_update()
-		utility.set_buffer_to_rectangle_and_place_cursor_randomly()
+		local random_line = utility.load_random_line()
+		utility.set_buffer_to_rectangle_with_line(random_line)
 	end
 	vim.schedule_wrap(_inner_update)()
 end

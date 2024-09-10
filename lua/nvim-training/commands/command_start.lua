@@ -166,7 +166,7 @@ function module.execute(args)
 
 	local scheduler_index = require("nvim-training.scheduler_index")
 	local collection_index = require("nvim-training.task_collection_index")
-	local scheduler_name = parsing.match_text_list_to_args(utility.get_keys(scheduler_index), args)
+	local scheduler_name = parsing.match_text_list_to_args(utility.get_keys(scheduler_index), args)[1]
 	local scheduler = scheduler_index[scheduler_name]
 
 	if not scheduler then
@@ -187,7 +187,6 @@ function module.execute(args)
 	end
 
 	resoveld_scheduler = scheduler:new(provided_collections)
-
 
 	loop()
 end

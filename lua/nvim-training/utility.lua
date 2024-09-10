@@ -36,6 +36,14 @@ function utility.construct_char_line(target_char, target_index)
 	end
 	return line
 end
+
+function utility.load_random_line()
+	local lorem_ipsum = utility.load_template(template_index.LoremIpsum)
+	local lorem_lines = utility.split_str(lorem_ipsum, "\n")
+	--The last line is cut, we want to avoid running into it if possible -> -1
+	return lorem_lines[math.random(#lorem_lines - 1)]
+end
+
 function utility.trim(s)
 	return (s:gsub("^%s*(.-)%s*$", "%1"))
 end
@@ -57,7 +65,10 @@ function utility.get_current_line()
 end
 function utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
 	utility.update_buffer_respecting_header(utility.load_template(template_index.LoremIpsum))
-	utility.move_cursor_to_random_point()
+
+	local line_count = vim.api.nvim_buf_line_count(0)
+	local rand_line_index = math.random(internal_config.header_length + 1, line_count - 1)
+	vim.api.nvim_win_set_cursor(0, { rand_line_index, utility.random_col_index_at(rand_line_index) })
 end
 function utility.set_buffer_to_rectangle_and_place_cursor_randomly()
 	local lorem_ipsum = utility.load_template(template_index.LoremIpsum)
@@ -106,30 +117,15 @@ function utility.construct_line_with_bracket(bracket_pair, left_index, right_ind
 	return result
 end
 
-function utility.create_highlight(x, y, len)
+function utility.construct_highlight(x, y, len)
 	vim.api.nvim_set_hl(0, "UnderScore", { underline = true })
-	vim.api.nvim_buf_add_highlight(0, internal_config.global_hl_namespace, "UnderScore", x, y, y + len)
-end
-
-function utility.move_cursor_to_random_point()
-	vim.api.nvim_win_set_cursor(0, utility.calculate_random_point_in_text_bounds())
+	vim.api.nvim_buf_add_highlight(0, internal_config.global_hl_namespace, "UnderScore", x - 1, y, y + len)
 end
 
 function utility.select_random_word_bounds_at_line(i)
 	local line = utility.get_line(i)
 	local word_params = utility.calculate_word_bounds(line)
 	return word_params[math.random(1, #word_params)]
-end
-
-function utility.calculate_random_point_in_text_bounds()
-	local x = utility.random_line_index()
-	local y = utility.random_col_index_at(x)
-	return { x, y }
-end
-
-function utility.calculate_random_point_in_line_bound(x)
-	local y = utility.random_col_index_at(x)
-	return { y }
 end
 
 local function calculate_text_piece_bounds(input_str, patterns) -- { start_index, end_index}, 0-indexed
@@ -170,11 +166,6 @@ function utility.calculate_word_index_from_cursor_pos(word_bounds, cursor_pos)
 		end
 	end
 	return index
-end
-
-function utility.random_line_index()
-	local line_count = vim.api.nvim_buf_line_count(0)
-	return math.random(internal_config.header_length + 1, line_count - 1)
 end
 
 function utility.get_line(index)

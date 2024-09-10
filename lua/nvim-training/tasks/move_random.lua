@@ -13,7 +13,6 @@ MoveRandom.__metadata = {
 	tags = "plugin, movement, diagonal",
 }
 
-
 function MoveRandom:new()
 	local base = Move:new()
 	setmetatable(base, { __index = MoveRandom })
@@ -25,9 +24,9 @@ function MoveRandom:activate()
 	local function _inner_update()
 		utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
 
-		utility.create_highlight(self.cursor_target[1], 0, self.cursor_target[2])
+		utility.construct_highlight(self.cursor_target[1], 0, self.cursor_target[2])
 		local line = utility.get_line(self.cursor_target[1])
-		utility.create_highlight(self.cursor_target[1], self.cursor_target[2] + 1, #line - 1)
+		utility.construct_highlight(self.cursor_target[1], self.cursor_target[2] + 1, #line - 1)
 	end
 	vim.schedule_wrap(_inner_update)()
 end

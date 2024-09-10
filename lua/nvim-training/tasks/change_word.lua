@@ -43,7 +43,7 @@ function ChangeWord:activate()
 
 		self.cursor_target = current_cursor_pos
 		self.target_line = text_after_deletion
-		utility.create_highlight(current_cursor_pos[1] - 1, self.cursor_target[2], 1)
+		utility.construct_highlight(current_cursor_pos[1], self.cursor_target[2], 1)
 	end
 	vim.schedule_wrap(_inner_update)()
 end

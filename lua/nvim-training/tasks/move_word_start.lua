@@ -24,7 +24,7 @@ function MoveWordStart:activate()
 		utility.set_buffer_to_rectangle_with_line(line)
 		local current_cursor_pos = vim.api.nvim_win_get_cursor(0)
 		self.cursor_target = movements.word_start(self.counter)
-		utility.create_highlight(current_cursor_pos[1] - 1, self.cursor_target[2], 1)
+		utility.construct_highlight(current_cursor_pos[1], self.cursor_target[2], 1)
 	end
 	vim.schedule_wrap(_inner_update)()
 end

@@ -35,7 +35,7 @@ function MoveWordEnd:activate()
 		vim.api.nvim_win_set_cursor(0, { current_cursor_pos[1], math.random(1, 10) })
 
 		self.cursor_target = movements.word_end(self.counter)
-		utility.create_highlight(current_cursor_pos[1] - 1, self.cursor_target[2], 1)
+		utility.construct_highlight(current_cursor_pos[1], self.cursor_target[2], 1)
 	end
 	vim.schedule_wrap(_inner_update)()
 end

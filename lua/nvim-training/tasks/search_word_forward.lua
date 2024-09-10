@@ -36,7 +36,9 @@ function SearchWordForward:activate()
 		local cursor_at_line_start = false
 		local current_cursor_pos = vim.api.nvim_win_get_cursor(0)
 		while not cursor_at_line_start do
-			utility.set_buffer_to_rectangle_and_place_cursor_randomly()
+			local random_line = utility.load_random_line()
+			utility.set_buffer_to_rectangle_with_line(random_line)
+
 			current_cursor_pos = vim.api.nvim_win_get_cursor(0)
 			cursor_at_line_start = current_cursor_pos[2] < 15
 
@@ -48,7 +50,7 @@ function SearchWordForward:activate()
 		end
 		self.cursor_target = movements.words(self.counter)
 		current_cursor_pos = vim.api.nvim_win_get_cursor(0)
-		utility.create_highlight(current_cursor_pos[1] - 1, self.cursor_target[2], 1)
+		utility.construct_highlight(current_cursor_pos[1], self.cursor_target[2], 1)
 	end
 	vim.schedule_wrap(_inner_update)()
 end

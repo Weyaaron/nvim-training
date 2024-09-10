@@ -30,7 +30,7 @@ function YankWORD:activate()
 
 		self.cursor_target = movements.WORDS(self.counter)
 		current_cursor_pos = vim.api.nvim_win_get_cursor(0)
-		utility.create_highlight(current_cursor_pos[1] - 1, self.cursor_target[2], 1)
+		utility.construct_highlight(current_cursor_pos[1], self.cursor_target[2], 1)
 
 		local line = utility.get_line(current_cursor_pos[1])
 		self.target_text = line:sub(current_cursor_pos[2] + 1, self.cursor_target[2])

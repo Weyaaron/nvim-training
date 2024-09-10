@@ -30,7 +30,7 @@ function MoveMark:activate()
 
 		local line = utility.get_line(cursor_pos[1])
 		local line_length = #line
-		utility.create_highlight(self.target_line - 1, 0, line_length)
+		utility.construct_highlight(self.target_line, 0, line_length)
 	end
 	vim.schedule_wrap(_inner_update)()
 end

@@ -13,7 +13,6 @@ function RepeatNSuccessScheduler:new(task_collections, kwargs)
 	local base = TaskScheduler:new(task_collections, kwargs)
 	setmetatable(base, { __index = RepeatNSuccessScheduler })
 
-
 	base.success_limit = 5
 	base.successes = 0
 	base.task_counter = 1
