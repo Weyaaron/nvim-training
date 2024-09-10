@@ -1,8 +1,9 @@
 local internal_config = require("nvim-training.internal_config")
 local template_index = require("nvim-training.template_index")
 local user_config = require("nvim-training.user_config")
-local utility = {}
+local renderer = require("nvim-training.renderers.task_renderer")
 
+local utility = {}
 function utility.exists(file)
 	local ok, err, code = os.rename(file, file)
 	if not ok then
@@ -22,7 +23,6 @@ local function construct_word_hls(counter, method)
 	local cursor_pos = vim.api.nvim_win_get_cursor(0)
 	local line = utility.get_line(cursor_pos[1])
 	local word_bounds = method(line)
-	local words = utility.calculate_word_bounds(line)
 	local hl_counter = 0
 	for i, v in pairs(word_bounds) do
 		if cursor_pos[2] > v[1] and cursor_pos[2] < v[2] then
@@ -43,6 +43,28 @@ end
 function utility.construct_WORD_hls_forwards(counter)
 	return construct_word_hls(counter, utility.calculate_WORD_bounds)
 end
+
+function utility.calculate_text_start(continous_text)
+	local lines = vim.api.nvim_buf_get_lines(0, 0, vim.api.nvim_buf_line_count(0), false)
+
+	local text_pieces = utility.split_str(continous_text)
+	local result = {}
+	for i, line_el in pairs(lines) do
+		local index = line_el:find(text_pieces[1])
+
+		if index then
+			result = { i, index }
+			break
+		end
+
+		if text_pieces[1] == line_el then
+			result = { i, index }
+			break
+		end
+	end
+	return result
+end
+
 function utility.construct_char_line(target_char, target_index)
 	local line = ""
 	for i = 1, internal_config.line_length do
@@ -89,27 +111,20 @@ function utility.get_current_line()
 	return utility.get_line(cursor_pos[1])
 end
 function utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
-	utility.update_buffer_respecting_header(utility.load_template(template_index.LoremIpsum))
+	renderer.store_key_value_in_display_to_be_rendered("_middle_str_", utility.load_template(template_index.LoremIpsum))
+	renderer.render()
+	vim.api.nvim_win_set_cursor(0, { 6, 7 })
 
-	local line_count = vim.api.nvim_buf_line_count(0)
-	local rand_line_index = math.random(internal_config.header_length + 1, line_count - 1)
-	vim.api.nvim_win_set_cursor(0, { rand_line_index, utility.random_col_index_at(rand_line_index) })
-end
-function utility.set_buffer_to_rectangle_and_place_cursor_randomly()
-	local lorem_ipsum = utility.load_template(template_index.LoremIpsum)
-	local lorem_lines = utility.split_str(lorem_ipsum, "\n")
-	--The last line is cut, we want to avoid running into it if possible -> -1
-	local random_line = lorem_lines[math.random(#lorem_lines - 1)]
-
-	utility.update_buffer_respecting_header(utility.load_rectangle_with_line(random_line))
-	local x_pos = internal_config.header_length + 4
-	local y = utility.random_col_index_at(x_pos)
-	vim.api.nvim_win_set_cursor(0, { x_pos, y })
+	utility.move_cursor_to_random_point()
 end
 
 function utility.set_buffer_to_rectangle_with_line(middle_line)
-	utility.update_buffer_respecting_header(utility.load_rectangle_with_line(middle_line))
-	local x_pos = internal_config.header_length + 4
+	renderer.store_key_value_in_display_to_be_rendered("_middle_str_", utility.load_rectangle_with_line(middle_line))
+	renderer.render()
+
+	local text_start = utility.calculate_text_start(middle_line)
+
+	local x_pos = text_start[1]
 	local y = utility.random_col_index_at(x_pos)
 	vim.api.nvim_win_set_cursor(0, { x_pos, y })
 end
@@ -214,17 +229,9 @@ function utility.clear_all_our_highlights()
 	vim.api.nvim_buf_clear_namespace(0, internal_config.global_hl_namespace, 0, -1)
 end
 
-function utility.update_buffer_respecting_header(input_str)
-	local str_as_lines = utility.split_str(input_str, "\n")
-	vim.api.nvim_buf_set_lines(0, internal_config.header_length, internal_config.buffer_length, false, {})
-
-	local end_index = internal_config.header_length + #str_as_lines
-	vim.api.nvim_buf_set_lines(0, internal_config.header_length, end_index, false, str_as_lines)
-	vim.cmd("sil write!")
-end
-
 function utility.append_lines_to_buffer(input_str)
-	local str_as_lines = utility.split_str(input_str, "\n")
+	--Todo: Merge this with render
+	local str_as_lines = utility.splt_str(input_str, "\n")
 	local buf_len = vim.api.nvim_buf_line_count(0)
 	vim.api.nvim_buf_set_lines(0, buf_len, buf_len + #str_as_lines, false, str_as_lines)
 	vim.cmd("sil write!")

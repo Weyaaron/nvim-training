@@ -12,6 +12,7 @@ MoveRandom.__metadata = {
 	notes = "This task assumes the existence of a plugin that provides such a motion.",
 	tags = "plugin, movement, diagonal",
 }
+setmetatable(MoveRandom, { __index = Move })
 
 function MoveRandom:new()
 	local base = Move:new()

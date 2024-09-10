@@ -37,7 +37,10 @@ function MoveFunctions:activate()
 			line_array[#line_array + 1] = current_text
 		end
 		local result = table.concat(line_array, "\n")
-		utility.update_buffer_respecting_header(result)
+
+		local renderer = require("nvim-training.renderers.task_renderer")
+
+		renderer.store_key_value_in_display_to_be_rendered("_middle_str_", result)
 
 		vim.api.nvim_win_set_cursor(0, { 7, 7 })
 
