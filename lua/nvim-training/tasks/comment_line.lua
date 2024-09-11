@@ -22,6 +22,7 @@ end
 function CommentLine:activate()
 	local function _inner_update()
 		vim.cmd("sil e training.lua")
+
 		utility.update_buffer_respecting_header(utility.load_template(template_index.LuaFunctions))
 		vim.api.nvim_win_set_cursor(0, { 6, 7 })
 	end

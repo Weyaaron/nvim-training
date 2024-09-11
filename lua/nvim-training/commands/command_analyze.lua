@@ -9,7 +9,6 @@ local name_func_map = {
 	CounterPerTask = stats_mod.task_counter,
 }
 function module.execute(args)
-	--Not quite sure if this is the right choice....
 	vim.cmd("!rm results.txt")
 	vim.cmd("e results.txt")
 	vim.api.nvim_buf_set_lines(0, 0, 0, false, {})

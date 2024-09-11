@@ -37,9 +37,7 @@ local templates = {
 	LoremIpsum = load_template_from_file("./templates/lorem_ipsum.txt"),
 	Rectangle = construct_rectangular_template(),
 	LoremIpsumWORDS = load_template_from_file("./templates/lorem_ipsum_WORDS.txt"),
-	-- LoremIpsum = "",
 	LuaFunctions = load_template_from_file("./templates/lua_functions.txt"),
-	-- LuaFunctions = "",
 }
 
 return templates

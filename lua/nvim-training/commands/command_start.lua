@@ -15,7 +15,6 @@ local resoveld_scheduler
 local reset_task_list = true
 local session_id
 
---Todo: Improve the screen layout ... Use less header and place it all in the middle
 local function loop(autocmd_callback_data)
 	--This sleep helps with some feedback, if we continue instantly the user might not recognize their actions clearly.
 	vim.loop.sleep(500)
@@ -25,7 +24,6 @@ local function loop(autocmd_callback_data)
 	--The interesting part happens at the end, where we pick a new task and do some setup for it.
 	if autocmd_callback_data then
 		if autocmd_callback_data then
-			--Todo: Extend after more event types are used.
 			if
 				autocmd_callback_data["event"] == "TextYankPost"
 				or autocmd_callback_data["event"] == "InsertLeave"
@@ -168,7 +166,7 @@ function module.execute(args)
 
 	local scheduler_index = require("nvim-training.scheduler_index")
 	local collection_index = require("nvim-training.task_collection_index")
-	local scheduler_name = parsing.match_text_list_to_args(utility.get_keys(scheduler_index), args)
+	local scheduler_name = parsing.match_text_list_to_args(utility.get_keys(scheduler_index), args)[1]
 	local scheduler = scheduler_index[scheduler_name]
 
 	if not scheduler then

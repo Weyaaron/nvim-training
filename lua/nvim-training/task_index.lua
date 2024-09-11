@@ -23,28 +23,14 @@ local exported_tasks = {
 	Move_O = require("nvim-training.tasks.move_O"),
 	Move_o = require("nvim-training.tasks.move_o"),
 	Movef = require("nvim-training.tasks.move_f"),
-	Movet = require("nvim-training.tasks.move_t"), --Todo: Rework internals
+	Movet = require("nvim-training.tasks.move_t"),
 	Paste = require("nvim-training.tasks.paste"),
-	SearchForward = require("nvim-training.tasks.search_forward"), --Todo: Rework into movement
+	SearchForward = require("nvim-training.tasks.search_forward"),
 	YankEndOfLine = require("nvim-training.tasks.yank_end_of_line"),
 	YankInsideMatch = require("nvim-training.tasks.yank_inside_match"),
 	YankIntoRegister = require("nvim-training.tasks.yank_into_register"),
 	YankWORD = require("nvim-training.tasks.yank_WORD"),
 	YankWord = require("nvim-training.tasks.yank_word"),
-	--MoveRandom = require("nvim-training.tasks.move_random"), Issue: Not a single line
-	-- Barier II
-	-- Barrier of tasks done, todo: Fix them
-	-- CommentLineBlock = require("nvim-training.tasks.comment_line_block"),
-	-- CommentLine = require("nvim-training.tasks.comment_line"), --Currently broken, cursor outside windwo
-	-- Todo: Migrate the remaining task to rectangle if possible
-	-- MoveMark = require("nvim-training.tasks.move_mark"), --This one keeps being broken
-	-- PlaceMark= require("nvim-training.tasks.place_mark"),
-	-- MoveWordStart ?? How
-	-- MoveyankWork ...
-	-- CommentLineBlock = require("nvim-training.tasks.comment_line_block"),
-	-- CommentLine = require("nvim-training.tasks.comment_line"),
-	-- OpenWindow = require("nvim-training.tasks.open_window"),
-	-- MoveWORDEnd = require("nvim-training.tasks.move_WORD_end"),
 }
 
 for i, v in pairs(exported_tasks) do

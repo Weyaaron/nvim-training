@@ -38,5 +38,4 @@ vim.api.nvim_create_user_command("Training", my_cmd, {
 				:totable()
 		end
 	end,
-	bang = true, -- If you want to support ! modifiers
 })

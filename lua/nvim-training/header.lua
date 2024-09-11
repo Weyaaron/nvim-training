@@ -32,6 +32,7 @@ function header.construct_header()
 	local str_as_lines = utility.split_str(constructed_header, "\n")
 
 	vim.api.nvim_buf_set_lines(0, 0, internal_config.header_length, false, str_as_lines)
+	vim.cmd("sil write!")
 end
 
 return header

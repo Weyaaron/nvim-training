@@ -4,7 +4,7 @@ local internal_config = require("nvim-training.internal_config")
 
 local MoveRandom = {}
 MoveRandom.__index = MoveRandom
-
+setmetatable(MoveRandom, { __index = Move })
 MoveRandom.__metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move to the random target.",
@@ -12,11 +12,10 @@ MoveRandom.__metadata = {
 	notes = "This task assumes the existence of a plugin that provides such a motion.",
 	tags = "plugin, movement, diagonal",
 }
-setmetatable(MoveRandom, { __index = Move })
+
 function MoveRandom:new()
 	local base = Move:new()
 	setmetatable(base, { __index = MoveRandom })
-	--Todo: Rework into a single line
 	base.cursor_target =
 		{ math.random(internal_config.header_length, internal_config.header_length + 5), math.random(5, 25) }
 	return base
@@ -25,9 +24,9 @@ function MoveRandom:activate()
 	local function _inner_update()
 		utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
 
-		utility.create_highlight(self.cursor_target[1], 0, self.cursor_target[2])
+		utility.construct_highlight(self.cursor_target[1], 0, self.cursor_target[2])
 		local line = utility.get_line(self.cursor_target[1])
-		utility.create_highlight(self.cursor_target[1], self.cursor_target[2] + 1, #line - 1)
+		utility.construct_highlight(self.cursor_target[1], self.cursor_target[2] + 1, #line - 1)
 	end
 	vim.schedule_wrap(_inner_update)()
 end

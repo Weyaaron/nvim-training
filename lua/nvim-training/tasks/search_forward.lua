@@ -38,7 +38,7 @@ function SearchForward:activate()
 		self.search_target = string.sub(full_word, 0, search_len)
 		local start_index_for_hl = string.find(target_line, self.search_target)
 
-		utility.create_highlight(cursor_pos[1] + line_offset - 2, start_index_for_hl - 1, search_len)
+		utility.construct_highlight(cursor_pos[1] + line_offset - 2, start_index_for_hl - 1, search_len)
 		self.x_target = internal_config.header_length + line_offset
 		self.y_target = start_index_for_hl
 	end

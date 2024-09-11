@@ -1,5 +1,4 @@
 local Task = require("nvim-training.task")
---Rework into not being a parent
 local Lua = {}
 Lua.__index = Lua
 setmetatable(Lua, { __index = Task })

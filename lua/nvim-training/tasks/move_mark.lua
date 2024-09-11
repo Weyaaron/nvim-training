@@ -14,8 +14,6 @@ function MoveMark:new()
 	setmetatable(base, { __index = MoveMark })
 	base.target_mark_name = user_config.possible_marks_list[math.random(#user_config.possible_marks_list)]
 	base.target_line = math.random(internal_config.header_length, internal_config.header_length + 4)
-	-- base.target_mark_name = "r"
-	-- base.target_line = 11
 	return base
 end
 
@@ -32,7 +30,7 @@ function MoveMark:activate()
 
 		local line = utility.get_line(cursor_pos[1])
 		local line_length = #line
-		utility.create_highlight(self.target_line - 1, 0, line_length)
+		utility.construct_highlight(self.target_line, 0, line_length)
 	end
 	vim.schedule_wrap(_inner_update)()
 end

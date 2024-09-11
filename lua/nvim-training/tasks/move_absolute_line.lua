@@ -30,7 +30,7 @@ function MoveAbsoluteLine:activate()
 		cursor_pos = vim.api.nvim_win_get_cursor(0)
 
 		local line_length = #utility.get_line(cursor_pos[1])
-		utility.create_highlight(self.cursor_target[1] - 1, 0, line_length)
+		utility.construct_highlight(self.cursor_target[1], 0, line_length)
 		self.cursor_target = { self.cursor_target[1], cursor_pos[2] }
 	end
 	vim.schedule_wrap(_inner_update)()
