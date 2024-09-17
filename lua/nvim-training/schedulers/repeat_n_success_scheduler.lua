@@ -4,13 +4,9 @@ RepeatNSuccessScheduler = {}
 RepeatNSuccessScheduler.__index = RepeatNSuccessScheduler
 setmetatable(RepeatNSuccessScheduler, { __index = TaskScheduler })
 
-function RepeatNSuccessScheduler:new(task_collections, kwargs)
-	local default_kwargs = {}
-	if not kwargs then
-		kwargs = default_kwargs
-	end
+function RepeatNSuccessScheduler:new(task_collections)
 
-	local base = TaskScheduler:new(task_collections, kwargs)
+	local base = TaskScheduler:new(task_collections)
 	setmetatable(base, { __index = RepeatNSuccessScheduler })
 
 	base.success_limit = 5

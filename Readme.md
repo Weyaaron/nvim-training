@@ -19,7 +19,7 @@ The list of tasks is growing all the time, if you miss a particular one you may 
 
 - Supported Tasks: 31
 - Supported Tasks-Collections: 5
-- Supported Schedulers: 2
+- Supported Schedulers: 3
 
 # In Action
 ![GIF](media/screencast.gif)
@@ -107,10 +107,11 @@ time, for support for custom collections see below.
 
 # Schedulers
 
-| Name | Description |
-| ----------- | -------- |
-| RandomScheduler | The next task is chosen at random. |
-| RepeatUntilNSuccess | The current task is repeated until n successes are reached. |
+| Name | Description | Supported Arguments |
+| ----------- | -------- | ---- |
+| RandomScheduler | The next task is chosen at random. | - |
+| RepeatUntilNSuccessScheduler | The current task is repeated until n successes are reached. | repetions|
+| RepeatNScheduler | A task is repeated n-times. | repetions |
 
 # Configuration
 A interface for configuration is provided. These are the default values if you do not change
@@ -126,6 +127,7 @@ training.configure({ -- All of these options work for 'opts' of lazy as well.
 	enable_events = true, -- If the plugin should save events. These are used for the subcommand analyze.
 	possible_marks_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }, -- A list of possible marks.
 	possible_register_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }, -- A list of possible registers.
+	scheduler_args = { repetitions = 5 }, --These args are used to configure all the available schedulers
 	task_alphabet = "ABCDEFGabddefg,.",
 })
 ```

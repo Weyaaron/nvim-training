@@ -1,19 +1,14 @@
 local TaskScheduler = require("nvim-training.task_scheduler")
+local user_config = require("nvim-training.user_config")
 
 RepeatNScheduler = {}
 RepeatNScheduler.__index = RepeatNScheduler
 setmetatable(RepeatNScheduler, { __index = TaskScheduler })
 
-function RepeatNScheduler:new(task_collections, kwargs)
-	local default_kwargs = {}
-	if not kwargs then
-		kwargs = default_kwargs
-	end
-
-	local base = TaskScheduler:new(task_collections, kwargs)
+function RepeatNScheduler:new(task_collections)
+	local base = TaskScheduler:new(task_collections)
 	setmetatable(base, { __index = RepeatNScheduler })
 
-	base.success_limit = 2
 	base.current_task_count = 0
 	base.task_counter = 1
 	base.all_task = {}
@@ -27,7 +22,7 @@ end
 
 function RepeatNScheduler:next(previous, result)
 	self.current_task_count = self.current_task_count + 1
-	if self.current_task_count == self.success_limit then
+	if self.current_task_count == user_config.scheduler_args.repetitions then
 		self.current_task_count = 0
 		self.task_counter = self.task_counter + 1
 	end
