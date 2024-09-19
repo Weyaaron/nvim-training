@@ -2,7 +2,6 @@ local user_config = require("nvim-training.user_config")
 local utility = require("nvim-training.utility")
 local module = {}
 
-
 local function configure(args)
 	for i, v in pairs(args) do
 		user_config[i] = v
