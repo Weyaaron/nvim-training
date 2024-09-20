@@ -27,9 +27,8 @@ function MoveF:activate()
 
 		local cursor_pos = vim.api.nvim_win_get_cursor(0)
 
-		local target = movements.F(self.target_char)
 		vim.api.nvim_win_set_cursor(0, { cursor_pos[1], target_cursor_pos })
-		self.cursor_target = { cursor_pos[1], target }
+		self.cursor_target = movements.F(self.target_char)
 	end
 	vim.schedule_wrap(_inner_update)()
 end

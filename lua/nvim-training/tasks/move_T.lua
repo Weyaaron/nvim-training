@@ -27,7 +27,7 @@ function MoveT:activate()
 		local cursor_pos = vim.api.nvim_win_get_cursor(0)
 		vim.api.nvim_win_set_cursor(0, { cursor_pos[1], cursor_target_pos + math.random(5, 10) })
 
-		self.cursor_target = { cursor_pos[1], movements.T(self.target_char) }
+		self.cursor_target = movements.T(self.target_char)
 	end
 	vim.schedule_wrap(_inner_update)()
 end

@@ -17,39 +17,20 @@ Move_f.__metadata = {
 function Move_f:new()
 	local base = Move:new()
 	setmetatable(base, { __index = Move_f })
-	base.target_y_pos = 0
-	base.target_char = "0"
+	base.target_char = utility.calculate_target_char()
 	return base
 end
 
 function Move_f:activate()
 	local function _inner_update()
-		local offset = math.random(3, 15)
-		local cursor_target_pos = 20
-		local target_char_index = math.random(#user_config.task_alphabet)
-		self.target_char = user_config.task_alphabet:sub(target_char_index, target_char_index)
-		local line = ""
-		self.target_y_pos = cursor_target_pos + offset
-		for i = 1, internal_config.line_length do
-			local is_target_or_space = false
-			if i == self.target_y_pos then
-				line = line .. self.target_char
-				is_target_or_space = true
-			end
-			if i == self.target_y_pos + 1 or i == self.target_y_pos - 1 then
-				line = line .. " "
-				is_target_or_space = true
-			end
-			if not is_target_or_space then
-				line = line .. "x"
-			end
-		end
+		local cursor_target_pos = math.random(20, 40)
+		local line = utility.construct_char_line(self.target_char, cursor_target_pos + 10)
 		utility.set_buffer_to_rectangle_with_line(line)
 
 		local cursor_pos = vim.api.nvim_win_get_cursor(0)
 		vim.api.nvim_win_set_cursor(0, { cursor_pos[1], cursor_target_pos })
 
-		self.cursor_target = { cursor_pos[1], movements.f(self.target_char) - 1 }
+		self.cursor_target = movements.f(self.target_char)
 	end
 	vim.schedule_wrap(_inner_update)()
 end
