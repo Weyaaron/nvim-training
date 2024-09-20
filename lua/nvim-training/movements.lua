@@ -69,9 +69,14 @@ function movements.f(target)
 	for i = current_cursor_pos[2], #line do
 		local char = line:sub(i, i)
 		if char == target then
-			return i
+			return { current_cursor_pos[1], i - 1 }
 		end
 	end
+end
+
+function movements.t(target)
+	local f = movements.f(target)
+	return { f[1], f[2] - 1 }
 end
 
 function movements.F(target)
@@ -81,15 +86,16 @@ function movements.F(target)
 	for i = 0, current_cursor_pos[2] do
 		local char = line:sub(i, i)
 		if char == target then
-			return i - 1
+			return { current_cursor_pos[1], i - 1 }
 		end
 	end
 end
 
 function movements.T(target)
-	return movements.F(target) + 1
+	local F = movements.F(target)
+	print(vim.inspect(F))
+	return { F[1], F[2] + 1 }
 end
-
 local function move_word_start(word_bound_func, counter)
 	local current_cursor_pos = vim.api.nvim_win_get_cursor(0)
 	local line = utility.get_line(current_cursor_pos[1])
