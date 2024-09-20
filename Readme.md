@@ -65,7 +65,7 @@ safe you may start in an empty buffer/directory.
 |DeleteLine | Delete the current line. | change, line, deletion |
 |DeleteWORD | Delete using 'W'. | movement, word, deletion |
 |DeleteWord | Delete using 'w'. | movement, word, deletion |
-|Delete_f | Move using f. | f, horizontal, movement |
+|Deletef | Move using f. | f, horizontal, movement |
 |Increment | Increment the value at the cursor. | change, char, increment |
 |InsertChar | Insert a char at the current position. | char, insertion, change |
 |MoveAbsoluteLine | Move to the absolute line. | line, vertical, movement |
