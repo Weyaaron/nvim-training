@@ -93,7 +93,6 @@ end
 
 function movements.T(target)
 	local F = movements.F(target)
-	print(vim.inspect(F))
 	return { F[1], F[2] + 1 }
 end
 local function move_word_start(word_bound_func, counter)

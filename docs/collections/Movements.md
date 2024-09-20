@@ -3,7 +3,7 @@
 | --- | -------- | -------- | -------- |
 |DeleteWORD | Delete using 'W'. |  movement,  word, deletion |
 |DeleteWord | Delete using 'w'. |  movement,  word, deletion |
-|Delete_f | Move using f. |  f,  horizontal, movement |
+|Deletef | Move using f. |  f,  horizontal, movement |
 |MoveAbsoluteLine | Move to the absolute line. |  line,  vertical, movement |
 |MoveEndOfFile | Move to the end the file. |  end,  file,  vertical, movement |
 |MoveEndOfLine | Move to the end of the current line. |  end,  horizontal,  line, movement |
