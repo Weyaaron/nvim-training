@@ -22,8 +22,8 @@
 |MoveWORD | Move using W. |  W,  WORD, movement |
 |MoveWord | Move using w. |  horizontal,  w,  word, movement |
 |MoveWordEnd | Move to the end of the current 'word'. |  end,  vertical,  word, movement |
-|Move_O | Enter and leave insert mode above the current line. |  insert_mode,  linewise,  movement, O |
-|Move_o | Enter and leave insert mode below the current line. |  insert_mode,  linewise,  movement, o |
+|MoveO | Enter and leave insert mode above the current line. |  insert_mode,  linewise,  movement, O |
+|Moveo | Enter and leave insert mode below the current line. |  insert_mode,  linewise,  movement, o |
 |Movef | Move using f. |  f,  horizontal, movement |
 |Movet | Move using t. |  horizontal,  t, movement |
 |Paste | Paste from a given register. |  register, paste |
