@@ -147,7 +147,14 @@ end
 function utility.calculate_WORD_bounds(input_str) -- { start_index, end_index}, 0-indexed
 	--Defined as non-whitespace characters surrounded by whitespace
 	local match_strs = { "()%s*(%S+)%s*()" }
-	return calculate_text_piece_bounds(input_str, match_strs)
+	local bounds_from_regex = calculate_text_piece_bounds(input_str, match_strs)
+
+	local result = {}
+	for i = 1, #bounds_from_regex, 1 do
+		result[#result + 1] = { bounds_from_regex[i][1], bounds_from_regex[i][2] - 1 }
+	end
+
+	return result
 end
 
 function utility.calculate_word_bounds(s) -- { start_index, end_index}, 0-indexed
