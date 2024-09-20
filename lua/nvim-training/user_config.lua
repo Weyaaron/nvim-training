@@ -6,6 +6,7 @@ local user_config = {
 	custom_collections = {},
 	enable_counters = true,
 	enable_events = true,
+	enable_highlights = true,
 	possible_marks_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" },
 	possible_register_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" },
 	scheduler_args = { repetitions = 5 },

@@ -125,6 +125,7 @@ training.configure({ -- All of these options work for 'opts' of lazy as well.
 	custom_collections = {}, -- A table of tables containing names of tasks, for details read on.
 	enable_counters = true, -- Enables/Disables counters in tasks that support counters.
 	enable_events = true, -- Enables/Disables events.
+	enable_highlights = true, --Enables/Disables highlights. Care is taken to ensure that tasks are possible without them.
 	possible_marks_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }, -- A list of possible marks.
 	possible_register_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }, -- A list of possible registers.
 	scheduler_args = { repetitions = 5 }, --These args are used to configure all the available schedulers

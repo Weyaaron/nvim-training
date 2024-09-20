@@ -18,6 +18,31 @@ function utility.isdir(path)
 	return utility.exists(path .. "/")
 end
 
+local function construct_word_hls(counter, method)
+	local cursor_pos = vim.api.nvim_win_get_cursor(0)
+	local line = utility.get_line(cursor_pos[1])
+	local word_bounds = method(line)
+	local words = utility.calculate_word_bounds(line)
+	local hl_counter = 0
+	for i, v in pairs(word_bounds) do
+		if cursor_pos[2] > v[1] and cursor_pos[2] < v[2] then
+			utility.construct_highlight(cursor_pos[1], cursor_pos[2], math.abs(cursor_pos[2] - v[2]))
+		end
+
+		if v[1] > cursor_pos[2] and hl_counter < counter - 1 then
+			hl_counter = hl_counter + 1
+			utility.construct_highlight(cursor_pos[1], v[1], math.abs(v[1] - v[2]))
+		end
+	end
+end
+
+function utility.construct_word_hls_forwards(counter)
+	return construct_word_hls(counter, utility.calculate_word_bounds)
+end
+
+function utility.construct_WORD_hls_forwards(counter)
+	return construct_word_hls(counter, utility.calculate_WORD_bounds)
+end
 function utility.construct_char_line(target_char, target_index)
 	local line = ""
 	for i = 1, internal_config.line_length do
@@ -118,8 +143,10 @@ function utility.construct_line_with_bracket(bracket_pair, left_index, right_ind
 end
 
 function utility.construct_highlight(x, y, len)
-	vim.api.nvim_set_hl(0, "UnderScore", { underline = true })
-	vim.api.nvim_buf_add_highlight(0, internal_config.global_hl_namespace, "UnderScore", x - 1, y, y + len)
+	if user_config.enable_highlights then
+		vim.api.nvim_set_hl(0, "UnderScore", { underline = true })
+		vim.api.nvim_buf_add_highlight(0, internal_config.global_hl_namespace, "UnderScore", x - 1, y, y + len)
+	end
 end
 
 function utility.select_random_word_bounds_at_line(i)

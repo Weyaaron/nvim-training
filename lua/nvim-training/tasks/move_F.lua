@@ -29,6 +29,7 @@ function MoveF:activate()
 
 		vim.api.nvim_win_set_cursor(0, { cursor_pos[1], target_cursor_pos })
 		self.cursor_target = movements.F(self.target_char)
+		utility.construct_highlight(self.cursor_target[1], self.cursor_target[2], 1)
 	end
 	vim.schedule_wrap(_inner_update)()
 end

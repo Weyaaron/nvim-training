@@ -28,6 +28,7 @@ function MoveT:activate()
 		vim.api.nvim_win_set_cursor(0, { cursor_pos[1], cursor_target_pos + math.random(5, 10) })
 
 		self.cursor_target = movements.T(self.target_char)
+		utility.construct_highlight(self.cursor_target[1], self.cursor_target[2], 1)
 	end
 	vim.schedule_wrap(_inner_update)()
 end

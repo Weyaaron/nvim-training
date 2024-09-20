@@ -29,10 +29,10 @@ function Move_t:activate()
 		vim.api.nvim_win_set_cursor(0, { cursor_pos[1], cursor_target_pos })
 
 		self.cursor_target = movements.t(self.target_char)
+		utility.construct_highlight(self.cursor_target[1], self.cursor_target[2], 1)
 	end
 	vim.schedule_wrap(_inner_update)()
 end
-
 
 function Move_t:instructions()
 	return "Move next to the char '" .. self.target_char .. "' using t."

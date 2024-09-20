@@ -24,6 +24,8 @@ function DeleteLine:activate()
 
 		local line = utility.get_current_line()
 		self.target_text = line
+		local cursor_pos = vim.api.nvim_win_get_cursor(0)
+		utility.construct_highlight(cursor_pos[1], 0, #self.target_text)
 	end
 	vim.schedule_wrap(_inner_update)()
 end

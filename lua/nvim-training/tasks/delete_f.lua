@@ -31,7 +31,13 @@ function Deletef:activate()
 		vim.api.nvim_win_set_cursor(0, { cursor_pos[1], target_index })
 		self.cursor_target = movements.f(self.target_char)
 
+		local cursor_pos = vim.api.nvim_win_get_cursor(0)
 		self.target_text = line:sub(target_index + 1, self.cursor_target[2] + 1)
+		utility.construct_highlight(
+			self.cursor_target[1],
+			cursor_pos[2],
+			math.abs(self.cursor_target[2] - cursor_pos[2]) + 1
+		)
 	end
 	vim.schedule_wrap(_inner_update)()
 end
