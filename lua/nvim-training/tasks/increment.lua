@@ -16,8 +16,7 @@ function Increment:new()
 	setmetatable(base, { __index = Increment })
 
 	local modes = { "Increment", "Decrement" }
-	base.inital_value = math.random(-100, 100)
-	base.inital_value = 0
+	base.inital_value = 5
 	base.mode = modes[math.random(#modes)]
 	if base.mode == "Increment" then
 		base.updated_value = base.inital_value + 1
@@ -28,42 +27,21 @@ function Increment:new()
 end
 function Increment:activate()
 	local function _inner_update()
-		local line = ""
-
-		for i = 1, internal_config.line_length do
-			if not i == internal_config.line_length / 2 then
-				line = line .. " "
-			else
-				line = line .. "0"
-			end
-		end
+		local target_cursor_pos = 30
+		local line = utility.construct_char_line(self.inital_value, 30)
 		utility.set_buffer_to_rectangle_with_line(line)
-
 		local cursor_pos = vim.api.nvim_win_get_cursor(0)
-		local lines = vim.api.nvim_buf_get_lines(0, cursor_pos[1] - 1, vim.api.nvim_buf_line_count(0), false)
-		local left_half = lines[1]:sub(0, cursor_pos[2])
-		local updated_line = left_half
-			.. " "
-			.. tostring(self.inital_value)
-			.. " "
-			.. string.sub(lines[1], cursor_pos[2], #lines[1])
-		vim.api.nvim_buf_set_lines(0, cursor_pos[1] - 1, cursor_pos[1], false, { updated_line })
-		vim.api.nvim_win_set_cursor(0, { cursor_pos[1], cursor_pos[2] + 1 })
+		vim.api.nvim_win_set_cursor(0, { cursor_pos[1], target_cursor_pos - 1 })
 	end
 	vim.schedule_wrap(_inner_update)()
 end
 
 function Increment:deactivate(autocmd_callback_data)
 	local cursor_pos = vim.api.nvim_win_get_cursor(0)
-	local lines = vim.api.nvim_buf_get_lines(0, cursor_pos[1] - 1, vim.api.nvim_buf_line_count(0), false)
-	local words = utility.split_str(lines[1], " ")
-	local word_found = false
-	for i, v in pairs(words) do
-		if v == tostring(self.updated_value) then
-			word_found = true
-		end
-	end
-	return word_found
+	local line = utility.get_line(cursor_pos[1])
+
+	local char_at_cursor = line:sub(cursor_pos[2] + 1, cursor_pos[2] + 1)
+	return tonumber(char_at_cursor) == self.updated_value
 end
 
 function Increment:instructions()
