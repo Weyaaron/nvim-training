@@ -137,15 +137,16 @@ function module.execute(args)
 	local utility = require("nvim-training.utility")
 	local init = require("nvim-training.init")
 	init.configure({})
+	if user_config.enable_events then
+		if not utility.exists(user_config.base_path) then
+			print(
+				"Unable to create the path '"
+					.. tostring(user_config.base_path)
+					.. "'. The plugin will not run. If this path does not suit you, use 'configure' to set it or disable events using 'configure'"
+			)
 
-	if not init.check_path(user_config.base_path) then
-		print(
-			"Unable to create the path '"
-				.. tostring(user_config.base_path)
-				.. "'. The plugin will not run. If this path does not suit you, use 'configure' to set it or disable events using 'configure'"
-		)
-
-		return
+			return
+		end
 	end
 
 	--Todo: Check if file exists

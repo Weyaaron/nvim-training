@@ -29,6 +29,7 @@ function YankInsideMatch:activate()
 		local cursor_pos = vim.api.nvim_win_get_cursor(0)
 		vim.api.nvim_win_set_cursor(0, { cursor_pos[1], left_bound - 1 })
 		self.target_text = line:sub(left_bound, right_bound)
+		utility.construct_highlight(cursor_pos[1], left_bound, #self.target_text - 2)
 	end
 
 	vim.schedule_wrap(_inner_update)()

@@ -34,6 +34,9 @@ function DeleteWORD:activate()
 		utility.construct_highlight(current_cursor_pos[1], self.cursor_target[2], 1)
 
 		self.target_text = word_line:sub(current_cursor_pos[2] + 1, self.cursor_target[2])
+
+		utility.construct_WORD_hls_forwards(self.counter)
+		utility.construct_highlight(current_cursor_pos[1], self.cursor_target[2], 1)
 	end
 	vim.schedule_wrap(_inner_update)()
 end

@@ -29,6 +29,8 @@ function MoveMatch:activate()
 		vim.api.nvim_win_set_cursor(0, { cursor_pos[1], left_bound - 1 })
 		self.target_text = line:sub(left_bound, right_bound)
 		self.cursor_target = { cursor_pos[1], right_bound - 1 }
+
+		utility.construct_highlight(self.cursor_target[1], self.cursor_target[2], 1)
 	end
 	vim.schedule_wrap(_inner_update)()
 end

@@ -41,7 +41,7 @@ function movements.WORDS(counter)
 	return move_across_word_pos(utility.calculate_WORD_bounds, counter)
 end
 
-function move_word_end(word_bound_func, counter)
+local function move_word_end(word_bound_func, counter)
 	local current_cursor_pos = vim.api.nvim_win_get_cursor(0)
 	local line = utility.get_line(current_cursor_pos[1])
 	local word_positions = word_bound_func(line)
@@ -114,7 +114,7 @@ function movements.word_start(counter)
 end
 
 function movements.WORD_start(counter)
-	return move_word_start(utility.calculate_word_bounds, counter)
+	return move_word_start(utility.calculate_WORD_bounds, counter)
 end
 
 return movements

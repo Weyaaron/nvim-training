@@ -25,6 +25,7 @@ function YankEndOfLine:activate()
 		local cursor_pos = vim.api.nvim_win_get_cursor(0)
 		local line = utility.get_line(cursor_pos[1])
 		self.target_text = string.sub(line, cursor_pos[2] + 1, #line)
+		utility.construct_highlight(cursor_pos[1], cursor_pos[2], math.abs(#line - cursor_pos[2]))
 	end
 	vim.schedule_wrap(_inner_update)()
 end

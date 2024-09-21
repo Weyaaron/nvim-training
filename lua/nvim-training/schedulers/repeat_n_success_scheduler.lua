@@ -5,7 +5,6 @@ RepeatNSuccessScheduler.__index = RepeatNSuccessScheduler
 setmetatable(RepeatNSuccessScheduler, { __index = TaskScheduler })
 
 function RepeatNSuccessScheduler:new(task_collections)
-
 	local base = TaskScheduler:new(task_collections)
 	setmetatable(base, { __index = RepeatNSuccessScheduler })
 
