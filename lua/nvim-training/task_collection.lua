@@ -32,7 +32,12 @@ function TaskCollection:render_markdown(table_header)
 	local header = "## " .. self.name .. " (" .. self.desc .. ")\n" .. table_header
 	local lines = {}
 
-	for i, task_name in pairs(self.task_names) do
+	local sorted_task_names = self.task_names
+	table.sort(sorted_task_names, function(a, b)
+		return string.lower(a) < string.lower(b)
+	end)
+
+	for i, task_name in pairs(sorted_task_names) do
 		--We do not do this as a class method since its a pain to gather all the pieces inside the task
 		local current_task = task_index[task_name]:new()
 		local tag_str = current_task.__metadata.tags or "not given"
@@ -49,14 +54,14 @@ function TaskCollection:render_markdown(table_header)
 		lines[#lines + 1] = "|" .. table.concat(pieces, " | ") .. " |"
 	end
 
-	table.sort(lines)
 	local result = { header }
 
 	for i, v in pairs(lines) do
 		result[#result + 1] = v
 	end
-
-	return table.concat(result, "\n")
+	local str_result = table.concat(result, "\n")
+	str_result = str_result:gsub("%s%s", " ")
+	return str_result
 end
 
 return TaskCollection
