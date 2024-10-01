@@ -1,25 +1,25 @@
 local utility = require("nvim-training.utility")
 local Move = require("nvim-training.tasks.move")
 local movements = require("nvim-training.movements")
-local Move_t = {}
+local Movet = {}
 
-Move_t.__index = Move_t
-setmetatable(Move_t, { __index = Move })
-Move_t.__metadata = {
+Movet.__index = Movet
+setmetatable(Movet, { __index = Move })
+Movet.__metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move using t.",
 	instructions = "",
 	tags = "movement, t, horizontal",
 }
 
-function Move_t:new()
+function Movet:new()
 	local base = Move:new()
-	setmetatable(base, { __index = Move_t })
+	setmetatable(base, { __index = Movet })
 	base.target_char = utility.calculate_target_char()
 	return base
 end
 
-function Move_t:activate()
+function Movet:activate()
 	local function _inner_update()
 		local cursor_target_pos = math.random(20, 40)
 		local line = utility.construct_char_line(self.target_char, cursor_target_pos + 10)
@@ -34,8 +34,8 @@ function Move_t:activate()
 	vim.schedule_wrap(_inner_update)()
 end
 
-function Move_t:instructions()
+function Movet:instructions()
 	return "Move next to the char '" .. self.target_char .. "' using t."
 end
 
-return Move_t
+return Movet

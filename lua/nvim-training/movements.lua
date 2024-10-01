@@ -100,13 +100,15 @@ local function move_word_start(word_bound_func, counter)
 	local line = utility.get_line(current_cursor_pos[1])
 	local word_positions = word_bound_func(line)
 	local word_index = utility.calculate_word_index_from_cursor_pos(word_positions, current_cursor_pos[2])
+	counter = counter - 1
 
 	local cursor_is_at_word_start = current_cursor_pos[2] == word_positions[word_index][1]
 	if cursor_is_at_word_start then
 		counter = counter + 1
 	end
+	local new_index = word_index - counter
 
-	return { current_cursor_pos[1], word_positions[word_index - counter - 1][2] - 1 }
+	return { current_cursor_pos[1], word_positions[new_index][1] }
 end
 
 function movements.word_start(counter)
