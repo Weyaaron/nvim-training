@@ -97,8 +97,8 @@ local function loop(autocmd_callback_data)
 
 	local utility = require("nvim-training.utility")
 	--This line ensures that the highlights of previous tasks are discarded.
-	utility.clear_all_our_highlights()
-
+	local internal_config = require("nvim-training.internal_config")
+	vim.api.nvim_buf_clear_namespace(0, internal_config.global_hl_namespace, 0, -1)
 	current_task = resoveld_scheduler:next(current_task, previous_task_result):new()
 	current_task:activate()
 
