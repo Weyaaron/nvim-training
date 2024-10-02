@@ -1,15 +1,14 @@
 local Task = require("nvim-training.task")
 local utility = require("nvim-training.utility")
-local internal_config = require("nvim-training.internal_config")
 local SearchForward = {}
 SearchForward.__index = SearchForward
 
 setmetatable(SearchForward, { __index = Task })
 SearchForward.__metadata = {
 	autocmd = "CursorMoved",
-	desc = "Search forwards for a target-string.",
+	desc = "Search forwards.",
 	instructions = "",
-	tags = "search, movement, diagonal",
+	tags = "search, movement, forward",
 }
 function SearchForward:new()
 	local base = Task:new()
@@ -21,26 +20,15 @@ end
 
 function SearchForward:activate()
 	local function _inner_update()
-		utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
-
-		vim.api.nvim_win_set_cursor(0, { internal_config.header_length + 1, math.random(5, 25) })
-
+		local subword_length = 4
+		local data_for_search = utility.construct_data_search(subword_length, 25, 55)
+		utility.set_buffer_to_rectangle_with_line(data_for_search[1])
 		local cursor_pos = vim.api.nvim_win_get_cursor(0)
+		vim.api.nvim_win_set_cursor(0, { cursor_pos[1], 5 })
+		utility.construct_highlight(cursor_pos[1], data_for_search[3], subword_length)
 
-		local lines = vim.api.nvim_buf_get_lines(0, cursor_pos[1] - 1, vim.api.nvim_buf_line_count(0), false)
-		local line_offset = math.random(3, #lines - 1)
-		local target_line = lines[line_offset]
-		local words_in_line = utility.split_str(target_line, " ")
-		local word_offset = math.random(1, #words_in_line)
-
-		local search_len = 3
-		local full_word = words_in_line[word_offset]
-		self.search_target = string.sub(full_word, 0, search_len)
-		local start_index_for_hl = string.find(target_line, self.search_target)
-
-		utility.construct_highlight(cursor_pos[1] + line_offset - 2, start_index_for_hl - 1, search_len)
-		self.x_target = internal_config.header_length + line_offset
-		self.y_target = start_index_for_hl
+		self.search_target = data_for_search[2]
+		self.x_target = data_for_search[3]
 	end
 	vim.schedule_wrap(_inner_update)()
 end
@@ -50,7 +38,7 @@ function SearchForward:deactivate(autocmd_callback_data)
 	vim.schedule_wrap(function()
 		vim.cmd("noh")
 	end)()
-	return cursor_pos[1] == self.x_target and cursor_pos[2] == self.y_target - 1
+	return cursor_pos[2] == self.x_target
 end
 
 function SearchForward:instructions()

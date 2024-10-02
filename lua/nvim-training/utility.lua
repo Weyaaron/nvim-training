@@ -89,12 +89,34 @@ function utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
 end
 
 function utility.set_buffer_to_rectangle_with_line(middle_line)
-	--Todo: What about this line?
 	utility.update_buffer_respecting_header(utility.load_rectangle_with_line(middle_line))
 	local x_pos = internal_config.header_length + 4
 
 	local y = math.random(0, #utility.get_line(x_pos))
 	vim.api.nvim_win_set_cursor(0, { x_pos, y })
+end
+
+function utility.construct_data_search(word_length, left_target_bound, right_target_bound)
+	local base_chars = "abcedefhikjlmnABCDEFGDHIK"
+	local target_string = ""
+	for i = 1, word_length, 1 do
+		local index = math.random(#base_chars)
+		target_string = target_string .. base_chars:sub(index, index)
+	end
+	--Todo: Do not allow short words! And make sure the word is the first search result.
+	-- Todo: Add word random bounds to method to allow backward search in the same method
+	local initial_line = utility.construct_words_line()
+
+	-- local target_pos = math.random(25, #initial_line)
+	local target_pos = math.random(left_target_bound, right_target_bound)
+
+	local new_line = initial_line:sub(1, target_pos)
+		.. " "
+		.. target_string
+		.. " "
+		.. initial_line:sub(target_pos, #initial_line)
+
+	return { new_line, target_string, target_pos + 1 }
 end
 
 function utility.get_keys(t)
