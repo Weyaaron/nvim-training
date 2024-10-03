@@ -131,10 +131,11 @@ training.configure({ -- All of these options work for 'opts' of lazy as well.
 	enable_highlights = true, --Enables/Disables highlights. Care is taken to ensure that tasks are possible without them.
 	possible_marks_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }, -- A list of possible marks.
 	possible_register_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }, -- A list of possible registers.
-	scheduler_args = { repetitions = 5 }, --These args are used to configure all the available schedulers
+	scheduler_options = { repetitions = 5 }, --These args are used to configure all the available schedulers
 	screen_layout = "basic", --This changes the layout of the screen. See below for valid values.
 	task_alphabet = "ABCDEFGabddefg,.",
 	task_alphabet = "ABCDEFGabddefg,.", -- The alphabet of targets used in tasks like f,t etc.
+	layout_options = { allow_empty_lines = true }, -- Options for
 })
 ```
 

@@ -117,14 +117,14 @@ local function loop(autocmd_callback_data)
 		task_renderer.store_key_value_in_display_to_be_rendered(i, v)
 	end
 
-	task_renderer.store_key_value_in_display_to_be_rendered("_s_", success_count)
-	task_renderer.store_key_value_in_display_to_be_rendered("_f_", failure_count)
+	task_renderer.store_key_value_in_display_to_be_rendered("_success_counter_", success_count)
+	task_renderer.store_key_value_in_display_to_be_rendered("_failure_counter_", failure_count)
 	task_renderer.store_key_value_in_display_to_be_rendered("_streak_", current_streak)
 	task_renderer.store_key_value_in_display_to_be_rendered("_maxstreak_", max_streak)
 	--The description might not be available after task setup right away. This ensures that the header uses the latest information provided by the task.
 	task_renderer.store_key_value_in_display_to_be_rendered("_d_", current_task:instructions())
 	vim.schedule_wrap(function()
-		task_renderer.store_key_value_in_display_to_be_rendered("_d_", current_task:instructions())
+		task_renderer.store_key_value_in_display_to_be_rendered("_desc_", current_task:instructions())
 		task_renderer.render()
 	end)()
 
@@ -154,7 +154,7 @@ function module.execute(args)
 	vim.api.nvim_buf_set_lines(0, 0, 25, false, {})
 	vim.cmd("write!")
 	vim.api.nvim_win_set_cursor(0, { 1, 1 })
-	task_renderer.store_key_value_in_display_to_be_rendered("#d", "Es gibt noch keine Aufgabe")
+	task_renderer.store_key_value_in_display_to_be_rendered("_desc_", "Es gibt noch keine Aufgabe")
 	task_renderer.render()
 
 	session_id = utility.uuid()

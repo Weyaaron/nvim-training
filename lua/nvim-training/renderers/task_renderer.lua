@@ -15,7 +15,23 @@ function renderer.render()
 
 	local utility = require("nvim-training.utility")
 	local str_as_lines = utility.split_str(template, "\n")
-	vim.api.nvim_buf_set_lines(0, 0, #str_as_lines, false, str_as_lines)
+
+	if #str_as_lines[1] == 0 then
+		str_as_lines = table.unpack(str_as_lines, 2, #str_as_lines)
+	end
+
+	local nonempty_lines = {}
+	for i, v in pairs(str_as_lines) do
+		if #v > 0 then
+			nonempty_lines[#nonempty_lines + 1] = v
+		end
+	end
+
+	if user_config.layout_options.allow_empty_lines then
+		nonempty_lines = str_as_lines
+	end
+	vim.api.nvim_buf_set_lines(0, 0, #nonempty_lines, false, nonempty_lines)
+	vim.cmd("sil write!")
 end
 
 return renderer

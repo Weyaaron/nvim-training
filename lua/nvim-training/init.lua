@@ -2,11 +2,11 @@ local user_config = require("nvim-training.user_config")
 local utility = require("nvim-training.utility")
 local module = {}
 
-
 local function configure(args)
 	for i, v in pairs(args) do
 		user_config[i] = v
 	end
+	-- print(vim.inspect(user_config))
 	if not utility.exists(user_config.base_path) then
 		print(
 			tostring(user_config.base_path)

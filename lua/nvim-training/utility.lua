@@ -111,7 +111,7 @@ function utility.get_current_line()
 	return utility.get_line(cursor_pos[1])
 end
 function utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
-	renderer.store_key_value_in_display_to_be_rendered("_middle_str_", utility.load_template(template_index.LoremIpsum))
+	renderer.store_key_value_in_display_to_be_rendered("_task_str", utility.load_template(template_index.LoremIpsum))
 	renderer.render()
 	vim.api.nvim_win_set_cursor(0, { 6, 7 })
 
@@ -119,7 +119,7 @@ function utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
 end
 
 function utility.set_buffer_to_rectangle_with_line(middle_line)
-	renderer.store_key_value_in_display_to_be_rendered("_middle_str_", utility.load_rectangle_with_line(middle_line))
+	renderer.store_key_value_in_display_to_be_rendered("_task_str_", utility.load_rectangle_with_line(middle_line))
 	renderer.render()
 
 	local text_start = utility.calculate_text_start(middle_line)
@@ -159,6 +159,7 @@ end
 
 function utility.construct_highlight(x, y, len)
 	if user_config.enable_highlights then
+		print(x, y, len)
 		vim.api.nvim_set_hl(0, "UnderScore", { underline = true })
 		vim.api.nvim_buf_add_highlight(0, internal_config.global_hl_namespace, "UnderScore", x - 1, y, y + len)
 	end
