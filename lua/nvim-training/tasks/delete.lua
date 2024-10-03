@@ -12,7 +12,7 @@ function Delete:new()
 	base.target_text = ""
 	return base
 end
-function Delete:deactivate(autocmd_callback_data)
+function Delete:deactivate()
 	local register_content = vim.fn.getreg('"')
 	register_content = utility.split_str(register_content, "\n")[1]
 	return self.target_text == register_content

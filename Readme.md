@@ -17,7 +17,7 @@ The list of tasks is growing all the time, if you miss a particular one you may 
 
 # Some stats of current tasks
 
-- Supported Tasks: 31
+- Supported Tasks: 41
 - Supported Tasks-Collections: 5
 - Supported Schedulers: 3
 
@@ -68,7 +68,10 @@ safe you may start in an empty buffer/directory.
 |DeleteWORD | Delete using 'W'. | movement, word, deletion |
 |Increment | Increment the value at the cursor. | change, char, increment |
 |InsertChar | Insert a char at the current position. | char, insertion, change |
+|JoinLines | Join the current line with the line below. | J, join, line, change |
 |MoveAbsoluteLine | Move to the absolute line. | line, vertical, movement |
+|MoveCharsLeft | Move left charwise. | char, h, horizontal, movement |
+|MoveCharsRight | Move right charwise. | horizontal, l, movement |
 |MoveEndOfFile | Move to the end the file. | end, file, vertical, movement |
 |MoveEndOfLine | Move to the end of the current line. | end, horizontal, line, movement |
 |MoveF | Move using F. | F, horizontal, movement |
@@ -82,30 +85,27 @@ safe you may start in an empty buffer/directory.
 |MoveT | Move using T. | T, horizontal, movement |
 |MoveWord | Move using w. | horizontal, w, word, movement |
 |MoveWORD | Move using W. | W, WORD, movement |
-|MoveWORDEnd | Move to the end of the current 'word'. | end, vertical, word, movement |
 |MoveWordEnd | Move to the end of the current 'word'. | end, vertical, word, movement |
-|MoveWORDStart | Move Back to the start of 'WORDS'. | horizontal, word, movement |
+|MoveWORDEnd | Move to the end of the current 'word'. | end, vertical, word, movement |
 |MoveWordStart | Move back to the start of 'words'. | horizontal, word, movement |
+|MoveWORDStart | Move Back to the start of 'WORDS'. | horizontal, word, movement |
 |Paste | Paste from a given register. | register, paste |
-|SearchForward | Search forwards for a target-string. | diagonal, movement, search |
+|SearchBackward | Search backwards for a target-string. | diagonal, movement, search |
+|SearchForward | Search forwards. | forward, movement, search |
+|SearchWordBackward | Search backwards for the word at the cursor. | backward, movement, search |
+|SearchWordForward | Search forwards for the word at the cursor. | forward, movement, search |
 |YankEndOfLine | Yank to the end of the current line. | line, yank, end |
 |YankInsideMatch | Yank inside the current match. | inside, match, yank |
 |YankIntoRegister | Yank a line into a register. | copy, line, vertical, register |
-|YankWORD | Yank using w. | counter, horizontal, w, word, yank |
+|YankWORD | Yank using W. | counter, horizontal, w, word, yank |
 |YankWord | Yank using w. | counter, horizontal, w, word, yank |
-
-
-
-
-
-
-
-
 
 # Task-Collections
 
 The following table lists the available collections. They will grow over
 time, for support for custom collections see below.
+
+--The markdown in these files is currently broken, will be fixed soon--
 
 | Name | Description | Link
 | ----------- | -------- | -------- |
@@ -120,8 +120,8 @@ time, for support for custom collections see below.
 | Name | Description | Supported Arguments |
 | ----------- | -------- | ---- |
 | RandomScheduler | The next task is chosen at random. | - |
-| RepeatUntilNSuccessScheduler | The current task is repeated until n successes are reached. | repetions|
-| RepeatNScheduler | A task is repeated n-times. | repetions |
+| RepeatUntilNSuccessScheduler | The current task is repeated until n successes are reached. | repetitions|
+| RepeatNScheduler | A task is repeated n-times. | repetitions |
 
 # Configuration
 A interface for configuration is provided. These are the default values if you do not change

@@ -1,7 +1,6 @@
 local utility = require("nvim-training.utility")
 local movements = require("nvim-training.movements")
 local Yank = require("nvim-training.tasks.yank")
-local user_config = require("nvim-training.user_config")
 local internal_config = require("nvim-training.internal_config")
 
 local YankWord = {}

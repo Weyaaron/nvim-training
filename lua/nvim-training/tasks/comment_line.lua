@@ -29,7 +29,7 @@ function CommentLine:activate()
 	vim.schedule_wrap(_inner_update)()
 end
 
-function CommentLine:deactivate(autocmd_callback_data)
+function CommentLine:deactivate()
 	local cursor_pos = vim.api.nvim_win_get_cursor(0)
 	local new_line = utility.get_line(cursor_pos[1])
 	return new_line:sub(1, 2) == "--"

@@ -22,9 +22,9 @@ function DeleteLine:activate()
 		local random_line = utility.load_random_line()
 		utility.set_buffer_to_rectangle_with_line(random_line)
 
-		local line = utility.get_current_line()
-		self.target_text = line
 		local cursor_pos = vim.api.nvim_win_get_cursor(0)
+		local line = utility.get_line(cursor_pos[1])
+		self.target_text = line
 		utility.construct_highlight(cursor_pos[1], 0, #self.target_text)
 	end
 	vim.schedule_wrap(_inner_update)()

@@ -16,7 +16,7 @@ function MoveToEndOfFile:new()
 	return base
 end
 
-function MoveToEndOfFile:deactivate(autocmd_callback_data)
+function MoveToEndOfFile:deactivate()
 	return vim.api.nvim_win_get_cursor(0)[1] == vim.api.nvim_buf_line_count(0)
 end
 

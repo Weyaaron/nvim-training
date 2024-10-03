@@ -13,5 +13,5 @@
 |YankEndOfLine | Yank to the end of the current line. | line, yank, end |
 |YankInsideMatch | Yank inside the current match. | inside, match, yank |
 |YankIntoRegister | Yank a line into a register. | copy, line, vertical, register |
+|YankWord | Yank using W. | counter, horizontal, w, word, yank |
 |YankWORD | Yank using w. | counter, horizontal, w, word, yank |
-|YankWord | Yank using w. | counter, horizontal, w, word, yank |

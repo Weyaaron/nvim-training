@@ -24,7 +24,7 @@ function AppendChar:activate()
 	end
 	vim.schedule_wrap(_inner_update)()
 end
-function AppendChar:deactivate(autocmd_callback_data)
+function AppendChar:deactivate()
 	local cursor_pos = vim.api.nvim_win_get_cursor(0)
 	local line = utility.get_line(cursor_pos[1])
 	local char_at_cursor = line:sub(cursor_pos[2] + 1, cursor_pos[2] + 1)

@@ -14,15 +14,10 @@ function utility.exists(file)
 	return ok, err
 end
 
-function utility.isdir(path)
-	return utility.exists(path .. "/")
-end
-
-local function construct_word_hls(counter, method)
+local function construct_word_hls(counter, word_boundary_detection_method)
 	local cursor_pos = vim.api.nvim_win_get_cursor(0)
 	local line = utility.get_line(cursor_pos[1])
-	local word_bounds = method(line)
-	local words = utility.calculate_word_bounds(line)
+	local word_bounds = word_boundary_detection_method(line)
 	local hl_counter = 0
 	for i, v in pairs(word_bounds) do
 		if cursor_pos[2] > v[1] and cursor_pos[2] < v[2] then
@@ -84,34 +79,44 @@ function utility.calculate_counter()
 	return counter
 end
 
-function utility.get_current_line()
-	local cursor_pos = vim.api.nvim_win_get_cursor(0)
-	return utility.get_line(cursor_pos[1])
-end
 function utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
 	utility.update_buffer_respecting_header(utility.load_template(template_index.LoremIpsum))
 
 	local line_count = vim.api.nvim_buf_line_count(0)
 	local rand_line_index = math.random(internal_config.header_length + 1, line_count - 1)
-	vim.api.nvim_win_set_cursor(0, { rand_line_index, utility.random_col_index_at(rand_line_index) })
-end
-function utility.set_buffer_to_rectangle_and_place_cursor_randomly()
-	local lorem_ipsum = utility.load_template(template_index.LoremIpsum)
-	local lorem_lines = utility.split_str(lorem_ipsum, "\n")
-	--The last line is cut, we want to avoid running into it if possible -> -1
-	local random_line = lorem_lines[math.random(#lorem_lines - 1)]
-
-	utility.update_buffer_respecting_header(utility.load_rectangle_with_line(random_line))
-	local x_pos = internal_config.header_length + 4
-	local y = utility.random_col_index_at(x_pos)
-	vim.api.nvim_win_set_cursor(0, { x_pos, y })
+	local y = math.random(0, #utility.get_line(rand_line_index))
+	vim.api.nvim_win_set_cursor(0, { rand_line_index, y })
 end
 
 function utility.set_buffer_to_rectangle_with_line(middle_line)
 	utility.update_buffer_respecting_header(utility.load_rectangle_with_line(middle_line))
 	local x_pos = internal_config.header_length + 4
-	local y = utility.random_col_index_at(x_pos)
+
+	local y = math.random(0, #utility.get_line(x_pos))
 	vim.api.nvim_win_set_cursor(0, { x_pos, y })
+end
+
+function utility.construct_data_search(word_length, left_target_bound, right_target_bound)
+	local base_chars = "abcedefhikjlmnABCDEFGDHIK"
+	local target_string = ""
+	for i = 1, word_length, 1 do
+		local index = math.random(#base_chars)
+		target_string = target_string .. base_chars:sub(index, index)
+	end
+	--Todo: Do not allow short words! And make sure the word is the first search result.
+	-- Todo: Add word random bounds to method to allow backward search in the same method
+	local initial_line = utility.construct_words_line()
+
+	-- local target_pos = math.random(25, #initial_line)
+	local target_pos = math.random(left_target_bound, right_target_bound)
+
+	local new_line = initial_line:sub(1, target_pos)
+		.. " "
+		.. target_string
+		.. " "
+		.. initial_line:sub(target_pos, #initial_line)
+
+	return { new_line, target_string, target_pos + 1 }
 end
 
 function utility.get_keys(t)
@@ -149,12 +154,6 @@ function utility.construct_highlight(x, y, len)
 	end
 end
 
-function utility.select_random_word_bounds_at_line(i)
-	local line = utility.get_line(i)
-	local word_params = utility.calculate_word_bounds(line)
-	return word_params[math.random(1, #word_params)]
-end
-
 local function calculate_text_piece_bounds(input_str, patterns) -- { start_index, end_index}, 0-indexed
 	local pieces = {}
 
@@ -178,16 +177,17 @@ function utility.calculate_WORD_bounds(input_str) -- { start_index, end_index}, 
 
 	local result = {}
 	for i = 1, #bounds_from_regex, 1 do
+		--The regex result is one character to long. Fixing it this way is easier then messing with the regex.
 		result[#result + 1] = { bounds_from_regex[i][1], bounds_from_regex[i][2] - 1 }
 	end
 
 	return result
 end
 
-function utility.calculate_word_bounds(s) -- { start_index, end_index}, 0-indexed
+function utility.calculate_word_bounds(input_str) -- { start_index, end_index}, 0-indexed
 	-- words as consequent groups of alphanumeric chars with underline '_', the second matches match . and , respectivly
 	local match_strs = { "()([%w_]+)()", "()(%.)()", "()(,)()" }
-	return calculate_text_piece_bounds(s, match_strs)
+	return calculate_text_piece_bounds(input_str, match_strs)
 end
 
 function utility.calculate_word_index_from_cursor_pos(word_bounds, cursor_pos)
@@ -204,14 +204,6 @@ end
 
 function utility.get_line(index)
 	return vim.api.nvim_buf_get_lines(0, index - 1, index, true)[1]
-end
-
-function utility.random_col_index_at(index)
-	return math.random(0, #utility.get_line(index))
-end
-
-function utility.clear_all_our_highlights()
-	vim.api.nvim_buf_clear_namespace(0, internal_config.global_hl_namespace, 0, -1)
 end
 
 function utility.update_buffer_respecting_header(input_str)
@@ -232,7 +224,6 @@ end
 
 function utility.split_str(input, sep)
 	if not input then
-		print("No input")
 		return {}
 	end
 	if not sep then
@@ -314,8 +305,6 @@ function utility.discard_tasks_by_tags(tasks, tag_list)
 	end
 	return tasks_with_tag
 end
-
-function utility.extract_text_between_cursor_and_target(start_indexes, end_indexes) end
 
 function utility.apppend_table_to_path(data, path)
 	if user_config.enable_events then

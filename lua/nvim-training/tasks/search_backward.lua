@@ -1,30 +1,31 @@
 local Task = require("nvim-training.task")
 local utility = require("nvim-training.utility")
-local SearchForward = {}
-SearchForward.__index = SearchForward
+local SearchBackward = {}
+SearchBackward.__index = SearchBackward
 
-setmetatable(SearchForward, { __index = Task })
-SearchForward.__metadata = {
+setmetatable(SearchBackward, { __index = Task })
+SearchBackward.__metadata = {
 	autocmd = "CursorMoved",
-	desc = "Search forwards.",
+	desc = "Search backwards for a target-string.",
 	instructions = "",
-	tags = "search, movement, forward",
+	tags = "search, movement, diagonal",
 }
-function SearchForward:new()
+function SearchBackward:new()
 	local base = Task:new()
-	setmetatable(base, { __index = SearchForward })
+	setmetatable(base, { __index = SearchBackward })
 	base.search_target = ""
 
 	return base
 end
 
-function SearchForward:activate()
+function SearchBackward:activate()
 	local function _inner_update()
 		local subword_length = 4
-		local data_for_search = utility.construct_data_search(subword_length, 25, 55)
+		local initial_cursor_pos = 55
+		local data_for_search = utility.construct_data_search(subword_length, 0, 30)
 		utility.set_buffer_to_rectangle_with_line(data_for_search[1])
 		local cursor_pos = vim.api.nvim_win_get_cursor(0)
-		vim.api.nvim_win_set_cursor(0, { cursor_pos[1], 5 })
+		vim.api.nvim_win_set_cursor(0, { cursor_pos[1], initial_cursor_pos })
 		utility.construct_highlight(cursor_pos[1], data_for_search[3], subword_length)
 
 		self.search_target = data_for_search[2]
@@ -33,7 +34,7 @@ function SearchForward:activate()
 	vim.schedule_wrap(_inner_update)()
 end
 
-function SearchForward:deactivate()
+function SearchBackward:deactivate()
 	local cursor_pos = vim.api.nvim_win_get_cursor(0)
 	vim.schedule_wrap(function()
 		vim.cmd("noh")
@@ -41,8 +42,8 @@ function SearchForward:deactivate()
 	return cursor_pos[2] == self.x_target
 end
 
-function SearchForward:instructions()
-	return "Search forwards for '" .. self.search_target .. "'"
+function SearchBackward:instructions()
+	return "Search backwards for '" .. self.search_target .. "'"
 end
 
-return SearchForward
+return SearchBackward

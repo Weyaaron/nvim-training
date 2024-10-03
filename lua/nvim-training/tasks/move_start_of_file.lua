@@ -16,7 +16,7 @@ function MoveToStartOfFile:new()
 	return base
 end
 
-function MoveToStartOfFile:deactivate(autocmd_callback_data)
+function MoveToStartOfFile:deactivate()
 	return vim.api.nvim_win_get_cursor(0)[1] == 1
 end
 

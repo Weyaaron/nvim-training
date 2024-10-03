@@ -15,7 +15,7 @@ function Change:new()
 	self.target_line = -1
 	return base
 end
-function Change:deactivate(autocmd_callback_data)
+function Change:deactivate()
 	local cursor_pos = vim.api.nvim_win_get_cursor(0)
 	if type(self.cursor_target) == "number" then
 		print("Target has to be type table, current value is " .. tostring(self.cursor_target))
