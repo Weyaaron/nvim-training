@@ -46,7 +46,7 @@ function SearchWordForward:activate()
 	vim.schedule_wrap(_inner_update)()
 end
 
-function SearchWordForward:deactivate(autocmd_callback_data)
+function SearchWordForward:deactivate()
 	local cursor_pos = vim.api.nvim_win_get_cursor(0)
 	vim.schedule_wrap(function()
 		vim.cmd("noh")

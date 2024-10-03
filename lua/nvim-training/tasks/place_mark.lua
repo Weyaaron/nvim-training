@@ -41,7 +41,7 @@ function PlaceMark:activate()
 	vim.schedule_wrap(_inner_update)()
 end
 
-function PlaceMark:deactivate(autocmd_callback_data)
+function PlaceMark:deactivate()
 	return self.success
 end
 

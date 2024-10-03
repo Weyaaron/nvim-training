@@ -8,7 +8,7 @@ YankWORD.__index = YankWORD
 setmetatable(YankWORD, { __index = Yank })
 YankWORD.__metadata = {
 	autocmd = "TextYankPost",
-	desc = "Yank using w.",
+	desc = "Yank using W.",
 	instructions = "",
 	tags = "yank, word, horizontal, w, counter",
 }

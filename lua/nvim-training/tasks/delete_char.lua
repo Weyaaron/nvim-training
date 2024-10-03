@@ -28,7 +28,7 @@ function DeleteCharTask:activate()
 	end
 	vim.schedule_wrap(_inner_update)()
 end
-function DeleteCharTask:deactivate(autocmd_callback_data)
+function DeleteCharTask:deactivate()
 	local cursor_pos = vim.api.nvim_win_get_cursor(0)
 	local line_length = #utility.get_line(cursor_pos[1])
 	return self.line_length - 1 == line_length

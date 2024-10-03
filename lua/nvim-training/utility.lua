@@ -224,7 +224,6 @@ end
 
 function utility.split_str(input, sep)
 	if not input then
-		print("No input")
 		return {}
 	end
 	if not sep then

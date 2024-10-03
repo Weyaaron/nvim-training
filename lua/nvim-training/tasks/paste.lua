@@ -27,7 +27,7 @@ function Paste:activate()
 	vim.schedule_wrap(_inner_update)()
 end
 
-function Paste:deactivate(autocmd_callback_data)
+function Paste:deactivate()
 	local cursor_pos = vim.api.nvim_win_get_cursor(0)
 	local line = utility.get_line(cursor_pos[1])
 	local search = line:find(self.reg_content)

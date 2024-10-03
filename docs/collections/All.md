@@ -12,6 +12,8 @@
 |InsertChar | Insert a char at the current position. | char, insertion, change |
 |JoinLines | Join the current line with the line below. | J, join, line, change |
 |MoveAbsoluteLine | Move to the absolute line. | line, vertical, movement |
+|MoveCharsLeft | Move left charwise. | char, h, horizontal, movement |
+|MoveCharsRight | Move right charwise. | horizontal, l, movement |
 |MoveEndOfFile | Move to the end the file. | end, file, vertical, movement |
 |MoveEndOfLine | Move to the end of the current line. | end, horizontal, line, movement |
 |MoveF | Move using F. | F, horizontal, movement |
@@ -25,14 +27,17 @@
 |MoveT | Move using T. | T, horizontal, movement |
 |MoveWord | Move using w. | horizontal, w, word, movement |
 |MoveWORD | Move using W. | W, WORD, movement |
-|MoveWORDEnd | Move to the end of the current 'word'. | end, vertical, word, movement |
 |MoveWordEnd | Move to the end of the current 'word'. | end, vertical, word, movement |
-|MoveWORDStart | Move Back to the start of 'WORDS'. | horizontal, word, movement |
+|MoveWORDEnd | Move to the end of the current 'word'. | end, vertical, word, movement |
 |MoveWordStart | Move back to the start of 'words'. | horizontal, word, movement |
+|MoveWORDStart | Move Back to the start of 'WORDS'. | horizontal, word, movement |
 |Paste | Paste from a given register. | register, paste |
-|SearchForward | Search forwards for a target-string. | diagonal, movement, search |
+|SearchBackward | Search backwards for a target-string. | diagonal, movement, search |
+|SearchForward | Search forwards. | forward, movement, search |
+|SearchWordBackward | Search backwards for the word at the cursor. | backward, movement, search |
+|SearchWordForward | Search forwards for the word at the cursor. | forward, movement, search |
 |YankEndOfLine | Yank to the end of the current line. | line, yank, end |
 |YankInsideMatch | Yank inside the current match. | inside, match, yank |
 |YankIntoRegister | Yank a line into a register. | copy, line, vertical, register |
-|YankWORD | Yank using w. | counter, horizontal, w, word, yank |
+|YankWORD | Yank using W. | counter, horizontal, w, word, yank |
 |YankWord | Yank using w. | counter, horizontal, w, word, yank |

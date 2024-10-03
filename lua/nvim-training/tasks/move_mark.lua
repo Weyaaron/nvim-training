@@ -35,7 +35,7 @@ function MoveMark:activate()
 	vim.schedule_wrap(_inner_update)()
 end
 
-function MoveMark:deactivate(autocmd_callback_data)
+function MoveMark:deactivate()
 	vim.api.nvim_buf_set_mark(0, self.target_mark_name, 0, 0, {})
 	return self.target_line == vim.api.nvim_win_get_cursor(0)[1]
 end

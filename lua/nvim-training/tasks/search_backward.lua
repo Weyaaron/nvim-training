@@ -34,14 +34,12 @@ function SearchBackward:activate()
 	vim.schedule_wrap(_inner_update)()
 end
 
-function SearchBackward:deactivate(autocmd_callback_data)
+function SearchBackward:deactivate()
 	local cursor_pos = vim.api.nvim_win_get_cursor(0)
 	vim.schedule_wrap(function()
 		vim.cmd("noh")
 	end)()
-	local res = cursor_pos[2] == self.x_target
-	print(res, cursor_pos[2], self.x_target)
-	return res
+	return cursor_pos[2] == self.x_target
 end
 
 function SearchBackward:instructions()
