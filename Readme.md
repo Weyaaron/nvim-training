@@ -89,7 +89,8 @@ safe you may start in an empty buffer/directory.
 |MoveWORDEnd | Move to the end of the current 'word'. | end, vertical, word, movement |
 |MoveWordStart | Move back to the start of 'words'. | horizontal, word, movement |
 |MoveWORDStart | Move Back to the start of 'WORDS'. | horizontal, word, movement |
-|Paste | Paste from a given register. | register, paste |
+|Paste | Paste abovefrom a given register. | register, paste |
+|paste | Paste below from a given register. | register, paste |
 |SearchBackward | Search backwards for a target-string. | diagonal, movement, search |
 |SearchForward | Search forwards. | forward, movement, search |
 |SearchWordBackward | Search backwards for the word at the cursor. | backward, movement, search |
