@@ -17,6 +17,8 @@ local exported_tasks = {
 	MoveEndOfLine = require("nvim-training.tasks.move_end_of_line"),
 	Movef = require("nvim-training.tasks.move_f"),
 	MoveF = require("nvim-training.tasks.move_F"),
+	MoveLinesUp = require("nvim-training.tasks.move_lines_up"),
+	MoveLinesDown = require("nvim-training.tasks.move_lines_down"),
 	MoveMatch = require("nvim-training.tasks.move_match"),
 	Moveo = require("nvim-training.tasks.move_o"),
 	MoveO = require("nvim-training.tasks.move_O"),
@@ -41,7 +43,6 @@ local exported_tasks = {
 	YankWord = require("nvim-training.tasks.yank_word"),
 	YankWORD = require("nvim-training.tasks.yank_WORD"),
 }
-
 for i, v in pairs(exported_tasks) do
 	v.name = i
 end
