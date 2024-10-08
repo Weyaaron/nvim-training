@@ -41,7 +41,7 @@ local exported_tasks = {
 	YankWord = require("nvim-training.tasks.yank_word"),
 	YankWORD = require("nvim-training.tasks.yank_WORD"),
 }
-
+local exported_tasks = { InsertAtStartOfLine = require("nvim-training.tasks.insert_at_start_of_line") }
 for i, v in pairs(exported_tasks) do
 	v.name = i
 end
