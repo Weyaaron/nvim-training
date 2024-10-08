@@ -1,7 +1,6 @@
 local utility = require("nvim-training.utility")
 local Delete = require("nvim-training.tasks.delete")
 local movements = require("nvim-training.movements")
-local user_config = require("nvim-training.user_config")
 
 local DeleteWORD = {}
 DeleteWORD.__index = DeleteWORD

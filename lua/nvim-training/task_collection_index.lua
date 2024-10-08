@@ -33,7 +33,9 @@ local index_with_sufficient_length = {}
 
 for name, task_collection_el in pairs(initial_index) do
 	if #task_collection_el.tasks == 0 then
-		print("The task collection '" .. name .. "' does not contain any tasks! Please check for typos/open a issue.")
+		print(
+			"The task collection '" .. name .. "' does not contain any tasks! Please check for spelling/open a issue."
+		)
 	else
 		index_with_sufficient_length[name] = task_collection_el
 	end
