@@ -22,8 +22,19 @@ function Change:deactivate()
 	end
 	local cursor_at_right_place = cursor_pos[1] == self.cursor_target[1] and cursor_pos[2] == self.cursor_target[2]
 	local line = utility.get_line(cursor_pos[1])
+
 	local line_is_same = line == self.line_text_after_change
 	local text_left_of_cursor = line:sub((cursor_pos[2] + 1) - (#self.text_to_be_inserted - 1), cursor_pos[2] + 1)
+	-- Todo: Turn into log
+	-- print(
+	-- 	line,
+	-- 	"--",
+	-- 	self.line_text_after_change,
+	-- 	line_is_same,
+	-- 	cursor_pos[2],
+	-- 	self.cursor_target[2],
+	-- 	text_left_of_cursor == self.text_to_be_inserted
+	-- )
 	return cursor_at_right_place and (text_left_of_cursor == self.text_to_be_inserted) and line_is_same
 end
 

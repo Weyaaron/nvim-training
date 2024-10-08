@@ -15,6 +15,7 @@ local exported_tasks = {
 	DeleteWord = require("nvim-training.tasks.delete_word"),
 	DeleteWORD = require("nvim-training.tasks.delete_WORD"),
 	Increment = require("nvim-training.tasks.increment"),
+	InsertAtStartOfLine = require("nvim-training.tasks.insert_at_start_of_line"),
 	InsertChar = require("nvim-training.tasks.insert_char"),
 	JoinLines = require("nvim-training.tasks.join_lines"),
 	MoveAbsoluteLine = require("nvim-training.tasks.move_absolute_line"),
