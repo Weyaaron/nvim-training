@@ -1,4 +1,4 @@
-local header = require("nvim-training.header")
+local task_renderer = require("nvim-training.renderers.task_renderer")
 local user_config = require("nvim-training.user_config")
 local audio = require("nvim-training.audio")
 local parsing = require("nvim-training.utilities.parsing")
@@ -112,21 +112,19 @@ local function loop(autocmd_callback_data)
 	)
 
 	--This gives tasks some options to configure the header, for example with a prefix and a suffix to turn the header into a block comment in a programming language
-	local additional_header_values = current_task:construct_optional_header_args()
-
-	for i, v in pairs(additional_header_values) do
-		header.store_key_value_in_header(i, v)
+	for i, v in pairs(current_task:construct_optional_header_args()) do
+		task_renderer.store_key_value_in_display_to_be_rendered(i, v)
 	end
 
-	header.store_key_value_in_header("_s_", success_count)
-	header.store_key_value_in_header("_f_", failure_count)
-	header.store_key_value_in_header("_streak_", current_streak)
-	header.store_key_value_in_header("_maxstreak_", max_streak)
+	task_renderer.store_key_value_in_display_to_be_rendered("_success_counter_", success_count)
+	task_renderer.store_key_value_in_display_to_be_rendered("_failure_counter_", failure_count)
+	task_renderer.store_key_value_in_display_to_be_rendered("_streak_", current_streak)
+	task_renderer.store_key_value_in_display_to_be_rendered("_maxstreak_", max_streak)
 	--The description might not be available after task setup right away. This ensures that the header uses the latest information provided by the task.
-	header.store_key_value_in_header("_d_", current_task:instructions())
+	task_renderer.store_key_value_in_display_to_be_rendered("_d_", current_task:instructions())
 	vim.schedule_wrap(function()
-		header.store_key_value_in_header("_d_", current_task:instructions())
-		header.construct_header()
+		task_renderer.store_key_value_in_display_to_be_rendered("_desc_", current_task:instructions())
+		task_renderer.render()
 	end)()
 
 	current_autocmd = vim.api.nvim_create_autocmd({ current_task.metadata.autocmd }, { callback = loop })
@@ -159,6 +157,15 @@ function module.execute(args)
 	vim.api.nvim_buf_set_lines(internal_config.buf_id, 0, 25, false, {})
 	header.store_key_value_in_header("#d", "No task yet.")
 	header.construct_header()
+	--Todo: Check if file exists
+    --
+    -- Todo: Rework?
+	vim.cmd("e training.txt")
+	vim.api.nvim_buf_set_lines(0, 0, 25, false, {})
+	vim.cmd("write!")
+	vim.api.nvim_win_set_cursor(0, { 1, 1 })
+	task_renderer.store_key_value_in_display_to_be_rendered("_desc_", "Es gibt noch keine Aufgabe")
+	task_renderer.render()
 
 	session_id = utility.uuid()
 	local target_data = {

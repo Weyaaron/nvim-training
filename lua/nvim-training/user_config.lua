@@ -8,7 +8,6 @@ local user_config = {
 	enable_events = true,
 	enable_highlights = true,
 	event_storage_directory_path = vim.fn.stdpath("data") .. "/nvim-training/", -- The path used to store events.
-
 	possible_marks_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" },
 	possible_register_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" },
 	scheduler_args = { repetitions = 5 },
@@ -22,5 +21,7 @@ local user_config = {
 		display_logs = false,
 		display_warnings = true,
 	},
+	screen_layout = "basic",
+	layout_options = { allow_empty_lines = true },
 }
 return user_config
