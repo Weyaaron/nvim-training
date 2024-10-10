@@ -1,11 +1,11 @@
-local Lua = require("nvim-training.tasks.task_lua")
+local Task = require("nvim-training.task")
 local utility = require("nvim-training.utility")
 local template_index = require("nvim-training.template_index")
 
 local CommentLineBlock = {}
 CommentLineBlock.__index = CommentLineBlock
+setmetatable(CommentLineBlock, { __index = Task })
 
-setmetatable(CommentLineBlock, { __index = Lua })
 CommentLineBlock.__metadata = {
 	autocmd = "TextChanged",
 	desc = "Change the current line into a block comment.",
@@ -14,10 +14,15 @@ CommentLineBlock.__metadata = {
 	tags = "comment, programming, plugin, change",
 }
 function CommentLineBlock:new()
-	local base = Lua:new()
+	local base = Task:new()
 	setmetatable(base, { __index = CommentLineBlock })
 
 	return base
+end
+
+function CommentLineBlock:construct_optional_header_args()
+	--This is used to turn the header in lua tasks into a block comment
+	return { _prefix_ = "--[[", _suffix_ = "--]]" }
 end
 function CommentLineBlock:activate()
 	local function _inner_update()

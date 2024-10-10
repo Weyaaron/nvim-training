@@ -1,6 +1,8 @@
 local exported_tasks = {
 	AppendChar = require("nvim-training.tasks.append_char"),
 	ChangeWord = require("nvim-training.tasks.change_word"),
+	CommentLine = require("nvim-training.tasks.comment_line"),
+	BlockCommentLine = require("nvim-training.tasks.comment_line_block"),
 	DeleteChar = require("nvim-training.tasks.delete_char"),
 	Deletef = require("nvim-training.tasks.delete_f"),
 	DeleteInsideMatch = require("nvim-training.tasks.delete_inside_match"),
