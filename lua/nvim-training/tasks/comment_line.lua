@@ -10,7 +10,7 @@ setmetatable(CommentLine, { __index = Task })
 CommentLine.__metadata = {
 	autocmd = "TextChanged",
 	desc = "Change the current line into a single line comment.",
-	instructions = "Change the current line into a single line comment.",
+	instructions = "--[[Change the current line into a single line comment.--]]",
 	notes = "Not available in vanilla-vim, needs plugin.",
 	tags = "programming, plugin, change, commenting",
 }
@@ -18,11 +18,6 @@ function CommentLine:new()
 	local base = Task:new()
 	setmetatable(base, { __index = CommentLine })
 	return base
-end
-
-function CommentLine:construct_optional_header_args()
-	--This is used to turn the header in lua tasks into a block comment
-	return { _prefix_ = "--[[", _suffix_ = "--]]" }
 end
 
 function CommentLine:activate()
