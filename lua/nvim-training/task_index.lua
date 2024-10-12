@@ -1,6 +1,8 @@
 local exported_tasks = {
 	AppendChar = require("nvim-training.tasks.append_char"),
 	ChangeWord = require("nvim-training.tasks.change_word"),
+	CommentLine = require("nvim-training.tasks.comment_line"),
+	BlockCommentLine = require("nvim-training.tasks.comment_line_block"),
 	DeleteChar = require("nvim-training.tasks.delete_char"),
 	Deletef = require("nvim-training.tasks.delete_f"),
 	DeleteInsideMatch = require("nvim-training.tasks.delete_inside_match"),
@@ -17,6 +19,8 @@ local exported_tasks = {
 	MoveEndOfLine = require("nvim-training.tasks.move_end_of_line"),
 	Movef = require("nvim-training.tasks.move_f"),
 	MoveF = require("nvim-training.tasks.move_F"),
+	MoveLinesUp = require("nvim-training.tasks.move_lines_up"),
+	MoveLinesDown = require("nvim-training.tasks.move_lines_down"),
 	MoveMatch = require("nvim-training.tasks.move_match"),
 	Moveo = require("nvim-training.tasks.move_o"),
 	MoveO = require("nvim-training.tasks.move_O"),
@@ -30,7 +34,8 @@ local exported_tasks = {
 	MoveWORD = require("nvim-training.tasks.move_WORD"),
 	MoveWordStart = require("nvim-training.tasks.move_word_start"),
 	MoveWORDStart = require("nvim-training.tasks.move_WORD_start"),
-	Paste = require("nvim-training.tasks.paste"),
+	Paste = require("nvim-training.tasks.Paste"),
+	paste = require("nvim-training.tasks.paste"),
 	SearchBackward = require("nvim-training.tasks.search_backward"),
 	SearchForward = require("nvim-training.tasks.search_forward"),
 	SearchWordBackward = require("nvim-training.tasks.search_word_backward"),
@@ -41,7 +46,6 @@ local exported_tasks = {
 	YankWord = require("nvim-training.tasks.yank_word"),
 	YankWORD = require("nvim-training.tasks.yank_WORD"),
 }
-
 for i, v in pairs(exported_tasks) do
 	v.name = i
 end

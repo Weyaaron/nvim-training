@@ -1,6 +1,7 @@
 local start_command = require("nvim-training.commands.command_start")
 local analyze_command = require("nvim-training.commands.command_analyze")
 local recreate_md_command = require("nvim-training.commands.command_recreate_md")
+local user_config = require("nvim-training.user_config")
 
 local module = {
 	Start = start_command,
@@ -12,7 +13,10 @@ local module = {
 			return {}
 		end,
 	},
-	-- ReCreateMD = recreate_md_command,
 	Analyse = analyze_command,
 }
+if user_config.dev_mode then
+	module.ReCreateMD = recreate_md_command
+end
+
 return module

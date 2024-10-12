@@ -376,6 +376,15 @@ function utility.construct_words_line()
 	return construct_words_line_from_template(template_index.LoremIpsum)
 end
 
+function utility.construct_empty_line_with_new_line()
+	local result = ""
+	for i = 1, internal_config.line_length do
+		result = result .. " "
+	end
+	result = result .. "\n"
+	return result
+end
+
 function utility.construct_WORDS_line()
 	return construct_words_line_from_template(template_index.LoremIpsumWORDS)
 end

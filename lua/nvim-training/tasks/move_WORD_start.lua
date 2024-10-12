@@ -31,7 +31,7 @@ function MoveWORDStart:activate()
 end
 
 function MoveWORDStart:instructions()
-	return "Move 'Back' to the beginning of the " .. self.counter .. " 'WORD'."
+	return "Move 'Back' to the start of the " .. self.counter .. " 'WORD'."
 end
 
 return MoveWORDStart
