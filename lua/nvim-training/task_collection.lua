@@ -28,8 +28,7 @@ function TaskCollection:new(name, desc, task_names)
 	return base
 end
 
-function TaskCollection:render_markdown(table_header)
-	local header = "## " .. self.name .. " (" .. self.desc .. ")\n" .. table_header
+function TaskCollection:render_markdown()
 	local lines = {}
 
 	local sorted_task_names = self.task_names
@@ -54,12 +53,7 @@ function TaskCollection:render_markdown(table_header)
 		lines[#lines + 1] = "|" .. table.concat(pieces, " | ") .. " |"
 	end
 
-	local result = { header }
-
-	for i, v in pairs(lines) do
-		result[#result + 1] = v
-	end
-	local str_result = table.concat(result, "\n")
+	local str_result = table.concat(lines, "\n")
 	str_result = str_result:gsub("%s%s", " ")
 	return str_result
 end
