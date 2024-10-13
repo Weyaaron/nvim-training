@@ -142,6 +142,11 @@ training.configure({ -- All of these options work for 'opts' of lazy as well.
 	enable_counters = true, -- Enables/Disables counters in tasks that support counters.
 	enable_events = true, -- Enables/Disables events.
 	enable_highlights = true, --Enables/Disables highlights. Care is taken to ensure that tasks are possible without them.
+	logging_args = {
+		log_path = vim.fn.stdpath("log") .. "/nvim-training/" .. os.date("%Y-%M-%d") .. ".log",
+		display_logs = false, --Controls wether logs should be displayed. WARNING: Enabling his produces a lot of noise, but might be usefull for developers.
+		display_warnings = true, --Controls wether warnings should be displayed.
+	},
 	possible_marks_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }, -- A list of possible marks.
 	possible_register_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }, -- A list of possible registers.
 	scheduler_args = { repetitions = 5 }, --These args are used to configure all the available schedulers
