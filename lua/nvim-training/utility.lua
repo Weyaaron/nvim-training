@@ -87,6 +87,7 @@ function utility.construct_char_line(target_char, target_index)
 	return line
 end
 
+--Todo: Remove from codebase and replace with word construction
 function utility.load_random_line()
 	local lorem_ipsum = utility.load_template(template_index.LoremIpsum)
 	local lorem_lines = utility.split_str(lorem_ipsum, "\n")
