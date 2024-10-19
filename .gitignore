@@ -5,6 +5,7 @@ training.txt
 training.lua
 results.txt
 
+./logs/
 
 dev_setup.lua
 

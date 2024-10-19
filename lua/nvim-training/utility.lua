@@ -177,6 +177,14 @@ function utility.construct_line_with_bracket(bracket_pair, left_index, right_ind
 	return result
 end
 
+function utility.construct_random_quote_pair()
+	local quote = user_config.quotes[math.random(#user_config.quotes)]
+	return { quote, quote }
+end
+function utility.construct_random_bracket_pair()
+	return user_config.bracket_pairs[math.random(#user_config.bracket_pairs)]
+end
+
 function utility.construct_highlight(x, y, len)
 	if user_config.enable_highlights then
 		vim.api.nvim_set_hl(0, "UnderScore", { underline = true })
@@ -338,15 +346,19 @@ end
 
 function utility.apppend_table_to_path(data, path)
 	if user_config.enable_events then
-		local file = io.open(path, "a")
-
-		table.sort(data)
-
-		local data_as_str = vim.json.encode(data)
-
-		file:write(data_as_str .. "\n")
-		file:close()
+		utility.append_json_to_file(path, data)
 	end
+end
+
+function utility.append_json_to_file(path, data)
+	local file = io.open(path, "a")
+
+	table.sort(data)
+
+	local data_as_str = vim.json.encode(data)
+
+	file:write(data_as_str .. "\n")
+	file:close()
 end
 
 function utility.uuid()

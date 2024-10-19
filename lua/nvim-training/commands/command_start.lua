@@ -148,7 +148,6 @@ function module.execute(args)
 			return
 		end
 	end
-
 	--Todo: Check if file exists
 	vim.cmd("e training.txt")
 	vim.api.nvim_buf_set_lines(0, 0, 25, false, {})

@@ -15,6 +15,7 @@ end
 function Delete:deactivate()
 	local register_content = vim.fn.getreg('"')
 	register_content = utility.split_str(register_content, "\n")[1]
+	print(register_content, self.target_text)
 	return self.target_text == register_content
 end
 

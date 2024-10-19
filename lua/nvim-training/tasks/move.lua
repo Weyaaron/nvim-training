@@ -1,4 +1,5 @@
 local Task = require("nvim-training.task")
+local logging = require("nvim-training.logging")
 local Move = {}
 local utility = require("nvim-training.utility")
 Move.__index = Move
@@ -17,6 +18,10 @@ function Move:deactivate()
 	if not type(self.cursor_target) == "table" then
 		print("Target has to be type table, current value is " .. tostring(self.cursor_target))
 	end
+	logging.log(
+		"The cursor positions have been compared",
+		{ cursor_pos = cursor_pos, cursor_target = self.cursor_target }
+	)
 	return cursor_pos[1] == self.cursor_target[1] and cursor_pos[2] == self.cursor_target[2]
 end
 
