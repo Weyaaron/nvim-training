@@ -14,7 +14,6 @@ end
 function Yank:deactivate()
 	local register_content = vim.fn.getreg(self.target_register)
 	register_content = utility.split_str(register_content, "\n")[1]
-
 	return self.target_text == register_content
 end
 

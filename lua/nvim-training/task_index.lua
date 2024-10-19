@@ -53,6 +53,7 @@ local exported_tasks = {
 	YankEndOfLine = require("nvim-training.tasks.yank_end_of_line"),
 	Yankf = require("nvim-training.tasks.yank_f"),
 	YankF = require("nvim-training.tasks.yank_F"),
+	YankInsideBlock = require("nvim-training.tasks.yank_inside_block"),
 	YankInsideMatch = require("nvim-training.tasks.yank_inside_match"),
 	YankIntoRegister = require("nvim-training.tasks.yank_into_register"),
 	Yankt = require("nvim-training.tasks.yank_t"),

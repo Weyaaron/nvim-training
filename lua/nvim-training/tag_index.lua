@@ -14,6 +14,7 @@ local exported_tags = {
 	lines_up = { "k", "horizontal", "lines" },
 	lines_down = { "j", "horizontal", "lines" },
 	word_start = { "word", "horizontal" },
+	block = { "text-object", "inside" },
 }
 
 return exported_tags
