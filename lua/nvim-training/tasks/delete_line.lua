@@ -22,7 +22,9 @@ end
 function DeleteLine:activate()
 	local function _inner_update()
 		local random_line = utility.load_random_line()
-		utility.set_buffer_to_rectangle_with_line(random_line)
+
+		self.task_text = random_line
+		-- utility.set_buffer_to_rectangle_with_line(random_line)
 
 		local cursor_pos = vim.api.nvim_win_get_cursor(0)
 		local line = utility.get_line(cursor_pos[1])

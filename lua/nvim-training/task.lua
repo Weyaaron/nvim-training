@@ -44,6 +44,24 @@ function Task:instructions()
 	return self.metadata.instructions
 end
 
+function Task:render()
+	local basicRenderer = require("nvim-training.renderers.basic_renderer")
+	local br = basicRenderer:new()
+	local head = br:head()
+	local body = br:body()
+	local footer = br:footer()
+	local full_table = { head, body, footer } --Todo: Deal with more lines in result?
+
+	vim.api.nvim_buf_set_lines(0, 0, 0, false, {})
+	vim.api.nvim_buf_set_lines(0, 0, #full_table, false, full_table)
+	--Ablaufplan: header, body, footer aufrufen von Rendern, die jeweils diese drei Methoden haben
+	-- Methoden bekommen eine List von Key-Value-Paaren von Text, die dann zusamengesetzt werden können
+	-- Das Ergebnis zusammenbauen
+	-- Hl konstruieren: HL Definiton als Tuple (text, List von koordinatenpaaren  start end in der Zeile des Textes)
+	-- Ergebnis: Den Buffer neu setzen
+	-- Ablauf: Activate, render, deactivate
+end
+
 function Task:construct_optional_header_args()
 	--This might someday be merged with description, but remains a special case for the time being.
 	return {}

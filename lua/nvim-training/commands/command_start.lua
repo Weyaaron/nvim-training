@@ -153,10 +153,11 @@ local function loop(autocmd_callback_data)
 	header.store_key_value_in_header("_maxstreak_", max_streak)
 	--The description might not be available after task setup right away. This ensures that the header uses the latest information provided by the task.
 	header.store_key_value_in_header("_d_", current_task:instructions())
-	vim.schedule_wrap(function()
-		header.store_key_value_in_header("_d_", current_task:instructions())
-		header.construct_header()
-	end)()
+	-- vim.schedule_wrap(function()
+	-- 	header.store_key_value_in_header("_d_", current_task:instructions())
+	-- 	header.construct_header()
+	-- end)()
+	current_task:render()
 
 	current_autocmd = vim.api.nvim_create_autocmd({ current_task.metadata.autocmd }, { callback = loop })
 	toogle_discard = true
