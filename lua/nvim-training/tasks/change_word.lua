@@ -16,13 +16,9 @@ function ChangeWord:new()
 	local base = Change:new()
 	setmetatable(base, { __index = ChangeWord })
 
-	base.base_text = "x"
-	base.new_line_text = ""
+	base.text_to_be_inserted = "x"
+	base.line_text_after_change = ""
 	return base
-end
-
-function ChangeWord:construct_event_data()
-	return { counter = self.counter }
 end
 
 function ChangeWord:activate()
@@ -37,12 +33,11 @@ function ChangeWord:activate()
 		local cursor_pos_after_movement = movements.words(self.counter)
 
 		local line = utility.get_line(current_cursor_pos[1])
-		local text_after_deletion = line:sub(0, current_cursor_pos[2])
-			.. self.target_text
+		self.line_text_after_change = line:sub(0, current_cursor_pos[2])
+			.. self.text_to_be_inserted
 			.. line:sub(cursor_pos_after_movement[2], #line)
 
 		self.cursor_target = current_cursor_pos
-		self.target_line = text_after_deletion
 
 		utility.construct_word_hls_forwards(self.counter)
 		utility.construct_highlight(current_cursor_pos[1], cursor_pos_after_movement[2], 1)
@@ -51,7 +46,7 @@ function ChangeWord:activate()
 end
 
 function ChangeWord:instructions()
-	return "Change the text of " .. self.counter .. " word(s) (using w,c) into '" .. self.base_text .. "'."
+	return "Change the text of " .. self.counter .. " word(s) (using w,c) into '" .. self.text_to_be_inserted.. "'."
 end
 
 return ChangeWord

@@ -1,6 +1,5 @@
 local utility = require("nvim-training.utility")
-local user_config = require("nvim-training.user_config")
-local Yank = require("nvim-training.tasks.yank")
+local Task = require("nvim-training.task")
 
 local JoinLines = {}
 JoinLines.__index = JoinLines
@@ -12,9 +11,9 @@ JoinLines.__metadata = {
 	tags = "change, line, join, J",
 }
 
-setmetatable(JoinLines, { __index = Yank })
+setmetatable(JoinLines, { __index = Task })
 function JoinLines:new()
-	local base = Yank:new()
+	local base = Task:new()
 	setmetatable(base, JoinLines)
 
 	local initial_line = utility.construct_words_line()

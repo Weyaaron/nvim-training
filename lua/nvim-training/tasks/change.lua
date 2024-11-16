@@ -11,8 +11,8 @@ function Change:new()
 	setmetatable(base, Change)
 
 	self.cursor_target = { 0, 0 }
-	self.target_text = "x"
-	self.target_line = -1
+	self.text_to_be_inserted = "x"
+	self.line_text_after_change = ""
 	return base
 end
 function Change:deactivate()
@@ -22,9 +22,9 @@ function Change:deactivate()
 	end
 	local cursor_at_right_place = cursor_pos[1] == self.cursor_target[1] and cursor_pos[2] == self.cursor_target[2]
 	local line = utility.get_line(cursor_pos[1])
-	local line_is_same = line == self.target_line
-	local text_left_of_cursor = line:sub((cursor_pos[2] + 1) - (#self.base_text - 1), cursor_pos[2] + 1)
-	return cursor_at_right_place and (text_left_of_cursor == self.base_text) and line_is_same
+	local line_is_same = line == self.line_text_after_change
+	local text_left_of_cursor = line:sub((cursor_pos[2] + 1) - (#self.text_to_be_inserted - 1), cursor_pos[2] + 1)
+	return cursor_at_right_place and (text_left_of_cursor == self.text_to_be_inserted) and line_is_same
 end
 
 return Change
