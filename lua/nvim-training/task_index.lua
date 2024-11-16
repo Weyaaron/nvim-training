@@ -7,6 +7,7 @@ local exported_tasks = {
 	Deletef = require("nvim-training.tasks.delete_f"),
 	DeleteInsideMatch = require("nvim-training.tasks.delete_inside_match"),
 	DeleteLine = require("nvim-training.tasks.delete_line"),
+	DeleteSentence = require("nvim-training.tasks.delete_sentence"),
 	DeleteWord = require("nvim-training.tasks.delete_word"),
 	DeleteWORD = require("nvim-training.tasks.delete_WORD"),
 	Increment = require("nvim-training.tasks.increment"),
@@ -46,6 +47,7 @@ local exported_tasks = {
 	YankWord = require("nvim-training.tasks.yank_word"),
 	YankWORD = require("nvim-training.tasks.yank_WORD"),
 }
+
 for i, v in pairs(exported_tasks) do
 	v.name = i
 end
