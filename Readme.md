@@ -6,14 +6,19 @@ This code implements a Neovim Plugin for training your muscle memory.
 
 This plugin fills a gap I have noticed during interaction with vim:
 Knowing is half the battle, executing another entirely.
-This plugin aims to help with the latter.
+This plugin aims to help with the latter. Basic familiarity
+with vim is assumed.
 
 A training session consists of a series of tasks, each of which is small and easily repeatable.
 The plugin will recognize when a task is completed and automatically start the next one.
 This helps to work on a lot of tasks in a short amount of time.
 
-The list of tasks is growing all the time, if you miss a particular one you may open a feature request :)
+I consider this project mature enough for daily use. I will expand it as I see fit, which
+might include months of inactivity. I will respond to issues quickly, including
+requests for new features.
 
+I will attempt to ship breaking changes to public interfaces in such a way that they are done "all/many at once".
+I consider this to be the best option for minimizing disruptions. 
 
 # Some stats of current tasks
 
@@ -35,11 +40,11 @@ In Lazy, a possible setup might be:
 local lazy = require("lazy")
 local plugin_list = {
     -- Your various other plugins ..
-    {"https://github.com/Weyaaron/nvim-training", pin= true, opts = {}} -- Support for configuration with opts is included, see below for the options
+    {"https://github.com/Weyaaron/nvim-training", pin= true, opts = {}} 
+    -- Support for configuration with opts is included, see below for the options
 }
 lazy.setup(plugin_list)
 ```
-
 
 # Commands
 This plugin uses subcommands of `Training` to activate certain functions.
@@ -110,8 +115,8 @@ safe you may start in an empty buffer/directory.
 
 # Task-Collections
 
-The following table lists the available collections. They will grow over
-time, for support for custom collections see below.
+The following table lists the available collections. Support for custom collections is
+included and described below.
 
 | Name | Description | Link
 | ----------- | -------- | -------- |
@@ -161,19 +166,9 @@ training.configure({
 ```
 You may provide as many collections as you wish, they will be available in autocompletion.
 
-
-
-# For beginners
-
-Hi, welcome. Since this plugin is aimed at beginners, I will help out with any
-issues about getting started. Just message me over on aaronwey@posteo.de
-and I will help you out. Depending on the issue, your feedback may be used
-to improve the setup for everyone :)
-
-
 # Goals
 - Ease of use. Starting a session should be seamless. The UI should not get in the way.
-- Fast and flow-inducing. There should be no waiting time between tasks and as little friction between tasks as possible.
+- Fast and flow-inducing. There should be no waiting time/friction between tasks. 
 - (Eventually) Community-driven. Adding new tasks is encouraged, both by providing the interfaces and the documentation required.
 - Customizable. Task should be switched on and off with ease, and the difficulty should be adjustable.
 
@@ -182,20 +177,12 @@ to improve the setup for everyone :)
 - Competing with others. Your progress matters to you, not to others.
 - Provide help/guides on how to solve a particular task. Basic familiarity with vim is assumed.
 - Constrain the user on how to solve a particular task.
-- Support for everyones personal setup. Some settings may mess up some tasks, support for these cases is limited. I try to accomodate about 80% of the users.
+- Support for everyones personal setup. Some settings may mess up some tasks, support for these cases is limited. I try to accomodate about 80% of the users and 
+will decide each upcoming case on its own.
 
-# How to get started with contributing
+# On Contributions
 Contributions are welcome! Any input is appreciated, be it a bug report, a feature request, or a pull request.
-This is my first project in lua, therefore, some junk and bad practices are to be expected. Any feedback/suggestions
-are appreciated.
-
-# Best Practices for contributing
-
-- Please open the PR to the branch named 'dev'. This ensures that there will be some buffer between the stable main and the current
-development version.
-- Opening a issue first is encouraged to discuss any ideas. This helps to avoid duplicate work and to get feedback early on.
-- You may have a look at [dev-setup](/docs/dev_setup.md) which describes a setup that increases productivity
-in development.
+Just open a issue and we shall get cooking :)
 
 # [License](/LICENSE)
 [GPL](LICENSE)
