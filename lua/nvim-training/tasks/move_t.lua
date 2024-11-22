@@ -28,7 +28,10 @@ function Movet:activate()
 		local cursor_pos = vim.api.nvim_win_get_cursor(0)
 		vim.api.nvim_win_set_cursor(0, { cursor_pos[1], cursor_target_pos })
 
-		self.cursor_target = movements.t(self.target_char)
+		cursor_pos = vim.api.nvim_win_get_cursor(0)
+		local new_x_pos = movements.t(line, cursor_pos[2], self.target_char)
+		self.cursor_target = { cursor_pos[1], new_x_pos }
+
 		utility.construct_highlight(self.cursor_target[1], self.cursor_target[2], 1)
 	end
 	vim.schedule_wrap(_inner_update)()

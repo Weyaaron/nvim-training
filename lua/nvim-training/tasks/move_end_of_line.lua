@@ -22,8 +22,9 @@ function MoveEndOfLine:activate()
 		utility.set_buffer_to_rectangle_with_line(random_line)
 
 		local cursor_pos = vim.api.nvim_win_get_cursor(0)
-		self.cursor_target = movements.end_of_line()
 
+		local new_x_pos = movements.end_of_line(random_line, cursor_pos[2])
+		self.cursor_target = { cursor_pos[1], new_x_pos }
 		utility.construct_highlight(cursor_pos[1], self.cursor_target[2], 1)
 	end
 	vim.schedule_wrap(_inner_update)()
