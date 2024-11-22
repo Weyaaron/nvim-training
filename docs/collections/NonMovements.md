@@ -8,6 +8,7 @@
 |DeleteChar | Delete the current char. | change, char, deletion |
 |DeleteInsideMatch | Delete inside the current match. | change, inside, match, deletion |
 |DeleteLine | Delete the current line. | change, line, deletion |
+|DeleteSentence | Delete using the textobject inner sentence. | sentence, deletion |
 |Increment | Increment the value at the cursor. | change, char, increment |
 |InsertChar | Insert a char at the current position. | char, insertion, change |
 |JoinLines | Join the current line with the line below. | J, join, line, change |
@@ -17,5 +18,5 @@
 |YankEndOfLine | Yank to the end of the current line. | line, yank, end |
 |YankInsideMatch | Yank inside the current match. | inside, match, yank |
 |YankIntoRegister | Yank a line into a register. | copy, line, vertical, register |
-|YankWORD | Yank using W. | counter, horizontal, w, word, yank |
 |YankWord | Yank using w. | counter, horizontal, w, word, yank |
+|YankWORD | Yank using W. | counter, horizontal, w, word, yank |

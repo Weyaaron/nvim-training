@@ -17,7 +17,6 @@ function RepeatNScheduler:new(task_collections)
 			base.all_task[#base.all_task + 1] = task_el
 		end
 	end
-	-- Sorts table elements in a given order, in-place, from table[1] to table[n], where n is the length of the table. If comp is given, then it must be a function that receives two table elements, and returns true when the first is less than the second (so that not comp(a[i+1],a[i]) will be true after the sort). If comp is not given, then the standard Lua operator < is used instead.
 	table.sort(base.all_task, function(a, b)
 		return a.name < b.name
 	end)

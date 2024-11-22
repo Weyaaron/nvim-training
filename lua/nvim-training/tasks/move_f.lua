@@ -3,19 +3,19 @@ local Move = require("nvim-training.tasks.move")
 local movements = require("nvim-training.movements")
 local Move_f = {}
 
-Move_f.__index = Move_f
-setmetatable(Move_f, { __index = Move })
 Move_f.__metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move using f.",
 	instructions = "Move using f.",
-	tags = "movement, f, horizontal",
+	tags = "f, horizontal",
 }
+Move_f.__metadata.tags = utility.merge_tags(Move_f.__metadata.tags, Move.__metadata.tags)
+setmetatable(Move_f, { __index = Move })
 
 function Move_f:new()
 	local base = Move:new()
+
 	setmetatable(base, { __index = Move_f })
-	base.target_char = utility.calculate_target_char()
 	return base
 end
 

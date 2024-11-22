@@ -24,7 +24,6 @@ local function move_across_word_pos(line, cursor_pos, word_calc_func, counter)
 	return word_positions[new_word_index][1]
 end
 
---Todo: Do the api changes for words,WORDS .......
 function movements.words(line, cursor_pos, counter)
 	return move_across_word_pos(line, cursor_pos, utility.calculate_word_bounds, counter)
 end
