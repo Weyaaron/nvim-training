@@ -29,7 +29,7 @@ function DeleteWORD:activate()
 		vim.api.nvim_win_set_cursor(0, { current_cursor_pos[1], 20 })
 
 		current_cursor_pos = vim.api.nvim_win_get_cursor(0)
-		self.cursor_target = {current_cursor_pos[1], movements.WORDS(word_line, current_cursor_pos[2], self.counter)}
+		self.cursor_target = { current_cursor_pos[1], movements.WORDS(word_line, current_cursor_pos[2], self.counter) }
 		current_cursor_pos = vim.api.nvim_win_get_cursor(0)
 		utility.construct_highlight(current_cursor_pos[1], self.cursor_target[2], 1)
 

@@ -3,6 +3,13 @@ local template_index = require("nvim-training.template_index")
 local user_config = require("nvim-training.user_config")
 local utility = {}
 
+function utility.calculate_center_cursor_pos()
+	local boundary_size = 3
+	local lower_pos_bound = math.floor(internal_config.line_length / 2) - boundary_size
+	local higher_pos_bound = math.floor(internal_config.line_length / 2) + boundary_size
+	return math.random(lower_pos_bound, higher_pos_bound)
+end
+
 function utility.exists(file)
 	local ok, err, code = os.rename(file, file)
 	if not ok then

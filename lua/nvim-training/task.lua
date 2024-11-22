@@ -8,6 +8,11 @@ function Task:new()
 	setmetatable(base, Task)
 	--This is usefull for such a huge swath of tasks that this is worthwile
 	base.counter = utility.calculate_counter()
+
+	base.cursor_target = { 0, 0 }
+	base.target_char = utility.calculate_target_char()
+	base.cursor_center_pos = utility.calculate_center_cursor_pos()
+
 	return base
 end
 
