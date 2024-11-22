@@ -29,7 +29,8 @@ function Deletef:activate()
 
 		local cursor_pos = vim.api.nvim_win_get_cursor(0)
 		vim.api.nvim_win_set_cursor(0, { cursor_pos[1], target_index })
-		self.cursor_target = movements.f(self.target_char)
+		cursor_pos = vim.api.nvim_win_get_cursor(0)
+		self.cursor_target = { cursor_pos[1], movements.f(line, cursor_pos[2], self.target_char) }
 
 		local cursor_pos = vim.api.nvim_win_get_cursor(0)
 		self.target_text = line:sub(target_index + 1, self.cursor_target[2] + 1)

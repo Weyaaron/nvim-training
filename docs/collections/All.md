@@ -9,8 +9,9 @@
 |Deletef | Move using f. | f, horizontal, movement |
 |DeleteInsideMatch | Delete inside the current match. | change, inside, match, deletion |
 |DeleteLine | Delete the current line. | change, line, deletion |
-|DeleteWORD | Delete using 'W'. | movement, word, deletion |
+|DeleteSentence | Delete using the textobject inner sentence. | sentence, deletion |
 |DeleteWord | Delete using 'w'. | movement, word, deletion |
+|DeleteWORD | Delete using 'W'. | movement, word, deletion |
 |Increment | Increment the value at the cursor. | change, char, increment |
 |InsertChar | Insert a char at the current position. | char, insertion, change |
 |JoinLines | Join the current line with the line below. | J, join, line, change |
@@ -20,7 +21,7 @@
 |MoveEndOfFile | Move to the end the file. | end, file, vertical, movement |
 |MoveEndOfLine | Move to the end of the current line. | end, horizontal, line, movement |
 |MoveF | Move using F. | F, horizontal, movement |
-|Movef | Move using f. | f, horizontal, movement |
+|Movef | Move using f. | horizontal, f, movement |
 |MoveLinesDown | Move lines down. | horizontal, k, lines, movement |
 |MoveLinesUp | Move lines up. | horizontal, k, lines, movement |
 |MoveMatch | Move to the current match. | movement, match |
@@ -28,7 +29,7 @@
 |MoveO | Enter and leave insert mode above the current line. | insert_mode, linewise, movement, O |
 |MoveStartOfFile | Move to the start of the file. | file, vertical, start |
 |MoveStartOfLine | Move to the start of the current line. | line, movement, start |
-|MoveT | Move using T. | T, horizontal, movement |
+|MoveT | Move using T. | horizontal, left, T, movement |
 |Movet | Move using t. | horizontal, t, movement |
 |MoveWord | Move using w. | horizontal, w, word, movement |
 |MoveWORD | Move using W. | W, WORD, movement |

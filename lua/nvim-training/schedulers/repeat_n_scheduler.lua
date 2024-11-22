@@ -17,6 +17,9 @@ function RepeatNScheduler:new(task_collections)
 			base.all_task[#base.all_task + 1] = task_el
 		end
 	end
+	table.sort(base.all_task, function(a, b)
+		return a.name < b.name
+	end)
 	return base
 end
 

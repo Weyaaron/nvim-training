@@ -3,6 +3,36 @@ local template_index = require("nvim-training.template_index")
 local user_config = require("nvim-training.user_config")
 local utility = {}
 
+function utility.merge_tags(tags_a, tags_b)
+	local words_a = utility.split_str(tags_a, ",")
+	local words_b = utility.split_str(tags_b, ",")
+	local exists = {}
+
+	local result = {}
+	for i, v in pairs(words_a) do
+		if exists[v] == nil then
+			exists[v] = v
+			result[#result + 1] = v
+		end
+	end
+
+	for i, v in pairs(words_b) do
+		if exists[v] == nil then
+			exists[v] = v
+			result[#result + 1] = v
+		end
+	end
+	table.sort(result)
+	return table.concat(result, ",")
+end
+
+function utility.calculate_center_cursor_pos()
+	local boundary_size = 3
+	local lower_pos_bound = math.floor(internal_config.line_length / 2) - boundary_size
+	local higher_pos_bound = math.floor(internal_config.line_length / 2) + boundary_size
+	return math.random(lower_pos_bound, higher_pos_bound)
+end
+
 function utility.exists(file)
 	local ok, err, code = os.rename(file, file)
 	if not ok then

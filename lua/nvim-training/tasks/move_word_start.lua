@@ -24,7 +24,9 @@ function MoveWordStart:activate()
 
 		local current_cursor_pos = vim.api.nvim_win_get_cursor(0)
 		vim.api.nvim_win_set_cursor(0, { current_cursor_pos[1], 55 })
-		self.cursor_target = movements.word_start(self.counter)
+
+		local new_x_pos = movements.word_start(line, current_cursor_pos[2], self.counter)
+		self.cursor_target = { current_cursor_pos[1], new_x_pos }
 		utility.construct_highlight(current_cursor_pos[1], self.cursor_target[2], 1)
 	end
 	vim.schedule_wrap(_inner_update)()
