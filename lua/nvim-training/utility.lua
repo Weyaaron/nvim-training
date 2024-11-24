@@ -359,6 +359,20 @@ end
 -- 	-- file:write(data_as_str .. "\n")
 -- 	-- file:close()
 -- end
+function utility.apppend_table_to_path(data, path)
+	if user_config.enable_events then
+		utility.append_json_to_file(path, data)
+	end
+end
+
+function utility.append_json_to_file(path, data)
+	local file = io.open(path, "a")
+
+	local data_as_str = vim.json.encode(data)
+
+	file:write(data_as_str .. "\n")
+	file:close()
+end
 
 function utility.uuid()
 	math.randomseed(os.time())

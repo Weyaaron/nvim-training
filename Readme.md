@@ -75,7 +75,11 @@ The plugin aims to use scratch-buffers to avoid polluting the disk.
 | --- | -------- | -------- | -------- |
 |AppendChar | Insert a char next to the cursor. | append, change, insertion |
 |BlockCommentLine | Change the current line into a block comment. | change, comment, plugin, programming | This assumes the use of a plugin, it is not tested with the buildin-commenting-feature. |
+|Changef | Change text using f | chair-wise, change, f, horizontal, right |
+|ChangeF | Change text using F | chair-wise, change, F, horizontal, left |
 |ChangeLine | Change the current line. | change, deletion, line |
+|Changet | Change text using f | chair-wise, change, horizontal, right, t |
+|ChangeT | Change text using T | chair-wise, change, horizontal, left, T |
 |ChangeWord | Change multiple words. | change, counter, horizontal, text-object, word |
 |CommentLine | Change the current line into a single line comment. | change, commenting, plugin, programming | Not available in vanilla-vim, needs plugin. |
 |DeleteChar | Delete the current char. | change, char, deletion |
@@ -86,8 +90,8 @@ The plugin aims to use scratch-buffers to avoid polluting the disk.
 |DeleteSentence | Delete the textobject inner sentence. | deletion, horizontal, text-object, sentence |
 |Deletet | Delete to the next char. | chair-wise, deletion, horizontal, right, t |
 |DeleteT | Delete back to the next char. | chair-wise, deletion, horizontal, left, T |
-|DeleteWORD | Delete multiple WORDs. | counter, deletion, horizontal, text-object, WORD |
 |DeleteWord | Delete multiple words. | counter, deletion, horizontal, text-object, word |
+|DeleteWORD | Delete multiple WORDs. | counter, deletion, horizontal, text-object, WORD |
 |Increment | Increment the value at the cursor. | change, char, increment |
 |InsertAtStartOfLine | Insert text at the start of the line. | I, insert, line, start |
 |InsertChar | Insert a char at the current position. | change, char, insertion |
@@ -106,16 +110,16 @@ The plugin aims to use scratch-buffers to avoid polluting the disk.
 |MoveO | Enter and leave insert mode above the current line. | insert_mode, linewise, movement, O |
 |MoveStartOfFile | Move to the start of the file. | file, start, vertical |
 |MoveStartOfLine | Move to the start of the current line. | line, movement, start |
-|MoveT | Go back next to the last ocurrence of a char. | chair-wise, horizontal, left, movement, T |
 |Movet | Move using t. | chair-wise, horizontal, movement, right, t |
+|MoveT | Go back next to the last ocurrence of a char. | chair-wise, horizontal, left, movement, T |
 |MoveWord | Move multiple words. | counter, horizontal, movement, text-object, word |
 |MoveWORD | Move multiple WORDS. | counter, horizontal, movement, text-object, WORD |
 |MoveWordEnd | Move to the end of words. | end, movement, vertical, word |
 |MoveWORDEnd | Move to the end of WORDs. | end, movement, vertical, WORD |
 |MoveWordStart | Move back to the start of 'words'. | horizontal, movement, word |
 |MoveWORDStart | Move Back to the start of 'WORDS'. | horizontal, movement, word |
-|paste | Paste from a given register. | paste, register |
 |Paste | Paste from a given register. | Paste, register |
+|paste | Paste from a given register. | paste, register |
 |SearchBackward | Search backwards. | diagonal, movement, search |
 |SearchForward | Search forwards. | forward, movement, search |
 |SearchWordBackward | Search backwards for the word at the cursor. | backward, movement, search |
@@ -125,10 +129,10 @@ The plugin aims to use scratch-buffers to avoid polluting the disk.
 |YankF | Yank back to the previous char. | chair-wise, F, horizontal, left |
 |YankInsideMatch | Yank inside the current match. | inside, match, yank |
 |YankIntoRegister | Yank a line into a register. | copy, line, register, vertical |
-|Yankt | Yank to the next char. | chair-wise, f, horizontal, register, right, yank |
+|Yankt | Yank next to the next char. | chair-wise, horizontal, register, right, t, yank |
 |YankT | Yank back next to the previous char. | chair-wise, horizontal, left, register, T, yank |
-|YankWORD | Yank multiple WORDS. | counter, horizontal, register, text-object, WORD, yank |
 |YankWord | Yank multiple words. | counter, horizontal, register, text-object, word, yank |
+|YankWORD | Yank multiple WORDS. | counter, horizontal, register, text-object, WORD, yank |
 <!-- e -->
 </details>
 
