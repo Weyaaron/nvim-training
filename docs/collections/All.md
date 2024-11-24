@@ -16,10 +16,12 @@
 |DeleteInsideMatch | Delete inside the current match. | deletion, match, text-object |
 |DeleteLine | Delete the current line. | deletion, line |
 |DeleteSentence | Delete the textobject inner sentence. | deletion, horizontal, text-object, sentence |
-|DeleteT | Delete back to the next char. | chair-wise, deletion, horizontal, left, T |
 |Deletet | Delete to the next char. | chair-wise, deletion, horizontal, right, t |
-|DeleteWORD | Delete multiple WORDs. | counter, deletion, horizontal, text-object, WORD |
+|DeleteT | Delete back to the next char. | chair-wise, deletion, horizontal, left, T |
 |DeleteWord | Delete multiple words. | counter, deletion, horizontal, text-object, word |
+|DeleteWORD | Delete multiple WORDs. | counter, deletion, horizontal, text-object, WORD |
+|DeleteWORDEnd | Delete using 'E'. | counter, deletion, E, horizontal, text-object, WORD |
+|DeleteWordEnd | Delete using 'e'. | counter, deletion, e, horizontal, text-object, word |
 |Increment | Increment the value at the cursor. | change, char, increment |
 |InsertAtStartOfLine | Insert text at the start of the line. | I, insert, line, start |
 |InsertChar | Insert a char at the current position. | change, char, insertion |
@@ -38,14 +40,14 @@
 |MoveO | Enter and leave insert mode above the current line. | insert_mode, linewise, movement, O |
 |MoveStartOfFile | Move to the start of the file. | file, start, vertical |
 |MoveStartOfLine | Move to the start of the current line. | line, movement, start |
-|MoveT | Go back next to the last ocurrence of a char. | chair-wise, horizontal, left, movement, T |
 |Movet | Move using t. | chair-wise, horizontal, movement, right, t |
+|MoveT | Go back next to the last ocurrence of a char. | chair-wise, horizontal, left, movement, T |
 |MoveWord | Move multiple words. | counter, horizontal, movement, text-object, word |
 |MoveWORD | Move multiple WORDS. | counter, horizontal, movement, text-object, WORD |
 |MoveWordEnd | Move to the end of words. | end, movement, vertical, word |
 |MoveWORDEnd | Move to the end of WORDs. | end, movement, vertical, WORD |
-|MoveWORDStart | Move Back to the start of 'WORDS'. | horizontal, movement, word |
 |MoveWordStart | Move back to the start of 'words'. | horizontal, movement, word |
+|MoveWORDStart | Move Back to the start of 'WORDS'. | horizontal, movement, word |
 |Paste | Paste from a given register. | Paste, register |
 |paste | Paste from a given register. | paste, register |
 |SearchBackward | Search backwards. | diagonal, movement, search |
@@ -53,8 +55,8 @@
 |SearchWordBackward | Search backwards for the word at the cursor. | backward, movement, search |
 |SearchWordForward | Search forwards for the word at the cursor. | forward, movement, search |
 |YankEndOfLine | Yank to the end of the current line. | end, line, yank |
-|Yankf | Yank to the next char. | chair-wise, f, horizontal, register, right, yank |
 |YankF | Yank back to the previous char. | chair-wise, F, horizontal, left, register, yank |
+|Yankf | Yank to the next char. | chair-wise, f, horizontal, register, right, yank |
 |YankInsideBlock | Yank inside the block. | inside, register, text-object, yank |
 |YankInsideMatch | Yank inside the current match. | inside, match, yank |
 |YankLine | Yank a line into a register. | copy, line, register, vertical, yank |
