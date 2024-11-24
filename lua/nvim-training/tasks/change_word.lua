@@ -46,7 +46,7 @@ function ChangeWord:activate()
 end
 
 function ChangeWord:instructions()
-	return "Change the text of " .. self.counter .. " word(s) (using w,c) into '" .. self.text_to_be_inserted .. "'."
+	return "Change the text of " .. self.counter .. " word(s) into '" .. self.text_to_be_inserted .. "'."
 end
 
 return ChangeWord

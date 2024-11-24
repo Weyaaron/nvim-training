@@ -33,7 +33,7 @@ function MoveWord:activate()
 end
 
 function MoveWord:instructions()
-	return "Move " .. self.counter .. " word(s) using 'w'."
+	return "Move " .. self.counter .. " word(s)."
 end
 
 return MoveWord

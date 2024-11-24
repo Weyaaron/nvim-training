@@ -43,7 +43,7 @@ function YankWORD:activate()
 end
 
 function YankWORD:instructions()
-	return "Yank " .. self.counter .. " WORDS(s) using 'W'."
+	return "Yank " .. self.counter .. " WORDS(s)."
 end
 
 return YankWORD

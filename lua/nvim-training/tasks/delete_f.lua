@@ -44,7 +44,7 @@ function Deletef:activate()
 end
 
 function Deletef:instructions()
-	return "Delete to the char '" .. self.target_char .. "' using f."
+	return "Delete to the char '" .. self.target_char .. "'."
 end
 
 return Deletef

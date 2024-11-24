@@ -35,7 +35,6 @@ function MoveLinesUp:activate()
 		vim.api.nvim_win_set_cursor(0, { x_center, cursor_pos[2] })
 		self.cursor_target = { x_center - self.counter, cursor_pos[2] }
 		utility.construct_highlight(self.cursor_target[1], 0, #utility.get_line(self.cursor_target[1]))
-		print(self.counter, x_center, x_limit)
 	end
 	vim.schedule_wrap(_inner_update)()
 end

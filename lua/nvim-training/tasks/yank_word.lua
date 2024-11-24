@@ -44,7 +44,7 @@ function YankWord:activate()
 end
 
 function YankWord:instructions()
-	return "Yank " .. self.counter .. " word(s) using 'w'."
+	return "Yank " .. self.counter .. " word(s)."
 end
 
 return YankWord

@@ -35,7 +35,7 @@ function Paste:deactivate()
 end
 
 function Paste:instructions()
-	return "Paste the text from register '" .. self.choosen_reg .. "' into the line above the current using P"
+	return "Paste the text from register '" .. self.choosen_reg .. "' into the line above the current."
 end
 
 return Paste
