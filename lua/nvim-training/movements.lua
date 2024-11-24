@@ -6,7 +6,6 @@ function movements.end_of_line(line, cursor_pos)
 end
 
 local function move_across_word_pos(line, cursor_pos, word_calc_func, counter)
-	print(vim.inspect(line), vim.inspect(cursor_pos), counter)
 	local word_positions = word_calc_func(line)
 	local word_index_cursor = utility.calculate_word_index_from_cursor_pos(word_positions, cursor_pos)
 

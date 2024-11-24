@@ -57,7 +57,7 @@ function MoveT:deactivate(autocmd_args)
 end
 
 function MoveT:instructions()
-	return "Move to the char '" .. self.target_char .. "' using F."
+	return "Move to the char '" .. self.target_char .. "'."
 end
 
 return MoveT

@@ -43,6 +43,6 @@ function DeleteWord:activate()
 end
 
 function DeleteWord:instructions()
-	return "Delete " .. self.counter .. " word(s) using 'w'."
+	return "Delete " .. self.counter .. " word(s)."
 end
 return DeleteWord
