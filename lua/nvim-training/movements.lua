@@ -52,7 +52,7 @@ function movements.WORD_end(line, cursor_pos, counter)
 end
 
 function movements.f(line, cursor_pos, target_char)
-	return line:find(target_char) - 1
+	return line:find(target_char)
 end
 
 function movements.t(line, cursor_pos, target_char)
@@ -60,7 +60,7 @@ function movements.t(line, cursor_pos, target_char)
 end
 
 function movements.F(line, cursor_pos, target_char)
-	return line:find(target_char) - 1
+	return line:find(target_char)
 end
 
 function movements.T(line, cursor_pos, target_char)
