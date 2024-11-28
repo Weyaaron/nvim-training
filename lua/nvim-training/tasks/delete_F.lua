@@ -1,4 +1,3 @@
-
 local utility = require("nvim-training.utility")
 local Delete = require("nvim-training.tasks.delete")
 local movements = require("nvim-training.movements")
@@ -8,9 +7,9 @@ DeleteF.__index = DeleteF
 setmetatable(DeleteF, { __index = Delete })
 DeleteF.__metadata = {
 	autocmd = "CursorMoved",
-	desc = "Delete with t.",
+	desc = "Delete with the F-motion.",
 	instructions = ".",
-	tags = "movement, t, horizontal",
+	tags = "deletion, F, horizontal",
 }
 
 function DeleteF:new()
@@ -26,7 +25,7 @@ function DeleteF:activate()
 end
 
 function DeleteF:instructions()
-	return "Delete to the char '" .. self.target_char .. "'."
+	return "Delete back to the char '" .. self.target_char .. "'."
 end
 
 return DeleteF

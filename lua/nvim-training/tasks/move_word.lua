@@ -7,8 +7,8 @@ MoveWord.__index = MoveWord
 setmetatable(MoveWord, { __index = Move })
 MoveWord.__metadata = {
 	autocmd = "CursorMoved",
-	desc = "Move using w.",
-	instructions = "Move using w.",
+	desc = "Move multiple words.",
+	instructions = "",
 	tags = "movement, word, horizontal, w",
 }
 

@@ -7,9 +7,9 @@ Deletef.__index = Deletef
 setmetatable(Deletef, { __index = Delete })
 Deletef.__metadata = {
 	autocmd = "CursorMoved",
-	desc = "Delete with t.",
+	desc = "Delete with the f-motion.",
 	instructions = ".",
-	tags = "movement, t, horizontal",
+	tags = "deletion, f, horizontal",
 }
 
 function Deletef:new()

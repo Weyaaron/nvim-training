@@ -5,7 +5,7 @@ local movements = require("nvim-training.movements")
 local MoveT = {}
 MoveT.__metadata = {
 	autocmd = "CursorMoved",
-	desc = "Move using T.",
+	desc = "Go back next to the last ocurrence of a char.",
 	instructions = "",
 	tags = "T, horizontal, left",
 }

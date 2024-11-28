@@ -7,7 +7,7 @@ MoveF.__index = MoveF
 setmetatable(MoveF, { __index = Move })
 MoveF.__metadata = {
 	autocmd = "CursorMoved",
-	desc = "Move using F.",
+	desc = "Go back to the last ocurrence of a char.",
 	instructions = "",
 	tags = "movement, F, horizontal",
 }

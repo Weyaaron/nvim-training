@@ -9,7 +9,7 @@ DeleteInsideMatch.__metadata = {
 	autocmd = "TextChanged",
 	desc = "Delete inside the current match.",
 	instructions = "Delete inside the current match.",
-	tags = "deletion, match, inside, change",
+	tags = "deletion, match, inside",
 }
 function DeleteInsideMatch:new()
 	local base = Delete:new()

@@ -7,9 +7,9 @@ DeleteT.__index = DeleteT
 setmetatable(DeleteT, { __index = Delete })
 DeleteT.__metadata = {
 	autocmd = "CursorMoved",
-	desc = "Delete with t.",
+	desc = "Delete with the movement T.",
 	instructions = ".",
-	tags = "movement, t, horizontal",
+	tags = "movement, T, horizontal",
 }
 
 function DeleteT:new()
@@ -25,7 +25,7 @@ function DeleteT:activate()
 end
 
 function DeleteT:instructions()
-	return "Delete to the char '" .. self.target_char .. "'."
+	return "Delete back next to the char '" .. self.target_char .. "'."
 end
 
 return DeleteT

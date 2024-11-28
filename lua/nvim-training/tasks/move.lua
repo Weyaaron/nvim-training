@@ -33,7 +33,8 @@ function Move:f_movement(line, f_movement)
 		vim.api.nvim_win_set_cursor(0, { cursor_pos[1], self.cursor_center_pos })
 
 		cursor_pos = vim.api.nvim_win_get_cursor(0)
-		self.cursor_target = { cursor_pos[1], f_movement(line, cursor_pos[2], self.target_char) }
+		local new_x_pos = f_movement(line, cursor_pos[2], self.target_char)
+		self.cursor_target = { cursor_pos[1], new_x_pos }
 
 		utility.construct_highlight(self.cursor_target[1], self.cursor_target[2], 1)
 	end
