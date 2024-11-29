@@ -8,7 +8,7 @@ DeleteSentence.__index = DeleteSentence
 setmetatable(DeleteSentence, { __index = Delete })
 DeleteSentence.__metadata = {
 	autocmd = "TextChanged",
-	desc = "Delete using the textobject inner sentence.",
+	desc = "Delete the textobject inner sentence.",
 	instructions = "",
 	tags = "deletion, sentence",
 }

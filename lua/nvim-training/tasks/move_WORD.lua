@@ -7,7 +7,7 @@ local MoveWORD = {}
 MoveWORD.__index = MoveWORD
 setmetatable(MoveWORD, { __index = Move })
 MoveWORD.__metadata =
-	{ autocmd = "CursorMoved", desc = "Move using W.", instructions = "Move using W.", tags = "movement, W, WORD" }
+	{ autocmd = "CursorMoved", desc = "Move multiple WORDS.", instructions = "", tags = "movement, W, WORD" }
 
 function MoveWORD:new()
 	local base = Move:new()

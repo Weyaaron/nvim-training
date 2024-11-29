@@ -12,6 +12,11 @@ local user_config = {
 	possible_register_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" },
 	scheduler_args = { repetitions = 5 },
 	task_alphabet = "ABCDEFGabddefg,.",
+	logging_args = {
+		log_path = vim.fn.stdpath("log") .. "/nvim-training/" .. os.date("%Y-%M-%d") .. ".log",
+		display_logs = false,
+		display_warnings = true,
+		skip_all = false,
+	},
 }
-
 return user_config

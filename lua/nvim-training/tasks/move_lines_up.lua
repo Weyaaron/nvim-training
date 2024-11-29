@@ -13,7 +13,7 @@ end
 
 MoveLinesUp.__metadata = {
 	autocmd = "CursorMoved",
-	desc = "Move lines up.",
+	desc = "Move multiple lines up.",
 	instructions = "",
 	tags = "movement, k, horizontal, lines",
 }

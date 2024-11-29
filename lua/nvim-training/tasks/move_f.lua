@@ -3,10 +3,11 @@ local Move = require("nvim-training.tasks.move")
 local movements = require("nvim-training.movements")
 local Move_f = {}
 
+Move_f.__index = Move_f
 Move_f.__metadata = {
 	autocmd = "CursorMoved",
-	desc = "Move using f.",
-	instructions = "Move using f.",
+	desc = "Find the next char.",
+	instructions = "",
 	tags = "f, horizontal",
 }
 Move_f.__metadata.tags = utility.merge_tags(Move_f.__metadata.tags, Move.__metadata.tags)

@@ -9,7 +9,7 @@ MoveWordEnd.__index = MoveWordEnd
 setmetatable(MoveWordEnd, { __index = Move })
 MoveWordEnd.__metadata = {
 	autocmd = "CursorMoved",
-	desc = "Move to the end of the current 'word'.",
+	desc = "Move to the end of words.",
 	instructions = "Move to the end of the current 'word'.",
 	tags = "movement, word, end, vertical",
 }

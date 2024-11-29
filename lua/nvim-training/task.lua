@@ -1,4 +1,5 @@
 local utility = require("nvim-training.utility")
+local user_config = require("nvim-training.user_config")
 local Task = {}
 Task.__index = Task
 Task.__metadata = {}
@@ -13,6 +14,7 @@ function Task:new()
 	base.target_char = utility.calculate_target_char()
 	base.cursor_center_pos = utility.calculate_center_cursor_pos()
 
+	base.choosen_reg = user_config.possible_register_list[math.random(#user_config.possible_register_list)]
 	return base
 end
 

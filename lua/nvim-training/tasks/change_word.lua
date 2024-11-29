@@ -7,9 +7,9 @@ ChangeWord.__index = ChangeWord
 setmetatable(ChangeWord, { __index = Change })
 ChangeWord.__metadata = {
 	autocmd = "InsertLeave",
-	desc = "Change text using w,c.",
+	desc = "Change multiple words.",
 	instructions = "",
-	tags = "change, word, horizontal, w,c",
+	tags = "change, word, horizontal, w, c",
 }
 
 function ChangeWord:new()

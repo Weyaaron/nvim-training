@@ -13,7 +13,7 @@ end
 
 MoveLinesDown.__metadata = {
 	autocmd = "CursorMoved",
-	desc = "Move lines down.",
+	desc = "Move down multiple lines.",
 	instructions = "",
 	tags = "movement, k, horizontal, lines",
 }

@@ -7,9 +7,9 @@ DeleteWORD.__index = DeleteWORD
 setmetatable(DeleteWORD, { __index = Delete })
 DeleteWORD.__metadata = {
 	autocmd = "TextChanged",
-	desc = "Delete using 'W'.",
+	desc = "Delete multiple WORDs.",
 	instructions = "",
-	tags = "deletion, movement, word",
+	tags = "deletion,  WORD",
 }
 
 function DeleteWORD:new()

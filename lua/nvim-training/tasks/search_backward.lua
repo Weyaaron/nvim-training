@@ -6,7 +6,7 @@ SearchBackward.__index = SearchBackward
 setmetatable(SearchBackward, { __index = Task })
 SearchBackward.__metadata = {
 	autocmd = "CursorMoved",
-	desc = "Search backwards for a target-string.",
+	desc = "Search backwards.",
 	instructions = "",
 	tags = "search, movement, diagonal",
 }

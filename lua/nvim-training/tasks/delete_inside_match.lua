@@ -1,6 +1,5 @@
 local utility = require("nvim-training.utility")
 local Delete = require("nvim-training.tasks.delete")
-local user_config = require("nvim-training.user_config")
 
 local DeleteInsideMatch = {}
 DeleteInsideMatch.__index = DeleteInsideMatch
@@ -10,7 +9,7 @@ DeleteInsideMatch.__metadata = {
 	autocmd = "TextChanged",
 	desc = "Delete inside the current match.",
 	instructions = "Delete inside the current match.",
-	tags = "deletion, match, inside, change",
+	tags = "deletion, match, inside",
 }
 function DeleteInsideMatch:new()
 	local base = Delete:new()
@@ -21,7 +20,8 @@ function DeleteInsideMatch:activate()
 	local function _inner_update()
 		local left_bound = 25
 		local right_bound = 30
-		local line = utility.construct_line_with_bracket(user_config.bracket_pairs[1], left_bound, right_bound)
+		local line =
+			utility.construct_line_with_bracket(utility.construct_random_bracket_pair(), left_bound, right_bound)
 		utility.set_buffer_to_rectangle_with_line(line)
 
 		local cursor_pos = vim.api.nvim_win_get_cursor(0)
