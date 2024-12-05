@@ -1,6 +1,7 @@
 local Task = require("nvim-training.task")
 local utility = require("nvim-training.utility")
-local internal_config = require("nvim-training.internal_config")
+
+
 local Increment = {}
 Increment.__index = Increment
 Increment.__metadata = {

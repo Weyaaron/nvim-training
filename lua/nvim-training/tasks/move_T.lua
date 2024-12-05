@@ -1,15 +1,15 @@
 local utility = require("nvim-training.utility")
 local Move = require("nvim-training.tasks.move")
 local movements = require("nvim-training.movements")
+local tag_index = require("nvim-training.tag_index")
 
 local MoveT = {}
 MoveT.__metadata = {
 	autocmd = "CursorMoved",
 	desc = "Go back next to the last ocurrence of a char.",
 	instructions = "",
-	tags = "T, horizontal, left",
+	tags = Move.__metadata.tags .. tag_index.T,
 }
-MoveT.__metadata.tags = utility.merge_tags(MoveT.__metadata.tags, Move.__metadata.tags)
 setmetatable(MoveT, { __index = Move })
 function MoveT:new()
 	local base = Move:new()

@@ -1,22 +1,23 @@
 local utility = require("nvim-training.utility")
 local Move = require("nvim-training.tasks.move")
+local tag_index = require("nvim-training.tag_index")
 
 local MoveLinesUp = {}
 setmetatable(MoveLinesUp, { __index = Move })
 MoveLinesUp.__index = MoveLinesUp
 
+MoveLinesUp.__metadata = {
+	autocmd = "CursorMoved",
+	desc = "Move multiple lines up.",
+	instructions = "",
+	tags = Move.__metadata.tags .. tag_index.lines_up,
+}
 function MoveLinesUp:new()
 	local base = Move:new()
 	setmetatable(base, { __index = MoveLinesUp })
 	return base
 end
 
-MoveLinesUp.__metadata = {
-	autocmd = "CursorMoved",
-	desc = "Move multiple lines up.",
-	instructions = "",
-	tags = "movement, k, horizontal, lines",
-}
 
 function MoveLinesUp:activate()
 	local function _inner_update()

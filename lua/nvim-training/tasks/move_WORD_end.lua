@@ -2,6 +2,7 @@ local utility = require("nvim-training.utility")
 local Move = require("nvim-training.tasks.move")
 local internal_config = require("nvim-training.internal_config")
 local movements = require("nvim-training.movements")
+local tag_index = require("nvim-training.tag_index")
 
 local MoveWORDEnd = {}
 MoveWORDEnd.__index = MoveWORDEnd
@@ -10,7 +11,7 @@ MoveWORDEnd.__metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move to the end of WORDs.",
 	instructions = "",
-	tags = "movement, word, end, vertical",
+	tags = Move.__metadata.tags .. tag_index.WORD_end,
 }
 
 function MoveWORDEnd:new()

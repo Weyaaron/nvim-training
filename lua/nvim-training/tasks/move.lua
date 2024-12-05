@@ -2,9 +2,10 @@ local Task = require("nvim-training.task")
 local logging = require("nvim-training.logging")
 local Move = {}
 local utility = require("nvim-training.utility")
+
 Move.__index = Move
 setmetatable(Move, { __index = Task })
-Move.__metadata = { autocmd = "", desc = "", instructions = "", tags = "movement" }
+Move.__metadata = { autocmd = "", desc = "", instructions = "", tags = "movement, " }
 
 function Move:new()
 	local base = Task:new()

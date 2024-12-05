@@ -1,19 +1,22 @@
 local utility = require("nvim-training.utility")
-local Task = require("nvim-training.task")
+local Move = require("nvim-training.tasks.move")
 local internal_config = require("nvim-training.internal_config")
 local user_config = require("nvim-training.user_config")
+local tag_index = require("nvim-training.tag_index")
+
 local MoveT = {}
 MoveT.__index = MoveT
-setmetatable(MoveT, { __index = Task })
+setmetatable(MoveT, { __index = Move })
 MoveT.__metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move using T.",
 	instructions = "",
-	tags = "movement, T, horizontal",
+	tags = Move.__metadata.tags .. tag_index.T,
 }
 
+--Todo: Migrate this task? What? How?
 function MoveT:new()
-	local base = Task:new()
+	local base = Move:new()
 	setmetatable(base, { __index = MoveT })
 	base.target_y_pos = 0
 	base.alphabet = user_config.task_alphabet

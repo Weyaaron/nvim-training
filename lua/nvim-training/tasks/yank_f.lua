@@ -1,16 +1,16 @@
 local utility = require("nvim-training.utility")
 local movements = require("nvim-training.movements")
 local Yank = require("nvim-training.tasks.yank")
+local tag_index = require("nvim-training.tag_index")
 
 local Yankf = {}
-
 Yankf.__index = Yankf
 setmetatable(Yankf, { __index = Yank })
 Yankf.__metadata = {
 	autocmd = "TextYankPost",
 	desc = "Yank to the next char.",
 	instructions = "",
-	tags = "yank, f, horizontal,",
+	tags = Yank.__metadata.tags .. tag_index.f,
 }
 
 function Yankf:new()

@@ -3,7 +3,6 @@ local Task = require("nvim-training.task")
 
 local JoinLines = {}
 JoinLines.__index = JoinLines
-
 JoinLines.__metadata = {
 	autocmd = "TextChanged",
 	desc = "Join the current line with the line below.",

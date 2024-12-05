@@ -1,22 +1,21 @@
 local utility = require("nvim-training.utility")
 local Delete = require("nvim-training.tasks.delete")
 local movements = require("nvim-training.movements")
+local tag_index = require("nvim-training.tag_index")
 
 local DeleteWord = {}
-
 DeleteWord.__index = DeleteWord
 setmetatable(DeleteWord, { __index = Delete })
 DeleteWord.__metadata = {
 	autocmd = "TextChanged",
 	desc = "Delete multiple words.",
 	instructions = "",
-	tags = "deletion,  word",
+	tags = Delete.__metadata.tags .. tag_index.words,
 }
 
 function DeleteWord:new()
 	local base = Delete:new()
 	setmetatable(base, { __index = DeleteWord })
-
 	return base
 end
 

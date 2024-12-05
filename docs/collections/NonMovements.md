@@ -1,31 +1,32 @@
 ## NonMovements (Tasks not involving movement.)
 | Name | Description | Tags | Notes
 | --- | -------- | -------- | -------- |
-|AppendChar | Insert a char next to the cursor. | append, insertion, change |
-|BlockCommentLine | Change the current line into a block comment. | change, plugin, programming, comment | This assumes the use of a plugin, it is not tested with the buildin-commenting-feature. |
-|ChangeWord | Change multiple words. | c, horizontal, w, word, change |
+|AppendChar | Insert a char next to the cursor. | append, change, insertion |
+|BlockCommentLine | Change the current line into a block comment. | change, comment, plugin, programming | This assumes the use of a plugin, it is not tested with the buildin-commenting-feature. |
+|ChangeWord | Change multiple words. | change, counter, horizontal, text-object, words |
 |CommentLine | Change the current line into a single line comment. | change, commenting, plugin, programming | Not available in vanilla-vim, needs plugin. |
 |DeleteChar | Delete the current char. | change, char, deletion |
-|DeleteF | Delete with the F-motion. | F, horizontal, deletion |
-|Deletef | Delete with the motion f. | f, horizontal, deletion |
-|DeleteInsideMatch | Delete inside the current match. | inside, match, deletion |
-|DeleteLine | Delete the current line. | change, line, deletion |
-|DeleteSentence | Delete the textobject inner sentence. | sentence, deletion |
-|Deletet | Delete with the motion t. | horizontal, t, deletion |
-|DeleteWORD | Delete multiple WORDs. |  WORD, deletion |
-|DeleteWord | Delete multiple words. |  word, deletion |
+|DeleteF | Delete back to the previous char. | chair-wise, deletion, F, horizontal, left |
+|Deletef | Delete forward to the next char. | chair-wise, deletion, f, horizontal, right |
+|DeleteInsideMatch | Delete inside the current match. | deletion, match, text-object |
+|DeleteLine | Delete the current line. | deletion, line |
+|DeleteSentence | Delete the textobject inner sentence. | deletion, horizontal, sentence, text-object |
+|DeleteT | Delete back to the next char. | chair-wise, deletion, horizontal, left, T |
+|Deletet | Delete to the next char. | chair-wise, deletion, horizontal, right, t |
+|DeleteWord | Delete multiple words. | counter, deletion, horizontal, text-object, words |
+|DeleteWORD | Delete multiple WORDs. | counter, deletion, horizontal, text-object, WORDS |
 |Increment | Increment the value at the cursor. | change, char, increment |
-|InsertChar | Insert a char at the current position. | char, insertion, change |
-|JoinLines | Join the current line with the line below. | J, join, line, change |
-|MoveStartOfFile | Move to the start of the file. | file, vertical, start |
-|paste | Paste from a given register. | register, paste |
-|Paste | Paste from a given register. | register, Paste |
-|YankEndOfLine | Yank to the end of the current line. | line, yank, end |
-|Yankf | Yank to the next char. | , f, horizontal, yank |
-|YankF | Yank back to the previous char. | , F, horizontal, yank |
+|InsertChar | Insert a char at the current position. | change, char, insertion |
+|JoinLines | Join the current line with the line below. | change, J, join, line |
+|MoveStartOfFile | Move to the start of the file. | file, start, vertical |
+|Paste | Paste from a given register. | Paste, register |
+|paste | Paste from a given register. | paste, register |
+|YankEndOfLine | Yank to the end of the current line. | end, line, yank |
+|Yankf | Yank to the next char. | chair-wise, f, horizontal, register, right, yank |
+|YankF | Yank back to the previous char. | chair-wise, F, horizontal, left, register, yank |
 |YankInsideMatch | Yank inside the current match. | inside, match, yank |
-|YankIntoRegister | Yank a line into a register. | copy, line, vertical, register |
-|Yankt | Yank to the next char. | , f, horizontal, yank |
-|YankT | Yank back next to the previous char. | T, horizontal, yank |
-|YankWord | Yank multiple words. | counter, horizontal, w, word, yank |
-|YankWORD | Yank multiple WORDS. | counter, horizontal, w, word, yank |
+|YankIntoRegister | Yank a line into a register. | copy, line, register, vertical |
+|YankT | Yank back next to the previous char. | chair-wise, horizontal, left, register, T, yank |
+|Yankt | Yank to the next char. | chair-wise, f, horizontal, register, right, yank |
+|YankWORD | Yank multiple WORDS. | counter, horizontal, register, text-object, WORDS, yank |
+|YankWord | Yank multiple words. | counter, horizontal, register, text-object, words, yank |

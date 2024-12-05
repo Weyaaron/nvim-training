@@ -3,14 +3,14 @@ local Delete = require("nvim-training.tasks.delete")
 
 local DeleteLine = {}
 DeleteLine.__index = DeleteLine
+setmetatable(DeleteLine, { __index = Delete })
 DeleteLine.__metadata = {
 	autocmd = "TextChanged",
 	desc = "Delete the current line.",
 	instructions = "Delete the current line.",
-	tags = "deletion, line, change",
+	tags = "deletion, line",
 }
 
-setmetatable(DeleteLine, { __index = Delete })
 function DeleteLine:new()
 	local base = Delete:new()
 	setmetatable(base, { __index = DeleteLine })

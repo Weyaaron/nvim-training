@@ -1,6 +1,5 @@
 local utility = require("nvim-training.utility")
 local Yank = require("nvim-training.tasks.yank")
-local user_config = require("nvim-training.user_config")
 
 local YankInsideMatch = {}
 YankInsideMatch.__index = YankInsideMatch
