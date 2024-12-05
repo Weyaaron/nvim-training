@@ -11,7 +11,6 @@ ChangeT.metadata = {
 	desc = "Change text using T",
 	instructions = "",
 	tags = utility.flatten({ Change.metadata.tags, tag_index.T }),
-
 }
 
 function ChangeT:new()

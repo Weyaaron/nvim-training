@@ -15,7 +15,6 @@ setmetatable(YankEndOfLine, { __index = Yank })
 function YankEndOfLine:new()
 	local base = Yank:new()
 	setmetatable(base, { __index = YankEndOfLine })
-	base.chosen_register = '"'
 	return base
 end
 function YankEndOfLine:activate()

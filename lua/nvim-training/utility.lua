@@ -91,6 +91,14 @@ function utility.calculate_target_char()
 	local target_char_index = math.random(#user_config.task_alphabet)
 	return user_config.task_alphabet:sub(target_char_index, target_char_index)
 end
+
+function utility.calculate_target_register()
+	if user_config.enable_registers then
+		return user_config.possible_register_list[math.random(#user_config.possible_register_list)]
+	end
+	return '"'
+end
+
 function utility.calculate_counter()
 	local counter = 1
 	if user_config.enable_counters then

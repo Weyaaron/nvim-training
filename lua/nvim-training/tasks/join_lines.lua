@@ -22,7 +22,6 @@ function JoinLines:new()
 	return base
 end
 function JoinLines:activate()
-	vim.fn.setreg(self.chosen_register, "")
 	local function _inner_update()
 		utility.set_buffer_to_rectangle_with_line(self.initial_line)
 	end

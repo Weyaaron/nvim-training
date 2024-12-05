@@ -17,7 +17,6 @@ function Paste:new()
 
 	setmetatable(base, { __index = Paste })
 	base.reg_content = "-Content of previous Line-\r"
-	base.choosen_reg = user_config.possible_register_list[math.random(#user_config.possible_register_list)]
 	return base
 end
 
@@ -25,7 +24,7 @@ function Paste:activate()
 	local function _inner_update()
 		local random_line = utility.load_random_line()
 		utility.set_buffer_to_rectangle_with_line(random_line)
-		vim.cmd(":let @" .. self.choosen_reg .. "= '" .. self.reg_content .. "'")
+		vim.cmd(":let @" .. self.target_register .. "= '" .. self.reg_content .. "'")
 	end
 	vim.schedule_wrap(_inner_update)()
 end
@@ -38,7 +37,7 @@ function Paste:deactivate()
 end
 
 function Paste:instructions()
-	return "Paste the text from register '" .. self.choosen_reg .. "' into the line above the current."
+	return "Paste the text from register '" .. self.target_register .. "' into the line above the current."
 end
 
 return Paste
