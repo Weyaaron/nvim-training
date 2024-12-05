@@ -26,8 +26,6 @@ I consider this to be the best option for minimizing disruptions.
 - Supported Tasks-Collections: 5
 - Supported Schedulers: 3
 
-Some of the tags are currently inconsistent, this is known about.
-
 # In Action
 ![GIF](media/screencast.gif)
 
@@ -143,9 +141,9 @@ included and described below.
 | RepeatNScheduler | A task is repeated n-times. | repetitions |
 
 # Configuration
-A interface for configuration is provided. These are the default values if you do not change
-anything yourself. And since the config is just a big lua table, you are able to configure them to any
-extend you can imagine.
+A interface for configuration is provided. These are the default values.
+Simply copying then but leaving the defaults in is actually discouraged. Some of these names 
+might change, and if you leave this in your config these changes are not propagated. 
 ```lua
 local training = require("nvim-training")
 training.configure({ -- All of these options work for 'opts' of lazy as well.

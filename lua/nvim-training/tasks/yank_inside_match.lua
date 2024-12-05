@@ -20,7 +20,8 @@ function YankInsideMatch:activate()
 	local function _inner_update()
 		local left_bound = 25
 		local right_bound = 30
-		local line = utility.construct_line_with_bracket(utility.construct_random_bracket_pair(), left_bound, right_bound)
+		local line =
+			utility.construct_line_with_bracket(utility.construct_random_bracket_pair(), left_bound, right_bound)
 		utility.set_buffer_to_rectangle_with_line(line)
 
 		local cursor_pos = vim.api.nvim_win_get_cursor(0)

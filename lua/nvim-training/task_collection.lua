@@ -54,7 +54,6 @@ function TaskCollection:render_markdown()
 			return a:lower() < b:lower()
 		end)
 
-		print(vim.inspect(tag_pieces_that_are_suitable))
 		local pieces = { task_name, current_task.__metadata.desc }
 		pieces[#pieces + 1] = table.concat(tag_pieces_that_are_suitable, ", ")
 

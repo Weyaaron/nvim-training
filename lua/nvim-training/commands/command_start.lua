@@ -15,6 +15,7 @@ local previous_task_result
 local resoveld_scheduler
 local reset_task_list = true
 local session_id
+local is_running = false
 
 local function loop(autocmd_callback_data)
 	--This sleep helps with some feedback, if we continue instantly the user might not recognize their actions clearly.
@@ -135,6 +136,7 @@ local module = {}
 function module.execute(args)
 	local utility = require("nvim-training.utility")
 	local init = require("nvim-training.init")
+	is_running = true
 	init.configure({})
 	if not utility.check_vital_paths then
 		return
@@ -142,10 +144,10 @@ function module.execute(args)
 	vim.api.nvim_win_set_buf(0, internal_config.buf_id)
 
 	if user_config.enable_events then
-		if not utility.exists(user_config.base_path) then
+		if not utility.exists(user_config.event_storage_diretory_path) then
 			print(
 				"Unable to create the path '"
-					.. tostring(user_config.base_path)
+					.. tostring(user_config.event_storage_diretory_path)
 					.. "'. The plugin will not run. If this path does not suit you, use 'configure' to set it or disable events using 'configure'"
 			)
 
@@ -196,7 +198,14 @@ function module.execute(args)
 end
 
 function module.stop()
-	vim.api.nvim_del_autocmd(current_autocmd)
+	if is_running then
+		vim.api.nvim_del_autocmd(current_autocmd)
+
+		print("Training session closed.")
+	else
+		print("No Training Session running .")
+	end
+	is_running = false
 	local utility = require("nvim-training.utility")
 	local target_data = {
 		timestamp = os.time(),
@@ -207,7 +216,6 @@ function module.stop()
 		target_data,
 		user_config.event_storage_diretory_path .. tostring(session_id) .. ".json"
 	)
-	print("Session got closed.")
 end
 
 function module.complete(arg_lead)

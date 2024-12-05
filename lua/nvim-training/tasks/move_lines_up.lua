@@ -18,7 +18,6 @@ function MoveLinesUp:new()
 	return base
 end
 
-
 function MoveLinesUp:activate()
 	local function _inner_update()
 		local line = utility.construct_words_line()
