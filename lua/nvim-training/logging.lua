@@ -25,7 +25,8 @@ function module.log(msg, data)
 	if user_config.logging_args.display_logs then
 		display_to_user(msg, data)
 	end
-	log_to_file(msg, data)
+	-- Temporarily disabled
+	-- log_to_file(msg, data)
 end
 
 function module.warn(msg, data)
@@ -36,7 +37,9 @@ function module.warn(msg, data)
 		display_to_user(msg, data)
 	end
 	data.level = "warn"
-	log_to_file(msg, data)
+	--Temporarily disabled
+	-- log_to_file(msg, data)
+
 end
 
 return module

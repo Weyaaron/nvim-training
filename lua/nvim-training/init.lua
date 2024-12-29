@@ -13,6 +13,8 @@ local function configure(args)
 			end
 		end
 	end
+	-- print(user_config.base_path)
+	-- print(user_config.logging_args.log_path)
 	if not utility.exists(user_config.base_path) then
 		print(
 			tostring(user_config.base_path)

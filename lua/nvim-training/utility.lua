@@ -351,6 +351,7 @@ function utility.apppend_table_to_path(data, path)
 end
 
 function utility.append_json_to_file(path, data)
+	-- print(path, vim.inspect(data))
 	local file = io.open(path, "a")
 
 	table.sort(data)
