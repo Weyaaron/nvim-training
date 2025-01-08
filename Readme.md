@@ -146,19 +146,21 @@ included and described below.
 
 # Configuration
 A interface for configuration is provided. These are the default values if you do not change
-anything yourself.
+anything yourself. And since these are just lua code, you are able to configure them to any
+extend you can imagine.
 ```lua
 local training = require("nvim-training")
 training.configure({ -- All of these options work for 'opts' of lazy as well.
 	audio_feedback = true, -- Enables/Disables audio feedback, if enabled, requires the 'sox' package providing the 'play' command.
-	base_path = vim.fn.stdpath("data") .. "/nvim-training/", -- The path used to store events.
 	counter_bounds = { 1, 5 }, --The outer bounds for counters used in some tasks. WARNING: A high value may result in glitchy behaviour.
 	custom_collections = {}, -- A table of tables containing names of tasks, for details read on.
 	enable_counters = true, -- Enables/Disables counters in tasks that support counters.
 	enable_events = true, -- Enables/Disables events.
 	enable_highlights = true, --Enables/Disables highlights. Care is taken to ensure that tasks are possible without them.
+	event_storage_directory_path= vim.fn.stdpath("data") .. "/nvim-training/", -- The path used to store events.
 	logging_args = {
-		log_path = vim.fn.stdpath("log") .. "/nvim-training/" .. os.date("%Y-%M-%d") .. ".log",
+		log_directory_path = vim.fn.stdpath("log") .. "/nvim-training/",
+		log_file_path = os.date("%Y-%M-%d") .. ".log",
 		display_logs = false, --Enables/Disables wether messages with the level 'log' should be printed. WARNING: Enabling his produces a lot of noise, but might be usefull for developers.
 		display_warnings = true, --Enables/Disables wether messages with the level 'warning' should be printed.
 		skip_all = false, -- Enables/Disables logging entirely. Usefull if you are worried about saving disk space.

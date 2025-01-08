@@ -351,7 +351,6 @@ function utility.apppend_table_to_path(data, path)
 end
 
 function utility.append_json_to_file(path, data)
-	-- print(path, vim.inspect(data))
 	local file = io.open(path, "a")
 
 	table.sort(data)
@@ -383,10 +382,10 @@ function utility.scandir(directory)
 end
 
 function utility.load_all_events()
-	local paths = utility.scandir(user_config.base_path)
+	local paths = utility.scandir(user_config.event_storage_diretory_path)
 	local result = {}
 	for i, v in pairs(paths) do
-		local file = io.open(user_config.base_path .. "/" .. v, "r")
+		local file = io.open(user_config.event_storage_diretory_path .. "/" .. v, "r")
 
 		local data = file:read("a")
 
@@ -466,6 +465,46 @@ function utility.filter_by_event_type(events, event_type)
 		end
 	end
 	return result
+end
+
+function utility.ensure_directory_existence(directory_path)
+	if not utility.exists(directory_path) then
+		print(
+			"The configured path '"
+				.. tostring(directory_path)
+				.. "' does not exist. Creation will be attempted! If this path does not suit you, use 'configure' to set it."
+		)
+		os.execute("mkdir " .. tostring(directory_path))
+	end
+	return utility.exists(directory_path)
+end
+function utility.check_vital_paths()
+	local base_dir_exists = true
+	local log_dir_exists = true
+	if user_config.enable_events then
+		local directory_exists = utility.ensure_directory_existence(user_config.event_storage_diretory_path)
+		if not directory_exists then
+			print(
+				"Construction of the diretories at '"
+					.. tostring(user_config.event_storage_diretory_path)
+					.. "' failed and events are enabled. Since this path is essential for storing the events, the application will not run. Please use 'configure' to disable logging or change the path."
+			)
+			base_dir_exists = false
+		end
+	end
+
+	if not user_config.logging_args.skip_all then
+		local directory_exists = utility.ensure_directory_existence(user_config.logging_args.log_directory_path)
+		if not directory_exists then
+			print(
+				"Construction of the diretories at '"
+					.. tostring(user_config.logging_args.log_directory_path)
+					.. "' failed and logging is enabled. Since this path is essential, the application will not run. Please use 'configure' to disable logging or change the path."
+			)
+			log_dir_exists = false
+		end
+	end
+	return base_dir_exists and log_dir_exists
 end
 
 return utility

@@ -13,15 +13,6 @@ local function configure(args)
 			end
 		end
 	end
-	-- print(user_config.base_path)
-	-- print(user_config.logging_args.log_path)
-	if not utility.exists(user_config.base_path) then
-		print(
-			tostring(user_config.base_path)
-				.. " does not exist. Creation will be attempted! If this path does not suit you, use 'configure' to set it."
-		)
-		os.execute("mkdir " .. tostring(user_config.base_path))
-	end
 end
 
 function module.configure(args)

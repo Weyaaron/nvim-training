@@ -1,6 +1,6 @@
 local user_config = {
 	audio_feedback = true,
-	base_path = vim.fn.stdpath("data") .. "/nvim-training/",
+	event_storage_diretory_path = vim.fn.stdpath("data") .. "/nvim-training/",
 	bracket_pairs = { { "(", ")" }, { "{", "}" }, { "[", "]" } },
 	counter_bounds = { 1, 5 },
 	custom_collections = {},
@@ -13,7 +13,11 @@ local user_config = {
 	scheduler_args = { repetitions = 5 },
 	task_alphabet = "ABCDEFGabddefg,.",
 	logging_args = {
-		log_path = vim.fn.stdpath("log") .. "/nvim-training/" .. os.date("%Y-%M-%d") .. ".log",
+
+		--According to https://neovim.io/doc/user/starting.html#_standard-paths, as of 2025-01, log currently points to state.
+		-- Splitting the path from the name has been done to support to support checks for the existence of the directory.
+		log_directory_path = vim.fn.stdpath("log") .. "/nvim-training/",
+		log_file_path = os.date("%Y-%M-%d") .. ".log",
 		display_logs = false,
 		display_warnings = true,
 		skip_all = false,
