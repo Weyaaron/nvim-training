@@ -2,6 +2,7 @@ local header = require("nvim-training.header")
 local user_config = require("nvim-training.user_config")
 local audio = require("nvim-training.audio")
 local parsing = require("nvim-training.utilities.parsing")
+local internal_config = require("nvim-training.internal_config")
 local task_count = 0
 local success_count = 0
 local failure_count = 0
@@ -50,7 +51,10 @@ local function loop(autocmd_callback_data)
 		}
 
 		local utility = require("nvim-training.utility")
-		utility.apppend_table_to_path(target_data, user_config.base_path .. tostring(session_id) .. ".json")
+		utility.apppend_table_to_path(
+			target_data,
+			user_config.event_storage_diretory_path .. tostring(session_id) .. ".json"
+		)
 
 		task_count = task_count + 1
 		if previous_task_result then
@@ -87,14 +91,6 @@ local function loop(autocmd_callback_data)
 		end
 	end
 
-	vim.schedule_wrap(function()
-		--This line is included to ensure that each task starts in the same file. A task may jump around and this ensures
-		--coming back.
-		vim.cmd("sil write!")
-		vim.cmd("sil e training.txt")
-		vim.cmd("sil write!")
-	end)()
-
 	local utility = require("nvim-training.utility")
 	--This line ensures that the highlights of previous tasks are discarded.
 	local internal_config = require("nvim-training.internal_config")
@@ -108,7 +104,10 @@ local function loop(autocmd_callback_data)
 		event = "task_start",
 		task_name = current_task.name,
 	}
-	utility.apppend_table_to_path(target_data, user_config.base_path .. tostring(session_id) .. ".json")
+	utility.apppend_table_to_path(
+		target_data,
+		user_config.event_storage_diretory_path .. tostring(session_id) .. ".json"
+	)
 
 	--This gives tasks some options to configure the header, for example with a prefix and a suffix to turn the header into a block comment in a programming language
 	local additional_header_values = current_task:construct_optional_header_args()
@@ -137,6 +136,11 @@ function module.execute(args)
 	local utility = require("nvim-training.utility")
 	local init = require("nvim-training.init")
 	init.configure({})
+	if not utility.check_vital_paths then
+		return
+	end
+	vim.api.nvim_win_set_buf(0, internal_config.buf_id)
+
 	if user_config.enable_events then
 		if not utility.exists(user_config.base_path) then
 			print(
@@ -148,12 +152,9 @@ function module.execute(args)
 			return
 		end
 	end
-	--Todo: Check if file exists
-	vim.cmd("e training.txt")
-	vim.api.nvim_buf_set_lines(0, 0, 25, false, {})
-	vim.cmd("write!")
-	vim.api.nvim_win_set_cursor(0, { 1, 1 })
-	header.store_key_value_in_header("#d", "Es gibt noch keine Aufgabe")
+
+	vim.api.nvim_buf_set_lines(internal_config.buf_id, 0, 25, false, {})
+	header.store_key_value_in_header("#d", "No task yet.")
 	header.construct_header()
 
 	session_id = utility.uuid()
@@ -162,7 +163,10 @@ function module.execute(args)
 		session_id = session_id,
 		event = "session_start",
 	}
-	utility.apppend_table_to_path(target_data, user_config.base_path .. tostring(session_id) .. ".json")
+	utility.apppend_table_to_path(
+		target_data,
+		user_config.event_storage_diretory_path .. tostring(session_id) .. ".json"
+	)
 
 	local scheduler_index = require("nvim-training.scheduler_index")
 	local collection_index = require("nvim-training.task_collection_index")
@@ -199,7 +203,10 @@ function module.stop()
 		session_id = session_id,
 		event = "session_end",
 	}
-	utility.apppend_table_to_path(target_data, user_config.base_path .. tostring(session_id) .. ".json")
+	utility.apppend_table_to_path(
+		target_data,
+		user_config.event_storage_diretory_path .. tostring(session_id) .. ".json"
+	)
 	print("Session got closed.")
 end
 

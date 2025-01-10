@@ -120,10 +120,10 @@ end
 
 function utility.set_buffer_to_rectangle_with_line(middle_line)
 	utility.update_buffer_respecting_header(utility.load_rectangle_with_line(middle_line))
-	local x_pos = internal_config.header_length + 4
+	local x = internal_config.header_length + 4
 
-	local y = math.random(0, #utility.get_line(x_pos))
-	vim.api.nvim_win_set_cursor(0, { x_pos, y })
+	local y = math.random(0, #utility.get_line(x))
+	vim.api.nvim_win_set_cursor(0, { x, y })
 end
 
 function utility.construct_data_search(word_length, left_target_bound, right_target_bound)
@@ -241,23 +241,27 @@ function utility.calculate_word_index_from_cursor_pos(word_bounds, cursor_pos)
 end
 
 function utility.get_line(index)
-	return vim.api.nvim_buf_get_lines(0, index - 1, index, true)[1]
+	return vim.api.nvim_buf_get_lines(internal_config.buf_id, index - 1, index, true)[1]
 end
 
 function utility.update_buffer_respecting_header(input_str)
 	local str_as_lines = utility.split_str(input_str, "\n")
-	vim.api.nvim_buf_set_lines(0, internal_config.header_length, internal_config.buffer_length, false, {})
+	vim.api.nvim_buf_set_lines(
+		internal_config.buf_id,
+		internal_config.header_length,
+		internal_config.buffer_length,
+		false,
+		{}
+	)
 
 	local end_index = internal_config.header_length + #str_as_lines
-	vim.api.nvim_buf_set_lines(0, internal_config.header_length, end_index, false, str_as_lines)
-	vim.cmd("sil write!")
+	vim.api.nvim_buf_set_lines(internal_config.buf_id, internal_config.header_length, end_index, false, str_as_lines)
 end
 
 function utility.append_lines_to_buffer(input_str)
 	local str_as_lines = utility.split_str(input_str, "\n")
 	local buf_len = vim.api.nvim_buf_line_count(0)
-	vim.api.nvim_buf_set_lines(0, buf_len, buf_len + #str_as_lines, false, str_as_lines)
-	vim.cmd("sil write!")
+	vim.api.nvim_buf_set_lines(internal_config.buf_id, buf_len, buf_len + #str_as_lines, false, str_as_lines)
 end
 
 function utility.split_str(input, sep)
@@ -351,7 +355,6 @@ function utility.apppend_table_to_path(data, path)
 end
 
 function utility.append_json_to_file(path, data)
-	-- print(path, vim.inspect(data))
 	local file = io.open(path, "a")
 
 	table.sort(data)
@@ -383,10 +386,10 @@ function utility.scandir(directory)
 end
 
 function utility.load_all_events()
-	local paths = utility.scandir(user_config.base_path)
+	local paths = utility.scandir(user_config.event_storage_diretory_path)
 	local result = {}
 	for i, v in pairs(paths) do
-		local file = io.open(user_config.base_path .. "/" .. v, "r")
+		local file = io.open(user_config.event_storage_diretory_path .. "/" .. v, "r")
 
 		local data = file:read("a")
 
@@ -466,6 +469,46 @@ function utility.filter_by_event_type(events, event_type)
 		end
 	end
 	return result
+end
+
+function utility.ensure_directory_existence(directory_path)
+	if not utility.exists(directory_path) then
+		print(
+			"The configured path '"
+				.. tostring(directory_path)
+				.. "' does not exist. Creation will be attempted! If this path does not suit you, use 'configure' to set it."
+		)
+		os.execute("mkdir " .. tostring(directory_path))
+	end
+	return utility.exists(directory_path)
+end
+function utility.check_vital_paths()
+	local base_dir_exists = true
+	local log_dir_exists = true
+	if user_config.enable_events then
+		local directory_exists = utility.ensure_directory_existence(user_config.event_storage_diretory_path)
+		if not directory_exists then
+			print(
+				"Construction of the diretories at '"
+					.. tostring(user_config.event_storage_diretory_path)
+					.. "' failed and events are enabled. Since this path is essential for storing the events, the application will not run. Please use 'configure' to disable logging or change the path."
+			)
+			base_dir_exists = false
+		end
+	end
+
+	if not user_config.logging_args.skip_all then
+		local directory_exists = utility.ensure_directory_existence(user_config.logging_args.log_directory_path)
+		if not directory_exists then
+			print(
+				"Construction of the diretories at '"
+					.. tostring(user_config.logging_args.log_directory_path)
+					.. "' failed and logging is enabled. Since this path is essential, the application will not run. Please use 'configure' to disable logging or change the path."
+			)
+			log_dir_exists = false
+		end
+	end
+	return base_dir_exists and log_dir_exists
 end
 
 return utility

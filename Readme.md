@@ -26,7 +26,7 @@ I consider this to be the best option for minimizing disruptions.
 - Supported Tasks-Collections: 5
 - Supported Schedulers: 3
 
-Some of the tags are currently inconsistent, this is under way to be fixed.
+Some of the tags are currently inconsistent, this is known about.
 
 # In Action
 ![GIF](media/screencast.gif)
@@ -59,9 +59,7 @@ Currently, these are the available options:
 | Stop | `:Training Stop`| Stops a session. |
 | Analyze | `:Training Analyze`| Prints some statistics about your progress. |
 
-Some care is taken to avoid overwritting your files, but just to be
-safe you may start in an empty buffer/directory.
-
+The plugin aims to use scratch-buffers to avoid polluting the disk.
 
 <!-- s -->
 # All tasks
@@ -146,19 +144,21 @@ included and described below.
 
 # Configuration
 A interface for configuration is provided. These are the default values if you do not change
-anything yourself.
+anything yourself. And since the config is just a big lua table, you are able to configure them to any
+extend you can imagine.
 ```lua
 local training = require("nvim-training")
 training.configure({ -- All of these options work for 'opts' of lazy as well.
 	audio_feedback = true, -- Enables/Disables audio feedback, if enabled, requires the 'sox' package providing the 'play' command.
-	base_path = vim.fn.stdpath("data") .. "/nvim-training/", -- The path used to store events.
 	counter_bounds = { 1, 5 }, --The outer bounds for counters used in some tasks. WARNING: A high value may result in glitchy behaviour.
 	custom_collections = {}, -- A table of tables containing names of tasks, for details read on.
 	enable_counters = true, -- Enables/Disables counters in tasks that support counters.
 	enable_events = true, -- Enables/Disables events.
 	enable_highlights = true, --Enables/Disables highlights. Care is taken to ensure that tasks are possible without them.
+	event_storage_directory_path= vim.fn.stdpath("data") .. "/nvim-training/", -- The path used to store events.
 	logging_args = {
-		log_path = vim.fn.stdpath("log") .. "/nvim-training/" .. os.date("%Y-%M-%d") .. ".log",
+		log_directory_path = vim.fn.stdpath("log") .. "/nvim-training/",
+		log_file_path = os.date("%Y-%M-%d") .. ".log",
 		display_logs = false, --Enables/Disables wether messages with the level 'log' should be printed. WARNING: Enabling his produces a lot of noise, but might be usefull for developers.
 		display_warnings = true, --Enables/Disables wether messages with the level 'warning' should be printed.
 		skip_all = false, -- Enables/Disables logging entirely. Usefull if you are worried about saving disk space.

@@ -1,4 +1,5 @@
 local utility = require("nvim-training.utility")
+local internal_config = require("nvim-training.internal_config")
 local parsing = require("nvim-training.utilities.parsing")
 local module = {}
 
@@ -9,10 +10,7 @@ local name_func_map = {
 	CounterPerTask = stats_mod.task_counter,
 }
 function module.execute(args)
-	vim.cmd("!rm results.txt")
-	vim.cmd("e results.txt")
-	vim.api.nvim_buf_set_lines(0, 0, 0, false, {})
-	vim.cmd("sil write!")
+	vim.api.nvim_buf_set_lines(internal_config.buf_id, 0, 0, false, {})
 	local events = utility.load_all_events()
 
 	if #events == 0 then
@@ -28,11 +26,10 @@ function module.execute(args)
 		end
 	end
 
-	vim.api.nvim_buf_set_lines(0, 0, 0, false, {
+	vim.api.nvim_buf_set_lines(internal_config.buf_id, 0, 0, false, {
 
 		"This mode is currently in a beta and subject to change. Feedback by opening an issue is appreciated.",
 	})
-	vim.cmd("sil write!")
 	utility.append_lines_to_buffer(
 		"To generate these stats, a total of "
 			.. tostring(#events)
