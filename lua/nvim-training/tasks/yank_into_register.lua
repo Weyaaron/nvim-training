@@ -27,7 +27,7 @@ function YankIntoRegister:activate()
 
 		local cursor_pos = vim.api.nvim_win_get_cursor(0)
 
-		local current_line = vim.api.nvim_buf_get_lines(0, cursor_pos[1] - 1, cursor_pos[1], false)[1]
+		local current_line = utility.get_line(cursor_pos[1])
 		local line_length = #current_line
 		utility.construct_highlight(cursor_pos[1], 0, line_length)
 		self.target_text = current_line

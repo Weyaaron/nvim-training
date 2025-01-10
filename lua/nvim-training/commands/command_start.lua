@@ -2,6 +2,7 @@ local header = require("nvim-training.header")
 local user_config = require("nvim-training.user_config")
 local audio = require("nvim-training.audio")
 local parsing = require("nvim-training.utilities.parsing")
+local internal_config = require("nvim-training.internal_config")
 local task_count = 0
 local success_count = 0
 local failure_count = 0
@@ -90,14 +91,6 @@ local function loop(autocmd_callback_data)
 		end
 	end
 
-	vim.schedule_wrap(function()
-		--This line is included to ensure that each task starts in the same file. A task may jump around and this ensures
-		--coming back.
-		vim.cmd("sil write!")
-		vim.cmd("sil e training.txt")
-		vim.cmd("sil write!")
-	end)()
-
 	local utility = require("nvim-training.utility")
 	--This line ensures that the highlights of previous tasks are discarded.
 	local internal_config = require("nvim-training.internal_config")
@@ -146,12 +139,21 @@ function module.execute(args)
 	if not utility.check_vital_paths then
 		return
 	end
+	vim.api.nvim_win_set_buf(0, internal_config.buf_id)
 
-	--Todo: Check if file exists
-	vim.cmd("e training.txt")
-	vim.api.nvim_buf_set_lines(0, 0, 25, false, {})
-	vim.cmd("write!")
-	vim.api.nvim_win_set_cursor(0, { 1, 1 })
+	if user_config.enable_events then
+		if not utility.exists(user_config.base_path) then
+			print(
+				"Unable to create the path '"
+					.. tostring(user_config.base_path)
+					.. "'. The plugin will not run. If this path does not suit you, use 'configure' to set it or disable events using 'configure'"
+			)
+
+			return
+		end
+	end
+
+	vim.api.nvim_buf_set_lines(internal_config.buf_id, 0, 25, false, {})
 	header.store_key_value_in_header("#d", "No task yet.")
 	header.construct_header()
 

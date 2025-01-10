@@ -26,7 +26,7 @@ I consider this to be the best option for minimizing disruptions.
 - Supported Tasks-Collections: 5
 - Supported Schedulers: 3
 
-Some of the tags are currently inconsistent, this is under way to be fixed.
+Some of the tags are currently inconsistent, this is known about.
 
 # In Action
 ![GIF](media/screencast.gif)
@@ -59,9 +59,7 @@ Currently, these are the available options:
 | Stop | `:Training Stop`| Stops a session. |
 | Analyze | `:Training Analyze`| Prints some statistics about your progress. |
 
-Some care is taken to avoid overwritting your files, but just to be
-safe you may start in an empty buffer/directory.
-
+The plugin aims to use scratch-buffers to avoid polluting the disk.
 
 <!-- s -->
 # All tasks
@@ -146,7 +144,7 @@ included and described below.
 
 # Configuration
 A interface for configuration is provided. These are the default values if you do not change
-anything yourself. And since these are just lua code, you are able to configure them to any
+anything yourself. And since the config is just a big lua table, you are able to configure them to any
 extend you can imagine.
 ```lua
 local training = require("nvim-training")

@@ -3,6 +3,7 @@ local internal_config = {
 	buffer_length = 20,
 	line_length = 70,
 	global_hl_namespace = vim.api.nvim_create_namespace("DefaultNvimTrainingHlSpace"),
+	buf_id = vim.api.nvim_create_buf(false, ""),
 }
 
 return internal_config
