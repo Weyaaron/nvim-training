@@ -41,3 +41,27 @@ vim.api.nvim_create_user_command("Training", my_cmd, {
 		end
 	end,
 })
+
+vim.api.nvim_create_user_command("GuidedTraining", my_cmd, {
+	nargs = "+",
+	desc = "Guided Training for beginners.",
+	complete = function(arg_lead, cmdline, _)
+		local subcommand_tbl = require("nvim-training.commands")
+		-- Get the subcommand.
+		local subcmd_key, subcmd_arg_lead = cmdline:match("^['<,'>]*Training[!]*%s(%S+)%s(.*)$")
+		if subcmd_key and subcmd_arg_lead and subcommand_tbl[subcmd_key] and subcommand_tbl[subcmd_key].complete then
+			-- The subcommand has completions. Return them.
+			return subcommand_tbl[subcmd_key].complete(subcmd_arg_lead)
+		end
+		-- Check if cmdline is a subcommand
+		if cmdline:match("^['<,'>]*Training[!]*%s+%w*$") then
+			-- Filter subcommands that match
+			local subcommand_keys = vim.tbl_keys(subcommand_tbl)
+			return vim.iter(subcommand_keys)
+				:filter(function(key)
+					return key:find(arg_lead) ~= nil
+				end)
+				:totable()
+		end
+	end,
+})
