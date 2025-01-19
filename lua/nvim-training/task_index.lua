@@ -60,6 +60,8 @@ local exported_tasks = {
 	YankT = require("nvim-training.tasks.yank_T"),
 	YankWord = require("nvim-training.tasks.yank_word"),
 	YankWORD = require("nvim-training.tasks.yank_WORD"),
+	SwapCaseChar = require("nvim-training.tasks.swap_case_char"),
+	SwapCaseWord= require("nvim-training.tasks.swap_case_word"),
 }
 
 for i, v in pairs(exported_tasks) do

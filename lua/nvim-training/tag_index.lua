@@ -1,5 +1,7 @@
 local exported_tags = {
 	block = { "text-object", "inside" },
+	case = { "case-change", "case" },
+	character = { "character" },
 	change = { "change" },
 	deletion = { "deletion" },
 	F = { "F", "horizontal", "chair-wise", "left" },
