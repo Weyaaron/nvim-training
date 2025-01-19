@@ -1,6 +1,7 @@
 local utility = require("nvim-training.utility")
 local Move = require("nvim-training.tasks.move")
 local movements = require("nvim-training.movements")
+local tag_index = require("nvim-training.tag_index")
 
 local MoveWordStart = {}
 MoveWordStart.__index = MoveWordStart
@@ -9,7 +10,7 @@ MoveWordStart.__metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move back to the start of 'words'.",
 	instructions = "",
-	tags = "movement, word, horizontal",
+	tags = Move.__metadata.tags .. tag_index.word_start,
 }
 
 function MoveWordStart:new()

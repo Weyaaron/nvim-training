@@ -1,6 +1,7 @@
 local utility = require("nvim-training.utility")
 local Move = require("nvim-training.tasks.move")
 local user_config = require("nvim-training.user_config")
+local tag_index = require("nvim-training.tag_index")
 
 local MoveMatch = {}
 MoveMatch.__index = MoveMatch
@@ -10,7 +11,7 @@ MoveMatch.__metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move to the current match.",
 	instructions = "Move to the current match.",
-	tags = "match, movement",
+	tags = Move.__metadata.tags .. tag_index.match,
 }
 function MoveMatch:new()
 	local base = Move:new()

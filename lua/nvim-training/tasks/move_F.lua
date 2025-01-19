@@ -1,6 +1,7 @@
 local utility = require("nvim-training.utility")
 local Move = require("nvim-training.tasks.move")
 local movements = require("nvim-training.movements")
+local tag_index = require("nvim-training.tag_index")
 
 local MoveF = {}
 MoveF.__index = MoveF
@@ -9,13 +10,12 @@ MoveF.__metadata = {
 	autocmd = "CursorMoved",
 	desc = "Go back to the last ocurrence of a char.",
 	instructions = "",
-	tags = "movement, F, horizontal",
+	tags = Move.__metadata.tags .. tag_index.F,
 }
 
 function MoveF:new()
 	local base = Move:new()
 	setmetatable(base, { __index = MoveF })
-	base.target_char = utility.calculate_target_char()
 	return base
 end
 

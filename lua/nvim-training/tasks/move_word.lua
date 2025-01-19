@@ -1,15 +1,16 @@
 local utility = require("nvim-training.utility")
 local Move = require("nvim-training.tasks.move")
 local movements = require("nvim-training.movements")
-local MoveWord = {}
+local tag_index = require("nvim-training.tag_index")
 
+local MoveWord = {}
 MoveWord.__index = MoveWord
 setmetatable(MoveWord, { __index = Move })
 MoveWord.__metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move multiple words.",
 	instructions = "",
-	tags = "movement, word, horizontal, w",
+	tags = Move.__metadata.tags .. tag_index.words,
 }
 
 function MoveWord:new()

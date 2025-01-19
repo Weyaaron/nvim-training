@@ -1,6 +1,6 @@
 local utility = require("nvim-training.utility")
 local Delete = require("nvim-training.tasks.delete")
-local movements = require("nvim-training.movements")
+local tag_index = require("nvim-training.tag_index")
 
 local DeleteSentence = {}
 
@@ -10,7 +10,7 @@ DeleteSentence.__metadata = {
 	autocmd = "TextChanged",
 	desc = "Delete the textobject inner sentence.",
 	instructions = "",
-	tags = "deletion, sentence",
+	tags = Delete.__metadata.tags .. tag_index.sentence,
 }
 
 function DeleteSentence:new()

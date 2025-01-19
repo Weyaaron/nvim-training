@@ -41,10 +41,21 @@ function TaskCollection:render_markdown()
 		local current_task = task_index[task_name]:new()
 		local tag_str = current_task.__metadata.tags or "not given"
 		local tag_pieces = utility.split_str(tag_str, ",")
-		table.sort(tag_pieces)
+
+		local tag_pieces_that_are_suitable = {}
+		local dup_table = {}
+		for ii, v in pairs(tag_pieces) do
+			if #v > 1 and not ((v == " ") or (v == "  ")) and dup_table[v] == nil then
+				tag_pieces_that_are_suitable[#tag_pieces_that_are_suitable + 1] = utility.trim(v)
+				dup_table[v] = v
+			end
+		end
+		table.sort(tag_pieces_that_are_suitable, function(a, b)
+			return a:lower() < b:lower()
+		end)
 
 		local pieces = { task_name, current_task.__metadata.desc }
-		pieces[#pieces + 1] = table.concat(tag_pieces, ", ")
+		pieces[#pieces + 1] = table.concat(tag_pieces_that_are_suitable, ", ")
 
 		if current_task.__metadata then
 			pieces[#pieces + 1] = current_task.__metadata.notes

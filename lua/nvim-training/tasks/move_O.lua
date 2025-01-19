@@ -1,5 +1,6 @@
 local utility = require("nvim-training.utility")
 local Move = require("nvim-training.tasks.move")
+local tag_index = require("nvim-training.tag_index")
 
 local MoveO = {}
 MoveO.__index = MoveO
@@ -8,7 +9,7 @@ MoveO.__metadata = {
 	autocmd = "InsertLeave",
 	desc = "Enter and leave insert mode above the current line.",
 	instructions = "Enter and leave insert mode above the current line.",
-	tags = "O, movement, insert_mode, linewise",
+	tags = Move.__metadata.tags .. tag_index.O,
 }
 
 function MoveO:new()

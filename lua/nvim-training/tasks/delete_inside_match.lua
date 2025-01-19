@@ -1,5 +1,6 @@
 local utility = require("nvim-training.utility")
 local Delete = require("nvim-training.tasks.delete")
+local tag_index = require("nvim-training.tag_index")
 
 local DeleteInsideMatch = {}
 DeleteInsideMatch.__index = DeleteInsideMatch
@@ -9,7 +10,7 @@ DeleteInsideMatch.__metadata = {
 	autocmd = "TextChanged",
 	desc = "Delete inside the current match.",
 	instructions = "Delete inside the current match.",
-	tags = "deletion, match, inside",
+	tags = Delete.__metadata.tags .. tag_index.match,
 }
 function DeleteInsideMatch:new()
 	local base = Delete:new()

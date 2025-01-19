@@ -1,16 +1,16 @@
 local utility = require("nvim-training.utility")
 local Move = require("nvim-training.tasks.move")
 local movements = require("nvim-training.movements")
-local Move_f = {}
+local tag_index = require("nvim-training.tag_index")
 
+local Move_f = {}
 Move_f.__index = Move_f
 Move_f.__metadata = {
 	autocmd = "CursorMoved",
 	desc = "Find the next char.",
 	instructions = "",
-	tags = "f, horizontal",
+	tags = Move.__metadata.tags .. tag_index.f,
 }
-Move_f.__metadata.tags = utility.merge_tags(Move_f.__metadata.tags, Move.__metadata.tags)
 setmetatable(Move_f, { __index = Move })
 
 function Move_f:new()

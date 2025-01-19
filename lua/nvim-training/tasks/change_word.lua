@@ -1,15 +1,16 @@
 local utility = require("nvim-training.utility")
 local Change = require("nvim-training.tasks.change")
 local movements = require("nvim-training.movements")
-local ChangeWord = {}
+local tag_index = require("nvim-training.tag_index")
 
+local ChangeWord = {}
 ChangeWord.__index = ChangeWord
 setmetatable(ChangeWord, { __index = Change })
 ChangeWord.__metadata = {
 	autocmd = "InsertLeave",
 	desc = "Change multiple words.",
 	instructions = "",
-	tags = "change, word, horizontal, w, c",
+	tags = Change.__metadata.tags .. tag_index.words,
 }
 
 function ChangeWord:new()
