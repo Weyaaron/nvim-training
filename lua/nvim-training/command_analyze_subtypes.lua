@@ -45,14 +45,8 @@ function module.basic_stats(events)
 
 	local unique_task_started_counter = #utility.get_keys(unique_events)
 
-	utility.append_lines_to_buffer(
-		"You started a total of "
-			.. tostring(#task_starts)
-			.. " Tasks with "
-			.. tostring(unique_task_started_counter)
-			.. " types. \n"
-	)
-	utility.append_lines_to_buffer("You started a total of " .. tostring(#sessions) .. " Sessions.")
+	utility.append_lines_to_buffer("These stats are based on " .. tostring(#task_starts) .. " Tasks.")
+	utility.append_lines_to_buffer("You started " .. tostring(#sessions) .. " Sessions.")
 	local time_stamps = {}
 
 	for i, v in pairs(sessions) do
@@ -71,6 +65,8 @@ function module.basic_stats(events)
 			.. total_tasks
 			.. " available."
 	)
+
+	utility.append_lines_to_buffer("")
 end
 
 function module.succes_percentages(events)
@@ -84,10 +80,41 @@ function module.succes_percentages(events)
 	table.sort(percentage_as_sortable, function(a, b)
 		return a[2] > b[2]
 	end)
-	utility.append_lines_to_buffer("These are all the tasks you finished sorted by percentage of success:")
+
+	local cutoff = 10
+	utility.append_lines_to_buffer("These are the top " .. cutoff .. " tasks by percentage of success:")
 	for i, v in pairs(percentage_as_sortable) do
-		utility.append_lines_to_buffer(tostring(v[1]) .. ": " .. tostring(v[2] * 100) .. "%")
+		local current_percentage = v[2] * 100
+		current_percentage = math.floor(current_percentage)
+		utility.append_lines_to_buffer(tostring(v[1]) .. ": " .. tostring(current_percentage) .. "%")
+		if i > cutoff then
+			break
+		end
 	end
+
+	table.sort(percentage_as_sortable, function(a, b)
+		return a[2] < b[2]
+	end)
+
+	utility.append_lines_to_buffer("")
+	local counter = 0
+	utility.append_lines_to_buffer("These are the bottom " .. cutoff .. " tasks by percentage of success:")
+	for i, v in pairs(percentage_as_sortable) do
+		if v[2] == 0 then
+			goto continue
+		end
+		local current_percentage = v[2] * 100
+		current_percentage = math.floor(current_percentage)
+		utility.append_lines_to_buffer(tostring(v[1]) .. ": " .. tostring(current_percentage) .. "%")
+		counter = counter + 1
+		if counter > cutoff then
+			break
+		end
+
+		::continue::
+	end
+
+	utility.append_lines_to_buffer("")
 end
 
 function module.task_counter(events)
@@ -100,7 +127,9 @@ function module.task_counter(events)
 			return ""
 		end
 	end)
-	utility.append_lines_to_buffer("These are how often you finished the tasks you started:")
+
+	local cutoff = 10
+	utility.append_lines_to_buffer("These are your " .. cutoff .. " most trained tasks:")
 
 	local unique_as_sortable = {}
 
@@ -112,9 +141,15 @@ function module.task_counter(events)
 		return a[2] > b[2]
 	end
 	table.sort(unique_as_sortable, sort)
+
 	for i, v in pairs(unique_as_sortable) do
 		utility.append_lines_to_buffer(tostring(v[1]) .. ": " .. tostring(v[2]))
+		if i > cutoff then
+			break
+		end
 	end
+
+	utility.append_lines_to_buffer("")
 end
 function module.all_stats(events)
 	module.basic_stats(events)
