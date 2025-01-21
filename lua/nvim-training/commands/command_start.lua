@@ -52,7 +52,7 @@ local function loop(autocmd_callback_data)
 		}
 
 		local utility = require("nvim-training.utility")
-		utility.apppend_table_to_path(
+		utility.append_to_table_path(
 			target_data,
 			user_config.event_storage_diretory_path .. tostring(session_id) .. ".json"
 		)
@@ -105,7 +105,7 @@ local function loop(autocmd_callback_data)
 		event = "task_start",
 		task_name = current_task.name,
 	}
-	utility.apppend_table_to_path(
+	utility.append_to_table_path(
 		target_data,
 		user_config.event_storage_diretory_path .. tostring(session_id) .. ".json"
 	)
@@ -138,22 +138,22 @@ function module.execute(args)
 	local init = require("nvim-training.init")
 	is_running = true
 	init.configure({})
-	if not utility.check_vital_paths then
-		return
-	end
+	-- if not utility.check_vital_paths then
+	-- 	return
+	-- end
 	vim.api.nvim_win_set_buf(0, internal_config.buf_id)
 
-	if user_config.enable_events then
-		if not utility.exists(user_config.event_storage_diretory_path) then
-			print(
-				"Unable to create the path '"
-					.. tostring(user_config.event_storage_diretory_path)
-					.. "'. The plugin will not run. If this path does not suit you, use 'configure' to set it or disable events using 'configure'"
-			)
-
-			return
-		end
-	end
+	-- if user_config.enable_events then
+	-- 	if not utility.exists(user_config.event_storage_diretory_path) then
+	-- 		print(
+	-- 			"Unable to create the path '"
+	-- 				.. tostring(user_config.event_storage_diretory_path)
+	-- 				.. "'. The plugin will not run. If this path does not suit you, use 'configure' to set it or disable events using 'configure'"
+	-- 		)
+	--
+	-- 		return
+	-- 	end
+	-- end
 
 	vim.api.nvim_buf_set_lines(internal_config.buf_id, 0, 25, false, {})
 	header.store_key_value_in_header("#d", "No task yet.")
@@ -165,7 +165,7 @@ function module.execute(args)
 		session_id = session_id,
 		event = "session_start",
 	}
-	utility.apppend_table_to_path(
+	utility.append_to_table_path(
 		target_data,
 		user_config.event_storage_diretory_path .. tostring(session_id) .. ".json"
 	)
@@ -212,7 +212,7 @@ function module.stop()
 		session_id = session_id,
 		event = "session_end",
 	}
-	utility.apppend_table_to_path(
+	utility.append_to_table_path(
 		target_data,
 		user_config.event_storage_diretory_path .. tostring(session_id) .. ".json"
 	)

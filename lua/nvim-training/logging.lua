@@ -14,32 +14,34 @@ local function display_to_user(msg, data)
 end
 
 local function log_to_file(msg, data)
-	data.msg = msg
-	data.timestamp = os.time()
-	utility.append_json_to_file(
-		user_config.logging_args.log_directory_path .. user_config.logging_args.log_file_path,
-		data
-	)
+	-- Has been temporarily disabled to fix some design flaws
+	-- data.msg = msg
+	-- data.timestamp = os.time()
+	-- utility.append_json_to_file(
+	-- 	user_config.logging_args.log_directory_path .. user_config.logging_args.log_file_path,
+	-- 	data
+	-- )
 end
 function module.log(msg, data)
-	if user_config.logging_args.skip_all then
-		return
-	end
-	if user_config.logging_args.display_logs then
-		display_to_user(msg, data)
-	end
-	log_to_file(msg, data)
+	-- Has been temporarily disabled to fix some design flaws
+	-- if user_config.logging_args.skip_all then
+	-- 	return
+	-- end
+	-- if user_config.logging_args.display_logs then
+	-- 	display_to_user(msg, data)
+	-- end
+	-- log_to_file(msg, data)
 end
 
 function module.warn(msg, data)
-	if user_config.logging_args.skip_all then
-		return
-	end
-	if user_config.logging_args.display_warnings then
-		display_to_user(msg, data)
-	end
-	data.level = "warn"
-	log_to_file(msg, data)
+	-- if user_config.logging_args.skip_all then
+	-- 	return
+	-- end
+	-- if user_config.logging_args.display_warnings then
+	-- 	display_to_user(msg, data)
+	-- end
+	-- data.level = "warn"
+	-- log_to_file(msg, data)
 end
 
 return module
