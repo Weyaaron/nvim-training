@@ -20,11 +20,18 @@ requests for new features.
 I will attempt to ship breaking changes to public interfaces in such a way that they are done "all/many at once".
 I consider this to be the best option for minimizing disruptions. 
 
+# Known problems
+Currently, logging and event storage for statistics is disabled. A fix/reeenabling them is 
+under way.
+
 # Some stats of current tasks
 
 - Supported Tasks: 54
 - Supported Tasks-Collections: 5
 - Supported Schedulers: 3
+
+
+
 
 # In Action
 ![GIF](media/screencast.gif)

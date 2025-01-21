@@ -348,21 +348,24 @@ function utility.discard_tasks_by_tags(tasks, tag_list)
 	return tasks_with_tag
 end
 
-function utility.apppend_table_to_path(data, path)
-	if user_config.enable_events then
-		utility.append_json_to_file(path, data)
-	end
+function utility.append_to_table_path(data, path)
+	--Has been temorarily disabled to fix a design flaw
+	-- if user_config.enable_events then
+	-- 	utility.append_json_to_file(path, data)
+	-- end
 end
 
 function utility.append_json_to_file(path, data)
-	local file = io.open(path, "a")
 
-	table.sort(data)
-
-	local data_as_str = vim.json.encode(data)
-
-	file:write(data_as_str .. "\n")
-	file:close()
+	--Has been temorarily disabled to fix a design flaw
+	-- local file = io.open(path, "a")
+	--
+	-- table.sort(data)
+	--
+	-- local data_as_str = vim.json.encode(data)
+	--
+	-- file:write(data_as_str .. "\n")
+	-- file:close()
 end
 
 function utility.uuid()
@@ -483,32 +486,33 @@ function utility.ensure_directory_existence(directory_path)
 	return utility.exists(directory_path)
 end
 function utility.check_vital_paths()
-	local base_dir_exists = true
-	local log_dir_exists = true
-	if user_config.enable_events then
-		local directory_exists = utility.ensure_directory_existence(user_config.event_storage_diretory_path)
-		if not directory_exists then
-			print(
-				"Construction of the diretories at '"
-					.. tostring(user_config.event_storage_diretory_path)
-					.. "' failed and events are enabled. Since this path is essential for storing the events, the application will not run. Please use 'configure' to disable logging or change the path."
-			)
-			base_dir_exists = false
-		end
-	end
-
-	if not user_config.logging_args.skip_all then
-		local directory_exists = utility.ensure_directory_existence(user_config.logging_args.log_directory_path)
-		if not directory_exists then
-			print(
-				"Construction of the diretories at '"
-					.. tostring(user_config.logging_args.log_directory_path)
-					.. "' failed and logging is enabled. Since this path is essential, the application will not run. Please use 'configure' to disable logging or change the path."
-			)
-			log_dir_exists = false
-		end
-	end
-	return base_dir_exists and log_dir_exists
+	--Has been temporarily disabled until some design flaws are fixed
+	-- local base_dir_exists = true
+	-- local log_dir_exists = true
+	-- if user_config.enable_events then
+	-- 	local directory_exists = utility.ensure_directory_existence(user_config.event_storage_diretory_path)
+	-- 	if not directory_exists then
+	-- 		print(
+	-- 			"Construction of the diretories at '"
+	-- 				.. tostring(user_config.event_storage_diretory_path)
+	-- 				.. "' failed and events are enabled. Since this path is essential for storing the events, the application will not run. Please use 'configure' to disable logging or change the path."
+	-- 		)
+	-- 		base_dir_exists = false
+	-- 	end
+	-- end
+	--
+	-- if user_config.logging_args.skip_all then
+	-- 	local directory_exists = utility.ensure_directory_existence(user_config.logging_args.log_directory_path)
+	-- 	if not directory_exists then
+	-- 		print(
+	-- 			"Construction of the diretories at '"
+	-- 				.. tostring(user_config.logging_args.log_directory_path)
+	-- 				.. "' failed and logging is enabled. Since this path is essential, the application will not run. Please use 'configure' to disable logging or change the path."
+	-- 		)
+	-- 		log_dir_exists = false
+	-- 	end
+	-- end
+	-- return base_dir_exists and log_dir_exists
 end
 
 return utility
