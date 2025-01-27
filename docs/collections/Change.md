@@ -3,6 +3,7 @@
 | --- | -------- | -------- | -------- |
 |AppendChar | Insert a char next to the cursor. | append, change, insertion |
 |BlockCommentLine | Change the current line into a block comment. | change, comment, plugin, programming | This assumes the use of a plugin, it is not tested with the buildin-commenting-feature. |
+|ChangeLine | Change the current line. | change, deletion, line |
 |ChangeWord | Change multiple words. | change, counter, horizontal, text-object, words |
 |CommentLine | Change the current line into a single line comment. | change, commenting, plugin, programming | Not available in vanilla-vim, needs plugin. |
 |DeleteChar | Delete the current char. | change, char, deletion |

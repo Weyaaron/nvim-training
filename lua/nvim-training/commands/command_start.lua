@@ -54,7 +54,7 @@ local function loop(autocmd_callback_data)
 		local utility = require("nvim-training.utility")
 		utility.append_to_table_path(
 			target_data,
-			user_config.event_storage_diretory_path .. tostring(session_id) .. ".json"
+			user_config.event_storage_directory_path .. tostring(session_id) .. ".json"
 		)
 
 		task_count = task_count + 1
@@ -107,7 +107,7 @@ local function loop(autocmd_callback_data)
 	}
 	utility.append_to_table_path(
 		target_data,
-		user_config.event_storage_diretory_path .. tostring(session_id) .. ".json"
+		user_config.event_storage_directory_path .. tostring(session_id) .. ".json"
 	)
 
 	--This gives tasks some options to configure the header, for example with a prefix and a suffix to turn the header into a block comment in a programming language
@@ -167,7 +167,7 @@ function module.execute(args)
 	}
 	utility.append_to_table_path(
 		target_data,
-		user_config.event_storage_diretory_path .. tostring(session_id) .. ".json"
+		user_config.event_storage_directory_path .. tostring(session_id) .. ".json"
 	)
 
 	local scheduler_index = require("nvim-training.scheduler_index")
@@ -214,7 +214,7 @@ function module.stop()
 	}
 	utility.append_to_table_path(
 		target_data,
-		user_config.event_storage_diretory_path .. tostring(session_id) .. ".json"
+		user_config.event_storage_directory_path .. tostring(session_id) .. ".json"
 	)
 end
 

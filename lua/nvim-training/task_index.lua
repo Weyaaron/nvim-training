@@ -1,6 +1,7 @@
 local exported_tasks = {
 	AppendChar = require("nvim-training.tasks.append_char"),
 	BlockCommentLine = require("nvim-training.tasks.comment_line_block"),
+	ChangeLine = require("nvim-training.tasks.change_line"),
 	ChangeWord = require("nvim-training.tasks.change_word"),
 	CommentLine = require("nvim-training.tasks.comment_line"),
 	DeleteChar = require("nvim-training.tasks.delete_char"),
@@ -14,6 +15,7 @@ local exported_tasks = {
 	DeleteWord = require("nvim-training.tasks.delete_word"),
 	DeleteWORD = require("nvim-training.tasks.delete_WORD"),
 	Increment = require("nvim-training.tasks.increment"),
+	InsertAtStartOfLine = require("nvim-training.tasks.insert_at_start_of_line"),
 	InsertChar = require("nvim-training.tasks.insert_char"),
 	JoinLines = require("nvim-training.tasks.join_lines"),
 	MoveAbsoluteLine = require("nvim-training.tasks.move_absolute_line"),

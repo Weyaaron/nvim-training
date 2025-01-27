@@ -26,12 +26,9 @@ under way.
 
 # Some stats of current tasks
 
-- Supported Tasks: 54
+- Supported Tasks: 56
 - Supported Tasks-Collections: 5
 - Supported Schedulers: 3
-
-
-
 
 # In Action
 ![GIF](media/screencast.gif)
@@ -72,11 +69,12 @@ The plugin aims to use scratch-buffers to avoid polluting the disk.
 | --- | -------- | -------- | -------- |
 |AppendChar | Insert a char next to the cursor. | append, change, insertion |
 |BlockCommentLine | Change the current line into a block comment. | change, comment, plugin, programming | This assumes the use of a plugin, it is not tested with the buildin-commenting-feature. |
+|ChangeLine | Change the current line. | change, deletion, line |
 |ChangeWord | Change multiple words. | change, counter, horizontal, text-object, words |
 |CommentLine | Change the current line into a single line comment. | change, commenting, plugin, programming | Not available in vanilla-vim, needs plugin. |
 |DeleteChar | Delete the current char. | change, char, deletion |
-|DeleteF | Delete back to the previous char. | chair-wise, deletion, F, horizontal, left |
 |Deletef | Delete forward to the next char. | chair-wise, deletion, f, horizontal, right |
+|DeleteF | Delete back to the previous char. | chair-wise, deletion, F, horizontal, left |
 |DeleteInsideMatch | Delete inside the current match. | deletion, match, text-object |
 |DeleteLine | Delete the current line. | deletion, line |
 |DeleteSentence | Delete the textobject inner sentence. | deletion, horizontal, sentence, text-object |
@@ -85,6 +83,7 @@ The plugin aims to use scratch-buffers to avoid polluting the disk.
 |DeleteWORD | Delete multiple WORDs. | counter, deletion, horizontal, text-object, WORDS |
 |DeleteWord | Delete multiple words. | counter, deletion, horizontal, text-object, words |
 |Increment | Increment the value at the cursor. | change, char, increment |
+|InsertAtStartOfLine | Insert text at the start of the line. | I, insert, line, start |
 |InsertChar | Insert a char at the current position. | change, char, insertion |
 |JoinLines | Join the current line with the line below. | change, J, join, line |
 |MoveAbsoluteLine | Move to the absolute line. | line, movement, vertical |
@@ -92,8 +91,8 @@ The plugin aims to use scratch-buffers to avoid polluting the disk.
 |MoveCharsRight | Move right charwise. | horizontal, l, movement |
 |MoveEndOfFile | Move to the end the file. | end, file, movement, vertical |
 |MoveEndOfLine | Move to the end of the current line. | end, horizontal, line, movement |
-|Movef | Find the next char. | chair-wise, f, horizontal, movement, right |
 |MoveF | Go back to the last ocurrence of a char. | chair-wise, F, horizontal, left, movement |
+|Movef | Find the next char. | chair-wise, f, horizontal, movement, right |
 |MoveLinesDown | Move down multiple lines. | horizontal, j, lines, movement |
 |MoveLinesUp | Move multiple lines up. | horizontal, k, lines, movement |
 |MoveMatch | Move to the current match. | match, movement, text-object |
@@ -103,14 +102,14 @@ The plugin aims to use scratch-buffers to avoid polluting the disk.
 |MoveStartOfLine | Move to the start of the current line. | line, movement, start |
 |MoveT | Go back next to the last ocurrence of a char. | chair-wise, horizontal, left, movement, T |
 |Movet | Move using t. | chair-wise, horizontal, movement, right, t |
-|MoveWORD | Move multiple WORDS. | counter, horizontal, movement, text-object, WORDS |
 |MoveWord | Move multiple words. | counter, horizontal, movement, text-object, words |
+|MoveWORD | Move multiple WORDS. | counter, horizontal, movement, text-object, WORDS |
 |MoveWordEnd | Move to the end of words. | end, movement, vertical, word |
 |MoveWORDEnd | Move to the end of WORDs. | end, movement, vertical, WORDS |
-|MoveWORDStart | Move Back to the start of 'WORDS'. | horizontal, movement, word |
 |MoveWordStart | Move back to the start of 'words'. | horizontal, movement, word |
-|Paste | Paste from a given register. | Paste, register |
+|MoveWORDStart | Move Back to the start of 'WORDS'. | horizontal, movement, word |
 |paste | Paste from a given register. | paste, register |
+|Paste | Paste from a given register. | Paste, register |
 |SearchBackward | Search backwards. | diagonal, movement, search |
 |SearchForward | Search forwards. | forward, movement, search |
 |SearchWordBackward | Search backwards for the word at the cursor. | backward, movement, search |
@@ -120,8 +119,8 @@ The plugin aims to use scratch-buffers to avoid polluting the disk.
 |YankF | Yank back to the previous char. | chair-wise, F, horizontal, left, register, yank |
 |YankInsideMatch | Yank inside the current match. | inside, match, yank |
 |YankIntoRegister | Yank a line into a register. | copy, line, register, vertical |
-|YankT | Yank back next to the previous char. | chair-wise, horizontal, left, register, T, yank |
 |Yankt | Yank to the next char. | chair-wise, f, horizontal, register, right, yank |
+|YankT | Yank back next to the previous char. | chair-wise, horizontal, left, register, T, yank |
 |YankWORD | Yank multiple WORDS. | counter, horizontal, register, text-object, WORDS, yank |
 |YankWord | Yank multiple words. | counter, horizontal, register, text-object, words, yank |
 <!-- e -->
@@ -162,11 +161,11 @@ training.configure({ -- All of these options work for 'opts' of lazy as well.
 	enable_highlights = true, --Enables/Disables highlights. Care is taken to ensure that tasks are possible without them.
 	event_storage_directory_path= vim.fn.stdpath("data") .. "/nvim-training/", -- The path used to store events.
 	logging_args = {
+        enable_logging = true, --Enables/Disables logging entirely.
 		log_directory_path = vim.fn.stdpath("log") .. "/nvim-training/",
 		log_file_path = os.date("%Y-%M-%d") .. ".log",
 		display_logs = false, --Enables/Disables wether messages with the level 'log' should be printed. WARNING: Enabling his produces a lot of noise, but might be usefull for developers.
 		display_warnings = true, --Enables/Disables wether messages with the level 'warning' should be printed.
-		skip_all = false, -- Enables/Disables logging entirely. Usefull if you are worried about saving disk space.
 	},
 	possible_marks_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }, -- A list of possible marks.
 	possible_register_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }, -- A list of possible registers.
