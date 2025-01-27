@@ -390,10 +390,10 @@ function utility.scandir(directory)
 end
 
 function utility.load_all_events()
-	local paths = utility.scandir(user_config.event_storage_diretory_path)
+	local paths = utility.scandir(user_config.event_storage_directory_path)
 	local result = {}
 	for i, v in pairs(paths) do
-		local file = io.open(user_config.event_storage_diretory_path .. "/" .. v, "r")
+		local file = io.open(user_config.event_storage_directory_path .. "/" .. v, "r")
 
 		local data = file:read("a")
 

@@ -18,10 +18,10 @@
 |Movet | Move using t. | chair-wise, horizontal, movement, right, t |
 |MoveWORD | Move multiple WORDS. | counter, horizontal, movement, text-object, WORDS |
 |MoveWord | Move multiple words. | counter, horizontal, movement, text-object, words |
-|MoveWORDEnd | Move to the end of WORDs. | end, movement, vertical, WORDS |
 |MoveWordEnd | Move to the end of words. | end, movement, vertical, word |
-|MoveWORDStart | Move Back to the start of 'WORDS'. | horizontal, movement, word |
+|MoveWORDEnd | Move to the end of WORDs. | end, movement, vertical, WORDS |
 |MoveWordStart | Move back to the start of 'words'. | horizontal, movement, word |
+|MoveWORDStart | Move Back to the start of 'WORDS'. | horizontal, movement, word |
 |SearchBackward | Search backwards. | diagonal, movement, search |
 |SearchForward | Search forwards. | forward, movement, search |
 |SearchWordBackward | Search backwards for the word at the cursor. | backward, movement, search |
