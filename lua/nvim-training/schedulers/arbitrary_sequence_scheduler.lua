@@ -1,3 +1,4 @@
+
 local TaskScheduler = require("nvim-training.task_scheduler")
 
 ArbitrarySequenceScheduler = {}
@@ -8,10 +9,8 @@ function ArbitrarySequenceScheduler:new(task_collections)
 	local base = TaskScheduler:new(task_collections)
 	setmetatable(base, { __index = ArbitrarySequenceScheduler })
 
-	base.success_limit = 5
-	base.successes = 0
 	base.task_counter = 1
-	base.all_task = {}
+	base.task = nil
 	for i, task_collection_el in pairs(task_collections) do
 		for ii, task_el in pairs(task_collection_el.tasks) do
 			base.all_task[#base.all_task + 1] = task_el
@@ -21,6 +20,7 @@ function ArbitrarySequenceScheduler:new(task_collections)
 end
 
 function ArbitrarySequenceScheduler:next(previous, result)
+
 	if result then
 		self.successes = self.successes + 1
 	end
