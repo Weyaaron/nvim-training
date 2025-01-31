@@ -1,4 +1,6 @@
 ## NonMovements (Tasks not involving movement.)
+=======
+## All (All currently supported tasks)
 | Name | Description | Tags | Notes
 | --- | -------- | -------- | -------- |
 |AppendChar | Insert a char next to the cursor. | append, change, insertion |

@@ -68,7 +68,9 @@ The plugin aims to use scratch-buffers to avoid polluting the disk.
 <details>
 <summary> Click to expand </summary>
 <!-- s -->
+
 # All tasks
+
 | Name | Description | Tags | Notes
 | --- | -------- | -------- | -------- |
 |AppendChar | Insert a char next to the cursor. | append, change, insertion |
@@ -84,7 +86,7 @@ The plugin aims to use scratch-buffers to avoid polluting the disk.
 |DeleteSentence | Delete the textobject inner sentence. | deletion, horizontal, text-object, sentence |
 |Deletet | Delete to the next char. | chair-wise, deletion, horizontal, right, t |
 |DeleteT | Delete back to the next char. | chair-wise, deletion, horizontal, left, T |
-|DeleteWORD | Delete multiple WORDs. | counter, deletion, horizontal, text-object,, WORD |
+|DeleteWORD | Delete multiple WORDs. | counter, deletion, horizontal, text-object, WORD |
 |DeleteWord | Delete multiple words. | counter, deletion, horizontal, text-object, word |
 |Increment | Increment the value at the cursor. | change, char, increment |
 |InsertAtStartOfLine | Insert text at the start of the line. | I, insert, line, start |
@@ -107,7 +109,7 @@ The plugin aims to use scratch-buffers to avoid polluting the disk.
 |MoveT | Go back next to the last ocurrence of a char. | chair-wise, horizontal, left, movement, T |
 |Movet | Move using t. | chair-wise, horizontal, movement, right, t |
 |MoveWord | Move multiple words. | counter, horizontal, movement, text-object, word |
-|MoveWORD | Move multiple WORDS. | counter, horizontal, movement, text-object,, WORD |
+|MoveWORD | Move multiple WORDS. | counter, horizontal, movement, text-object, WORD |
 |MoveWordEnd | Move to the end of words. | end, movement, vertical, word |
 |MoveWORDEnd | Move to the end of WORDs. | end, movement, vertical, WORD |
 |MoveWordStart | Move back to the start of 'words'. | horizontal, movement, word |
@@ -125,7 +127,7 @@ The plugin aims to use scratch-buffers to avoid polluting the disk.
 |YankIntoRegister | Yank a line into a register. | copy, line, register, vertical |
 |Yankt | Yank to the next char. | chair-wise, f, horizontal, register, right, yank |
 |YankT | Yank back next to the previous char. | chair-wise, horizontal, left, register, T, yank |
-|YankWORD | Yank multiple WORDS. | counter, horizontal, register, text-object,, WORD, yank |
+|YankWORD | Yank multiple WORDS. | counter, horizontal, register, text-object, WORD, yank |
 |YankWord | Yank multiple words. | counter, horizontal, register, text-object, word, yank |
 <!-- e -->
 </details>

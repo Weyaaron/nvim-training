@@ -4,7 +4,6 @@ TaskCollection.__index = TaskCollection
 
 function TaskCollection:new(collection_desc)
 	local base = {}
-    print(vim.inspect(collection_desc))
 	setmetatable(base, TaskCollection)
 	base.name = collection_desc[1]
 	base.desc = collection_desc[2]
