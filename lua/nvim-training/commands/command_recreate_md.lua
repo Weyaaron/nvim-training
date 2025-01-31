@@ -50,14 +50,13 @@ local function rebuild_readme()
 	file:close()
 
 	local table_header =
-		"\n# All tasks\n| Name | Description | Tags | Notes\n| --- | -------- | -------- | -------- |\n"
+		"\n\n# All tasks\n\n| Name | Description | Tags | Notes\n| --- | -------- | -------- | -------- |\n"
 	local all_block = task_collection_index.All:render_markdown()
 	local start_index, start_end_index = string.find(original_md_content, "<!-- s -->", 1, true)
 	local end_index, end_end_index = string.find(original_md_content, "<!-- e -->", 1, true)
 	local prefix = original_md_content:sub(1, start_end_index)
 	local suffix = original_md_content:sub(end_index, #original_md_content)
 
-	print("Currently supported tasks: ", #task_collection_index.All.tasks)
 
 	local new_md = prefix .. table_header .. all_block .. "\n" .. suffix
 	local file = io.open(readme_path, "w")

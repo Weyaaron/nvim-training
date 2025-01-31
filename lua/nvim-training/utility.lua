@@ -3,29 +3,6 @@ local template_index = require("nvim-training.template_index")
 local user_config = require("nvim-training.user_config")
 local utility = {}
 
-function utility.merge_tags(tags_a, tags_b)
-	local words_a = utility.split_str(tags_a, ",")
-	local words_b = utility.split_str(tags_b, ",")
-	local exists = {}
-
-	local result = {}
-	for i, v in pairs(words_a) do
-		if exists[v] == nil then
-			exists[v] = v
-			result[#result + 1] = v
-		end
-	end
-
-	for i, v in pairs(words_b) do
-		if exists[v] == nil then
-			exists[v] = v
-			result[#result + 1] = v
-		end
-	end
-	table.sort(result)
-	return table.concat(result, ",")
-end
-
 function utility.calculate_center_cursor_pos()
 	local boundary_size = 3
 	local lower_pos_bound = math.floor(internal_config.line_length / 2) - boundary_size
@@ -317,38 +294,49 @@ end
 function utility.gather_tags(tasks)
 	local result = {}
 	for i, task_el in pairs(tasks) do
-		local current_tag = task_el.__metadata.tags or ""
-		local current_pieces = utility.split_str(current_tag, ", ")
-		for ii, tag_el in pairs(current_pieces) do
+		for ii, tag_el in pairs(task_el.__metadata.tags) do
 			result[tag_el] = tag_el
 		end
 	end
 	return result
 end
 
-function utility.filter_tasks_by_tags(tasks, tag_list)
-	local tasks_with_tag = {}
-	for i, tag_el in pairs(tag_list) do
-		for ii, task_el in pairs(tasks) do
-			local current_tag = task_el.__metadata.tags or ""
-			if current_tag:find(tag_el) then
-				tasks_with_tag[#tasks_with_tag + 1] = ii
+function utility.flatten(input_table, resulting_table)
+	if type(input_table) ~= "table" then
+		return input_table
+	end
+
+	if resulting_table == nil then
+		resulting_table = {}
+	end
+
+	for i, outer_table_el in pairs(input_table) do
+		if type(outer_table_el) == "table" then
+			local recursive_result = utility.flatten(outer_table_el, {})
+			for ii, inner_table_el in pairs(recursive_result) do
+				resulting_table[#resulting_table + 1] = inner_table_el
 			end
+		else
+			resulting_table[#resulting_table + 1] = outer_table_el
 		end
 	end
-	return tasks_with_tag
+	return resulting_table
 end
 
-function utility.discard_tasks_by_tags(tasks, tag_list)
+function utility.create_task_list_with_given_tags(tag_list)
+	local task_index = require("nvim-training.task_index")
 	local tasks_with_tag = {}
 	for i, tag_el in pairs(tag_list) do
-		for ii, task_el in pairs(tasks) do
-			local current_tag = task_el.__metadata.tags or ""
-			if current_tag:find(tag_el) == nil then
-				tasks_with_tag[#tasks_with_tag + 1] = ii
+		for ii, task_el in pairs(task_index) do
+			for iii, inner_tag_el in pairs(task_el.__metadata.tags) do
+				if tag_el == inner_tag_el then
+					tasks_with_tag[#tasks_with_tag + 1] = ii
+				end
 			end
 		end
 	end
+
+	tasks_with_tag = utility.remove_duplicates_from_iindex_based_table(tasks_with_tag)
 	return tasks_with_tag
 end
 
@@ -436,6 +424,18 @@ function utility.construct_empty_line_with_new_line()
 	end
 	result = result .. "\n"
 	return result
+end
+
+function utility.remove_duplicates_from_iindex_based_table(input_table)
+	local output_table = {}
+	local hash_table = {}
+	for i, v in pairs(input_table) do
+		if not hash_table[v] then
+			output_table[#output_table + 1] = v
+			hash_table[v] = true
+		end
+	end
+	return output_table
 end
 
 function utility.construct_WORDS_line()

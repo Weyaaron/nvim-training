@@ -5,8 +5,12 @@ local user_config = require("nvim-training.user_config")
 local paste = {}
 paste.__index = paste
 setmetatable(paste, { __index = Task })
-paste.__metadata =
-	{ autocmd = "TextChanged", desc = "Paste from a given register.", instructions = "", tags = "paste, register" }
+paste.__metadata = {
+	autocmd = "TextChanged",
+	desc = "Paste from a given register.",
+	instructions = "",
+	tags = { "paste", "register" },
+}
 
 function paste:new()
 	local base = Task:new()

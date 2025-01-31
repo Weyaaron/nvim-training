@@ -8,7 +8,7 @@ OpenWindow.__metadata = {
 	autocmd = "WinNew",
 	desc = "Open a new window.",
 	instructions = "Open a new window.",
-	tags = "window",
+	tags = { "window" },
 }
 
 function OpenWindow:new()

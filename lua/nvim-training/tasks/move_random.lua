@@ -10,7 +10,7 @@ MoveRandom.__metadata = {
 	desc = "Move to the random target.",
 	instructions = "Move to the random highlight.",
 	notes = "This task assumes the existence of a plugin that provides such a motion.",
-	tags = Move.__metadata.tags .. "plugin,  diagonal",
+	tags = utility.flatten({ Move.__metadata.tags, "plugin,  diagonal" }),
 }
 
 function MoveRandom:new()

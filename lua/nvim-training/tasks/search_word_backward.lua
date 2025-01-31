@@ -8,7 +8,7 @@ SearchWordBackward.__metadata = {
 	autocmd = "CursorMoved",
 	desc = "Search backwards for the word at the cursor.",
 	instructions = "",
-	tags = "search, movement, backward",
+	tags = { "search", "movement", "backward" },
 }
 function SearchWordBackward:new()
 	local base = Task:new()

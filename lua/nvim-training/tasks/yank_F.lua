@@ -11,7 +11,7 @@ YankF.__metadata = {
 	autocmd = "TextYankPost",
 	desc = "Yank back to the previous char.",
 	instructions = "",
-	tags = Yank.__metadata.tags .. tag_index.F,
+	tags = utility.flatten({ tag_index.yank, tag_index.F }),
 }
 
 function YankF:new()

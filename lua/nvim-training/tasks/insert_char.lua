@@ -8,7 +8,7 @@ InsertChar.__metadata = {
 	autocmd = "InsertLeave",
 	desc = "Insert a char at the current position.",
 	instructions = "",
-	tags = "change, insertion, char",
+	tags = { "change", "insertion", "char" },
 }
 
 function InsertChar:new()

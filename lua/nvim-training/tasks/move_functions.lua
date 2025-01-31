@@ -11,7 +11,7 @@ MoveFunctions.__metadata = {
 	desc = "Move around function objects.",
 	instructions = "Move to the start of the current function",
 	notes = "Not available in vanilla-vim, needs plugin.",
-	tags = "programming, plugin, movement, function",
+	tags = { "programming", "plugin", "movement", "function" },
 }
 
 function MoveFunctions:new()

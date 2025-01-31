@@ -10,7 +10,7 @@ Deletet.__metadata = {
 	autocmd = "CursorMoved",
 	desc = "Delete to the next char.",
 	instructions = ".",
-	tags = Delete.__metadata.tags .. tag_index.t,
+	tags = utility.flatten({ Delete.__metadata.tags, tag_index.t }),
 }
 
 function Deletet:new()

@@ -10,7 +10,7 @@ MoveLinesUp.__metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move multiple lines up.",
 	instructions = "",
-	tags = Move.__metadata.tags .. tag_index.lines_up,
+	tags = utility.flatten({ Move.__metadata.tags, tag_index.lines_up }),
 }
 function MoveLinesUp:new()
 	local base = Move:new()

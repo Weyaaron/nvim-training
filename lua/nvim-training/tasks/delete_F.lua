@@ -10,7 +10,7 @@ DeleteF.__metadata = {
 	autocmd = "CursorMoved",
 	desc = "Delete back to the previous char.",
 	instructions = ".",
-	tags = Delete.__metadata.tags .. tag_index.F,
+	tags = utility.flatten({ Delete.__metadata.tags, tag_index.F }),
 }
 
 function DeleteF:new()

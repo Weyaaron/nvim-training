@@ -8,7 +8,7 @@ SearchWordForward.__metadata = {
 	autocmd = "CursorMoved",
 	desc = "Search forwards for the word at the cursor.",
 	instructions = "",
-	tags = "search, movement, forward",
+	tags = { "search", "movement", "forward" },
 }
 function SearchWordForward:new()
 	local base = Task:new()

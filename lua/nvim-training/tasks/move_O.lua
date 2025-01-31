@@ -9,7 +9,7 @@ MoveO.__metadata = {
 	autocmd = "InsertLeave",
 	desc = "Enter and leave insert mode above the current line.",
 	instructions = "Enter and leave insert mode above the current line.",
-	tags = Move.__metadata.tags .. tag_index.O,
+	tags = utility.flatten({ Move.__metadata.tags, tag_index.O }),
 }
 
 function MoveO:new()

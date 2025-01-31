@@ -8,7 +8,7 @@ AppendChar.__metadata = {
 	autocmd = "InsertLeave",
 	desc = "Insert a char next to the cursor.",
 	instructions = "",
-	tags = "change, insertion, append",
+	tags = { "change", "insertion", "append" },
 }
 
 function AppendChar:new()
