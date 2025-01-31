@@ -323,10 +323,11 @@ function utility.flatten(input_table, resulting_table)
 	return resulting_table
 end
 
-function utility.filter_tasks_by_tags(tasks, tag_list)
+function utility.create_task_list_with_given_tags(tag_list)
+	local task_index = require("nvim-training.task_index")
 	local tasks_with_tag = {}
 	for i, tag_el in pairs(tag_list) do
-		for ii, task_el in pairs(tasks) do
+		for ii, task_el in pairs(task_index) do
 			for iii, inner_tag_el in pairs(task_el.__metadata.tags) do
 				if tag_el == inner_tag_el then
 					tasks_with_tag[#tasks_with_tag + 1] = ii

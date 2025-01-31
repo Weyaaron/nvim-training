@@ -1,4 +1,4 @@
-## Movements (Tasks involving movement.)
+## Movement (Tasks involving Movements)
 | Name | Description | Tags | Notes
 | --- | -------- | -------- | -------- |
 |MoveAbsoluteLine | Move to the absolute line. | line, movement, vertical |
@@ -16,12 +16,12 @@
 |MoveStartOfLine | Move to the start of the current line. | line, movement, start |
 |MoveT | Go back next to the last ocurrence of a char. | chair-wise, horizontal, left, movement, T |
 |Movet | Move using t. | chair-wise, horizontal, movement, right, t |
-|MoveWORD | Move multiple WORDS. | counter, horizontal, movement, text-object, WORDS |
-|MoveWord | Move multiple words. | counter, horizontal, movement, text-object, words |
+|MoveWord | Move multiple words. | counter, horizontal, movement, text-object, word |
+|MoveWORD | Move multiple WORDS. | counter, horizontal, movement, text-object,, WORD |
+|MoveWORDEnd | Move to the end of WORDs. | end, movement, vertical, WORD |
 |MoveWordEnd | Move to the end of words. | end, movement, vertical, word |
-|MoveWORDEnd | Move to the end of WORDs. | end, movement, vertical, WORDS |
-|MoveWordStart | Move back to the start of 'words'. | horizontal, movement, word |
 |MoveWORDStart | Move Back to the start of 'WORDS'. | horizontal, movement, word |
+|MoveWordStart | Move back to the start of 'words'. | horizontal, movement, word |
 |SearchBackward | Search backwards. | diagonal, movement, search |
 |SearchForward | Search forwards. | forward, movement, search |
 |SearchWordBackward | Search backwards for the word at the cursor. | backward, movement, search |

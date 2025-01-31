@@ -1,18 +1,17 @@
 local task_index = require("nvim-training.task_index")
-local utility = require("nvim-training.utility")
 local TaskCollection = {}
 TaskCollection.__index = TaskCollection
 
-function TaskCollection:new(name, desc, tag_list)
-	local task_names = utility.filter_tasks_by_tags(task_index, tag_list)
+function TaskCollection:new(collection_desc)
 	local base = {}
+    print(vim.inspect(collection_desc))
 	setmetatable(base, TaskCollection)
-	base.name = name
-	base.desc = desc
-	base.task_names = task_names
+	base.name = collection_desc[1]
+	base.desc = collection_desc[2]
+	base.task_names = collection_desc[3]
 
 	base.tasks = {}
-	for key, value in pairs(task_names) do
+	for key, value in pairs(base.task_names) do
 		local resolved_task = task_index[value]
 		if resolved_task == nil then
 			print(
