@@ -13,11 +13,14 @@ local function display_to_user(msg, data)
 end
 
 local function log_to_file(msg, data)
+	local full_path = user_config.logging_args.log_directory_path .. user_config.logging_args.log_file_path
 	if user_config.logging_args.enable_logging and utility.check_for_file_existence(full_path) then
 		data.msg = msg
 		data.timestamp = os.time()
-		local full_path = user_config.logging_args.log_directory_path .. user_config.logging_args.log_file_path
-		local file = io.open(full_path, "a")
+		local file, error = io.open(full_path, "a")
+		if not file then
+			return
+		end
 
 		table.sort(data)
 

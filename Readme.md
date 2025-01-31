@@ -163,7 +163,7 @@ training.configure({ -- All of these options work for 'opts' of lazy as well.
 	logging_args = {
         enable_logging = true, --Enables/Disables logging entirely.
 		log_directory_path = vim.fn.stdpath("log") .. "/nvim-training/",
-		log_file_path = os.date("%Y-%M-%d") .. ".log",
+		log_file_path = os.date("%Y-%m-%d") .. ".log",
 		display_logs = false, --Enables/Disables wether messages with the level 'log' should be printed. WARNING: Enabling his produces a lot of noise, but might be usefull for developers.
 		display_warnings = true, --Enables/Disables wether messages with the level 'warning' should be printed.
 	},

@@ -2,7 +2,9 @@ local user_config = require("nvim-training.user_config")
 local module = {}
 
 local function generate_out_str(middle)
-	return "The config parameter " .. middle .. " is not supported. To ensure a smooth experience consider changing/removing it."
+	return "The config parameter "
+		.. middle
+		.. " is not supported. To ensure a smooth experience consider changing/removing it."
 end
 
 local function configure(args)
@@ -23,13 +25,7 @@ local function configure(args)
 		end
 	end
 
-	local paths = {
-		user_config.logging_args.log_directory_path .. user_config.logging_args.log_file_path,
-		-- user_config.event_args.event_diretory_path .. user_config.event_args.event_file_path, --Todo: Reintroduce
-	}
-	for i, v in pairs(paths) do
-		os.execute("mkdir " .. tostring(v))
-	end
+	os.execute("mkdir " .. tostring(user_config.logging_args.log_directory_path))
 end
 
 function module.configure(args)
