@@ -34,6 +34,9 @@ function utility.calculate_center_cursor_pos()
 end
 
 function utility.check_for_file_existence(file)
+	if not file then
+		return false
+	end
 	local ok, err, code = os.rename(file, file)
 	if not ok then
 		if code == 13 then
