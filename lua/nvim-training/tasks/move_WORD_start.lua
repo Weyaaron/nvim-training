@@ -9,7 +9,7 @@ MoveWORDStart.__metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move Back to the start of 'WORDS'.",
 	instructions = "",
-	tags = "movement, word, horizontal",
+	tags = { "movement", "word", "horizontal" },
 }
 
 function MoveWORDStart:new()

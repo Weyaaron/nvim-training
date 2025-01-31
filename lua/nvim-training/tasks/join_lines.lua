@@ -7,7 +7,7 @@ JoinLines.__metadata = {
 	autocmd = "TextChanged",
 	desc = "Join the current line with the line below.",
 	instructions = "Join the current line with the line below using J.",
-	tags = "change, line, join, J",
+	tags = { "change", "line", "join", "J" },
 }
 
 setmetatable(JoinLines, { __index = Task })

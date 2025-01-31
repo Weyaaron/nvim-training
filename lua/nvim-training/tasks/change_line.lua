@@ -7,7 +7,7 @@ ChangeLine.__metadata = {
 	autocmd = "InsertLeave",
 	desc = "Change the current line.",
 	instructions = "Change the current line into 'x' and leave insert-mode.",
-	tags = "deletion, line, change",
+	tags = { "deletion", "line", "change" },
 }
 
 setmetatable(ChangeLine, { __index = Change })

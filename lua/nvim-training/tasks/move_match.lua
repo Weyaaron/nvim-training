@@ -11,7 +11,7 @@ MoveMatch.__metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move to the current match.",
 	instructions = "Move to the current match.",
-	tags = Move.__metadata.tags .. tag_index.match,
+	tags = utility.flatten({ Move.__metadata.tags, tag_index.match }),
 }
 function MoveMatch:new()
 	local base = Move:new()

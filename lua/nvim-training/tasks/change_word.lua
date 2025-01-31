@@ -10,7 +10,7 @@ ChangeWord.__metadata = {
 	autocmd = "InsertLeave",
 	desc = "Change multiple words.",
 	instructions = "",
-	tags = Change.__metadata.tags .. tag_index.words,
+	tags = utility.flatten({ Change.__metadata.tags, tag_index.word }),
 }
 
 function ChangeWord:new()

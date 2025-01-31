@@ -3,7 +3,8 @@ local utility = require("nvim-training.utility")
 local TaskCollection = {}
 TaskCollection.__index = TaskCollection
 
-function TaskCollection:new(name, desc, task_names)
+function TaskCollection:new(name, desc, tag_list)
+	local task_names = utility.filter_tasks_by_tags(task_index, tag_list)
 	local base = {}
 	setmetatable(base, TaskCollection)
 	base.name = name
@@ -39,28 +40,17 @@ function TaskCollection:render_markdown()
 	for i, task_name in pairs(sorted_task_names) do
 		--We do not do this as a class method since its a pain to gather all the pieces inside the task
 		local current_task = task_index[task_name]:new()
-		local tag_str = current_task.__metadata.tags or "not given"
-		local tag_pieces = utility.split_str(tag_str, ",")
+		local tags_of_current_task = current_task.__metadata.tags
 
-		local tag_pieces_that_are_suitable = {}
-		local dup_table = {}
-		for ii, v in pairs(tag_pieces) do
-			if #v > 1 and not ((v == " ") or (v == "  ")) and dup_table[v] == nil then
-				tag_pieces_that_are_suitable[#tag_pieces_that_are_suitable + 1] = utility.trim(v)
-				dup_table[v] = v
-			end
-		end
-		table.sort(tag_pieces_that_are_suitable, function(a, b)
+		table.sort(tags_of_current_task, function(a, b)
 			return a:lower() < b:lower()
 		end)
-
 		local pieces = { task_name, current_task.__metadata.desc }
-		pieces[#pieces + 1] = table.concat(tag_pieces_that_are_suitable, ", ")
+		pieces[#pieces + 1] = table.concat(tags_of_current_task, ", ")
 
 		if current_task.__metadata then
 			pieces[#pieces + 1] = current_task.__metadata.notes
 		end
-		-- lines[#lines + 1] = "| " .. task_name .. task_index[task_name]:new():render_markdown()
 		lines[#lines + 1] = "|" .. table.concat(pieces, " | ") .. " |"
 	end
 

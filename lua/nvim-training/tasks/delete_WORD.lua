@@ -10,7 +10,7 @@ DeleteWORD.__metadata = {
 	autocmd = "TextChanged",
 	desc = "Delete multiple WORDs.",
 	instructions = "",
-	tags = Delete.__metadata.tags .. tag_index.WORDS,
+	tags = utility.flatten({ Delete.__metadata.tags, tag_index.WORD }),
 }
 
 function DeleteWORD:new()

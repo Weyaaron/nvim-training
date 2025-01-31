@@ -10,7 +10,7 @@ MoveWord.__metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move multiple words.",
 	instructions = "",
-	tags = Move.__metadata.tags .. tag_index.words,
+	tags = utility.flatten({ Move.__metadata.tags, tag_index.word }),
 }
 
 function MoveWord:new()

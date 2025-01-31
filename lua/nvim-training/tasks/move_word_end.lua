@@ -12,7 +12,7 @@ MoveWordEnd.__metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move to the end of words.",
 	instructions = "Move to the end of the current 'word'.",
-	tags = Move.__metadata.tags .. tag_index.word_end,
+	tags = utility.flatten({ Move.__metadata.tags, tag_index.word_end }),
 }
 
 function MoveWordEnd:new()

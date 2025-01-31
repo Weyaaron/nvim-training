@@ -7,7 +7,7 @@ Increment.__metadata = {
 	autocmd = "CursorMoved",
 	desc = "Increment the value at the cursor.",
 	instructions = "Increment/Decrement the value at the cursor.",
-	tags = "increment, change, char",
+	tags = { "increment", "change", "char" },
 }
 
 setmetatable(Increment, { __index = Task })

@@ -8,7 +8,7 @@ InsertAtLineBeginning.__metadata = {
 	autocmd = "InsertLeave",
 	desc = "Insert text at the start of the line.",
 	instructions = "Insert 'x' at the start of the line and leave insert-mode.",
-	tags = "insert, I, start, line",
+	tags = { "insert", "I", "start", "line" },
 }
 
 function InsertAtLineBeginning:new()

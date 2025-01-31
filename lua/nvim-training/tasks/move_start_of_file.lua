@@ -8,7 +8,7 @@ MoveToStartOfFile.__metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move to the start of the file.",
 	instructions = "Move to the start of the file.",
-	tags = "start, file, vertical",
+	tags = { "start", "file", "vertical" },
 }
 function MoveToStartOfFile:new()
 	local base = RandomCursorStart:new()

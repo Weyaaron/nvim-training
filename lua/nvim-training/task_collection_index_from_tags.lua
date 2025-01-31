@@ -5,9 +5,8 @@ local all_task_keys = utility.get_keys(task_index)
 table.sort(all_task_keys)
 
 local all_pieces = {}
-for i, v in pairs(task_index) do
-	local current_pieces = utility.split_str(v.__metadata.tags, ",")
-	for ii, vv in pairs(current_pieces) do
+for i, task_el in pairs(task_index) do
+	for ii, vv in pairs(task_el.__metadata.tags) do
 		vv = utility.trim(vv)
 		all_pieces[vv] = vv
 	end
@@ -17,7 +16,7 @@ for name, v in pairs(all_pieces) do
 	index[name] = TaskCollection:new(
 		"All",
 		"All supported tasks. Does involve tasks that are designed with plugins in mind!",
-		utility.filter_tasks_by_tags(task_index, { name })
+		{ name }
 	)
 end
 

@@ -9,7 +9,7 @@ MoveAbsoluteLine.__metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move to the absolute line.",
 	instructions = "Move to the absolute line with the highlight.",
-	tags = "movement, line, vertical",
+	tags = { "movement", "line", "vertical" },
 }
 
 function MoveAbsoluteLine:new()

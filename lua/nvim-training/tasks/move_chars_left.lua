@@ -15,7 +15,7 @@ MoveCharsLeft.__metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move left charwise.",
 	instructions = "",
-	tags = "movement, h, horizontal, char",
+	tags = { "movement", "h", "horizontal", "char" },
 }
 
 function MoveCharsLeft:activate()

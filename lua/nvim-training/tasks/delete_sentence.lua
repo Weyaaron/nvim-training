@@ -10,7 +10,7 @@ DeleteSentence.__metadata = {
 	autocmd = "TextChanged",
 	desc = "Delete the textobject inner sentence.",
 	instructions = "",
-	tags = Delete.__metadata.tags .. tag_index.sentence,
+	tags = utility.flatten({ Delete.__metadata.tags, tag_index.sentence }),
 }
 
 function DeleteSentence:new()

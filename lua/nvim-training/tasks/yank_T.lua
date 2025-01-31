@@ -10,7 +10,7 @@ YankT.__metadata = {
 	autocmd = "TextYankPost",
 	desc = "Yank back next to the previous char.",
 	instructions = "",
-	tags = Yank.__metadata.tags .. tag_index.T,
+	tags = utility.flatten({ Yank.__metadata.tags, tag_index.T }),
 }
 
 function YankT:new()

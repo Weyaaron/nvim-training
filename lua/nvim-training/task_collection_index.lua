@@ -6,20 +6,31 @@ local user_config = require("nvim-training.user_config")
 local all_task_keys = utility.get_keys(task_index)
 table.sort(all_task_keys)
 
-local movement_tasks = utility.filter_tasks_by_tags(task_index, { "movement" })
-local change_tasks = utility.filter_tasks_by_tags(task_index, { "change" })
-local non_movements = utility.discard_tasks_by_tags(task_index, { "movement" })
-local yank = utility.filter_tasks_by_tags(task_index, { "yank" })
+local full_tags_table = {}
+
+for i, task_el in pairs(task_index) do
+	full_tags_table[#full_tags_table + 1] = task_el.__metadata.tags
+end
+full_tags_table = utility.flatten(full_tags_table)
+full_tags_table = utility.remove_duplicates_from_iindex_based_table(full_tags_table)
 local initial_index = {
 	All = TaskCollection:new(
 		"All",
 		"All supported tasks. Does involve tasks that are designed with plugins in mind!",
-		all_task_keys
+		full_tags_table
 	),
-	Change = TaskCollection:new("Change", "Tasks involving some change to the buffer.", change_tasks),
-	Movement = TaskCollection:new("Movements", "Tasks involving movement.", movement_tasks),
-	NonMovement = TaskCollection:new("NonMovements", "Tasks not involving movement.", non_movements),
-	Yanking = TaskCollection:new("Yanking", "Tasks involving yanking", yank),
+	Change = TaskCollection:new("Change", "Tasks involving some change to the buffer.", { "change" }),
+	Movement = TaskCollection:new("Movements", "Tasks involving movement.", { "movement" }),
+	Yanking = TaskCollection:new("Yanking", "Tasks involving yanking", { "yank" }),
+	f = TaskCollection:new("f", "Tasks involving f", { "f" }),
+	F = TaskCollection:new("F", "Tasks involving F", { "F" }),
+	t = TaskCollection:new("t", "Tasks involving t", { "t" }),
+	T = TaskCollection:new("T", "Tasks involving T", { "T" }),
+	Deletion = TaskCollection:new("Deletion", "Tasks involving deletion", { "deletion" }),
+	Word = TaskCollection:new("Word", "Word-based Tasks", { "word" }),
+	WORD = TaskCollection:new("WORD", "WORD-base Tasks", { "WORD" }),
+	Movements = TaskCollection:new("Movements", "Tasks using cursor-movement", { "movement" }),
+	Search = TaskCollection:new("Search", "Tasks using search", { "search" }),
 }
 
 for name_key, name_table in pairs(user_config.custom_collections) do

@@ -10,7 +10,7 @@ DeleteInsideMatch.__metadata = {
 	autocmd = "TextChanged",
 	desc = "Delete inside the current match.",
 	instructions = "Delete inside the current match.",
-	tags = Delete.__metadata.tags .. tag_index.match,
+	tags = utility.flatten({ Delete.__metadata.tags, tag_index.match }),
 }
 function DeleteInsideMatch:new()
 	local base = Delete:new()

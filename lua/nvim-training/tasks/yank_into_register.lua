@@ -9,7 +9,7 @@ YankIntoRegister.__metadata = {
 	autocmd = "TextYankPost",
 	desc = "Yank a line into a register.",
 	instructions = "",
-	tags = "register, copy, line, vertical",
+	tags = { "register", "copy", "line", "vertical" },
 }
 
 setmetatable(YankIntoRegister, { __index = Yank })
