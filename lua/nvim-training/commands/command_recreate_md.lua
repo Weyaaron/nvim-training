@@ -18,9 +18,7 @@ local function generate_file_per_collection()
 end
 
 local function generate_collection_list()
-	local path = "./collection_list.md"
-
-	local table_header = "| Name | Description | Link\n| ----------- | -------- | -------- |\n"
+	local table_header = "| Name | Description | Details\n| ----------- | -------- | -------- |\n"
 	local collection_blocks = {}
 	for i, v in pairs(task_collection_index) do
 		collection_blocks[#collection_blocks + 1] = "| "
@@ -36,10 +34,13 @@ local function generate_collection_list()
 	table.sort(collection_blocks)
 
 	local result = table.concat(collection_blocks, "\n")
-	local file = io.open(path, "w")
-	file:write(table_header .. "\n")
-	file:write(result)
-	file:close()
+	return "\n" .. table_header .. result .. "\n"
+end
+local function generate_task_list()
+	local table_header =
+		"\n\n# All tasks\n\n| Name | Description | Tags | Notes\n| --- | -------- | -------- | -------- |\n"
+	local all_block = task_collection_index.All:render_markdown()
+	return "\n" .. table_header .. all_block .. "\n"
 end
 
 local function rebuild_readme()
@@ -49,15 +50,11 @@ local function rebuild_readme()
 	local original_md_content = file:read("a")
 	file:close()
 
-	local table_header =
-		"\n\n# All tasks\n\n| Name | Description | Tags | Notes\n| --- | -------- | -------- | -------- |\n"
-	local all_block = task_collection_index.All:render_markdown()
-	local start_index, start_end_index = string.find(original_md_content, "<!-- s -->", 1, true)
-	local end_index, end_end_index = string.find(original_md_content, "<!-- e -->", 1, true)
-	local prefix = original_md_content:sub(1, start_end_index)
-	local suffix = original_md_content:sub(end_index, #original_md_content)
+	local task_list = generate_task_list()
+	local new_md = utility.replace_content_in_md(original_md_content, task_list, 1)
+	local collection_list = generate_collection_list()
+	new_md = utility.replace_content_in_md(new_md, collection_list, 2)
 
-	local new_md = prefix .. table_header .. all_block .. "\n" .. suffix
 	local file = io.open(readme_path, "w")
 	file:write(new_md)
 	file:close()

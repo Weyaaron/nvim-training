@@ -3,6 +3,15 @@ local template_index = require("nvim-training.template_index")
 local user_config = require("nvim-training.user_config")
 local utility = {}
 
+function utility.replace_content_in_md(original_content, new_content, boundary_counter)
+	local start_index, start_end_index = string.find(original_content, "<!-- s" .. boundary_counter .. " -->", 1, true)
+	local end_index, end_end_index = string.find(original_content, "<!-- e" .. boundary_counter .. " -->", 1, true)
+	local prefix = original_content:sub(1, start_end_index)
+	local suffix = original_content:sub(end_index, #original_content)
+
+	return prefix .. new_content .. "\n" .. suffix
+end
+
 function utility.calculate_center_cursor_pos()
 	local boundary_size = 3
 	local lower_pos_bound = math.floor(internal_config.line_length / 2) - boundary_size

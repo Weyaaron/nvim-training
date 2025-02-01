@@ -18,10 +18,10 @@ might include months of inactivity. I will respond to issues quickly, including
 requests for new features.
 
 I will attempt to ship breaking changes to public interfaces in such a way that they are done "all/many at once".
-I consider this to be the best option for minimizing disruptions. 
+I consider this to be the best option for minimizing disruptions.
 
 # Known problems
-Currently, logging and event storage for statistics is disabled. A fix/reeenabling them is 
+Currently, logging and event storage for statistics is disabled. A fix/reeenabling them is
 under way.
 
 # Some stats of current tasks
@@ -44,7 +44,7 @@ In Lazy, a possible setup might be:
 local lazy = require("lazy")
 local plugin_list = {
     -- Your various other plugins ..
-    {"https://github.com/Weyaaron/nvim-training", pin= true, opts = {}} 
+    {"https://github.com/Weyaaron/nvim-training", pin= true, opts = {}}
     -- Support for configuration with opts is included, see below for the options
 }
 lazy.setup(plugin_list)
@@ -67,7 +67,8 @@ The plugin aims to use scratch-buffers to avoid polluting the disk.
 
 <details>
 <summary> Click to expand </summary>
-<!-- s -->
+<!-- s1 -->
+
 
 # All tasks
 
@@ -133,22 +134,27 @@ The plugin aims to use scratch-buffers to avoid polluting the disk.
 |YankT | Yank back next to the previous char. | chair-wise, horizontal, left, register, T, yank |
 |YankWord | Yank multiple words. | counter, horizontal, register, text-object, word, yank |
 |YankWORD | Yank multiple WORDS. | counter, horizontal, register, text-object, WORD, yank |
-<!-- e -->
+
+<!-- e1 -->
 </details>
 
 # Task-Collections
-
-The following table lists the available collections. Support for custom collections is
-included and described below.
-
+<!-- s2 -->
 | Name | Description | Link
 | ----------- | -------- | -------- |
-| All | All supported tasks. Does involve tasks that are designed with plugins in mind!| [All](/docs/collections/All.md)
+| All | All currently supported tasks| [All](/docs/collections/All.md)
 | Change | Tasks involving some change to the buffer.| [Change](/docs/collections/Change.md)
-| Movements | Tasks involving movement.| [Movements](/docs/collections/Movements.md)
-| NonMovements | Tasks not involving movement.| [NonMovements](/docs/collections/NonMovements.md)
+| Deletion | Tasks involving deletion| [Deletion](/docs/collections/Deletion.md)
+| F | Tasks involving F| [F](/docs/collections/F.md)
+| Movement | Tasks involving movements.| [Movement](/docs/collections/Movement.md)
+| Search | Tasks involving search| [Search](/docs/collections/Search.md)
+| T | Tasks involving T| [T](/docs/collections/T.md)
+| WORD | WORD-based Tasks| [WORD](/docs/collections/WORD.md)
+| Word | Word-based Tasks| [Word](/docs/collections/Word.md)
 | Yanking | Tasks involving yanking| [Yanking](/docs/collections/Yanking.md)
-
+| f | Tasks involving f| [f](/docs/collections/f.md)
+| t | Tasks involving t| [t](/docs/collections/t.md)
+<!-- e2 -->
 # Schedulers
 
 | Name | Description | Supported Arguments |
@@ -159,8 +165,8 @@ included and described below.
 
 # Configuration
 A interface for configuration is provided. These are the default values.
-Simply copying then but leaving the defaults in is actually discouraged. Some of these names 
-might change, and if you leave this in your config these changes are not propagated. 
+Simply copying then but leaving the defaults in is actually discouraged. Some of these names
+might change, and if you leave this in your config these changes are not propagated.
 ```lua
 local training = require("nvim-training")
 training.configure({ -- All of these options work for 'opts' of lazy as well.
@@ -199,7 +205,7 @@ You may provide as many collections as you wish, they will be available in autoc
 
 # Goals
 - Ease of use. Starting a session should be seamless. The UI should not get in the way.
-- Fast and flow-inducing. There should be no waiting time/friction between tasks. 
+- Fast and flow-inducing. There should be no waiting time/friction between tasks.
 - (Eventually) Community-driven. Adding new tasks is encouraged, both by providing the interfaces and the documentation required.
 - Customizable. Task should be switched on and off with ease, and the difficulty should be adjustable.
 
@@ -208,7 +214,7 @@ You may provide as many collections as you wish, they will be available in autoc
 - Competing with others. Your progress matters to you, not to others.
 - Provide help/guides on how to solve a particular task. Basic familiarity with vim is assumed.
 - Constrain the user on how to solve a particular task.
-- Support for everyones personal setup. Some settings may mess up some tasks, support for these cases is limited. I try to accomodate about 80% of the users and 
+- Support for everyones personal setup. Some settings may mess up some tasks, support for these cases is limited. I try to accomodate about 80% of the users and
 will decide each upcoming case on its own.
 
 # On Contributions
