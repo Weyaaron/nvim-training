@@ -6,11 +6,11 @@ local tag_index = require("nvim-training.tag_index")
 local Movet = {}
 Movet.__index = Movet
 setmetatable(Movet, { __index = Move })
-Movet.__metadata = {
+Movet.metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move using t.",
 	instructions = "",
-	tags = utility.flatten({ Move.__metadata.tags, tag_index.t }),
+	tags = utility.flatten({ Move.metadata.tags, tag_index.t }),
 }
 
 function Movet:new()

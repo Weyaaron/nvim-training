@@ -3,7 +3,7 @@ local Change = require("nvim-training.tasks.change")
 
 local ChangeLine = {}
 ChangeLine.__index = ChangeLine
-ChangeLine.__metadata = {
+ChangeLine.metadata = {
 	autocmd = "InsertLeave",
 	desc = "Change the current line.",
 	instructions = "Change the current line into 'x' and leave insert-mode.",

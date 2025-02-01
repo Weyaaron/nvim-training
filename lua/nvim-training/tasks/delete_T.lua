@@ -6,11 +6,11 @@ local tag_index = require("nvim-training.tag_index")
 local DeleteT = {}
 DeleteT.__index = DeleteT
 setmetatable(DeleteT, { __index = Delete })
-DeleteT.__metadata = {
+DeleteT.metadata = {
 	autocmd = "CursorMoved",
 	desc = "Delete back to the next char.",
 	instructions = "",
-	tags = utility.flatten({ Delete.__metadata.tags, tag_index.T }),
+	tags = utility.flatten({ Delete.metadata.tags, tag_index.T }),
 }
 
 function DeleteT:new()

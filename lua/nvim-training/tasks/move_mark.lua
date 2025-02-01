@@ -6,7 +6,7 @@ local internal_config = require("nvim-training.internal_config")
 local MoveMark = {}
 MoveMark.__index = MoveMark
 setmetatable(MoveMark, { __index = Task })
-MoveMark.__metadata =
+MoveMark.metadata =
 	{ autocmd = "CursorMoved", desc = "Move to a mark", instructions = "", tags = "mark", "movement", "vertical" }
 
 function MoveMark:new()

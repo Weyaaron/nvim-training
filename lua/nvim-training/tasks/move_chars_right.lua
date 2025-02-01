@@ -11,7 +11,7 @@ function MoveCharsRight:new()
 	return base
 end
 
-MoveCharsRight.__metadata = {
+MoveCharsRight.metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move right charwise.",
 	instructions = "",

@@ -294,7 +294,7 @@ end
 function utility.gather_tags(tasks)
 	local result = {}
 	for i, task_el in pairs(tasks) do
-		for ii, tag_el in pairs(task_el.__metadata.tags) do
+		for ii, tag_el in pairs(task_el.metadata.tags) do
 			result[tag_el] = tag_el
 		end
 	end
@@ -328,7 +328,7 @@ function utility.create_task_list_with_given_tags(tag_list)
 	local tasks_with_tag = {}
 	for i, tag_el in pairs(tag_list) do
 		for ii, task_el in pairs(task_index) do
-			for iii, inner_tag_el in pairs(task_el.__metadata.tags) do
+			for iii, inner_tag_el in pairs(task_el.metadata.tags) do
 				if tag_el == inner_tag_el then
 					tasks_with_tag[#tasks_with_tag + 1] = ii
 				end

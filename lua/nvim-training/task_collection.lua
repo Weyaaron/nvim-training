@@ -38,16 +38,16 @@ function TaskCollection:render_markdown()
 	for i, task_name in pairs(sorted_task_names) do
 		--We do not do this as a class method since its a pain to gather all the pieces inside the task
 		local current_task = task_index[task_name]:new()
-		local tags_of_current_task = current_task.__metadata.tags
+		local tags_of_current_task = current_task.metadata.tags
 
 		table.sort(tags_of_current_task, function(a, b)
 			return a:lower() < b:lower()
 		end)
-		local pieces = { task_name, current_task.__metadata.desc }
+		local pieces = { task_name, current_task.metadata.desc }
 		pieces[#pieces + 1] = table.concat(tags_of_current_task, ", ")
 
-		if current_task.__metadata then
-			pieces[#pieces + 1] = current_task.__metadata.notes
+		if current_task.metadata then
+			pieces[#pieces + 1] = current_task.metadata.notes
 		end
 		lines[#lines + 1] = "|" .. table.concat(pieces, " | ") .. " |"
 	end

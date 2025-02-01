@@ -6,11 +6,11 @@ local tag_index = require("nvim-training.tag_index")
 local YankT = {}
 YankT.__index = YankT
 setmetatable(YankT, { __index = Yank })
-YankT.__metadata = {
+YankT.metadata = {
 	autocmd = "TextYankPost",
 	desc = "Yank back next to the previous char.",
 	instructions = "",
-	tags = utility.flatten({ Yank.__metadata.tags, tag_index.T }),
+	tags = utility.flatten({ Yank.metadata.tags, tag_index.T }),
 }
 
 function YankT:new()

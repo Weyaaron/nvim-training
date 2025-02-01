@@ -6,11 +6,11 @@ local MoveLinesDown = {}
 setmetatable(MoveLinesDown, { __index = Move })
 MoveLinesDown.__index = MoveLinesDown
 
-MoveLinesDown.__metadata = {
+MoveLinesDown.metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move down multiple lines.",
 	instructions = "",
-	tags = utility.flatten({ Move.__metadata.tags, tag_index.lines_down }),
+	tags = utility.flatten({ Move.metadata.tags, tag_index.lines_down }),
 }
 
 function MoveLinesDown:new()

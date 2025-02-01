@@ -5,12 +5,12 @@ local internal_config = require("nvim-training.internal_config")
 local MoveRandom = {}
 MoveRandom.__index = MoveRandom
 setmetatable(MoveRandom, { __index = Move })
-MoveRandom.__metadata = {
+MoveRandom.metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move to the random target.",
 	instructions = "Move to the random highlight.",
 	notes = "This task assumes the existence of a plugin that provides such a motion.",
-	tags = utility.flatten({ Move.__metadata.tags, "plugin,  diagonal" }),
+	tags = utility.flatten({ Move.metadata.tags, "plugin,  diagonal" }),
 }
 
 function MoveRandom:new()

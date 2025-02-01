@@ -6,11 +6,11 @@ local MoveLinesUp = {}
 setmetatable(MoveLinesUp, { __index = Move })
 MoveLinesUp.__index = MoveLinesUp
 
-MoveLinesUp.__metadata = {
+MoveLinesUp.metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move multiple lines up.",
 	instructions = "",
-	tags = utility.flatten({ Move.__metadata.tags, tag_index.lines_up }),
+	tags = utility.flatten({ Move.metadata.tags, tag_index.lines_up }),
 }
 function MoveLinesUp:new()
 	local base = Move:new()

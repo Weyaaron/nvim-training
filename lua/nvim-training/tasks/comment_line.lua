@@ -7,7 +7,7 @@ CommentLine.__index = CommentLine
 
 setmetatable(CommentLine, { __index = Task })
 
-CommentLine.__metadata = {
+CommentLine.metadata = {
 	autocmd = "TextChanged",
 	desc = "Change the current line into a single line comment.",
 	instructions = "Change the current line into a single line comment.",

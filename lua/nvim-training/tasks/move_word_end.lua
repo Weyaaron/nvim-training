@@ -8,11 +8,11 @@ local tag_index = require("nvim-training.tag_index")
 local MoveWordEnd = {}
 MoveWordEnd.__index = MoveWordEnd
 setmetatable(MoveWordEnd, { __index = Move })
-MoveWordEnd.__metadata = {
+MoveWordEnd.metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move to the end of words.",
 	instructions = "Move to the end of the current 'word'.",
-	tags = utility.flatten({ Move.__metadata.tags, tag_index.word_end }),
+	tags = utility.flatten({ Move.metadata.tags, tag_index.word_end }),
 }
 
 function MoveWordEnd:new()

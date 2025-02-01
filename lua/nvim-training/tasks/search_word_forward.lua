@@ -4,7 +4,7 @@ local SearchWordForward = {}
 SearchWordForward.__index = SearchWordForward
 
 setmetatable(SearchWordForward, { __index = Task })
-SearchWordForward.__metadata = {
+SearchWordForward.metadata = {
 	autocmd = "CursorMoved",
 	desc = "Search forwards for the word at the cursor.",
 	instructions = "",

@@ -5,7 +5,7 @@ local Yank = require("nvim-training.tasks.yank")
 local YankIntoRegister = {}
 YankIntoRegister.__index = YankIntoRegister
 
-YankIntoRegister.__metadata = {
+YankIntoRegister.metadata = {
 	autocmd = "TextYankPost",
 	desc = "Yank a line into a register.",
 	instructions = "",

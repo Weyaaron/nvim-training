@@ -128,7 +128,7 @@ local function loop(autocmd_callback_data)
 		header.construct_header()
 	end)()
 
-	current_autocmd = vim.api.nvim_create_autocmd({ current_task:metadata().autocmd }, { callback = loop })
+	current_autocmd = vim.api.nvim_create_autocmd({ current_task.metadata.autocmd }, { callback = loop })
 	toogle_discard = true
 end
 local module = {}

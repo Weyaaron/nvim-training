@@ -4,7 +4,7 @@ local Change = {}
 
 Change.__index = Change
 setmetatable(Change, { __index = Task })
-Change.__metadata = { autocmd = "", desc = "", instructions = "", tags = { "change" } }
+Change.metadata = { autocmd = "", desc = "", instructions = "", tags = { "change" } }
 
 function Change:new()
 	local base = Task:new()

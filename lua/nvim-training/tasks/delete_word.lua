@@ -6,11 +6,11 @@ local tag_index = require("nvim-training.tag_index")
 local DeleteWord = {}
 DeleteWord.__index = DeleteWord
 setmetatable(DeleteWord, { __index = Delete })
-DeleteWord.__metadata = {
+DeleteWord.metadata = {
 	autocmd = "TextChanged",
 	desc = "Delete multiple words.",
 	instructions = "",
-	tags = utility.flatten({ Delete.__metadata.tags, tag_index.word }),
+	tags = utility.flatten({ Delete.metadata.tags, tag_index.word }),
 }
 
 function DeleteWord:new()

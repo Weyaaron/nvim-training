@@ -7,7 +7,7 @@ local YankF = {}
 
 YankF.__index = YankF
 setmetatable(YankF, { __index = Yank })
-YankF.__metadata = {
+YankF.metadata = {
 	autocmd = "TextYankPost",
 	desc = "Yank back to the previous char.",
 	instructions = "",

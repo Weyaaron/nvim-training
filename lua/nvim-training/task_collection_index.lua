@@ -9,7 +9,7 @@ table.sort(all_task_keys)
 local full_tags_table = {}
 
 for i, task_el in pairs(task_index) do
-	full_tags_table[#full_tags_table + 1] = task_el.__metadata.tags
+	full_tags_table[#full_tags_table + 1] = task_el.metadata.tags
 end
 full_tags_table = utility.flatten(full_tags_table)
 full_tags_table = utility.remove_duplicates_from_iindex_based_table(full_tags_table)

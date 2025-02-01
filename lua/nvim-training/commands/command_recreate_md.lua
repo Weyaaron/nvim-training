@@ -57,7 +57,6 @@ local function rebuild_readme()
 	local prefix = original_md_content:sub(1, start_end_index)
 	local suffix = original_md_content:sub(end_index, #original_md_content)
 
-
 	local new_md = prefix .. table_header .. all_block .. "\n" .. suffix
 	local file = io.open(readme_path, "w")
 	file:write(new_md)

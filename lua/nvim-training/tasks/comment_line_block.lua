@@ -6,7 +6,7 @@ local CommentLineBlock = {}
 CommentLineBlock.__index = CommentLineBlock
 setmetatable(CommentLineBlock, { __index = Task })
 
-CommentLineBlock.__metadata = {
+CommentLineBlock.metadata = {
 	autocmd = "TextChanged",
 	desc = "Change the current line into a block comment.",
 	instructions = "Change the current line into a block comment.",

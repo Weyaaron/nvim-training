@@ -5,11 +5,11 @@ local tag_index = require("nvim-training.tag_index")
 local Moveo = {}
 Moveo.__index = Moveo
 setmetatable(Moveo, { __index = Move })
-Moveo.__metadata = {
+Moveo.metadata = {
 	autocmd = "InsertLeave",
 	desc = "Enter and leave insert mode below the current line.",
 	instructions = "Enter and leave insert mode below the current line.",
-	tags = utility.flatten({ Move.__metadata.tags, tag_index.o }),
+	tags = utility.flatten({ Move.metadata.tags, tag_index.o }),
 }
 
 function Moveo:new()

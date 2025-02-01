@@ -3,7 +3,7 @@ local MoveToEndOfFile = {}
 MoveToEndOfFile.__index = MoveToEndOfFile
 
 setmetatable(MoveToEndOfFile, { __index = RandomCursorStart })
-MoveToEndOfFile.__metadata = {
+MoveToEndOfFile.metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move to the end the file.",
 	instructions = "Move to the end of the file.",

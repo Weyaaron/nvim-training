@@ -6,7 +6,7 @@ local MoveFunctions = {}
 MoveFunctions.__index = MoveFunctions
 setmetatable(MoveFunctions, { __index = Move })
 
-MoveFunctions.__metadata = {
+MoveFunctions.metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move around function objects.",
 	instructions = "Move to the start of the current function",
