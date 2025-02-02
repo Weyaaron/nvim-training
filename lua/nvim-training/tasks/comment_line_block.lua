@@ -16,7 +16,7 @@ CommentLineBlock.metadata = {
 function CommentLineBlock:new()
 	local base = Task:new()
 	setmetatable(base, { __index = CommentLineBlock })
-
+	base.file_type = "lua"
 	return base
 end
 

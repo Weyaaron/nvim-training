@@ -97,6 +97,7 @@ local function loop(autocmd_callback_data)
 	local internal_config = require("nvim-training.internal_config")
 	vim.api.nvim_buf_clear_namespace(0, internal_config.global_hl_namespace, 0, -1)
 	current_task = resoveld_scheduler:next(current_task, previous_task_result):new()
+	vim.cmd("set filetype=" .. current_task.file_type)
 	current_task:activate()
 
 	local target_data = {
