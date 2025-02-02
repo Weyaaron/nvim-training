@@ -3,6 +3,15 @@ local template_index = require("nvim-training.template_index")
 local user_config = require("nvim-training.user_config")
 local utility = {}
 
+function utility.replace_content_in_md(original_content, new_content, boundary_counter)
+	local start_index, start_end_index = string.find(original_content, "<!-- s" .. boundary_counter .. " -->", 1, true)
+	local end_index, end_end_index = string.find(original_content, "<!-- e" .. boundary_counter .. " -->", 1, true)
+	local prefix = original_content:sub(1, start_end_index)
+	local suffix = original_content:sub(end_index, #original_content)
+
+	return prefix .. new_content .. "\n" .. suffix
+end
+
 function utility.calculate_center_cursor_pos()
 	local boundary_size = 3
 	local lower_pos_bound = math.floor(internal_config.line_length / 2) - boundary_size
@@ -294,7 +303,7 @@ end
 function utility.gather_tags(tasks)
 	local result = {}
 	for i, task_el in pairs(tasks) do
-		for ii, tag_el in pairs(task_el.__metadata.tags) do
+		for ii, tag_el in pairs(task_el.metadata.tags) do
 			result[tag_el] = tag_el
 		end
 	end
@@ -328,7 +337,7 @@ function utility.create_task_list_with_given_tags(tag_list)
 	local tasks_with_tag = {}
 	for i, tag_el in pairs(tag_list) do
 		for ii, task_el in pairs(task_index) do
-			for iii, inner_tag_el in pairs(task_el.__metadata.tags) do
+			for iii, inner_tag_el in pairs(task_el.metadata.tags) do
 				if tag_el == inner_tag_el then
 					tasks_with_tag[#tasks_with_tag + 1] = ii
 				end
@@ -359,6 +368,20 @@ end
 -- 	-- file:write(data_as_str .. "\n")
 -- 	-- file:close()
 -- end
+function utility.apppend_table_to_path(data, path)
+	if user_config.enable_events then
+		utility.append_json_to_file(path, data)
+	end
+end
+
+function utility.append_json_to_file(path, data)
+	local file = io.open(path, "a")
+
+	local data_as_str = vim.json.encode(data)
+
+	file:write(data_as_str .. "\n")
+	file:close()
+end
 
 function utility.uuid()
 	math.randomseed(os.time())

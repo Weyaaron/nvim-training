@@ -3,7 +3,7 @@ local utility = require("nvim-training.utility")
 
 local Increment = {}
 Increment.__index = Increment
-Increment.__metadata = {
+Increment.metadata = {
 	autocmd = "CursorMoved",
 	desc = "Increment the value at the cursor.",
 	instructions = "Increment/Decrement the value at the cursor.",

@@ -4,7 +4,7 @@ local MoveToStartOfFile = {}
 MoveToStartOfFile.__index = MoveToStartOfFile
 
 setmetatable(MoveToStartOfFile, { __index = RandomCursorStart })
-MoveToStartOfFile.__metadata = {
+MoveToStartOfFile.metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move to the start of the file.",
 	instructions = "Move to the start of the file.",

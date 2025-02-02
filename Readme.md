@@ -18,10 +18,10 @@ might include months of inactivity. I will respond to issues quickly, including
 requests for new features.
 
 I will attempt to ship breaking changes to public interfaces in such a way that they are done "all/many at once".
-I consider this to be the best option for minimizing disruptions. 
+I consider this to be the best option for minimizing disruptions.
 
 # Known problems
-Currently, logging and event storage for statistics is disabled. A fix/reeenabling them is 
+Currently, logging and event storage for statistics is disabled. A fix/reeenabling them is
 under way.
 
 # Some stats of current tasks
@@ -44,7 +44,7 @@ In Lazy, a possible setup might be:
 local lazy = require("lazy")
 local plugin_list = {
     -- Your various other plugins ..
-    {"https://github.com/Weyaaron/nvim-training", pin= true, opts = {}} 
+    {"https://github.com/Weyaaron/nvim-training", pin= true, opts = {}}
     -- Support for configuration with opts is included, see below for the options
 }
 lazy.setup(plugin_list)
@@ -67,7 +67,8 @@ The plugin aims to use scratch-buffers to avoid polluting the disk.
 
 <details>
 <summary> Click to expand </summary>
-<!-- s -->
+<!-- s1 -->
+
 
 # All tasks
 
@@ -75,7 +76,11 @@ The plugin aims to use scratch-buffers to avoid polluting the disk.
 | --- | -------- | -------- | -------- |
 |AppendChar | Insert a char next to the cursor. | append, change, insertion |
 |BlockCommentLine | Change the current line into a block comment. | change, comment, plugin, programming | This assumes the use of a plugin, it is not tested with the buildin-commenting-feature. |
+|Changef | Change text using f | chair-wise, change, f, horizontal, right |
+|ChangeF | Change text using F | chair-wise, change, F, horizontal, left |
 |ChangeLine | Change the current line. | change, deletion, line |
+|Changet | Change text using f | chair-wise, change, horizontal, right, t |
+|ChangeT | Change text using T | chair-wise, change, horizontal, left, T |
 |ChangeWord | Change multiple words. | change, counter, horizontal, text-object, word |
 |CommentLine | Change the current line into a single line comment. | change, commenting, plugin, programming | Not available in vanilla-vim, needs plugin. |
 |DeleteChar | Delete the current char. | change, char, deletion |
@@ -86,8 +91,8 @@ The plugin aims to use scratch-buffers to avoid polluting the disk.
 |DeleteSentence | Delete the textobject inner sentence. | deletion, horizontal, text-object, sentence |
 |Deletet | Delete to the next char. | chair-wise, deletion, horizontal, right, t |
 |DeleteT | Delete back to the next char. | chair-wise, deletion, horizontal, left, T |
-|DeleteWORD | Delete multiple WORDs. | counter, deletion, horizontal, text-object, WORD |
 |DeleteWord | Delete multiple words. | counter, deletion, horizontal, text-object, word |
+|DeleteWORD | Delete multiple WORDs. | counter, deletion, horizontal, text-object, WORD |
 |Increment | Increment the value at the cursor. | change, char, increment |
 |InsertAtStartOfLine | Insert text at the start of the line. | I, insert, line, start |
 |InsertChar | Insert a char at the current position. | change, char, insertion |
@@ -106,16 +111,16 @@ The plugin aims to use scratch-buffers to avoid polluting the disk.
 |MoveO | Enter and leave insert mode above the current line. | insert_mode, linewise, movement, O |
 |MoveStartOfFile | Move to the start of the file. | file, start, vertical |
 |MoveStartOfLine | Move to the start of the current line. | line, movement, start |
-|MoveT | Go back next to the last ocurrence of a char. | chair-wise, horizontal, left, movement, T |
 |Movet | Move using t. | chair-wise, horizontal, movement, right, t |
+|MoveT | Go back next to the last ocurrence of a char. | chair-wise, horizontal, left, movement, T |
 |MoveWord | Move multiple words. | counter, horizontal, movement, text-object, word |
 |MoveWORD | Move multiple WORDS. | counter, horizontal, movement, text-object, WORD |
 |MoveWordEnd | Move to the end of words. | end, movement, vertical, word |
 |MoveWORDEnd | Move to the end of WORDs. | end, movement, vertical, WORD |
 |MoveWordStart | Move back to the start of 'words'. | horizontal, movement, word |
 |MoveWORDStart | Move Back to the start of 'WORDS'. | horizontal, movement, word |
-|paste | Paste from a given register. | paste, register |
 |Paste | Paste from a given register. | Paste, register |
+|paste | Paste from a given register. | paste, register |
 |SearchBackward | Search backwards. | diagonal, movement, search |
 |SearchForward | Search forwards. | forward, movement, search |
 |SearchWordBackward | Search backwards for the word at the cursor. | backward, movement, search |
@@ -125,26 +130,31 @@ The plugin aims to use scratch-buffers to avoid polluting the disk.
 |YankF | Yank back to the previous char. | chair-wise, F, horizontal, left |
 |YankInsideMatch | Yank inside the current match. | inside, match, yank |
 |YankIntoRegister | Yank a line into a register. | copy, line, register, vertical |
-|Yankt | Yank to the next char. | chair-wise, f, horizontal, register, right, yank |
+|Yankt | Yank next to the next char. | chair-wise, horizontal, register, right, t, yank |
 |YankT | Yank back next to the previous char. | chair-wise, horizontal, left, register, T, yank |
-|YankWORD | Yank multiple WORDS. | counter, horizontal, register, text-object, WORD, yank |
 |YankWord | Yank multiple words. | counter, horizontal, register, text-object, word, yank |
-<!-- e -->
+|YankWORD | Yank multiple WORDS. | counter, horizontal, register, text-object, WORD, yank |
+
+<!-- e1 -->
 </details>
 
 # Task-Collections
-
-The following table lists the available collections. Support for custom collections is
-included and described below.
-
+<!-- s2 -->
 | Name | Description | Link
 | ----------- | -------- | -------- |
-| All | All supported tasks. Does involve tasks that are designed with plugins in mind!| [All](/docs/collections/All.md)
+| All | All currently supported tasks| [All](/docs/collections/All.md)
 | Change | Tasks involving some change to the buffer.| [Change](/docs/collections/Change.md)
-| Movements | Tasks involving movement.| [Movements](/docs/collections/Movements.md)
-| NonMovements | Tasks not involving movement.| [NonMovements](/docs/collections/NonMovements.md)
+| Deletion | Tasks involving deletion| [Deletion](/docs/collections/Deletion.md)
+| F | Tasks involving F| [F](/docs/collections/F.md)
+| Movement | Tasks involving movements.| [Movement](/docs/collections/Movement.md)
+| Search | Tasks involving search| [Search](/docs/collections/Search.md)
+| T | Tasks involving T| [T](/docs/collections/T.md)
+| WORD | WORD-based Tasks| [WORD](/docs/collections/WORD.md)
+| Word | Word-based Tasks| [Word](/docs/collections/Word.md)
 | Yanking | Tasks involving yanking| [Yanking](/docs/collections/Yanking.md)
-
+| f | Tasks involving f| [f](/docs/collections/f.md)
+| t | Tasks involving t| [t](/docs/collections/t.md)
+<!-- e2 -->
 # Schedulers
 
 | Name | Description | Supported Arguments |
@@ -155,8 +165,8 @@ included and described below.
 
 # Configuration
 A interface for configuration is provided. These are the default values.
-Simply copying then but leaving the defaults in is actually discouraged. Some of these names 
-might change, and if you leave this in your config these changes are not propagated. 
+Simply copying then but leaving the defaults in is actually discouraged. Some of these names
+might change, and if you leave this in your config these changes are not propagated.
 ```lua
 local training = require("nvim-training")
 training.configure({ -- All of these options work for 'opts' of lazy as well.
@@ -195,7 +205,7 @@ You may provide as many collections as you wish, they will be available in autoc
 
 # Goals
 - Ease of use. Starting a session should be seamless. The UI should not get in the way.
-- Fast and flow-inducing. There should be no waiting time/friction between tasks. 
+- Fast and flow-inducing. There should be no waiting time/friction between tasks.
 - (Eventually) Community-driven. Adding new tasks is encouraged, both by providing the interfaces and the documentation required.
 - Customizable. Task should be switched on and off with ease, and the difficulty should be adjustable.
 
@@ -204,7 +214,7 @@ You may provide as many collections as you wish, they will be available in autoc
 - Competing with others. Your progress matters to you, not to others.
 - Provide help/guides on how to solve a particular task. Basic familiarity with vim is assumed.
 - Constrain the user on how to solve a particular task.
-- Support for everyones personal setup. Some settings may mess up some tasks, support for these cases is limited. I try to accomodate about 80% of the users and 
+- Support for everyones personal setup. Some settings may mess up some tasks, support for these cases is limited. I try to accomodate about 80% of the users and
 will decide each upcoming case on its own.
 
 # On Contributions

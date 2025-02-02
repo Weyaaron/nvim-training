@@ -7,11 +7,11 @@ local tag_index = require("nvim-training.tag_index")
 local MoveWORD = {}
 MoveWORD.__index = MoveWORD
 setmetatable(MoveWORD, { __index = Move })
-MoveWORD.__metadata = {
+MoveWORD.metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move multiple WORDS.",
 	instructions = "",
-	tags = utility.flatten({ Move.__metadata.tags, tag_index.WORD }),
+	tags = utility.flatten({ Move.metadata.tags, tag_index.WORD }),
 }
 
 function MoveWORD:new()

@@ -6,7 +6,7 @@ local CommentLineBlock = {}
 CommentLineBlock.__index = CommentLineBlock
 setmetatable(CommentLineBlock, { __index = Task })
 
-CommentLineBlock.__metadata = {
+CommentLineBlock.metadata = {
 	autocmd = "TextChanged",
 	desc = "Change the current line into a block comment.",
 	instructions = "Change the current line into a block comment.",
@@ -16,7 +16,7 @@ CommentLineBlock.__metadata = {
 function CommentLineBlock:new()
 	local base = Task:new()
 	setmetatable(base, { __index = CommentLineBlock })
-
+	base.file_type = "lua"
 	return base
 end
 

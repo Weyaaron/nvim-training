@@ -6,11 +6,11 @@ local DeleteSentence = {}
 
 DeleteSentence.__index = DeleteSentence
 setmetatable(DeleteSentence, { __index = Delete })
-DeleteSentence.__metadata = {
+DeleteSentence.metadata = {
 	autocmd = "TextChanged",
 	desc = "Delete the textobject inner sentence.",
 	instructions = "",
-	tags = utility.flatten({ Delete.__metadata.tags, tag_index.sentence }),
+	tags = utility.flatten({ Delete.metadata.tags, tag_index.sentence }),
 }
 
 function DeleteSentence:new()

@@ -2,7 +2,7 @@ local utility = require("nvim-training.utility")
 local user_config = require("nvim-training.user_config")
 local Task = {}
 Task.__index = Task
-Task.__metadata = {}
+Task.metadata = {}
 
 function Task:new()
 	local base = {}
@@ -13,6 +13,7 @@ function Task:new()
 	base.cursor_target = { 0, 0 }
 	base.target_char = utility.calculate_target_char()
 	base.cursor_center_pos = utility.calculate_center_cursor_pos()
+    base.file_type = "txt"
 
 	base.choosen_reg = user_config.possible_register_list[math.random(#user_config.possible_register_list)]
 	return base
@@ -20,13 +21,10 @@ end
 
 function Task:activate() end
 
-function Task:metadata()
-	return self.__metadata
-end
 function Task:deactivate(autocmd_callback_data) end
 
 function Task:instructions()
-	return self.__metadata.instructions
+	return self.metadata.instructions
 end
 
 function Task:construct_optional_header_args()

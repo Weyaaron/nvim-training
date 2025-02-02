@@ -4,7 +4,7 @@ local Delete = {}
 
 Delete.__index = Delete
 setmetatable(Delete, { __index = Task })
-Delete.__metadata = { autocmd = "", desc = "", instructions = "", tags = { "deletion" } }
+Delete.metadata = { autocmd = "", desc = "", instructions = "", tags = { "deletion" } }
 
 function Delete:new()
 	local base = Task:new()

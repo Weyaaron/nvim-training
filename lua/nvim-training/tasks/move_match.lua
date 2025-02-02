@@ -7,11 +7,11 @@ local MoveMatch = {}
 MoveMatch.__index = MoveMatch
 setmetatable(MoveMatch, { __index = Move })
 
-MoveMatch.__metadata = {
+MoveMatch.metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move to the current match.",
 	instructions = "Move to the current match.",
-	tags = utility.flatten({ Move.__metadata.tags, tag_index.match }),
+	tags = utility.flatten({ Move.metadata.tags, tag_index.match }),
 }
 function MoveMatch:new()
 	local base = Move:new()

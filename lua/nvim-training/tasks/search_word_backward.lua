@@ -4,7 +4,7 @@ local SearchWordBackward = {}
 SearchWordBackward.__index = SearchWordBackward
 
 setmetatable(SearchWordBackward, { __index = Task })
-SearchWordBackward.__metadata = {
+SearchWordBackward.metadata = {
 	autocmd = "CursorMoved",
 	desc = "Search backwards for the word at the cursor.",
 	instructions = "",

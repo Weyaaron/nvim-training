@@ -7,11 +7,11 @@ local tag_index = require("nvim-training.tag_index")
 local YankWORD = {}
 YankWORD.__index = YankWORD
 setmetatable(YankWORD, { __index = Yank })
-YankWORD.__metadata = {
+YankWORD.metadata = {
 	autocmd = "TextYankPost",
 	desc = "Yank multiple WORDS.",
 	instructions = "",
-	tags = utility.flatten({ Yank.__metadata.tags, tag_index.WORD }),
+	tags = utility.flatten({ Yank.metadata.tags, tag_index.WORD }),
 }
 
 function YankWORD:new()

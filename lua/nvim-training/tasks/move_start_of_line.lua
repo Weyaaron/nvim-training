@@ -2,7 +2,7 @@ local utility = require("nvim-training.utility")
 local Task = require("nvim-training.task")
 
 local MoveStartOfLine = {}
-MoveStartOfLine.__metadata = {
+MoveStartOfLine.metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move to the start of the current line.",
 	instructions = "Move to the start of the current line.",

@@ -5,7 +5,7 @@ local YankInsideMatch = {}
 YankInsideMatch.__index = YankInsideMatch
 setmetatable(YankInsideMatch, { __index = Yank })
 
-YankInsideMatch.__metadata = {
+YankInsideMatch.metadata = {
 	autocmd = "TextYankPost",
 	desc = "Yank inside the current match.",
 	instructions = "Yank inside the current match.",

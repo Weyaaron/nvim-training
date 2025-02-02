@@ -7,7 +7,7 @@ CommentLine.__index = CommentLine
 
 setmetatable(CommentLine, { __index = Task })
 
-CommentLine.__metadata = {
+CommentLine.metadata = {
 	autocmd = "TextChanged",
 	desc = "Change the current line into a single line comment.",
 	instructions = "Change the current line into a single line comment.",
@@ -17,6 +17,7 @@ CommentLine.__metadata = {
 function CommentLine:new()
 	local base = Task:new()
 	setmetatable(base, { __index = CommentLine })
+	base.file_type = "lua"
 	return base
 end
 
@@ -37,6 +38,7 @@ end
 function CommentLine:deactivate()
 	local cursor_pos = vim.api.nvim_win_get_cursor(0)
 	local new_line = utility.get_line(cursor_pos[1])
+
 	return new_line:sub(1, 2) == "--"
 end
 

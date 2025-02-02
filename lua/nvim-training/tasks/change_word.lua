@@ -6,11 +6,11 @@ local tag_index = require("nvim-training.tag_index")
 local ChangeWord = {}
 ChangeWord.__index = ChangeWord
 setmetatable(ChangeWord, { __index = Change })
-ChangeWord.__metadata = {
+ChangeWord.metadata = {
 	autocmd = "InsertLeave",
 	desc = "Change multiple words.",
 	instructions = "",
-	tags = utility.flatten({ Change.__metadata.tags, tag_index.word }),
+	tags = utility.flatten({ Change.metadata.tags, tag_index.word }),
 }
 
 function ChangeWord:new()
