@@ -22,7 +22,7 @@ end
 
 function Deletef:activate()
 	local line = utility.construct_char_line(self.target_char, self.cursor_center_pos + 10)
-	self:delete_with_right_f_movement(line, movements.f)
+	self:delete_f(line, movements.f)
 end
 
 function Deletef:instructions()

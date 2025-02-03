@@ -1,5 +1,6 @@
 local utility = require("nvim-training.utility")
 local user_config = require("nvim-training.user_config")
+
 local Task = {}
 Task.__index = Task
 Task.metadata = {}

@@ -21,8 +21,8 @@ function Move_f:new()
 end
 
 function Move_f:activate()
-	local line = utility.construct_char_line(self.target_char, self.cursor_center_pos - 10)
-	self:f_movement(line, movements.F)
+	local line = utility.construct_char_line(self.target_char, self.cursor_center_pos + 10)
+	self:f_movement(line, movements.f)
 end
 
 function Move_f:instructions()

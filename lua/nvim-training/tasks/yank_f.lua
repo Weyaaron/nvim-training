@@ -21,7 +21,7 @@ end
 
 function Yankf:activate()
 	local line = utility.construct_char_line(self.target_char, self.cursor_center_pos + 10)
-	self:yank_with_right_f_movement(line, movements.f)
+	self:yank_f(line, movements.f)
 end
 
 function Yankf:instructions()

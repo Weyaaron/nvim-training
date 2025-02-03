@@ -3,6 +3,30 @@ local template_index = require("nvim-training.template_index")
 local user_config = require("nvim-training.user_config")
 local utility = {}
 
+function utility.do_f_preparation(line, f_movement, target_char)
+	utility.set_buffer_to_rectangle_with_line(line)
+
+	local cursor_pos = vim.api.nvim_win_get_cursor(0)
+	vim.api.nvim_win_set_cursor(0, { cursor_pos[1], utility.calculate_center_cursor_pos() })
+
+	cursor_pos = vim.api.nvim_win_get_cursor(0)
+	local new_x_pos = f_movement(line, cursor_pos[2], target_char)
+	local cursor_target = { cursor_pos[1], new_x_pos }
+
+	utility.construct_highlight(cursor_target[1], cursor_target[2], 1)
+	return cursor_target
+end
+
+function utility.extract_text_right_to_left(line, left, right)
+	local result = line:sub(left + 1, right)
+	return result
+end
+
+function utility.extract_text_left_to_right(line, left, right)
+	local result = line:sub(left + 1, right + 1)
+	return result
+end
+
 function utility.replace_content_in_md(original_content, new_content, boundary_counter)
 	local start_index, start_end_index = string.find(original_content, "<!-- s" .. boundary_counter .. " -->", 1, true)
 	local end_index, end_end_index = string.find(original_content, "<!-- e" .. boundary_counter .. " -->", 1, true)
@@ -58,6 +82,7 @@ function utility.construct_WORD_hls_forwards(counter)
 	return construct_word_hls(counter, utility.calculate_WORD_bounds)
 end
 function utility.construct_char_line(target_char, target_index)
+	local char_values = { "x", "y", "z" }
 	local line = ""
 	for i = 1, internal_config.line_length do
 		local is_target_or_space = false
@@ -70,7 +95,7 @@ function utility.construct_char_line(target_char, target_index)
 			is_target_or_space = true
 		end
 		if not is_target_or_space then
-			line = line .. "x"
+			line = line .. char_values[(i % 3) + 1]
 		end
 	end
 	return line
@@ -93,9 +118,10 @@ function utility.calculate_target_char()
 end
 
 function utility.calculate_target_register()
-	if user_config.enable_registers then
-		return user_config.possible_register_list[math.random(#user_config.possible_register_list)]
-	end
+	--Todo: Check and enable with all tasks that use them.
+	-- if user_config.enable_registers then
+	-- 	return user_config.possible_register_list[math.random(#user_config.possible_register_list)]
+	-- end
 	return '"'
 end
 
