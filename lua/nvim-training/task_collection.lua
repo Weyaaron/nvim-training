@@ -10,14 +10,14 @@ function TaskCollection:new(collection_desc)
 	base.task_names = collection_desc[3]
 
 	base.tasks = {}
-	for key, value in pairs(base.task_names) do
-		local resolved_task = task_index[value]
+	for key, name_el in pairs(base.task_names) do
+		local resolved_task = task_index[name_el]
 		if resolved_task == nil then
 			print(
 				"Unable to load '"
-					.. value
+					.. name_el
 					.. "' into collection '"
-					.. name
+					.. base.name
 					.. "'. Please check spelling/report an issue!"
 			)
 		else

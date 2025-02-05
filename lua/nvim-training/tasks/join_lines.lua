@@ -6,7 +6,7 @@ JoinLines.__index = JoinLines
 JoinLines.metadata = {
 	autocmd = "TextChanged",
 	desc = "Join the current line with the line below.",
-	instructions = "Join the current line with the line below using J.",
+	instructions = "Join the current line with the line below.",
 	tags = { "change", "line", "join", "J" },
 }
 

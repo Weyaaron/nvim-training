@@ -110,6 +110,8 @@ local function loop(autocmd_callback_data)
 		target_data,
 		user_config.event_storage_directory_path .. tostring(session_id) .. ".json"
 	)
+	--The header may contain artifacts from previous tasks. To combat this, we reset it to known values.
+	header.reset()
 
 	--This gives tasks some options to configure the header, for example with a prefix and a suffix to turn the header into a block comment in a programming language
 	local additional_header_values = current_task:construct_optional_header_args()

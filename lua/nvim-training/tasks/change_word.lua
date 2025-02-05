@@ -16,9 +16,7 @@ ChangeWord.metadata = {
 function ChangeWord:new()
 	local base = Change:new()
 	setmetatable(base, { __index = ChangeWord })
-	base.text_to_be_inserted = "x"
 	base.line_text_after_change = ""
-	base.new_line_text = ""
 	return base
 end
 

@@ -24,7 +24,7 @@ function MoveAbsoluteLine:activate()
 		utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
 
 		local cursor_pos = vim.api.nvim_win_get_cursor(0)
-		if cursor_pos[1] == self.target_line then
+		if cursor_pos[1] == self.cursor_target[1] then
 			vim.api.nvim_win_set_cursor(0, { cursor_pos[1] + 1, cursor_pos[2] })
 		end
 		cursor_pos = vim.api.nvim_win_get_cursor(0)

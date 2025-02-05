@@ -2,7 +2,7 @@ local utility = require("nvim-training.utility")
 local movements = {}
 
 function movements.end_of_line(line, cursor_pos)
-	return #line
+	return #line - 1
 end
 
 local function move_across_word_pos(line, cursor_pos, word_calc_func, counter)

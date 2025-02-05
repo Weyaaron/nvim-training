@@ -10,11 +10,9 @@ Change.metadata = { autocmd = "", desc = "", instructions = "", tags = { "change
 function Change:new()
 	local base = Task:new()
 	setmetatable(base, Change)
-
 	self.cursor_target = { 0, 0 }
-	self.text_to_be_inserted = "a"
 	self.line_text_after_change = ""
-	self.text_to_be_inserted = "a"
+	self.text_to_be_inserted = "x"
 	return base
 end
 function Change:deactivate()

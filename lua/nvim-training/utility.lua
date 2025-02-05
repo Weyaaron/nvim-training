@@ -303,8 +303,7 @@ function utility.load_rectangle_with_line(middle_line)
 	local rectangle_lines = utility.split_str(rectange_template, "\n")
 	--The last line is cut, we want to avoid running into it if possible -> -1
 
-	local result = { rectangle_lines[1], "\n", middle_line, "\n", rectangle_lines[2] }
-
+	local result = { rectangle_lines[1], "\n", middle_line, "\n", utility.trim(rectangle_lines[2]) }
 	return table.concat(result, "\n")
 end
 

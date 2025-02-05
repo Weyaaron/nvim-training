@@ -23,7 +23,7 @@ function MoveO:activate()
 		local random_line = utility.load_random_line()
 		utility.set_buffer_to_rectangle_with_line(random_line)
 		local cursor_pos = vim.api.nvim_win_get_cursor(0)
-		self.cursor_target = { cursor_pos[1] - 1, 0 }
+		self.cursor_target = { cursor_pos[1], 0 }
 	end
 	vim.schedule_wrap(_inner_update)()
 end
