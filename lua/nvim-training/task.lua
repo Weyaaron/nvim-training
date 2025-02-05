@@ -13,9 +13,9 @@ function Task:new()
 	base.cursor_target = { 0, 0 }
 	base.target_char = utility.calculate_target_char()
 	base.cursor_center_pos = utility.calculate_center_cursor_pos()
-    base.file_type = "txt"
+	base.file_type = "txt"
 
-	base.choosen_reg = user_config.possible_register_list[math.random(#user_config.possible_register_list)]
+	base.target_register = utility.calculate_target_register()
 	return base
 end
 

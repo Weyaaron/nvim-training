@@ -91,6 +91,14 @@ function utility.calculate_target_char()
 	local target_char_index = math.random(#user_config.task_alphabet)
 	return user_config.task_alphabet:sub(target_char_index, target_char_index)
 end
+
+function utility.calculate_target_register()
+	if user_config.enable_registers then
+		return user_config.possible_register_list[math.random(#user_config.possible_register_list)]
+	end
+	return '"'
+end
+
 function utility.calculate_counter()
 	local counter = 1
 	if user_config.enable_counters then
@@ -295,8 +303,7 @@ function utility.load_rectangle_with_line(middle_line)
 	local rectangle_lines = utility.split_str(rectange_template, "\n")
 	--The last line is cut, we want to avoid running into it if possible -> -1
 
-	local result = { rectangle_lines[1], "\n", middle_line, "\n", rectangle_lines[2] }
-
+	local result = { rectangle_lines[1], "\n", middle_line, "\n", utility.trim(rectangle_lines[2]) }
 	return table.concat(result, "\n")
 end
 

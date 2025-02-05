@@ -17,7 +17,6 @@ function paste:new()
 
 	setmetatable(base, { __index = paste })
 	base.reg_content = "-Content of next Line-\r"
-	base.choosen_reg = user_config.possible_register_list[math.random(#user_config.possible_register_list)]
 	return base
 end
 

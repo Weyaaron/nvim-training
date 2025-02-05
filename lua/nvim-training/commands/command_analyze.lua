@@ -10,6 +10,8 @@ local name_func_map = {
 	CounterPerTask = stats_mod.task_counter,
 }
 function module.execute(args)
+	vim.api.nvim_win_set_buf(0, internal_config.buf_id)
+
 	vim.api.nvim_buf_set_lines(internal_config.buf_id, 0, 0, false, {})
 	local events = utility.load_all_events()
 

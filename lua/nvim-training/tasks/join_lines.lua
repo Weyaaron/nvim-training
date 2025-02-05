@@ -6,7 +6,7 @@ JoinLines.__index = JoinLines
 JoinLines.metadata = {
 	autocmd = "TextChanged",
 	desc = "Join the current line with the line below.",
-	instructions = "Join the current line with the line below using J.",
+	instructions = "Join the current line with the line below.",
 	tags = { "change", "line", "join", "J" },
 }
 
@@ -22,7 +22,6 @@ function JoinLines:new()
 	return base
 end
 function JoinLines:activate()
-	vim.fn.setreg(self.chosen_register, "")
 	local function _inner_update()
 		utility.set_buffer_to_rectangle_with_line(self.initial_line)
 	end

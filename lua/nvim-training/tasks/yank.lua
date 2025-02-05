@@ -9,11 +9,10 @@ Yank.metadata = { autocmd = "", desc = "", instructions = "", tags = { "yank", "
 function Yank:new()
 	local base = Task:new()
 	setmetatable(base, Yank)
-	base.chosen_register = '"'
 	return base
 end
 function Yank:deactivate()
-	local register_content = vim.fn.getreg(self.chosen_register)
+	local register_content = vim.fn.getreg(self.target_register)
 	register_content = utility.split_str(register_content, "\n")[1]
 
 	return self.target_text == register_content

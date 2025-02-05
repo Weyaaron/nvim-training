@@ -16,8 +16,6 @@ setmetatable(YankIntoRegister, { __index = Yank })
 function YankIntoRegister:new()
 	local base = Yank:new()
 	setmetatable(base, YankIntoRegister)
-	base.chosen_register = user_config.possible_register_list[math.random(#user_config.possible_register_list)]
-	base.chosen_register = "a"
 	return base
 end
 function YankIntoRegister:activate()
@@ -36,7 +34,7 @@ function YankIntoRegister:activate()
 end
 
 function YankIntoRegister:instructions()
-	return "Copy the current line into register " .. self.chosen_register
+	return "Copy the current line into register " .. self.target_register
 end
 
 return YankIntoRegister
