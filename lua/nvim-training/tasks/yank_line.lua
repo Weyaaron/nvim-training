@@ -1,14 +1,14 @@
 local utility = require("nvim-training.utility")
 local Yank = require("nvim-training.tasks.yank")
+local tag_index = require("nvim-training.tag_index")
 
 local YankLine = {}
 YankLine.__index = YankLine
-
 YankLine.metadata = {
 	autocmd = "TextYankPost",
 	desc = "Yank a line into a register.",
 	instructions = "",
-	tags = { "register", "copy", "line", "vertical" },
+	tags = utility.flatten({ tag_index.yank, "copy", "line", "vertical" }),
 }
 
 setmetatable(YankLine, { __index = Yank })
