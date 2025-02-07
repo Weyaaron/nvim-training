@@ -10,7 +10,7 @@ Changef.metadata = {
 	autocmd = "InsertLeave",
 	desc = "Change text using f",
 	instructions = "",
-	tags = utility.flatten({ Change.metadata.tags, tag_index.f }),
+	tags = utility.flatten({ tag_index.change, tag_index.f }),
 }
 
 function Changef:new()

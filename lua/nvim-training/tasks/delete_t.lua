@@ -10,13 +10,12 @@ Deletet.metadata = {
 	autocmd = "CursorMoved",
 	desc = "Delete to the next char.",
 	instructions = ".",
-	tags = utility.flatten({ Delete.metadata.tags, tag_index.t }),
+	tags = utility.flatten({ tag_index.deletion, tag_index.t }),
 }
 
 function Deletet:new()
 	local base = Delete:new()
 	setmetatable(base, { __index = Deletet })
-	self.target_char = utility.calculate_target_char()
 	return base
 end
 
@@ -26,7 +25,11 @@ function Deletet:activate()
 end
 
 function Deletet:instructions()
-	return "Delete next to the char '" .. self.target_char .. "'."
+	return "Delete next to the char '"
+		.. self.target_char
+		.. "'"
+		.. utility.construct_register_description(self.target_register)
+		.. "."
 end
 
 return Deletet

@@ -1,25 +1,23 @@
 local utility = require("nvim-training.utility")
-local user_config = require("nvim-training.user_config")
 local Yank = require("nvim-training.tasks.yank")
 
-local YankIntoRegister = {}
-YankIntoRegister.__index = YankIntoRegister
+local YankLine = {}
+YankLine.__index = YankLine
 
-YankIntoRegister.metadata = {
+YankLine.metadata = {
 	autocmd = "TextYankPost",
 	desc = "Yank a line into a register.",
 	instructions = "",
 	tags = { "register", "copy", "line", "vertical" },
 }
 
-setmetatable(YankIntoRegister, { __index = Yank })
-function YankIntoRegister:new()
+setmetatable(YankLine, { __index = Yank })
+function YankLine:new()
 	local base = Yank:new()
-	setmetatable(base, YankIntoRegister)
+	setmetatable(base, YankLine)
 	return base
 end
-function YankIntoRegister:activate()
-	vim.fn.setreg(self.chosen_register, "")
+function YankLine:activate()
 	local function _inner_update()
 		utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
 
@@ -33,8 +31,8 @@ function YankIntoRegister:activate()
 	vim.schedule_wrap(_inner_update)()
 end
 
-function YankIntoRegister:instructions()
-	return "Copy the current line into register " .. self.target_register
+function YankLine:instructions()
+	return "Yank the current line" .. utility.construct_register_description(self.target_register) .. "."
 end
 
-return YankIntoRegister
+return YankLine

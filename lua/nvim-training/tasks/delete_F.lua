@@ -10,7 +10,7 @@ DeleteF.metadata = {
 	autocmd = "CursorMoved",
 	desc = "Delete back to the previous char.",
 	instructions = ".",
-	tags = utility.flatten({ Delete.metadata.tags, tag_index.F }),
+	tags = utility.flatten({ tag_index.deletion, tag_index.F }),
 }
 
 function DeleteF:new()
@@ -26,7 +26,11 @@ function DeleteF:activate()
 end
 
 function DeleteF:instructions()
-	return "Delete back to the char '" .. self.target_char .. "'."
+	return "Delete back to the char '"
+		.. self.target_char
+		.. "'"
+		.. utility.construct_register_description(self.target_register)
+		.. "."
 end
 
 return DeleteF

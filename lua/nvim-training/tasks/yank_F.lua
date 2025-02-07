@@ -26,7 +26,11 @@ function YankF:activate()
 end
 
 function YankF:instructions()
-	return "Yank to the target char '" .. self.target_char .. "'."
+	return "Yank to the target char '"
+		.. self.target_char
+		.. "'"
+		.. utility.construct_register_description(self.target_register)
+		.. "."
 end
 
 return YankF

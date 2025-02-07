@@ -10,7 +10,7 @@ MoveF.metadata = {
 	autocmd = "CursorMoved",
 	desc = "Go back to the last ocurrence of a char.",
 	instructions = "",
-	tags = utility.flatten({ Move.metadata.tags, tag_index.F }),
+	tags = utility.flatten({ tag_index.movement, tag_index.F }),
 }
 
 function MoveF:new()

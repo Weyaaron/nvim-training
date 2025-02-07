@@ -11,7 +11,7 @@ YankWord.metadata = {
 	autocmd = "TextYankPost",
 	desc = "Yank multiple words.",
 	instructions = "",
-	tags = utility.flatten({ Yank.metadata.tags, tag_index.word }),
+	tags = utility.flatten({ tag_index.yank, tag_index.word }),
 }
 
 function YankWord:new()
@@ -44,7 +44,7 @@ function YankWord:activate()
 end
 
 function YankWord:instructions()
-	return "Yank " .. self.counter .. " word(s)."
+	return "Yank " .. self.counter .. " word(s)" .. utility.construct_register_description(self.target_register) .. "."
 end
 
 return YankWord

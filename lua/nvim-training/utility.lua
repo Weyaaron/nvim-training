@@ -117,11 +117,18 @@ function utility.calculate_target_char()
 	return user_config.task_alphabet:sub(target_char_index, target_char_index)
 end
 
+function utility.construct_register_description(register_char)
+	if register_char == '"' then
+		return ""
+	else
+		return " into register '" .. register_char .. "'"
+	end
+end
+
 function utility.calculate_target_register()
-	--Todo: Check and enable with all tasks that use them.
-	-- if user_config.enable_registers then
-	-- 	return user_config.possible_register_list[math.random(#user_config.possible_register_list)]
-	-- end
+	if user_config.enable_registers then
+		return user_config.possible_register_list[math.random(#user_config.possible_register_list)]
+	end
 	return '"'
 end
 

@@ -8,7 +8,7 @@ MoveT.metadata = {
 	autocmd = "CursorMoved",
 	desc = "Go back next to the last ocurrence of a char.",
 	instructions = "",
-	tags = utility.flatten({ Move.metadata.tags, tag_index.T }),
+	tags = utility.flatten({ tag_index.movement, tag_index.T }),
 }
 setmetatable(MoveT, { __index = Move })
 function MoveT:new()

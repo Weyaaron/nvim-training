@@ -10,7 +10,7 @@ Deletef.metadata = {
 	autocmd = "CursorMoved",
 	desc = "Delete forward to the next char.",
 	instructions = ".",
-	tags = utility.flatten({ Delete.metadata.tags, tag_index.f }),
+	tags = utility.flatten({ tag_index.deletion, tag_index.f }),
 }
 
 function Deletef:new()
@@ -26,7 +26,11 @@ function Deletef:activate()
 end
 
 function Deletef:instructions()
-	return "Delete to the char '" .. self.target_char .. "'."
+	return "Delete to the char '"
+		.. self.target_char
+		.. "'"
+		.. utility.construct_register_description(self.target_register)
+		.. "."
 end
 
 return Deletef

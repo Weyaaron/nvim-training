@@ -10,7 +10,7 @@ MoveWordStart.metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move back to the start of 'words'.",
 	instructions = "",
-	tags = utility.flatten({ Move.metadata.tags, tag_index.word_start }),
+	tags = utility.flatten({ tag_index.movement, tag_index.word_start }),
 }
 
 function MoveWordStart:new()

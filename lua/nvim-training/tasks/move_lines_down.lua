@@ -10,7 +10,7 @@ MoveLinesDown.metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move down multiple lines.",
 	instructions = "",
-	tags = utility.flatten({ Move.metadata.tags, tag_index.lines_down }),
+	tags = utility.flatten({ tag_index.movement, tag_index.lines_down }),
 }
 
 function MoveLinesDown:new()

@@ -10,7 +10,7 @@ YankT.metadata = {
 	autocmd = "TextYankPost",
 	desc = "Yank back next to the previous char.",
 	instructions = "",
-	tags = utility.flatten({ Yank.metadata.tags, tag_index.T }),
+	tags = utility.flatten({ tag_index.yank, tag_index.T }),
 }
 
 function YankT:new()
@@ -25,7 +25,11 @@ function YankT:activate()
 end
 
 function YankT:instructions()
-	return "Yank to the target char '" .. self.target_char .. "'."
+	return "Yank to the target char '"
+		.. self.target_char
+		.. "'"
+		.. utility.construct_register_description(self.target_register)
+		.. "."
 end
 
 return YankT

@@ -9,7 +9,7 @@ Move_f.metadata = {
 	autocmd = "CursorMoved",
 	desc = "Find the next char.",
 	instructions = "",
-	tags = utility.flatten({ Move.metadata.tags, tag_index.f }),
+	tags = utility.flatten({ tag_index.movement, tag_index.f }),
 }
 setmetatable(Move_f, { __index = Move })
 

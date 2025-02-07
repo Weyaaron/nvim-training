@@ -13,10 +13,7 @@ function Delete:new()
 	return base
 end
 function Delete:deactivate()
-	local register_content = vim.fn.getreg('"')
-	register_content = utility.split_str(register_content, "\n")[1]
-
-	return self.target_text == register_content
+	return self.target_text == self:read_register()
 end
 
 function Delete:delete_f(line, f_movement)

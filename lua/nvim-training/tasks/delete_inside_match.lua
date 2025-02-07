@@ -9,8 +9,8 @@ setmetatable(DeleteInsideMatch, { __index = Delete })
 DeleteInsideMatch.metadata = {
 	autocmd = "TextChanged",
 	desc = "Delete inside the current match.",
-	instructions = "Delete inside the current match.",
-	tags = utility.flatten({ Delete.metadata.tags, tag_index.match }),
+	instructions = "",
+	tags = utility.flatten({ tag_index.deletion, tag_index.match }),
 }
 function DeleteInsideMatch:new()
 	local base = Delete:new()
@@ -31,6 +31,10 @@ function DeleteInsideMatch:activate()
 		utility.construct_highlight(cursor_pos[1], left_bound, #self.target_text - 2)
 	end
 	vim.schedule_wrap(_inner_update)()
+end
+
+function DeleteInsideMatch:instructions()
+	return "Delete inside the current match" .. utility.construct_register_description(self.target_register) .. "."
 end
 
 return DeleteInsideMatch
