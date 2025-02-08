@@ -24,7 +24,8 @@ function paste:activate()
 	local function _inner_update()
 		local random_line = utility.load_random_line()
 		utility.set_buffer_to_rectangle_with_line(random_line)
-		vim.cmd(":let @" .. self.choosen_reg .. "= '" .. self.reg_content .. "'")
+
+		vim.fn.setreg(self.target_register, self.reg_content)
 	end
 	vim.schedule_wrap(_inner_update)()
 end
@@ -37,7 +38,7 @@ function paste:deactivate()
 end
 
 function paste:instructions()
-	return "Paste the text from register '" .. self.choosen_reg .. "' into the next line."
+	return "Paste the text from register '" .. self.target_register .. "' into the next line."
 end
 
 return paste

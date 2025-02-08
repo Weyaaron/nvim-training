@@ -3,6 +3,8 @@ local user_config = require("nvim-training.user_config")
 local audio = require("nvim-training.audio")
 local parsing = require("nvim-training.utilities.parsing")
 local internal_config = require("nvim-training.internal_config")
+
+local module = {}
 local task_count = 0
 local success_count = 0
 local failure_count = 0
@@ -134,29 +136,14 @@ local function loop(autocmd_callback_data)
 	current_autocmd = vim.api.nvim_create_autocmd({ current_task.metadata.autocmd }, { callback = loop })
 	toogle_discard = true
 end
-local module = {}
 
 function module.execute(args)
 	local utility = require("nvim-training.utility")
 	local init = require("nvim-training.init")
 	is_running = true
 	init.configure({})
-	-- if not utility.check_vital_paths then
-	-- 	return
-	-- end
-	vim.api.nvim_win_set_buf(0, internal_config.buf_id)
 
-	-- if user_config.enable_events then
-	-- 	if not utility.exists(user_config.event_storage_diretory_path) then
-	-- 		print(
-	-- 			"Unable to create the path '"
-	-- 				.. tostring(user_config.event_storage_diretory_path)
-	-- 				.. "'. The plugin will not run. If this path does not suit you, use 'configure' to set it or disable events using 'configure'"
-	-- 		)
-	--
-	-- 		return
-	-- 	end
-	-- end
+	vim.api.nvim_win_set_buf(0, internal_config.buf_id)
 
 	vim.api.nvim_buf_set_lines(internal_config.buf_id, 0, 25, false, {})
 	header.store_key_value_in_header("#d", "No task yet.")

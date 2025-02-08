@@ -2,7 +2,7 @@ local user_config = require("nvim-training.user_config")
 local module = {}
 
 local function generate_out_str(middle)
-	return "The config parameter "
+	return "Nvim-training: The config parameter "
 		.. middle
 		.. " is not supported. To ensure a smooth experience consider changing/removing it."
 end
@@ -19,7 +19,7 @@ local function configure(args)
 			end
 		else
 			if not user_config[i] then
-				print(print(generate_out_str(i)))
+				print((generate_out_str(i)))
 			end
 			user_config[i] = v
 		end
