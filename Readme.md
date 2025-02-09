@@ -89,10 +89,10 @@ The plugin aims to use scratch-buffers to avoid polluting the disk.
 |DeleteInsideMatch | Delete inside the current match. | deletion, match, text-object |
 |DeleteLine | Delete the current line. | deletion, line |
 |DeleteSentence | Delete the textobject inner sentence. | deletion, horizontal, text-object, sentence |
-|Deletet | Delete to the next char. | chair-wise, deletion, horizontal, right, t |
 |DeleteT | Delete back to the next char. | chair-wise, deletion, horizontal, left, T |
-|DeleteWord | Delete multiple words. | counter, deletion, horizontal, text-object, word |
+|Deletet | Delete to the next char. | chair-wise, deletion, horizontal, right, t |
 |DeleteWORD | Delete multiple WORDs. | counter, deletion, horizontal, text-object, WORD |
+|DeleteWord | Delete multiple words. | counter, deletion, horizontal, text-object, word |
 |Increment | Increment the value at the cursor. | change, char, increment |
 |InsertAtStartOfLine | Insert text at the start of the line. | I, insert, line, start |
 |InsertChar | Insert a char at the current position. | change, char, insertion |
@@ -111,25 +111,26 @@ The plugin aims to use scratch-buffers to avoid polluting the disk.
 |MoveO | Enter and leave insert mode above the current line. | insert_mode, linewise, movement, O |
 |MoveStartOfFile | Move to the start of the file. | file, start, vertical |
 |MoveStartOfLine | Move to the start of the current line. | line, movement, start |
-|Movet | Move using t. | chair-wise, horizontal, movement, right, t |
 |MoveT | Go back next to the last ocurrence of a char. | chair-wise, horizontal, left, movement, T |
+|Movet | Move using t. | chair-wise, horizontal, movement, right, t |
 |MoveWord | Move multiple words. | counter, horizontal, movement, text-object, word |
 |MoveWORD | Move multiple WORDS. | counter, horizontal, movement, text-object, WORD |
 |MoveWordEnd | Move to the end of words. | end, movement, vertical, word |
 |MoveWORDEnd | Move to the end of WORDs. | end, movement, vertical, WORD |
-|MoveWordStart | Move back to the start of 'words'. | horizontal, movement, word |
 |MoveWORDStart | Move Back to the start of 'WORDS'. | horizontal, movement, word |
-|Paste | Paste from a given register. | Paste, register |
+|MoveWordStart | Move back to the start of 'words'. | horizontal, movement, word |
 |paste | Paste from a given register. | paste, register |
+|Paste | Paste from a given register. | Paste, register |
 |SearchBackward | Search backwards. | diagonal, movement, search |
 |SearchForward | Search forwards. | forward, movement, search |
 |SearchWordBackward | Search backwards for the word at the cursor. | backward, movement, search |
 |SearchWordForward | Search forwards for the word at the cursor. | forward, movement, search |
 |YankEndOfLine | Yank to the end of the current line. | end, line, yank |
 |Yankf | Yank to the next char. | chair-wise, f, horizontal, register, right, yank |
-|YankF | Yank back to the previous char. | chair-wise, F, horizontal, left |
+|YankF | Yank back to the previous char. | chair-wise, F, horizontal, left, register, yank |
+|YankInsideBlock | Yank inside the block. | inside, register, text-object, yank |
 |YankInsideMatch | Yank inside the current match. | inside, match, yank |
-|YankIntoRegister | Yank a line into a register. | copy, line, register, vertical |
+|YankLine | Yank a line into a register. | copy, line, register, vertical, yank |
 |Yankt | Yank next to the next char. | chair-wise, horizontal, register, right, t, yank |
 |YankT | Yank back next to the previous char. | chair-wise, horizontal, left, register, T, yank |
 |YankWord | Yank multiple words. | counter, horizontal, register, text-object, word, yank |
@@ -140,13 +141,14 @@ The plugin aims to use scratch-buffers to avoid polluting the disk.
 
 # Task-Collections
 <!-- s2 -->
-| Name | Description | Link
+| Name | Description | Details
 | ----------- | -------- | -------- |
 | All | All currently supported tasks| [All](/docs/collections/All.md)
 | Change | Tasks involving some change to the buffer.| [Change](/docs/collections/Change.md)
 | Deletion | Tasks involving deletion| [Deletion](/docs/collections/Deletion.md)
 | F | Tasks involving F| [F](/docs/collections/F.md)
 | Movement | Tasks involving movements.| [Movement](/docs/collections/Movement.md)
+| Register-Tasks | Tasks that may use registers| [Register-Tasks](/docs/collections/Register-Tasks.md)
 | Search | Tasks involving search| [Search](/docs/collections/Search.md)
 | T | Tasks involving T| [T](/docs/collections/T.md)
 | WORD | WORD-based Tasks| [WORD](/docs/collections/WORD.md)
@@ -154,6 +156,7 @@ The plugin aims to use scratch-buffers to avoid polluting the disk.
 | Yanking | Tasks involving yanking| [Yanking](/docs/collections/Yanking.md)
 | f | Tasks involving f| [f](/docs/collections/f.md)
 | t | Tasks involving t| [t](/docs/collections/t.md)
+
 <!-- e2 -->
 # Schedulers
 
@@ -175,6 +178,7 @@ training.configure({ -- All of these options work for 'opts' of lazy as well.
 	custom_collections = {}, -- A table of tables containing names of tasks, for details read on.
 	enable_counters = true, -- Enables/Disables counters in tasks that support counters.
 	enable_events = true, -- Enables/Disables events.
+	enable_registers = false, -- Enables/Disables registers. Since this option complicates a lot of tasks, it is disabled by default.
 	enable_highlights = true, --Enables/Disables highlights. Care is taken to ensure that tasks are possible without them.
 	event_storage_directory_path= vim.fn.stdpath("data") .. "/nvim-training/", -- The path used to store events.
 	logging_args = {

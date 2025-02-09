@@ -22,11 +22,15 @@ end
 
 function YankF:activate()
 	local line = utility.construct_char_line(self.target_char, self.cursor_center_pos - 10)
-	self:yank_with_left_f_movement(line, movements.F)
+	self:yank_f(line, movements.F)
 end
 
 function YankF:instructions()
-	return "Yank to the target char '" .. self.target_char .. "'."
+	return "Yank to the target char '"
+		.. self.target_char
+		.. "'"
+		.. utility.construct_register_description(self.target_register)
+		.. "."
 end
 
 return YankF

@@ -14,8 +14,8 @@
 |Moveo | Enter and leave insert mode below the current line. | insert_mode, linewise, movement, o |
 |MoveO | Enter and leave insert mode above the current line. | insert_mode, linewise, movement, O |
 |MoveStartOfLine | Move to the start of the current line. | line, movement, start |
-|Movet | Move using t. | chair-wise, horizontal, movement, right, t |
 |MoveT | Go back next to the last ocurrence of a char. | chair-wise, horizontal, left, movement, T |
+|Movet | Move using t. | chair-wise, horizontal, movement, right, t |
 |MoveWORD | Move multiple WORDS. | counter, horizontal, movement, text-object, WORD |
 |MoveWord | Move multiple words. | counter, horizontal, movement, text-object, word |
 |MoveWordEnd | Move to the end of words. | end, movement, vertical, word |

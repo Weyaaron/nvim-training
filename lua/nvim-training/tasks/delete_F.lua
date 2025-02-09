@@ -10,7 +10,7 @@ DeleteF.metadata = {
 	autocmd = "CursorMoved",
 	desc = "Delete back to the previous char.",
 	instructions = ".",
-	tags = utility.flatten({ Delete.metadata.tags, tag_index.F }),
+	tags = utility.flatten({ tag_index.deletion, tag_index.F }),
 }
 
 function DeleteF:new()
@@ -22,11 +22,15 @@ end
 
 function DeleteF:activate()
 	local line = utility.construct_char_line(self.target_char, self.cursor_center_pos - 10)
-	self:delete_with_left_f_movement(line, movements.F)
+	self:delete_f(line, movements.F)
 end
 
 function DeleteF:instructions()
-	return "Delete back to the char '" .. self.target_char .. "'."
+	return "Delete back to the char '"
+		.. self.target_char
+		.. "'"
+		.. utility.construct_register_description(self.target_register)
+		.. "."
 end
 
 return DeleteF

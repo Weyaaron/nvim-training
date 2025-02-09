@@ -1,5 +1,6 @@
 local utility = require("nvim-training.utility")
 local user_config = require("nvim-training.user_config")
+
 local Task = {}
 Task.__index = Task
 Task.metadata = {}
@@ -16,7 +17,13 @@ function Task:new()
 	base.file_type = "txt"
 
 	base.target_register = utility.calculate_target_register()
+	vim.fn.setreg(base.target_register, "")
 	return base
+end
+
+function Task:read_register()
+	local register_content = vim.fn.getreg(self.target_register)
+	return utility.split_str(register_content, "\n")[1]
 end
 
 function Task:activate() end

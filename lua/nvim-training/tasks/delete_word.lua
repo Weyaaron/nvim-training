@@ -10,7 +10,7 @@ DeleteWord.metadata = {
 	autocmd = "TextChanged",
 	desc = "Delete multiple words.",
 	instructions = "",
-	tags = utility.flatten({ Delete.metadata.tags, tag_index.word }),
+	tags = utility.flatten({ tag_index.deletion, tag_index.word }),
 }
 
 function DeleteWord:new()
@@ -42,6 +42,10 @@ function DeleteWord:activate()
 end
 
 function DeleteWord:instructions()
-	return "Delete " .. self.counter .. " word(s)."
+	return "Delete "
+		.. self.counter
+		.. " word(s)"
+		.. utility.construct_register_description(self.target_register)
+		.. "."
 end
 return DeleteWord

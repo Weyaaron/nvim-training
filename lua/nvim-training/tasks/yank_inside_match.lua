@@ -8,7 +8,7 @@ setmetatable(YankInsideMatch, { __index = Yank })
 YankInsideMatch.metadata = {
 	autocmd = "TextYankPost",
 	desc = "Yank inside the current match.",
-	instructions = "Yank inside the current match.",
+	instructions = "",
 	tags = { "yank", "inside", "match" },
 }
 function YankInsideMatch:new()
@@ -31,6 +31,10 @@ function YankInsideMatch:activate()
 	end
 
 	vim.schedule_wrap(_inner_update)()
+end
+
+function YankInsideMatch:instructions()
+	return "Yank inside the current match" .. utility.construct_register_description(self.target_register) .. "."
 end
 
 return YankInsideMatch

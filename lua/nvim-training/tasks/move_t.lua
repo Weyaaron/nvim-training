@@ -10,7 +10,7 @@ Movet.metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move using t.",
 	instructions = "",
-	tags = utility.flatten({ Move.metadata.tags, tag_index.t }),
+	tags = utility.flatten({ tag_index.movement, tag_index.t }),
 }
 
 function Movet:new()

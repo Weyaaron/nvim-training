@@ -1,6 +1,7 @@
 local Move = require("nvim-training.tasks.move")
 local utility = require("nvim-training.utility")
 local internal_config = require("nvim-training.internal_config")
+local tag_index = require("nvim-training.tag_index")
 
 local MoveRandom = {}
 MoveRandom.__index = MoveRandom
@@ -10,7 +11,7 @@ MoveRandom.metadata = {
 	desc = "Move to the random target.",
 	instructions = "Move to the random highlight.",
 	notes = "This task assumes the existence of a plugin that provides such a motion.",
-	tags = utility.flatten({ Move.metadata.tags, "plugin,  diagonal" }),
+	tags = utility.flatten({ tag_index.movement, "plugin,  diagonal" }),
 }
 
 function MoveRandom:new()

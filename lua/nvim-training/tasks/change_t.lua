@@ -10,7 +10,7 @@ Changet.metadata = {
 	autocmd = "InsertLeave",
 	desc = "Change text using f",
 	instructions = "",
-	tags = utility.flatten({ Change.metadata.tags, tag_index.t }),
+	tags = utility.flatten({ tag_index.change, tag_index.t }),
 }
 
 function Changet:new()

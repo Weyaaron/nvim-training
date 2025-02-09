@@ -7,7 +7,7 @@ YankEndOfLine.__index = YankEndOfLine
 YankEndOfLine.metadata = {
 	autocmd = "TextYankPost",
 	desc = "Yank to the end of the current line.",
-	instructions = "Yank to the end of the current line.",
+	instructions = "",
 	tags = { "end", "line", "yank" },
 }
 
@@ -27,6 +27,10 @@ function YankEndOfLine:activate()
 		utility.construct_highlight(cursor_pos[1], cursor_pos[2], math.abs(#line - cursor_pos[2]))
 	end
 	vim.schedule_wrap(_inner_update)()
+end
+
+function YankEndOfLine:instructions()
+	return "Yank to the end of the line" .. utility.construct_register_description(self.target_register) .. "."
 end
 
 return YankEndOfLine
