@@ -26,7 +26,7 @@ function CommentLineBlock:construct_optional_header_args()
 end
 function CommentLineBlock:activate()
 	local function _inner_update()
-		utility.update_buffer_respecting_header(utility.load_template(template_index.LuaFunctions))
+		utility.update_buffer_respecting_header(template_index.LuaFunctions)
 		vim.api.nvim_win_set_cursor(0, { 6, 7 })
 	end
 	vim.schedule_wrap(_inner_update)()

@@ -103,7 +103,7 @@ end
 
 --Todo: Remove from codebase and replace with word construction
 function utility.load_random_line()
-	local lorem_ipsum = utility.load_template(template_index.LoremIpsum)
+	local lorem_ipsum = utility.load_line_template(template_index.LoremIpsum)
 	local lorem_lines = utility.split_str(lorem_ipsum, "\n")
 	--The last line is cut, we want to avoid running into it if possible -> -1
 	return lorem_lines[math.random(#lorem_lines - 1)]
@@ -141,7 +141,7 @@ function utility.calculate_counter()
 end
 
 function utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
-	utility.update_buffer_respecting_header(utility.load_template(template_index.LoremIpsum))
+	utility.update_buffer_respecting_header(utility.load_line_template(template_index.LoremIpsum))
 
 	local line_count = vim.api.nvim_buf_line_count(0)
 	local rand_line_index = math.random(internal_config.header_length + 1, line_count - 1)
@@ -320,10 +320,10 @@ function utility.split_str(input, sep)
 	return res
 end
 
-function utility.load_template(template_path)
+function utility.load_line_template(template_content)
 	local lines = {}
 
-	local template_as_line = string.gsub(template_path, "\n", " ")
+	local template_as_line = string.gsub(template_content, "\n", " ")
 	for i = 1, #template_as_line, internal_config.line_length do
 		local current_text = string.sub(template_as_line, i, i + internal_config.line_length)
 		lines[#lines + 1] = current_text
@@ -331,8 +331,12 @@ function utility.load_template(template_path)
 	return table.concat(lines, "\n")
 end
 
+function utility.load_raw_template(template_content)
+	return template_content
+end
+
 function utility.load_rectangle_with_line(middle_line)
-	local rectange_template = utility.load_template(template_index.Rectangle)
+	local rectange_template = utility.load_line_template(template_index.Rectangle)
 	local rectangle_lines = utility.split_str(rectange_template, "\n")
 	--The last line is cut, we want to avoid running into it if possible -> -1
 
@@ -464,7 +468,7 @@ function utility.load_all_events()
 end
 
 local function construct_words_line_from_template(template_name)
-	local base_template = utility.load_template(template_name)
+	local base_template = utility.load_line_template(template_name)
 	base_template = utility.split_str(base_template, "\n")[1]
 	local words = utility.split_str(base_template, " ")
 
