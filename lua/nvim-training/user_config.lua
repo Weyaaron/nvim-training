@@ -1,7 +1,7 @@
 local user_config = {
 	audio_feedback = true,
 	bracket_pairs = { { "(", ")" }, { "{", "}" }, { "[", "]" } },
-	counter_bounds = { 1, 5 },
+	counter_bounds = { 10, 20 },
 	custom_collections = {},
 	dev_mode = false,
 	disabled_tags = { "treesitter" },

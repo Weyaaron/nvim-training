@@ -20,7 +20,7 @@ end
 function MoveWORDStart:activate()
 	local function _inner_update()
 		local line = utility.construct_WORDS_line()
-		utility.set_buffer_to_rectangle_with_line(line)
+		utility.set_buffer_to_rectangle_with_lines(line)
 
 		local current_cursor_pos = vim.api.nvim_win_get_cursor(0)
 		vim.api.nvim_win_set_cursor(0, { current_cursor_pos[1], 55 })

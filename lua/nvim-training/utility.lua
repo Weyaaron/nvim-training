@@ -181,6 +181,14 @@ function utility.set_buffer_to_rectangle_with_line(middle_line)
 	vim.api.nvim_win_set_cursor(0, { x, y })
 end
 
+function utility.set_buffer_to_rectangle_with_lines(middle_line)
+	utility.update_buffer_respecting_header(utility.load_rectangle_with_lines(middle_line))
+	local x = internal_config.header_length + 4
+
+	local y = math.random(0, #utility.get_line(x))
+	vim.api.nvim_win_set_cursor(0, { x, y })
+end
+
 function utility.construct_data_search(word_length, left_target_bound, right_target_bound)
 	local base_chars = "abcedefhikjlmnABCDEFGDHIK"
 	local target_string = ""
@@ -357,6 +365,14 @@ end
 
 function utility.load_raw_template(template_content)
 	return template_content
+end
+function utility.load_rectangle_with_lines(middle_line)
+	local rectange_template = utility.load_template(template_index.Rectangle)
+	local rectangle_lines = utility.split_str(rectange_template, "\n")
+	--The last line is cut, we want to avoid running into it if possible -> -1
+
+	local result = { rectangle_lines[1], "\n", middle_line, middle_line, utility.trim(rectangle_lines[2]) }
+	return table.concat(result, "\n")
 end
 
 function utility.load_rectangle_with_line(middle_line)

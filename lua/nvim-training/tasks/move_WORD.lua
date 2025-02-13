@@ -25,7 +25,7 @@ function MoveWORD:activate()
 	local function _inner_update()
 		local word_line = utility.construct_WORDS_line()
 		word_line = word_line:sub(0, internal_config.line_length)
-		utility.set_buffer_to_rectangle_with_line(word_line)
+		utility.set_buffer_to_rectangle_with_lines(word_line)
 
 		local current_cursor_pos = vim.api.nvim_win_get_cursor(0)
 		vim.api.nvim_win_set_cursor(0, { current_cursor_pos[1], math.random(1, 10) })
