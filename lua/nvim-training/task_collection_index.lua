@@ -37,9 +37,6 @@ for i, task_collection_desc_el in pairs(task_desc_index) do
 end
 
 for name_key, name_table in pairs(user_config.custom_collections) do
-	if initial_index[name_key] ~= nil then
-		print("Your custom collection '" .. name_key .. "' is overwriting a buildin-collection.")
-	end
 	local tmp_desc = { name_key, "Custom Collection", name_table }
 	initial_index[name_key] = TaskCollection:new(tmp_desc)
 end

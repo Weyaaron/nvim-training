@@ -3,6 +3,30 @@ local template_index = require("nvim-training.template_index")
 local user_config = require("nvim-training.user_config")
 local utility = {}
 
+function utility.validate_custom_collections()
+	local task_index = require("nvim-training.task_index")
+	local collection_index = require("nvim-training.task_collection_index")
+	for i, collection_name in pairs(user_config.custom_collections) do
+		if collection_index[collection_name] then
+			print(collection_name .. "overrides a build-in collection! This is supported but not encouraged.")
+		end
+	end
+	for i, collection_el in pairs(user_config.custom_collections) do
+		for ii, name_el in pairs(collection_el) do
+			if task_index[name_el] == nil then
+				print(
+					"Unable to resolve task name '"
+						.. name_el
+						.. "' contained in custom collection '"
+						.. i
+						.. "'. It will be ignored."
+				)
+			end
+			collection_el[ii] = nil
+		end
+	end
+end
+
 function utility.do_f_preparation(line, f_movement, target_char)
 	utility.set_buffer_to_rectangle_with_line(line)
 
