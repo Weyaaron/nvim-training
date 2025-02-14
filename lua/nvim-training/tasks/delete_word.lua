@@ -21,8 +21,12 @@ function DeleteWord:new()
 end
 
 function DeleteWord:activate()
-	local line = utility.construct_words_line()
-	self:delete_with_word_movement(line, movements.words)
+	local function _inner_update()
+		local line = utility.construct_words_line()
+		self.cursor_target = utility.do_word_preparation(line, movements.words, self.counter, 20)
+		self.target_text = utility.extract_text_from_word_coordinates(self.cursor_target)
+	end
+	vim.schedule_wrap(_inner_update)()
 end
 
 function DeleteWord:instructions()
