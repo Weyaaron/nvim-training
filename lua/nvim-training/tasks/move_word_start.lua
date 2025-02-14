@@ -20,15 +20,8 @@ function MoveWordStart:new()
 end
 function MoveWordStart:activate()
 	local function _inner_update()
-		local line = utility.construct_words_line()
-		utility.set_buffer_to_rectangle_with_line(line)
-
-		local current_cursor_pos = vim.api.nvim_win_get_cursor(0)
-		vim.api.nvim_win_set_cursor(0, { current_cursor_pos[1], 55 })
-
-		local new_x_pos = movements.word_start(line, current_cursor_pos[2], self.counter)
-		self.cursor_target = { current_cursor_pos[1], new_x_pos }
-		utility.construct_highlight(current_cursor_pos[1], self.cursor_target[2], 1)
+		local line = utility.construct_WORDS_line()
+		self.cursor_target = utility.do_word_preparation(line, movements.word_start, self.counter, 55)
 	end
 	vim.schedule_wrap(_inner_update)()
 end
