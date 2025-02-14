@@ -10,8 +10,7 @@ ChangeWord.metadata = {
 	autocmd = "InsertLeave",
 	desc = "Change multiple words.",
 	instructions = "",
-	tags = utility.flatten({ tag_index.change, tag_index.word }),
-
+	tags = utility.flatten({ Change.metadata.tags, tag_index.word }),
 	input_template = "c<counter>wx<esc>",
 }
 
@@ -24,14 +23,13 @@ end
 
 function ChangeWord:activate()
 	local function _inner_update()
-		local new_line = utility.construct_words_line()
-		utility.set_buffer_to_rectangle_with_line(new_line)
+		local line = utility.construct_words_line()
 
 		local current_cursor_pos = vim.api.nvim_win_get_cursor(0)
 		vim.api.nvim_win_set_cursor(0, { current_cursor_pos[1], 10 })
 		current_cursor_pos = vim.api.nvim_win_get_cursor(0)
 
-		local cursor_pos_after_movement = movements.words(new_line, current_cursor_pos[2], self.counter)
+		local cursor_pos_after_movement = movements.words(line, current_cursor_pos[2], self.counter)
 
 		local line = utility.get_line(current_cursor_pos[1])
 		self.line_text_after_change = line:sub(0, current_cursor_pos[2])
