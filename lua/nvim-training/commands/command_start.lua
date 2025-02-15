@@ -3,6 +3,7 @@ local user_config = require("nvim-training.user_config")
 local audio = require("nvim-training.audio")
 local parsing = require("nvim-training.utilities.parsing")
 local internal_config = require("nvim-training.internal_config")
+local logging = require("nvim-training.logging")
 
 local module = {}
 local task_count = 0
@@ -98,8 +99,15 @@ local function loop(autocmd_callback_data)
 	--This line ensures that the highlights of previous tasks are discarded.
 	local internal_config = require("nvim-training.internal_config")
 	vim.api.nvim_buf_clear_namespace(0, internal_config.global_hl_namespace, 0, -1)
+
+	local last_task_name = ""
+	if current_task then
+		last_task_name = current_task.name
+	end
 	current_task = resoveld_scheduler:next(current_task, previous_task_result):new()
 	vim.cmd("set filetype=" .. current_task.file_type)
+
+	logging.log("Task changed from " .. last_task_name .. " to " .. current_task.name, {})
 	current_task:activate()
 
 	local target_data = {
@@ -182,6 +190,32 @@ function module.execute(args)
 		provided_collections[#provided_collections + 1] = collection_index["All"]
 	end
 
+	for i, collection_el in pairs(provided_collections) do
+		for ii, forbidden_collection_name_el in pairs(user_config.disabled_collections) do
+			if collection_el.name == forbidden_collection_name_el then
+				provided_collections[i] = nil
+				break
+			end
+		end
+	end
+	for i, collection_el in pairs(provided_collections) do
+		for ii, task_el in pairs(collection_el.tasks) do
+			for iii, tag_el in pairs(task_el.metadata.tags) do
+				for iiii, forbidden_tag_el in pairs(user_config.disabled_tags) do
+					if forbidden_tag_el == tag_el then
+						collection_el.tasks[ii] = nil
+					end
+				end
+			end
+		end
+		if #collection_el.tasks == 0 then
+			provided_collections[i] = nil
+		end
+	end
+	if #provided_collections == 0 then
+		print("No collections provided. The collection 'All' will be used as a fallback.")
+		provided_collections[#provided_collections + 1] = collection_index["All"]
+	end
 	resoveld_scheduler = scheduler:new(provided_collections)
 
 	loop()

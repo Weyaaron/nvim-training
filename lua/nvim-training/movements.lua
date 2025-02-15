@@ -77,7 +77,6 @@ local function move_word_start(line, cursor_pos, word_bound_func, counter)
 		counter = counter + 1
 	end
 	local new_index = word_index - counter
-
 	return word_positions[new_index][1]
 end
 

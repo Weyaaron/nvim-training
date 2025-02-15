@@ -176,6 +176,8 @@ training.configure({ -- All of these options work for 'opts' of lazy as well.
 	audio_feedback = true, -- Enables/Disables audio feedback, if enabled, requires the 'sox' package providing the 'play' command.
 	counter_bounds = { 1, 5 }, --The outer bounds for counters used in some tasks. WARNING: A high value may result in glitchy behaviour.
 	custom_collections = {}, -- A table of tables containing names of tasks, for details read on.
+	disabled_tags = { "treesitter" }, -- A table of tags that are not enabled by default. For reasons see below.
+	disabled_collections = { "Treesitter-Tasks" }, -- A table of collections that are not enabled by default. For reasons see below.
 	enable_counters = true, -- Enables/Disables counters in tasks that support counters.
 	enable_events = true, -- Enables/Disables events.
 	enable_registers = false, -- Enables/Disables registers. Since this option complicates a lot of tasks, it is disabled by default.
