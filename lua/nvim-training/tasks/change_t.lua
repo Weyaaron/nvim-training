@@ -23,7 +23,7 @@ end
 
 function Changet:activate()
 	local line = utility.construct_char_line(self.target_char, self.cursor_center_pos + 10)
-	self:change_with_right_f_motion(line, movements.t)
+	self:change_f(line, movements.t)
 end
 
 function Changet:instructions()
