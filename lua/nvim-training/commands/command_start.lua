@@ -3,6 +3,7 @@ local user_config = require("nvim-training.user_config")
 local audio = require("nvim-training.audio")
 local parsing = require("nvim-training.utilities.parsing")
 local internal_config = require("nvim-training.internal_config")
+local logging = require("nvim-training.logging")
 
 local module = {}
 local task_count = 0
@@ -98,8 +99,15 @@ local function loop(autocmd_callback_data)
 	--This line ensures that the highlights of previous tasks are discarded.
 	local internal_config = require("nvim-training.internal_config")
 	vim.api.nvim_buf_clear_namespace(0, internal_config.global_hl_namespace, 0, -1)
+
+	local last_task_name = ""
+	if current_task then
+		last_task_name = current_task.name
+	end
 	current_task = resoveld_scheduler:next(current_task, previous_task_result):new()
 	vim.cmd("set filetype=" .. current_task.file_type)
+
+	logging.log("Task changed from " .. last_task_name .. " to " .. current_task.name, {})
 	current_task:activate()
 
 	local target_data = {

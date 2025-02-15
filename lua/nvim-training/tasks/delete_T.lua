@@ -21,7 +21,7 @@ end
 
 function DeleteT:activate()
 	local line = utility.construct_char_line(self.target_char, self.cursor_center_pos - 10)
-	self:delete_with_left_f_movement(line, movements.T)
+	self:delete_f(line, movements.T)
 end
 
 function DeleteT:instructions()
