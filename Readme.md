@@ -69,6 +69,11 @@ Furthermore, as of 2025-02, support for unit tests is in its infancy. It will ta
 quite some more work to enable tests for all tasks/fix some of them. Some
 failing tests will be addet to keep momentum going.
 
+# New features (As of 2025-02)
+- Support for some treesitter-based operations.
+- Shipping of tasks/tags/collections that are not enabled by default, but can be opted into.
+
+
 # Some stats of current tasks
 
 - Supported Tasks: 67 (For a full list, see below)

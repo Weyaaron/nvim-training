@@ -18,7 +18,11 @@ local task_desc_index = {
 	{ "All", "All currently supported tasks", all_task_keys },
 	{ "Movement", "Tasks that move the cursor.", utility.create_task_list_with_given_tags({ "movement" }) },
 	{ "CChange", "Tasks that use the 'change' operator.", utility.create_task_list_with_given_tags({ "cchange" }) },
-	{ "Change", "Tasks that change the buffer but do not use the 'change' operator.", utility.create_task_list_with_given_tags({ "change" }) },
+	{
+		"Change",
+		"Tasks that change the buffer but do not use the 'change' operator.",
+		utility.create_task_list_with_given_tags({ "change" }),
+	},
 	{ "Yanking", "Tasks that use the 'yank' operator.", utility.create_task_list_with_given_tags({ "yank" }) },
 	{ "f", "Tasks involving f", utility.create_task_list_with_given_tags({ "f" }) },
 	{ "F", "Tasks involving F", utility.create_task_list_with_given_tags({ "F" }) },
@@ -28,13 +32,13 @@ local task_desc_index = {
 	{ "Word", "Word-based Tasks", utility.create_task_list_with_given_tags({ "word" }) },
 	{ "WORD", "WORD-based Tasks", utility.create_task_list_with_given_tags({ "WORD" }) },
 	{ "Search", "Tasks involving search", utility.create_task_list_with_given_tags({ "search" }) },
-	{ "Register", "Tasks that may use registers.", utility.create_task_list_with_given_tags({ "register" }) },
 	{ "Treesitter", "Tasks that use treesitter.", utility.create_task_list_with_given_tags({ "treesitter" }) },
 	{
 		"Custom-Tasks",
 		"Tasks that require setup to work as intendet.",
 		utility.create_task_list_with_given_tags({ "custom" }),
 	},
+	{ "Register", "Tasks that may use registers.", utility.create_task_list_with_given_tags({ "register" }) },
 }
 
 local initial_index = {}

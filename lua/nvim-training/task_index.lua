@@ -14,6 +14,7 @@ local exported_tasks = {
 	Deletef = require("nvim-training.tasks.delete_f"),
 	DeleteF = require("nvim-training.tasks.delete_F"),
 	DeleteInnerConditional = require("nvim-training.tasks.delete_inner_conditional"),
+	DeleteInsideMatch = require("nvim-training.tasks.delete_inside_match"),
 	DeleteInsideQuotes = require("nvim-training.tasks.delete_inside_quotes"),
 	DeleteLhs = require("nvim-training.tasks.delete_lhs"),
 	DeleteLine = require("nvim-training.tasks.delete_line"),
