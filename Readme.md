@@ -33,6 +33,11 @@ Furthermore, as of 2025-02, support for unit tests is in its infancy. It will ta
 quite some more work to enable tests for all tasks/fix some of them. Some
 failing tests will be addet to keep momentum going.
 
+# New features (As of 2025-02)
+- Support for some treesitter-based operations.
+- Shipping of tasks/tags/collections that are not enabled by default, but can be opted into.
+
+
 # Some stats of current tasks
 
 - Supported Tasks: 67 (For a full list, see below)
@@ -94,14 +99,17 @@ The plugin aims to use scratch-buffers to avoid polluting the disk.
 |DeleteChar | Delete the current char. | change, char, deletion |
 |DeleteF | Delete back to the previous char. | chair-wise, deletion, F, horizontal, left |
 |Deletef | Delete forward to the next char. | chair-wise, deletion, f, horizontal, right |
+|DeleteInnerConditional | Delete the condition of the current conditional. | custom, deletion, programming, treesitter |
 |DeleteInsideQuotes | Delete inside the quotes. | deletion, quotes |
+|DeleteLhs | Delete the lhs of the current assignment. | custom, deletion, programming, treesitter |
 |DeleteLine | Delete the current line. | deletion, line |
 |DeleteMatch | Delete the current match. | deletion, match, register, text-object |
-|DeleteSentence | Delete the textobject inner sentence. | deletion, horizontal, text-object, sentence |
+|DeleteRhs | Delete the lhs of the current assignment. | custom, deletion, programming, treesitter |
+|DeleteSentence | Delete the textobject inner sentence. | deletion, horizontal, sentence, text-object |
 |DeleteT | Delete back to the next char. | chair-wise, deletion, horizontal, left, T |
 |Deletet | Delete to the next char. | chair-wise, deletion, horizontal, right, t |
-|DeleteWord | Delete multiple words. | counter, deletion, horizontal, text-object, word |
 |DeleteWORD | Delete multiple WORDs. | counter, deletion, horizontal, text-object, WORD |
+|DeleteWord | Delete multiple words. | counter, deletion, horizontal, text-object, word |
 |DeleteWordEnd | Delete using 'e'. | deletion, end, vertical, word_end |
 |DeleteWORDEnd | Delete using 'E'. | deletion, END, vertical, WORD_end |
 |Increment | Increment the value at the cursor. | change, char, increment |
@@ -119,19 +127,19 @@ The plugin aims to use scratch-buffers to avoid polluting the disk.
 |MoveLinesUp | Move multiple lines up. | horizontal, k, lines, movement |
 |MoveMark | Move to a mark | mark, movement, vertical |
 |MoveMatch | Move to the current match. | match, movement, text-object |
-|MoveO | Enter and leave insert mode above the current line. | insert_mode, linewise, movement, O |
 |Moveo | Enter and leave insert mode below the current line. | insert_mode, linewise, movement, o |
+|MoveO | Enter and leave insert mode above the current line. | insert_mode, linewise, movement, O |
 |MoveStartOfFile | Move to the start of the file. | file, start, vertical |
 |MoveStartOfLine | Move to the start of the current line. | line, movement, start |
-|Movet | Move using t. | chair-wise, horizontal, movement, right, t |
 |MoveT | Go back next to the last ocurrence of a char. | chair-wise, horizontal, left, movement, T |
-|MoveWord | Move multiple words. | counter, horizontal, movement, text-object, word |
+|Movet | Move using t. | chair-wise, horizontal, movement, right, t |
 |MoveWORD | Move multiple WORDS. | counter, horizontal, movement, text-object, WORD |
+|MoveWord | Move multiple words. | counter, horizontal, movement, text-object, word |
 |MoveWORDEnd | Move to the end of WORDs. | END, movement, vertical, WORD_end |
 |MoveWordEnd | Move to the end of words. | end, movement, vertical, word_end |
 |OpenWindow | Open a new window. | window |
-|paste | Paste from a given register. | paste, register |
 |Paste | Paste from a given register. | Paste, register |
+|paste | Paste from a given register. | paste, register |
 |SearchBackward | Search backwards. | diagonal, movement, search |
 |SearchForward | Search forwards. | forward, movement, search |
 |SearchWordBackward | Search backwards for the word at the cursor. | backward, movement, search |
@@ -139,14 +147,15 @@ The plugin aims to use scratch-buffers to avoid polluting the disk.
 |YankEndOfLine | Yank to the end of the current line. | end, line, yank |
 |Yankf | Yank to the next char. | chair-wise, f, horizontal, register, right, yank |
 |YankF | Yank back to the previous char. | chair-wise, F, horizontal, left, register, yank |
+|YankInnerConditional | Yank the condition of the current conditional. | custom, programming, register, treesitter, yank |
 |YankInsideBlock | Yank inside the block. | inside, register, text-object, yank |
 |YankInsideQuotes | Yank inside the quotes. | quotes, register, yank |
 |YankLine | Yank a line into a register. | copy, line, register, vertical, yank |
 |YankMatch | Yank the current match. | match, register, register, text-object, yank |
 |Yankt | Yank next to the next char. | chair-wise, horizontal, register, right, t, yank |
 |YankT | Yank back next to the previous char. | chair-wise, horizontal, left, register, T, yank |
-|YankWord | Yank multiple words. | counter, horizontal, register, text-object, word, yank |
 |YankWORD | Yank multiple WORDS. | counter, horizontal, register, text-object, WORD, yank |
+|YankWord | Yank multiple words. | counter, horizontal, register, text-object, word, yank |
 
 <!-- e1 -->
 </details>
@@ -157,12 +166,14 @@ The plugin aims to use scratch-buffers to avoid polluting the disk.
 | ----------- | -------- | -------- |
 | All | All currently supported tasks| [All](/docs/collections/All.md)
 | Change | Tasks involving some change to the buffer.| [Change](/docs/collections/Change.md)
+| Custom-Tasks | Tasks that require setup to work as intendet.| [Custom-Tasks](/docs/collections/Custom-Tasks.md)
 | Deletion | Tasks involving deletion| [Deletion](/docs/collections/Deletion.md)
 | F | Tasks involving F| [F](/docs/collections/F.md)
 | Movement | Tasks involving movements.| [Movement](/docs/collections/Movement.md)
 | Register-Tasks | Tasks that may use registers| [Register-Tasks](/docs/collections/Register-Tasks.md)
 | Search | Tasks involving search| [Search](/docs/collections/Search.md)
 | T | Tasks involving T| [T](/docs/collections/T.md)
+| Treesitter-Tasks | Tasks that rely on treesitter| [Treesitter-Tasks](/docs/collections/Treesitter-Tasks.md)
 | WORD | WORD-based Tasks| [WORD](/docs/collections/WORD.md)
 | Word | Word-based Tasks| [Word](/docs/collections/Word.md)
 | Yanking | Tasks involving yanking| [Yanking](/docs/collections/Yanking.md)
@@ -209,6 +220,22 @@ training.configure({ -- All of these options work for 'opts' of lazy as well.
 	task_alphabet = "ABCDEFGabddefg,", -- The alphabet of targets used in tasks like f,t etc. WARNING: Chars that represent lua patterns (Including e.g. '.') are not a valid entry. This is not checked for.
 })
 ```
+
+# On Disabled tags/collections
+
+Some tags/collections are disabled by default. These are instances that meet some of the following criteria:
+- They require a decent amount of setup to work as intended by the task
+- They are intendet to train something that is not shipped with "vanilla vim"
+- Their setup is somewhat personal/subject to the individual user
+
+Most of these are tasks that I would like to train on. Since others might consider them usefull, I will
+publish them, but opt-in.
+
+Support for these is provided, if you feel they could be improved/enabled by default you may open a issue to
+discuss this.
+
+
+
 
 ## Custom Collections
 To add a custom collection, please use its name as a key for a list of task names in the config, for example like this:

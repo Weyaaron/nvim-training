@@ -5,8 +5,8 @@
 |Changef | Change text using f | chair-wise, change, f, horizontal, right |
 |ChangeF | Change text using F | chair-wise, change, F, horizontal, left |
 |ChangeLine | Change the current line. | change, deletion, line |
-|Changet | Change text using f | chair-wise, change, horizontal, right, t |
 |ChangeT | Change text using T | chair-wise, change, horizontal, left, T |
+|Changet | Change text using f | chair-wise, change, horizontal, right, t |
 |CommentLine | Change the current line into a single line comment. | change, commenting, plugin, programming | Not available in vanilla-vim, needs plugin. |
 |Decrement | Decrement the value at the cursor. | change, char, increment |
 |DeleteChar | Delete the current char. | change, char, deletion |

@@ -1,7 +1,59 @@
 local internal_config = require("nvim-training.internal_config")
 local template_index = require("nvim-training.template_index")
 local user_config = require("nvim-training.user_config")
+
 local utility = {}
+function utility.parse_into_root()
+	local parser = vim.treesitter.get_parser(0, "lua")
+	local tree = parser:parse({ 1, 100 })[1]
+	return tree:root()
+end
+function utility.filter_task_index_by_tags(task_index, tag_list)
+	local result = {}
+	for i, v in pairs(task_index) do
+		result[i] = v
+	end
+	local key_table = {}
+	for i, v in pairs(tag_list) do
+		key_table[v] = true
+	end
+	for index, value in pairs(result) do
+		for ii, tag_el in pairs(value.metadata.tags) do
+			if key_table[tag_el] then
+				result[value.name] = nil
+			end
+		end
+	end
+	return result
+end
+
+function utility.calculate_treesitter_target_text(query_str)
+	local movements = require("nvim-training.movements")
+	local start = movements.query_start(query_str)
+	local _end = movements.query_end(query_str)
+
+	local cursor_pos = vim.api.nvim_win_get_cursor(0)
+	local line = utility.get_line(cursor_pos[1])
+
+	local y_start = start[2] + 1
+	local y_end = _end[2]
+	return line:sub(y_start, y_end)
+end
+
+function utility.do_treesitter_preparation(template_name, query_str)
+	local movements = require("nvim-training.movements")
+	utility.update_buffer_respecting_header(utility.load_raw_template(template_index[template_name]))
+	local start_coordinates = movements.query_start(query_str)
+	local end_coordinates = movements.query_end(query_str)
+	print(vim.inspect(start_coordinates))
+	vim.api.nvim_win_set_cursor(0, { start_coordinates[1] + 1, start_coordinates[2] + 1 })
+	--
+	-- utility.construct_highlight(
+	-- 	start_coordinates[1],
+	-- 	start_coordinates[2],
+	-- 	math.abs(start_coordinates[2] - end_coordinates[2])
+	-- )
+end
 
 function utility.validate_custom_collections()
 	local task_index = require("nvim-training.task_index")

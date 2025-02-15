@@ -15,12 +15,12 @@
 |Moveo | Enter and leave insert mode below the current line. | insert_mode, linewise, movement, o |
 |MoveO | Enter and leave insert mode above the current line. | insert_mode, linewise, movement, O |
 |MoveStartOfLine | Move to the start of the current line. | line, movement, start |
-|MoveT | Go back next to the last ocurrence of a char. | chair-wise, horizontal, left, movement, T |
 |Movet | Move using t. | chair-wise, horizontal, movement, right, t |
-|MoveWORD | Move multiple WORDS. | counter, horizontal, movement, text-object, WORD |
+|MoveT | Go back next to the last ocurrence of a char. | chair-wise, horizontal, left, movement, T |
 |MoveWord | Move multiple words. | counter, horizontal, movement, text-object, word |
-|MoveWORDEnd | Move to the end of WORDs. | END, movement, vertical, WORD_end |
+|MoveWORD | Move multiple WORDS. | counter, horizontal, movement, text-object, WORD |
 |MoveWordEnd | Move to the end of words. | end, movement, vertical, word_end |
+|MoveWORDEnd | Move to the end of WORDs. | END, movement, vertical, WORD_end |
 |SearchBackward | Search backwards. | diagonal, movement, search |
 |SearchForward | Search forwards. | forward, movement, search |
 |SearchWordBackward | Search backwards for the word at the cursor. | backward, movement, search |

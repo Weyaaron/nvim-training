@@ -87,4 +87,46 @@ function movements.WORD_start(line, cursor_pos, counter)
 	return move_word_start(line, cursor_pos, utility.calculate_WORD_bounds, counter)
 end
 
+local function query_start_end_indexes(query_str)
+	local root = utility.parse_into_root()
+
+	local query = vim.treesitter.query.parse("lua", query_str)
+	local start_indexes = {}
+	local end_indexes = {}
+	for pattern, match, metadata in query:iter_matches(root, 0) do
+		for id, node in pairs(match) do
+			local name = query.captures[id]
+			start_indexes[#start_indexes + 1] = { node:start() }
+			end_indexes[#end_indexes + 1] = { node:end_() }
+		end
+	end
+	return { start_indexes, end_indexes }
+end
+function movements.query_end(query_str)
+	local start_end_indexes = query_start_end_indexes(query_str)
+
+	local x = 0
+	local y = 0
+	if #start_end_indexes > 0 then
+		if #start_end_indexes[1] > 0 then
+			x = start_end_indexes[2][1][1]
+			y = start_end_indexes[2][1][2]
+		end
+	end
+	return { x, y }
+end
+
+function movements.query_start(query_str)
+	local start_end_indexes = query_start_end_indexes(query_str)
+	local x = 0
+	local y = 0
+	if #start_end_indexes > 0 then
+		if #start_end_indexes[1] > 0 then
+			x = start_end_indexes[1][1][1]
+			y = start_end_indexes[1][1][2]
+		end
+	end
+	return { x, y }
+end
+
 return movements

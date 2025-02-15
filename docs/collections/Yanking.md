@@ -2,8 +2,9 @@
 | Name | Description | Tags | Notes
 | --- | -------- | -------- | -------- |
 |YankEndOfLine | Yank to the end of the current line. | end, line, yank |
-|Yankf | Yank to the next char. | chair-wise, f, horizontal, register, right, yank |
 |YankF | Yank back to the previous char. | chair-wise, F, horizontal, left, register, yank |
+|Yankf | Yank to the next char. | chair-wise, f, horizontal, register, right, yank |
+|YankInnerConditional | Yank the condition of the current conditional. | custom, programming, register, treesitter, yank |
 |YankInsideBlock | Yank inside the block. | inside, register, text-object, yank |
 |YankInsideQuotes | Yank inside the quotes. | quotes, register, yank |
 |YankLine | Yank a line into a register. | copy, line, register, vertical, yank |

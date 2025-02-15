@@ -1,0 +1,3 @@
+if 10 == 100 then
+    print("")
+end
