@@ -182,6 +182,32 @@ function module.execute(args)
 		provided_collections[#provided_collections + 1] = collection_index["All"]
 	end
 
+	for i, collection_el in pairs(provided_collections) do
+		for ii, forbidden_collection_name_el in pairs(user_config.disabled_collections) do
+			if collection_el.name == forbidden_collection_name_el then
+				provided_collections[i] = nil
+				break
+			end
+		end
+	end
+	for i, collection_el in pairs(provided_collections) do
+		for ii, task_el in pairs(collection_el.tasks) do
+			for iii, tag_el in pairs(task_el.metadata.tags) do
+				for iiii, forbidden_tag_el in pairs(user_config.disabled_tags) do
+					if forbidden_tag_el == tag_el then
+						collection_el.tasks[ii] = nil
+					end
+				end
+			end
+		end
+		if #collection_el.tasks == 0 then
+			provided_collections[i] = nil
+		end
+	end
+	if #provided_collections == 0 then
+		print("No collections provided. The collection 'All' will be used as a fallback.")
+		provided_collections[#provided_collections + 1] = collection_index["All"]
+	end
 	resoveld_scheduler = scheduler:new(provided_collections)
 
 	loop()
