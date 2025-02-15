@@ -28,6 +28,7 @@ local task_desc_index = {
 	{ "WORD", "WORD-based Tasks", utility.create_task_list_with_given_tags({ "WORD" }) },
 	{ "Search", "Tasks involving search", utility.create_task_list_with_given_tags({ "search" }) },
 	{ "Register-Tasks", "Tasks that may use registers", utility.create_task_list_with_given_tags({ "register" }) },
+	{ "Treesitter-Tasks", "Tasks that rely on treesitter", utility.create_task_list_with_given_tags({ "treesitter" }) },
 }
 
 local initial_index = {}

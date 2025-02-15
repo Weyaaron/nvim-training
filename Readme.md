@@ -24,6 +24,11 @@ I consider this to be the best option for minimizing disruptions.
 Currently, logging and event storage for statistics is disabled. A fix/reeenabling them is
 under way.
 
+# New features (As of 2025-02)
+- Support for some treesitter-based operations.
+- Shipping of tasks/tags/collections that are not enabled by default, but can be opted into.
+
+
 # Some stats of current tasks
 
 - Supported Tasks: 56 (For a full list, see below)
@@ -201,6 +206,22 @@ training.configure({ -- All of these options work for 'opts' of lazy as well.
 	task_alphabet = "ABCDEFGabddefg,.", -- The alphabet of targets used in tasks like f,t etc.
 })
 ```
+
+# On Disabled tags/collections
+
+Some tags/collections are disabled by default. These are instances that meet some of the following criteria:
+- They require a decent amount of setup to work as intended by the task
+- They are intendet to train something that is not shipped with "vanilla vim"
+- Their setup is somewhat personal/subject to the individual user
+
+Most of these are tasks that I would like to train on. Since others might consider them usefull, I will
+publish them, but opt-in.
+
+Support for these is provided, if you feel they could be improved/enabled by default you may open a issue to
+discuss this.
+
+
+
 
 ## Custom Collections
 To add a custom collection, please use its name as a key for a list of task names in the config, for example like this:

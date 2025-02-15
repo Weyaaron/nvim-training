@@ -1,4 +1,5 @@
 local task_index = require("nvim-training.task_index")
+
 local TaskCollection = {}
 TaskCollection.__index = TaskCollection
 

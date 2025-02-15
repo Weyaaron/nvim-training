@@ -38,6 +38,8 @@ local templates = {
 	Rectangle = construct_rectangular_template(),
 	LoremIpsumWORDS = load_template_from_file("./templates/lorem_ipsum_WORDS.txt"),
 	LuaFunctions = load_template_from_file("./templates/lua_functions.txt"),
+	LuaConditional = load_template_from_file("./templates/lua_conditional.txt"),
+	LuaAssignment = load_template_from_file("./templates/lua_assignment.txt"),
 }
 
 return templates
