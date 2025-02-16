@@ -181,6 +181,7 @@ training.configure({ -- All of these options work for 'opts' of lazy as well.
 	enable_counters = true, -- Enables/Disables counters in tasks that support counters.
 	enable_events = true, -- Enables/Disables events.
 	enable_registers = false, -- Enables/Disables registers. Since this option complicates a lot of tasks, it is disabled by default.
+	enable_repeat_on_failure = false, -- Enables/Disables wether the current task will be repeated (exactly) if it failed. Failures will be counted regardless.
 	enable_highlights = true, --Enables/Disables highlights. Care is taken to ensure that tasks are possible without them.
 	event_storage_directory_path= vim.fn.stdpath("data") .. "/nvim-training/", -- The path used to store events.
 	logging_args = {
