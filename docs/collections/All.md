@@ -6,14 +6,15 @@
 |ChangeF | Change text using F | chair-wise, change, F, horizontal, left |
 |Changef | Change text using f | chair-wise, change, f, horizontal, right |
 |ChangeLine | Change the current line. | change, deletion, line |
-|Changet | Change text using f | chair-wise, change, horizontal, right, t |
 |ChangeT | Change text using T | chair-wise, change, horizontal, left, T |
+|Changet | Change text using f | chair-wise, change, horizontal, right, t |
 |ChangeWord | Change multiple words. | change, counter, horizontal, text-object, word |
 |CommentLine | Change the current line into a single line comment. | change, commenting, plugin, programming | Not available in vanilla-vim, needs plugin. |
 |DeleteChar | Delete the current char. | change, char, deletion |
 |DeleteF | Delete back to the previous char. | chair-wise, deletion, F, horizontal, left |
 |Deletef | Delete forward to the next char. | chair-wise, deletion, f, horizontal, right |
 |DeleteInsideMatch | Delete inside the current match. | deletion, match, text-object |
+|DeleteInsideQuotes | Delete inside the quotes. | deletion, quotes |
 |DeleteLine | Delete the current line. | deletion, line |
 |DeleteSentence | Delete the textobject inner sentence. | deletion, horizontal, text-object, sentence |
 |Deletet | Delete to the next char. | chair-wise, deletion, horizontal, right, t |
@@ -40,14 +41,14 @@
 |MoveO | Enter and leave insert mode above the current line. | insert_mode, linewise, movement, O |
 |MoveStartOfFile | Move to the start of the file. | file, start, vertical |
 |MoveStartOfLine | Move to the start of the current line. | line, movement, start |
-|Movet | Move using t. | chair-wise, horizontal, movement, right, t |
 |MoveT | Go back next to the last ocurrence of a char. | chair-wise, horizontal, left, movement, T |
+|Movet | Move using t. | chair-wise, horizontal, movement, right, t |
 |MoveWord | Move multiple words. | counter, horizontal, movement, text-object, word |
 |MoveWORD | Move multiple WORDS. | counter, horizontal, movement, text-object, WORD |
 |MoveWordEnd | Move to the end of words. | end, movement, vertical, word |
 |MoveWORDEnd | Move to the end of WORDs. | end, movement, vertical, WORD |
-|MoveWordStart | Move back to the start of 'words'. | horizontal, movement, word |
 |MoveWORDStart | Move Back to the start of 'WORDS'. | horizontal, movement, word |
+|MoveWordStart | Move back to the start of 'words'. | horizontal, movement, word |
 |Paste | Paste from a given register. | Paste, register |
 |paste | Paste from a given register. | paste, register |
 |SearchBackward | Search backwards. | diagonal, movement, search |
@@ -55,10 +56,11 @@
 |SearchWordBackward | Search backwards for the word at the cursor. | backward, movement, search |
 |SearchWordForward | Search forwards for the word at the cursor. | forward, movement, search |
 |YankEndOfLine | Yank to the end of the current line. | end, line, yank |
-|YankF | Yank back to the previous char. | chair-wise, F, horizontal, left, register, yank |
 |Yankf | Yank to the next char. | chair-wise, f, horizontal, register, right, yank |
+|YankF | Yank back to the previous char. | chair-wise, F, horizontal, left, register, yank |
 |YankInsideBlock | Yank inside the block. | inside, register, text-object, yank |
 |YankInsideMatch | Yank inside the current match. | inside, match, yank |
+|YankInsideQuotes | Yank inside the quotes. | quotes, register, yank |
 |YankLine | Yank a line into a register. | copy, line, register, vertical, yank |
 |YankT | Yank back next to the previous char. | chair-wise, horizontal, left, register, T, yank |
 |Yankt | Yank next to the next char. | chair-wise, horizontal, register, right, t, yank |
