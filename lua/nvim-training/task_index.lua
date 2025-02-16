@@ -60,6 +60,8 @@ local exported_tasks = {
 	YankT = require("nvim-training.tasks.yank_T"),
 	YankWord = require("nvim-training.tasks.yank_word"),
 	YankWORD = require("nvim-training.tasks.yank_WORD"),
+	DeleteInsideQuotes = require("nvim-training.tasks.delete_inside_quotes"),
+	YankInsideQuotes = require("nvim-training.tasks.yank_inside_quotes"),
 }
 
 for i, v in pairs(exported_tasks) do
