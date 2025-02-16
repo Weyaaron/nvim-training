@@ -19,6 +19,7 @@ local exported_tags = {
 	word = { "word", "horizontal", "counter", "text-object" },
 	WORD = { "WORD", "horizontal", "counter", "text-object" },
 	yank = { "yank", "register" },
+	quotes = { "quotes" },
 }
 
 return exported_tags
