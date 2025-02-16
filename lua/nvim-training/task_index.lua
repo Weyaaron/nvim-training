@@ -18,6 +18,8 @@ local exported_tasks = {
 	DeleteT = require("nvim-training.tasks.delete_T"),
 	DeleteWord = require("nvim-training.tasks.delete_word"),
 	DeleteWORD = require("nvim-training.tasks.delete_WORD"),
+	DeleteWordEnd = require("nvim-training.tasks.delete_word_end"),
+	DeleteWORDEnd = require("nvim-training.tasks.delete_WORD_end"),
 	Increment = require("nvim-training.tasks.increment"),
 	InsertAtStartOfLine = require("nvim-training.tasks.insert_at_start_of_line"),
 	InsertChar = require("nvim-training.tasks.insert_char"),
@@ -60,6 +62,8 @@ local exported_tasks = {
 	YankT = require("nvim-training.tasks.yank_T"),
 	YankWord = require("nvim-training.tasks.yank_word"),
 	YankWORD = require("nvim-training.tasks.yank_WORD"),
+	DeleteInsideQuotes = require("nvim-training.tasks.delete_inside_quotes"),
+	YankInsideQuotes = require("nvim-training.tasks.yank_inside_quotes"),
 }
 
 for i, v in pairs(exported_tasks) do

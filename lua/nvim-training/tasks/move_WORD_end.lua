@@ -30,7 +30,7 @@ function MoveWORDEnd:activate()
 
 		current_cursor_pos = vim.api.nvim_win_get_cursor(0)
 		local new_x_pos = movements.WORD_end(word_line, current_cursor_pos[2], self.counter)
-		self.cursor_target = { current_cursor_pos[1], new_x_pos }
+		self.cursor_target = { current_cursor_pos[1], new_x_pos + 1 }
 		utility.construct_highlight(current_cursor_pos[1], self.cursor_target[2], 1)
 	end
 	vim.schedule_wrap(_inner_update)()
