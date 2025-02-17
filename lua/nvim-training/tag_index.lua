@@ -10,6 +10,7 @@ local exported_tags = {
 	movement = { "movement" },
 	o = { "o", "insert_mode", "linewise" },
 	O = { "O", "insert_mode", "linewise" },
+	quotes = { "quotes" },
 	sentence = { "sentence", "horizontal, text-object" },
 	T = { "T", "horizontal", "chair-wise", "left" },
 	t = { "t", "horizontal", "chair-wise", "right" },
