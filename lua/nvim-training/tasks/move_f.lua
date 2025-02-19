@@ -2,6 +2,7 @@ local utility = require("nvim-training.utility")
 local Move = require("nvim-training.tasks.move")
 local movements = require("nvim-training.movements")
 local tag_index = require("nvim-training.tag_index")
+local text_object_index = require("nvim-training.text_object_index")
 
 local Move_f = {}
 Move_f.__index = Move_f
@@ -10,6 +11,7 @@ Move_f.metadata = {
 	desc = "Find the next char.",
 	instructions = "",
 	tags = utility.flatten({ tag_index.movement, tag_index.f }),
+	text_object = text_object_index.f:new(),
 }
 setmetatable(Move_f, { __index = Move })
 

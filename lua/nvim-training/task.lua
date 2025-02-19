@@ -1,5 +1,5 @@
 local utility = require("nvim-training.utility")
-local user_config = require("nvim-training.user_config")
+local setup_recipe_index = require("nvim-training.setup_recipe_index")
 
 local Task = {}
 Task.__index = Task
@@ -18,6 +18,11 @@ function Task:new()
 
 	base.target_register = utility.calculate_target_register()
 	vim.fn.setreg(base.target_register, "")
+	print("got called in out text ", vim.inspect(base.metadata))
+	if base.metadata.text_object then
+		print("got called in task obj setup")
+		setup_recipe_index[base.metadata.text_object.name](base, base.metadata.text_object)
+	end
 	return base
 end
 
