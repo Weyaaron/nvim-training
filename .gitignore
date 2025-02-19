@@ -5,6 +5,7 @@ scratch
 training.txt
 training.lua
 results.txt
+deps
 
 ./logs/
 
