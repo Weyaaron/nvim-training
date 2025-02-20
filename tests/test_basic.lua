@@ -1,8 +1,6 @@
 local new_set = MiniTest.new_set
 local expect, eq = MiniTest.expect, MiniTest.expect.equality
 
-local T = new_set()
-
 -- Actual tests definitions will go here
 local T = MiniTest.new_set()
 

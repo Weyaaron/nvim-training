@@ -6,6 +6,9 @@ local internal_config = require("nvim-training.internal_config")
 local logging = require("nvim-training.logging")
 
 local module = {}
+
+module.test_interface = { task_results = {}, current_task = nil }
+
 local task_count = 0
 local success_count = 0
 local failure_count = 0
@@ -99,6 +102,8 @@ local function loop(autocmd_callback_data)
 		end
 	end
 
+	module.test_interface.task_results[#module.test_interface.task_results + 1] = previous_task_result
+
 	local utility = require("nvim-training.utility")
 	--This line ensures that the highlights of previous tasks are discarded.
 	local internal_config = require("nvim-training.internal_config")
@@ -109,6 +114,8 @@ local function loop(autocmd_callback_data)
 		last_task_name = current_task.name
 	end
 
+	module.test_interface.current_task = current_task
+
 	if not previous_task_result and user_config.enable_repeat_on_failure then
 		math.randomseed(random_seed)
 	else
@@ -118,6 +125,8 @@ local function loop(autocmd_callback_data)
 	vim.cmd("set filetype=" .. current_task.file_type)
 
 	logging.log("Task changed from " .. last_task_name .. " to " .. current_task.name, {})
+
+	module.test_interface.current_task = current_task
 	current_task:activate()
 
 	local target_data = {
