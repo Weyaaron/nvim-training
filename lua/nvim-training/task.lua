@@ -26,6 +26,10 @@ function Task:read_register()
 	return utility.split_str(register_content, "\n")[1]
 end
 
+function Task:construct_interface_data()
+	return { counter = self.counter, target_char = self.target_char, name = self.name }
+end
+
 function Task:activate() end
 
 function Task:deactivate(autocmd_callback_data) end

@@ -7,7 +7,7 @@ local logging = require("nvim-training.logging")
 
 local module = {}
 
-module.test_interface = { task_results = {}, current_task = nil }
+module.test_interface = { task_results = {}, task_data = nil }
 
 local task_count = 0
 local success_count = 0
@@ -126,7 +126,7 @@ local function loop(autocmd_callback_data)
 
 	logging.log("Task changed from " .. last_task_name .. " to " .. current_task.name, {})
 
-	module.test_interface.current_task = current_task
+	module.test_interface.task_data = current_task:construct_interface_data()
 	current_task:activate()
 
 	local target_data = {

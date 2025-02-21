@@ -1,5 +1,13 @@
 local child = MiniTest.new_child_neovim()
 
+local task_names = { "Movef", "MoveF", "Deletef" }
+local task_inputs = { "f", "F", "f" }
+local tuple_params = {}
+
+for i = 0, #task_names do
+	tuple_params[i] = { task_names[i], task_inputs[i] }
+	print(vim.inspect(tuple_params))
+end
 local TestModule = MiniTest.new_set({
 	hooks = {
 		pre_case = function()
@@ -11,7 +19,7 @@ local TestModule = MiniTest.new_set({
 		-- Stop once all test cases are finished
 		post_once = child.stop,
 	},
-	parametrize = { { "MoveWord", "DeleteWord" }, { "w", "d" } },--Todo: Tupelizer.
+	parametrize = tuple_params,
 })
 
 function TestModule.test_success(task_name, task_key_desc)
@@ -21,8 +29,13 @@ function TestModule.test_success(task_name, task_key_desc)
 	child.cmd("Training Start RandomScheduler UnitTest")
 	local interface_values = child.lua_get("require('nvim-training.commands.command_start').test_interface")
 
-	local counter_from_task = interface_values.task_data.counter
-	child.type_keys(tostring(counter_from_task) .. task_key_desc)
+	local target_char = interface_values.task_data.target_char
+	if not target_char then
+		error("The task is missing key data used by the test")
+	end
+	local key_inputs = task_key_desc .. tostring(target_char)
+	print(task_name, task_key_desc, key_inputs)
+	child.type_keys(key_inputs)
 	local interface_values_after_task_completion =
 		child.lua_get("require('nvim-training.commands.command_start').test_interface")
 
