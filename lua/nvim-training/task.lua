@@ -27,7 +27,7 @@ function Task:read_register()
 end
 
 function Task:construct_interface_data()
-	return { counter = self.counter, target_char = self.target_char, name = self.name }
+	return { counter = self.counter, target_char = self.target_char, name = self.name , target_register = self.target_register}
 end
 
 function Task:activate() end
