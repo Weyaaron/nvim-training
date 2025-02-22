@@ -1,6 +1,8 @@
 local utility = require("nvim-training.utility")
 
 local function coverage()
+	-- local MiniTest = require("mini.test")
+	-- MiniTest.run()
 	local task_index = require("nvim-training.task_index")
 	local task_names_from_file = require("tests.test_f_tasks").task_names
 	local count_table = {}
