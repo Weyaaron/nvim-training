@@ -11,6 +11,7 @@ YankT.metadata = {
 	desc = "Yank back next to the previous char.",
 	instructions = "",
 	tags = utility.flatten({ tag_index.yank, tag_index.T }),
+	input_template = "<target_register>yT<target_char>",
 }
 
 function YankT:new()

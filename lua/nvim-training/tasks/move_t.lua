@@ -11,6 +11,7 @@ Movet.metadata = {
 	desc = "Move using t.",
 	instructions = "",
 	tags = utility.flatten({ tag_index.movement, tag_index.t }),
+	input_template = "t<target_char>",
 }
 
 function Movet:new()

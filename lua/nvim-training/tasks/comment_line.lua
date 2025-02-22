@@ -13,6 +13,7 @@ CommentLine.metadata = {
 	instructions = "Change the current line into a single line comment.",
 	notes = "Not available in vanilla-vim, needs plugin.",
 	tags = { "programming", "plugin", "change", "commenting" },
+	input_template = "gcc",
 }
 function CommentLine:new()
 	local base = Task:new()

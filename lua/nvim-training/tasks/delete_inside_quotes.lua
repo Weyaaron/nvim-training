@@ -11,6 +11,8 @@ DeleteInsideQuotes.metadata = {
 	desc = "Delete inside the quotes.",
 	instructions = "Delete inside the quotes.",
 	tags = utility.flatten({ tag_index.quotes, tag_index.deletion }),
+	-- input_template = "di<esc>",
+	-- Todo: Enable for unit test
 }
 function DeleteInsideQuotes:new()
 	local base = Delete:new()

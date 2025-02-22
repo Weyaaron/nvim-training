@@ -9,6 +9,8 @@ DeleteLine.metadata = {
 	desc = "Delete the current line.",
 	instructions = "Delete the current line.",
 	tags = { "deletion", "line" },
+	input_template = "dd",
+	--todo: Register support
 }
 
 function DeleteLine:new()

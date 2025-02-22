@@ -9,6 +9,7 @@ ChangeLine.metadata = {
 	desc = "Change the current line.",
 	instructions = "Change the current line into 'x' and leave insert-mode.",
 	tags = { "deletion", "line", "change" },
+	input_template = "ccx<esc>",
 }
 
 setmetatable(ChangeLine, { __index = Change })

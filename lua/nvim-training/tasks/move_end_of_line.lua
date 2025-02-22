@@ -10,6 +10,8 @@ MoveEndOfLine.metadata = {
 	desc = "Move to the end of the current line.",
 	instructions = "Move to the end of the current line.",
 	tags = { "movement", "end", "line", "horizontal" },
+
+	input_template = "$",
 }
 function MoveEndOfLine:new()
 	local base = Move:new()

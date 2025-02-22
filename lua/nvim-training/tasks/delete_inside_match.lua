@@ -11,6 +11,7 @@ DeleteInsideMatch.metadata = {
 	desc = "Delete inside the current match.",
 	instructions = "",
 	tags = utility.flatten({ tag_index.deletion, tag_index.match }),
+	input_template = "di%",
 }
 function DeleteInsideMatch:new()
 	local base = Delete:new()

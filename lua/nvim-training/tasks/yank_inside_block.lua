@@ -11,6 +11,7 @@ YankInsideBlock.metadata = {
 	desc = "Yank inside the block.",
 	instructions = "Yank inside block.",
 	tags = utility.flatten({ tag_index.yank, tag_index.block }),
+	input_template = "<target_register>yib",
 }
 function YankInsideBlock:new()
 	local base = Yank:new()

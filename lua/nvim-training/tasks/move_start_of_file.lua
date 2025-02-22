@@ -9,6 +9,7 @@ MoveToStartOfFile.metadata = {
 	desc = "Move to the start of the file.",
 	instructions = "Move to the start of the file.",
 	tags = { "start", "file", "vertical" },
+	input_template = "gg",
 }
 function MoveToStartOfFile:new()
 	local base = RandomCursorStart:new()

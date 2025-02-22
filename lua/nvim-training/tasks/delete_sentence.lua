@@ -11,6 +11,7 @@ DeleteSentence.metadata = {
 	desc = "Delete the textobject inner sentence.",
 	instructions = "",
 	tags = utility.flatten({ tag_index.deletion, tag_index.sentence }),
+	input_template = "<target_register>dis",
 }
 
 function DeleteSentence:new()

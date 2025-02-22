@@ -11,6 +11,7 @@ Deletef.metadata = {
 	desc = "Delete forward to the next char.",
 	instructions = ".",
 	tags = utility.flatten({ tag_index.deletion, tag_index.f }),
+	input_template = "<target_register>df<target_char>",
 }
 
 function Deletef:new()

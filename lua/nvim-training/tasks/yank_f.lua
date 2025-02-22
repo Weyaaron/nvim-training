@@ -11,6 +11,7 @@ Yankf.metadata = {
 	desc = "Yank to the next char.",
 	instructions = "",
 	tags = utility.flatten({ tag_index.yank, tag_index.f }),
+	input_template = "<target_register>yf<target_char>",
 }
 
 function Yankf:new()

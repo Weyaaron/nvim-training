@@ -9,6 +9,7 @@ AppendChar.metadata = {
 	desc = "Insert a char next to the cursor.",
 	instructions = "",
 	tags = { "change", "insertion", "append" },
+	input_template = "ix<esc>",
 }
 
 function AppendChar:new()

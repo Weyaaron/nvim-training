@@ -7,6 +7,7 @@ MoveStartOfLine.metadata = {
 	desc = "Move to the start of the current line.",
 	instructions = "Move to the start of the current line.",
 	tags = { "start", "line", "movement" },
+	input_template = "0",
 }
 
 setmetatable(MoveStartOfLine, { __index = Task })

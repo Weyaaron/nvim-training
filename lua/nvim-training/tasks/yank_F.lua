@@ -12,6 +12,7 @@ YankF.metadata = {
 	desc = "Yank back to the previous char.",
 	instructions = "",
 	tags = utility.flatten({ tag_index.yank, tag_index.F }),
+	input_template = "<target_register>yF<target_char>",
 }
 
 function YankF:new()

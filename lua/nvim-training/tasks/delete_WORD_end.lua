@@ -11,6 +11,7 @@ DeleteWORDEnd.metadata = {
 	desc = "Delete using 'E'.",
 	instructions = "",
 	tags = utility.flatten({ tag_index.WORD, "E", "deletion" }),
+	input_template = "<target_register>d<counter>E",
 }
 
 function DeleteWORDEnd:new()

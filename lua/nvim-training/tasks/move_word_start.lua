@@ -11,6 +11,7 @@ MoveWordStart.metadata = {
 	desc = "Move back to the start of 'words'.",
 	instructions = "",
 	tags = utility.flatten({ tag_index.movement, tag_index.word_start }),
+        input_template ="<counter>b"
 }
 
 function MoveWordStart:new()

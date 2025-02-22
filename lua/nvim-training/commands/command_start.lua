@@ -125,9 +125,9 @@ local function loop(autocmd_callback_data)
 	logging.log("Task changed from " .. last_task_name .. " to " .. current_task.name, {})
 
 	module.test_interface.task_data = current_task:construct_interface_data()
-	print(vim.inspect(module.test_interface))
+	-- print(vim.inspect(module.test_interface))
 	current_task:activate()
-
+        module.test_interface.current_task = current_task
 	local target_data = {
 		timestamp = os.time(),
 		session_id = session_id,

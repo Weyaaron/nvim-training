@@ -11,6 +11,7 @@ ChangeT.metadata = {
 	desc = "Change text using T",
 	instructions = "",
 	tags = utility.flatten({ tag_index.change, tag_index.T }),
+	input_template = "cT<target_char>x<esc>",
 }
 
 function ChangeT:new()

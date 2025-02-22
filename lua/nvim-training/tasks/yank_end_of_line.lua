@@ -9,6 +9,7 @@ YankEndOfLine.metadata = {
 	desc = "Yank to the end of the current line.",
 	instructions = "",
 	tags = { "end", "line", "yank" },
+	input_template = "<target_register>y$",
 }
 
 setmetatable(YankEndOfLine, { __index = Yank })

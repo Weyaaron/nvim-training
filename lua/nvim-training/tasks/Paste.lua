@@ -10,6 +10,7 @@ Paste.metadata = {
 	desc = "Paste from a given register.",
 	instructions = "",
 	tags = { "Paste", "register" },
+	input_template = "<target_register>P",
 }
 
 function Paste:new()

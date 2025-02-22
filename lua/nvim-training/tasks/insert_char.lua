@@ -9,6 +9,7 @@ InsertChar.metadata = {
 	desc = "Insert a char at the current position.",
 	instructions = "",
 	tags = { "change", "insertion", "char" },
+	input_template = "ix<esc>",
 }
 
 function InsertChar:new()

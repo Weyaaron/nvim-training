@@ -11,6 +11,7 @@ Deletet.metadata = {
 	desc = "Delete to the next char.",
 	instructions = ".",
 	tags = utility.flatten({ tag_index.deletion, tag_index.t }),
+	input_template = "<target_register>dt<target_char>",
 }
 
 function Deletet:new()

@@ -11,6 +11,7 @@ DeleteT.metadata = {
 	desc = "Delete back to the next char.",
 	instructions = "",
 	tags = utility.flatten({ tag_index.deletion, tag_index.T }),
+	input_template = "<target_register>dT<target_char>",
 }
 
 function DeleteT:new()

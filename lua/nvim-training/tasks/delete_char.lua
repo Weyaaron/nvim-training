@@ -9,6 +9,7 @@ DeleteCharTask.metadata = {
 	desc = "Delete the current char.",
 	instructions = "Delete the current char.",
 	tags = { "deletion", "change", "char" },
+	input_template = "x",
 }
 
 function DeleteCharTask:new()

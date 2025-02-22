@@ -9,6 +9,7 @@ YankLine.metadata = {
 	desc = "Yank a line into a register.",
 	instructions = "",
 	tags = utility.flatten({ tag_index.yank, "copy", "line", "vertical" }),
+	input_template = "<target_register>yy",
 }
 
 setmetatable(YankLine, { __index = Yank })
