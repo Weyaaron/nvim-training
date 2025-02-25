@@ -11,6 +11,7 @@ Changef.metadata = {
 	desc = "Change text using f",
 	instructions = "",
 	tags = utility.flatten({ tag_index.change, tag_index.f }),
+	input_template = "<target_register>cf<target_char>x<esc>",
 }
 
 function Changef:new()

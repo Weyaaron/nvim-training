@@ -16,6 +16,7 @@ MoveCharsRight.metadata = {
 	desc = "Move right charwise.",
 	instructions = "",
 	tags = { "movement", "l", "horizontal" },
+	input_template = "<counter>l",
 }
 
 function MoveCharsRight:activate()

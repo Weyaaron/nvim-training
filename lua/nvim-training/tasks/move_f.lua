@@ -10,6 +10,7 @@ Move_f.metadata = {
 	desc = "Find the next char.",
 	instructions = "",
 	tags = utility.flatten({ tag_index.movement, tag_index.f }),
+	input_template = "<target_register>f<target_char>",
 }
 setmetatable(Move_f, { __index = Move })
 

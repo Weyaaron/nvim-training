@@ -12,6 +12,7 @@ YankWord.metadata = {
 	desc = "Yank multiple words.",
 	instructions = "",
 	tags = utility.flatten({ tag_index.yank, tag_index.word }),
+	input_template = "<target_register>y<counter>w",
 }
 
 function YankWord:new()

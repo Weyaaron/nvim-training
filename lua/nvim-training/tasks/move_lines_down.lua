@@ -11,6 +11,7 @@ MoveLinesDown.metadata = {
 	desc = "Move down multiple lines.",
 	instructions = "",
 	tags = utility.flatten({ tag_index.movement, tag_index.lines_down }),
+	input_template = "<counter>j",
 }
 
 function MoveLinesDown:new()

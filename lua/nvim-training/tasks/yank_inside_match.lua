@@ -10,6 +10,7 @@ YankInsideMatch.metadata = {
 	desc = "Yank inside the current match.",
 	instructions = "",
 	tags = { "yank", "inside", "match" },
+	input_template = "<target_register>y%",
 }
 function YankInsideMatch:new()
 	local base = Yank:new()

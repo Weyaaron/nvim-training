@@ -10,12 +10,14 @@ MoveAbsoluteLine.metadata = {
 	desc = "Move to the absolute line.",
 	instructions = "Move to the absolute line with the highlight.",
 	tags = { "movement", "line", "vertical" },
+	input_template = "<counter>gg",
 }
 
 function MoveAbsoluteLine:new()
 	local base = Move:new()
 	setmetatable(base, { __index = MoveAbsoluteLine })
 	base.cursor_target = { math.random(internal_config.header_length + 1, internal_config.header_length + 5), 0 }
+	base.counter = base.cursor_target[1]
 	return base
 end
 

@@ -5,19 +5,19 @@ local MoveCharsLeft = {}
 setmetatable(MoveCharsLeft, { __index = Move })
 MoveCharsLeft.__index = MoveCharsLeft
 
-function MoveCharsLeft:new()
-	local base = Move:new()
-	setmetatable(base, { __index = MoveCharsLeft })
-	return base
-end
-
 MoveCharsLeft.metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move left charwise.",
 	instructions = "",
 	tags = { "movement", "h", "horizontal", "char" },
+	input_template = "<counter>h",
 }
 
+function MoveCharsLeft:new()
+	local base = Move:new()
+	setmetatable(base, { __index = MoveCharsLeft })
+	return base
+end
 function MoveCharsLeft:activate()
 	local function _inner_update()
 		local line = utility.construct_words_line()

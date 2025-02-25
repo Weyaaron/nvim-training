@@ -207,11 +207,18 @@ end
 function utility.get_keys(t)
 	local keys = {}
 	for key, _ in pairs(t) do
-		table.insert(keys, key)
+		keys[#keys + 1] = key
 	end
 	return keys
 end
 
+function utility.truth_table(t)
+	local keys = {}
+	for key, value in pairs(t) do
+		keys[value] = true
+	end
+	return keys
+end
 function utility.construct_line_with_bracket(bracket_pair, left_index, right_index)
 	local result = ""
 	for i = 1, internal_config.line_length do

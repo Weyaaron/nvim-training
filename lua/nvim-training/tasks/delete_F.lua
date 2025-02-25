@@ -11,6 +11,7 @@ DeleteF.metadata = {
 	desc = "Delete back to the previous char.",
 	instructions = ".",
 	tags = utility.flatten({ tag_index.deletion, tag_index.F }),
+	input_template = "<target_register>dF<target_char>",
 }
 
 function DeleteF:new()

@@ -11,6 +11,7 @@ MoveLinesUp.metadata = {
 	desc = "Move multiple lines up.",
 	instructions = "",
 	tags = utility.flatten({ tag_index.movement, tag_index.lines_up }),
+	input_template = "<counter>k",
 }
 function MoveLinesUp:new()
 	local base = Move:new()

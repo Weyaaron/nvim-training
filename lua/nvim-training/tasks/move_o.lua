@@ -10,6 +10,7 @@ Moveo.metadata = {
 	desc = "Enter and leave insert mode below the current line.",
 	instructions = "Enter and leave insert mode below the current line.",
 	tags = utility.flatten({ tag_index.movement, tag_index.o }),
+	input_template = "o<esc>",
 }
 
 function Moveo:new()

@@ -1,6 +1,5 @@
 local utility = require("nvim-training.utility")
 local Task = require("nvim-training.task")
-local user_config = require("nvim-training.user_config")
 
 local paste = {}
 paste.__index = paste
@@ -10,11 +9,11 @@ paste.metadata = {
 	desc = "Paste from a given register.",
 	instructions = "",
 	tags = { "paste", "register" },
+	input_template = "<target_register>p",
 }
 
 function paste:new()
 	local base = Task:new()
-
 	setmetatable(base, { __index = paste })
 	base.reg_content = "-Content of next Line-\r"
 	return base

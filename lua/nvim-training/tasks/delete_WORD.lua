@@ -11,6 +11,7 @@ DeleteWORD.metadata = {
 	desc = "Delete multiple WORDs.",
 	instructions = "",
 	tags = utility.flatten({ tag_index.deletion, tag_index.WORD }),
+	input_template = "<target_register>d<counter>W",
 }
 
 function DeleteWORD:new()

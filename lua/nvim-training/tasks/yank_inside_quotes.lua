@@ -15,6 +15,8 @@ YankInsideQuote.metadata = {
 function YankInsideQuote:new()
 	local base = Yank:new()
 	setmetatable(base, { __index = YankInsideQuote })
+        base.target_quote = utility.construct_random_quote_pair()
+    --TOdo: Rework to use a single quote
 	return base
 end
 function YankInsideQuote:activate()

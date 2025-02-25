@@ -9,6 +9,7 @@ MoveT.metadata = {
 	desc = "Go back next to the last ocurrence of a char.",
 	instructions = "",
 	tags = utility.flatten({ tag_index.movement, tag_index.T }),
+	input_template = "<target_register>T<target_char>",
 }
 setmetatable(MoveT, { __index = Move })
 function MoveT:new()

@@ -10,6 +10,7 @@ MoveWORDStart.metadata = {
 	desc = "Move Back to the start of 'WORDS'.",
 	instructions = "",
 	tags = { "movement", "word", "horizontal" },
+        input_template ="<counter>W"
 }
 
 function MoveWORDStart:new()

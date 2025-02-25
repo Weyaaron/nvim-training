@@ -13,6 +13,7 @@ MoveWordEnd.metadata = {
 	desc = "Move to the end of words.",
 	instructions = "Move to the end of the current 'word'.",
 	tags = utility.flatten({ tag_index.movement, tag_index.word_end }),
+	input_template = "<counter>e",
 }
 
 function MoveWordEnd:new()

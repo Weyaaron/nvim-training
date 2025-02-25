@@ -11,6 +11,8 @@ ChangeWord.metadata = {
 	desc = "Change multiple words.",
 	instructions = "",
 	tags = utility.flatten({ tag_index.change, tag_index.word }),
+
+	input_template = "c<counter>wx<esc>",
 }
 
 function ChangeWord:new()

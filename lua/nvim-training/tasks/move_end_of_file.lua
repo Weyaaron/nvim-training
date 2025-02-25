@@ -8,6 +8,7 @@ MoveToEndOfFile.metadata = {
 	desc = "Move to the end the file.",
 	instructions = "Move to the end of the file.",
 	tags = { "movement", "end", "file", "vertical" },
+	input_template = "G",
 }
 function MoveToEndOfFile:new()
 	local base = RandomCursorStart:new()

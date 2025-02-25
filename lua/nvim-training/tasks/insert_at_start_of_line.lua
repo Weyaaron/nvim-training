@@ -9,6 +9,7 @@ InsertAtLineBeginning.metadata = {
 	desc = "Insert text at the start of the line.",
 	instructions = "Insert 'x' at the start of the line and leave insert-mode.",
 	tags = { "insert", "I", "start", "line" },
+	input_template = "Ix<esc>",
 }
 
 function InsertAtLineBeginning:new()

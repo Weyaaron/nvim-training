@@ -12,6 +12,7 @@ MoveMatch.metadata = {
 	desc = "Move to the current match.",
 	instructions = "Move to the current match.",
 	tags = utility.flatten({ tag_index.movement, tag_index.match }),
+	input_template = "%",
 }
 function MoveMatch:new()
 	local base = Move:new()

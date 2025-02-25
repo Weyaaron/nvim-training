@@ -8,6 +8,7 @@ JoinLines.metadata = {
 	desc = "Join the current line with the line below.",
 	instructions = "Join the current line with the line below.",
 	tags = { "change", "line", "join", "J" },
+	input_template = "J",
 }
 
 setmetatable(JoinLines, { __index = Task })

@@ -11,6 +11,7 @@ MoveF.metadata = {
 	desc = "Go back to the last ocurrence of a char.",
 	instructions = "",
 	tags = utility.flatten({ tag_index.movement, tag_index.F }),
+	input_template = "<target_register>F<target_char>",
 }
 
 function MoveF:new()
