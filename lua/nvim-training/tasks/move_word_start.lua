@@ -21,7 +21,7 @@ function MoveWordStart:new()
 end
 function MoveWordStart:activate()
 	local function _inner_update()
-		local line = utility.construct_WORDS_line()
+		local line = utility.construct_words_line()
 		self.cursor_target = utility.do_word_preparation(line, movements.word_start, self.counter, 55)
 	end
 	vim.schedule_wrap(_inner_update)()

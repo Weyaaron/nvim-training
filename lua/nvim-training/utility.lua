@@ -26,7 +26,7 @@ function utility.validate_custom_collections()
 		end
 	end
 end
-function utility.extract_text_from_f_coordinates(cursor_target)
+function utility.extract_text_from_coordinates(cursor_target)
 	local target_text = ""
 	local current_cursor_pos = vim.api.nvim_win_get_cursor(0)
 	local line = utility.get_line(current_cursor_pos[1])
