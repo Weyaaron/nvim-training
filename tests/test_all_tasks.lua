@@ -8,7 +8,7 @@ for i, v in pairs(task_index_keys) do
 	names[#names + 1] = { v }
 end
 
--- names = { { "YankInsideQuotes" } }
+names = { { "DeleteWord" }, { "" }, { "DeleteWORD" } }
 local child = MiniTest.new_child_neovim()
 
 local TestModule = MiniTest.new_set({

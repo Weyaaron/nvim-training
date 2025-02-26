@@ -24,6 +24,7 @@ function MoveWORDEnd:activate()
 	local function _inner_update()
 		local line = utility.construct_WORDS_line()
 		self.cursor_target = utility.do_word_preparation(line, movements.WORD_end, self.counter, math.random(1, 10))
+
 	end
 	vim.schedule_wrap(_inner_update)()
 end

@@ -23,7 +23,7 @@ end
 
 function DeleteWORDEnd:activate()
 	local line = utility.construct_WORDS_line()
-	self:delete_with_word_movement(line, movements.WORD_end)
+	self:delete_word(line, movements.WORD_end)
 end
 
 function DeleteWORDEnd:instructions()

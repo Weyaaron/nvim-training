@@ -1,8 +1,6 @@
 local utility = require("nvim-training.utility")
 local Move = require("nvim-training.tasks.move")
 local movements = require("nvim-training.movements")
-local user_config = require("nvim-training.user_config")
-local internal_config = require("nvim-training.internal_config")
 local tag_index = require("nvim-training.tag_index")
 
 local MoveWordEnd = {}
@@ -19,11 +17,6 @@ MoveWordEnd.metadata = {
 function MoveWordEnd:new()
 	local base = Move:new()
 	setmetatable(base, { __index = MoveWordEnd })
-
-	base.counter = 1
-	if user_config.enable_counters then
-		base.counter = math.random(2, 4)
-	end
 	return base
 end
 function MoveWordEnd:activate()

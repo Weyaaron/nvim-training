@@ -26,7 +26,7 @@ function utility.validate_custom_collections()
 		end
 	end
 end
-function utility.extract_text_from_f_coordinates(cursor_target)
+function utility.extract_text_from_coordinates(cursor_target)
 	local target_text = ""
 	local current_cursor_pos = vim.api.nvim_win_get_cursor(0)
 	local line = utility.get_line(current_cursor_pos[1])
@@ -36,11 +36,6 @@ function utility.extract_text_from_f_coordinates(cursor_target)
 		target_text = utility.extract_text_right_to_left(line, cursor_target[2], current_cursor_pos[2])
 	end
 	return target_text
-end
-
---Its really silly that the coordinates differ by one and have to be converted this way ...
-function utility.extract_text_from_word_coordinates(cursor_target)
-	return utility.extract_text_from_f_coordinates({ cursor_target[1], cursor_target[2] - 1 })
 end
 
 function utility.do_f_preparation(line, f_movement, target_char)

@@ -18,7 +18,7 @@ end
 function Yank:yank_f(line, f_movement)
 	local function _inner_update()
 		self.cursor_target = utility.do_f_preparation(line, f_movement, self.target_char)
-		self.target_text = utility.extract_text_from_f_coordinates(self.cursor_target)
+		self.target_text = utility.extract_text_from_coordinates(self.cursor_target)
 	end
 
 	vim.schedule_wrap(_inner_update)()

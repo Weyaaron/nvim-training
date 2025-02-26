@@ -13,33 +13,22 @@ function Delete:new()
 	return base
 end
 function Delete:deactivate()
+	print(self.target_text, "--", self:read_register())
 	return self.target_text == self:read_register()
 end
 
 function Delete:delete_f(line, f_movement)
 	local function _inner_update()
 		self.cursor_target = utility.do_f_preparation(line, f_movement, self.target_char)
-		self.target_text = utility.extract_text_from_f_coordinates(self.cursor_target)
+		self.target_text = utility.extract_text_from_coordinates(self.cursor_target)
 	end
 	vim.schedule_wrap(_inner_update)()
 end
 
-function Delete:delete_with_word_movement(line, word_movement)
+function Delete:delete_word(line, word_movement)
 	local function _inner_update()
-		utility.set_buffer_to_rectangle_with_line(line)
-
-		local current_cursor_pos = vim.api.nvim_win_get_cursor(0)
-		vim.api.nvim_win_set_cursor(0, { current_cursor_pos[1], 20 })
-
-		current_cursor_pos = vim.api.nvim_win_get_cursor(0)
-		local new_x_pos = word_movement(line, current_cursor_pos[2], self.counter)
-		self.cursor_target = { current_cursor_pos[1], new_x_pos }
-		utility.construct_highlight(current_cursor_pos[1], self.cursor_target[2], 1)
-
-		self.target_text = line:sub(current_cursor_pos[2] + 1, self.cursor_target[2])
-
-		utility.construct_word_hls_forwards(self.counter)
-		utility.construct_highlight(current_cursor_pos[1], self.cursor_target[2], 1)
+		self.cursor_target = utility.do_word_preparation(line, word_movement, self.counter, 10)
+		self.target_text = utility.extract_text_from_coordinates(self.cursor_target)
 	end
 	vim.schedule_wrap(_inner_update)()
 end
