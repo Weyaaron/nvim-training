@@ -1,8 +1,6 @@
 require("./minimal_init.lua")
 
-
-local config =
-{
+local config = {
 	possible_marks_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }, --A list of possible marks. (Optional, this is the default)
 	dev_mode = true, -- A flag to enable developer mode. WARNING: May break the plugin temporarily.
 	possible_register_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }, -- A list of possible registers. (Optional, this the default)

@@ -23,7 +23,7 @@ function MoveCharsLeft:activate()
 		local line = utility.construct_words_line()
 		utility.set_buffer_to_rectangle_with_line(line)
 		local cursor_pos = vim.api.nvim_win_get_cursor(0)
-		local new_y = cursor_pos[2] + self.counter
+		local new_y = cursor_pos[2] - self.counter
 		self.cursor_target = { cursor_pos[1], new_y }
 		utility.construct_highlight(cursor_pos[1], new_y, 1)
 	end

@@ -5,10 +5,13 @@ local utility = require("nvim-training.utility")
 local task_index_keys = utility.get_keys(task_index)
 local names = {}
 for i, v in pairs(task_index_keys) do
-	names[#names + 1] = { v }
+	local tag_list = task_index[v].metadata.tags
+	local truthy_tag_list = utility.truth_table(tag_list)
+	if truthy_tag_list["register"] then
+		names[#names + 1] = { v }
+	end
 end
 
--- names = { { "YankInsideQuotes" } }
 local child = MiniTest.new_child_neovim()
 
 local TestModule = MiniTest.new_set({
@@ -21,10 +24,11 @@ local TestModule = MiniTest.new_set({
 	},
 	parametrize = names,
 })
+
 TestModule.task_names = names
 
 function TestModule.test_success(current_task_name)
-	test_utils.start_task_with_args(child, current_task_name, {})
+	test_utils.start_task_with_args(child, current_task_name, { "enable_registers = true" })
 	local interface_values = test_utils.load_interface_data_from_child(child)
 
 	MiniTest.expect.equality(interface_values.task_data.name, current_task_name)

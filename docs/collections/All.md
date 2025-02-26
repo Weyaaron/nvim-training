@@ -13,9 +13,9 @@
 |DeleteChar | Delete the current char. | change, char, deletion |
 |DeleteF | Delete back to the previous char. | chair-wise, deletion, F, horizontal, left |
 |Deletef | Delete forward to the next char. | chair-wise, deletion, f, horizontal, right |
-|DeleteInsideMatch | Delete inside the current match. | deletion, match, text-object |
 |DeleteInsideQuotes | Delete inside the quotes. | deletion, quotes |
 |DeleteLine | Delete the current line. | deletion, line |
+|DeleteMatch | Delete the current match. | deletion, match, register, text-object |
 |DeleteSentence | Delete the textobject inner sentence. | deletion, horizontal, text-object, sentence |
 |Deletet | Delete to the next char. | chair-wise, deletion, horizontal, right, t |
 |DeleteT | Delete back to the next char. | chair-wise, deletion, horizontal, left, T |
@@ -59,9 +59,9 @@
 |Yankf | Yank to the next char. | chair-wise, f, horizontal, register, right, yank |
 |YankF | Yank back to the previous char. | chair-wise, F, horizontal, left, register, yank |
 |YankInsideBlock | Yank inside the block. | inside, register, text-object, yank |
-|YankInsideMatch | Yank inside the current match. | inside, match, yank |
 |YankInsideQuotes | Yank inside the quotes. | quotes, register, yank |
 |YankLine | Yank a line into a register. | copy, line, register, vertical, yank |
+|YankMatch | Yank the current match. | match, register, register, text-object, yank |
 |YankT | Yank back next to the previous char. | chair-wise, horizontal, left, register, T, yank |
 |Yankt | Yank next to the next char. | chair-wise, horizontal, register, right, t, yank |
 |YankWord | Yank multiple words. | counter, horizontal, register, text-object, word, yank |

@@ -1,6 +1,7 @@
 local utility = require("nvim-training.utility")
 
-local interface_names = { "counter", "target_char", "name", "target_register", "input_template", "search_target" }
+local interface_names =
+	{ "counter", "target_char", "name", "target_register", "input_template", "search_target", "target_quote" }
 
 local Task = {}
 Task.__index = Task
@@ -33,14 +34,6 @@ function Task:construct_interface_data()
 		result[v] = self.metadata[v] or self[v]
 	end
 	return result
-
-	-- return {
-	-- 	counter = self.counter,
-	-- 	target_char = self.target_char,
-	-- 	name = self.name,
-	-- 	target_register = self.target_register,
-	-- 	input_template = self.metadata.input_template,
-	-- }
 end
 
 function Task:activate() end

@@ -2,23 +2,23 @@ local utility = require("nvim-training.utility")
 local Delete = require("nvim-training.tasks.delete")
 local tag_index = require("nvim-training.tag_index")
 
-local DeleteInsideMatch = {}
-DeleteInsideMatch.__index = DeleteInsideMatch
-setmetatable(DeleteInsideMatch, { __index = Delete })
+local DeleteMatch = {}
+DeleteMatch.__index = DeleteMatch
+setmetatable(DeleteMatch, { __index = Delete })
 
-DeleteInsideMatch.metadata = {
+DeleteMatch.metadata = {
 	autocmd = "TextChanged",
-	desc = "Delete inside the current match.",
+	desc = "Delete the current match.",
 	instructions = "",
-	tags = utility.flatten({ tag_index.deletion, tag_index.match }),
-	input_template = "di%",
+	tags = utility.flatten({ tag_index.deletion, tag_index.match, "register" }),
+	input_template = "<target_register>d%",
 }
-function DeleteInsideMatch:new()
+function DeleteMatch:new()
 	local base = Delete:new()
-	setmetatable(base, { __index = DeleteInsideMatch })
+	setmetatable(base, { __index = DeleteMatch })
 	return base
 end
-function DeleteInsideMatch:activate()
+function DeleteMatch:activate()
 	local function _inner_update()
 		local left_bound = 25
 		local right_bound = 30
@@ -34,8 +34,8 @@ function DeleteInsideMatch:activate()
 	vim.schedule_wrap(_inner_update)()
 end
 
-function DeleteInsideMatch:instructions()
-	return "Delete inside the current match" .. utility.construct_register_description(self.target_register) .. "."
+function DeleteMatch:instructions()
+	return "Delete the current match" .. utility.construct_register_description(self.target_register) .. "."
 end
 
-return DeleteInsideMatch
+return DeleteMatch

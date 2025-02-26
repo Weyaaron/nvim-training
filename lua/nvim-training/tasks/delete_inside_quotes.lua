@@ -11,19 +11,20 @@ DeleteInsideQuotes.metadata = {
 	desc = "Delete inside the quotes.",
 	instructions = "Delete inside the quotes.",
 	tags = utility.flatten({ tag_index.quotes, tag_index.deletion }),
-	-- input_template = "di<esc>",
-	-- Todo: Enable for unit test
+	input_template = "di<target_quote>",
 }
 function DeleteInsideQuotes:new()
 	local base = Delete:new()
 	setmetatable(base, { __index = DeleteInsideQuotes })
+	base.quote_pair = utility.construct_random_quote_pair()
+	base.target_quote = base.quote_pair[1]
 	return base
 end
 function DeleteInsideQuotes:activate()
 	local function _inner_update()
 		local left_bound = 25
 		local right_bound = 30
-		local line = utility.construct_line_with_bracket(utility.construct_random_quote_pair(), left_bound, right_bound)
+		local line = utility.construct_line_with_bracket(self.quote_pair, left_bound, right_bound)
 		utility.set_buffer_to_rectangle_with_line(line)
 
 		local cursor_pos = vim.api.nvim_win_get_cursor(0)

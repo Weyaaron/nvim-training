@@ -2,7 +2,6 @@ local Task = require("nvim-training.task")
 local utility = require("nvim-training.utility")
 local Delete = {}
 
-
 Delete.__index = Delete
 setmetatable(Delete, { __index = Task })
 Delete.metadata = { autocmd = "", desc = "", instructions = "", tags = { "deletion" } }

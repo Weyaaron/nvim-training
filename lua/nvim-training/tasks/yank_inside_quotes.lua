@@ -11,12 +11,13 @@ YankInsideQuote.metadata = {
 	desc = "Yank inside the quotes.",
 	instructions = "Yank inside quotes.",
 	tags = utility.flatten({ tag_index.yank, tag_index.quotes }),
+	input_template = "<target_register>yi<target_quote>",
 }
 function YankInsideQuote:new()
 	local base = Yank:new()
 	setmetatable(base, { __index = YankInsideQuote })
-        base.target_quote = utility.construct_random_quote_pair()
-    --TOdo: Rework to use a single quote
+	base.target_quote = utility.construct_random_quote_pair()[1]
+	base.target_register = utility.calculate_target_register()
 	return base
 end
 function YankInsideQuote:activate()

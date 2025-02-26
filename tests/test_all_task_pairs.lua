@@ -37,28 +37,22 @@ local TestModule = MiniTest.new_set({
 -- TestModule.task_names = task_names
 
 function TestModule.test_success(first_task_name, second_task_name)
-	-- local current_task = task_index[current_task_name]
-	-- print(current_task_name, vim.inspect(current_task))
 	test_utils.start_task_with_args(child, first_task_name, {})
 	local interface_values = test_utils.load_interface_data_from_child(child)
 
 	MiniTest.expect.equality(interface_values.task_data.name, first_task_name)
 	local key_inputs = test_utils.construct_solution_string_from_task_data(interface_values.task_data)
-	-- print(current_task_name, key_inputs, vim.inspect(interface_values))
 	if key_inputs == "" then
 		MiniTest.skip("Skipped because first entry in pair does not support unit tests.")
 	end
 
 	child.cmd("Training Stop")
 
-	-- local current_task = task_index[current_task_name]
-	-- print(current_task_name, vim.inspect(current_task))
 	test_utils.start_task_with_args(child, second_task_name, {})
 	local interface_values = test_utils.load_interface_data_from_child(child)
 
 	MiniTest.expect.equality(interface_values.task_data.name, first_task_name)
 	local key_inputs = test_utils.construct_solution_string_from_task_data(interface_values.task_data)
-	-- print(current_task_name, key_inputs, vim.inspect(interface_values))
 	if key_inputs == "" then
 		MiniTest.skip("Skipped because first entry in pair does not support unit tests.")
 	end
@@ -66,7 +60,6 @@ function TestModule.test_success(first_task_name, second_task_name)
 	child.type_keys(key_inputs)
 	MiniTest.expect.no_equality(key_inputs, "")
 	interface_values = test_utils.load_interface_data_from_child(child)
-	-- print(vim.inspect(interface_values))
 	MiniTest.expect.equality(interface_values.task_results[#interface_values.task_results], true)
 
 	MiniTest.expect.equality(#interface_values.task_results, 2)

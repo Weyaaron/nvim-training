@@ -1,7 +1,6 @@
 local Task = require("nvim-training.task")
 local utility = require("nvim-training.utility")
 
-
 --Todo: Split into 2 tasks, add toggle
 local Increment = {}
 Increment.__index = Increment

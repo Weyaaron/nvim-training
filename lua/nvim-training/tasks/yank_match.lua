@@ -1,23 +1,24 @@
 local utility = require("nvim-training.utility")
 local Yank = require("nvim-training.tasks.yank")
+local tag_index = require("nvim-training.tag_index")
 
-local YankInsideMatch = {}
-YankInsideMatch.__index = YankInsideMatch
-setmetatable(YankInsideMatch, { __index = Yank })
+local YankMatch = {}
+YankMatch.__index = YankMatch
+setmetatable(YankMatch, { __index = Yank })
 
-YankInsideMatch.metadata = {
+YankMatch.metadata = {
 	autocmd = "TextYankPost",
-	desc = "Yank inside the current match.",
+	desc = "Yank the current match.",
 	instructions = "",
-	tags = { "yank", "inside", "match" },
+	tags = utility.flatten({ tag_index.yank, tag_index.match, "register" }),
 	input_template = "<target_register>y%",
 }
-function YankInsideMatch:new()
+function YankMatch:new()
 	local base = Yank:new()
-	setmetatable(base, { __index = YankInsideMatch })
+	setmetatable(base, { __index = YankMatch })
 	return base
 end
-function YankInsideMatch:activate()
+function YankMatch:activate()
 	local function _inner_update()
 		local left_bound = 25
 		local right_bound = 30
@@ -34,8 +35,8 @@ function YankInsideMatch:activate()
 	vim.schedule_wrap(_inner_update)()
 end
 
-function YankInsideMatch:instructions()
-	return "Yank inside the current match" .. utility.construct_register_description(self.target_register) .. "."
+function YankMatch:instructions()
+	return "Yank the current match" .. utility.construct_register_description(self.target_register) .. "."
 end
 
-return YankInsideMatch
+return YankMatch

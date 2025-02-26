@@ -49,10 +49,8 @@ function TestModule.test_basic_success(task_name, task_key_desc)
 		error("The task is missing key data used by the test")
 	end
 	local key_inputs = task_key_desc:gsub("<>", tostring(target_counter))
-	-- print(task_name, command, task_key_desc, key_inputs, vim.inspect(interface_values))
 	child.type_keys(key_inputs)
 	interface_values = child.lua_get("require('nvim-training.commands.command_start').test_interface")
-	-- print(vim.inspect(interface_values))
 	MiniTest.expect.equality(interface_values.task_results[#interface_values.task_results], true)
 
 	MiniTest.expect.equality(#interface_values.task_results, 2)
@@ -71,10 +69,8 @@ function TestModule.test_register_success(task_name, task_key_desc)
 	local key_inputs = '"'
 		.. interface_values.task_data.target_register
 		.. task_key_desc:gsub("<>", tostring(target_counter))
-	-- print(task_name, command, task_key_desc, key_inputs, vim.inspect(interface_values))
 	child.type_keys(key_inputs)
 	interface_values = child.lua_get("require('nvim-training.commands.command_start').test_interface")
-	-- print(vim.inspect(interface_values))
 	MiniTest.expect.equality(interface_values.task_results[#interface_values.task_results], true)
 
 	MiniTest.expect.equality(#interface_values.task_results, 2)

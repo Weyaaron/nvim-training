@@ -12,7 +12,7 @@ MoveWORD.metadata = {
 	desc = "Move multiple WORDS.",
 	instructions = "",
 	tags = utility.flatten({ tag_index.movement, tag_index.WORD }),
-        input_template ="<counter>W"
+	input_template = "<counter>W",
 }
 
 function MoveWORD:new()
