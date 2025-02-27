@@ -12,6 +12,8 @@ function Yank:new()
 	return base
 end
 function Yank:deactivate()
+	local reg = self:read_register()
+	print(self.target_text, #self.target_text, reg, #reg)
 	return self.target_text == self:read_register()
 end
 

@@ -2,6 +2,8 @@ local test_utils = require("nvim-training.utilities.testing")
 local task_index = require("nvim-training.task_index")
 local utility = require("nvim-training.utility")
 
+local repetetions = 10
+
 local task_index_keys = utility.get_keys(task_index)
 local names = {}
 for i, v in pairs(task_index_keys) do

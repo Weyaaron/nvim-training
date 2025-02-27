@@ -28,7 +28,10 @@ end
 function Delete:delete_word(line, word_movement)
 	local function _inner_update()
 		self.cursor_target = utility.do_word_preparation(line, word_movement, self.counter, 10)
-		self.target_text = utility.extract_text_from_coordinates(self.cursor_target)
+
+		local target_with_offset = { self.cursor_target[1], self.cursor_target[2] - 2 }
+
+		self.target_text = utility.extract_text_from_coordinates(target_with_offset)
 	end
 	vim.schedule_wrap(_inner_update)()
 end

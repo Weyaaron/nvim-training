@@ -23,14 +23,11 @@ end
 function YankWORD:activate()
 	local function _inner_update()
 		local line = utility.construct_WORDS_line()
-		self.cursor_target = utility.do_word_preparation(line, movements.word, self.counter, math.random(1, 10))
+		self.cursor_target = utility.do_word_preparation(line, movements.WORDS, self.counter, math.random(1, 10))
 
-		local current_cursor_pos = vim.api.nvim_win_get_cursor(0)
-
-		local line = utility.get_line(current_cursor_pos[1])
-		self.target_text = line:sub(current_cursor_pos[2] + 1, self.cursor_target[2])
-
-		utility.construct_WORD_hls_forwards(self.counter)
+		local target_with_offset = { self.cursor_target[1], self.cursor_target[2] - 2 }
+		self.target_text = utility.extract_text_from_coordinates(self.cursor_target)
+		self.target_text = utility.extract_text_from_coordinates(target_with_offset)
 	end
 	vim.schedule_wrap(_inner_update)()
 end

@@ -18,28 +18,18 @@ function ChangeWord:new()
 	local base = Change:new()
 	setmetatable(base, { __index = ChangeWord })
 	base.line_text_after_change = ""
+	base.text_to_be_inserted = "x"
 	return base
 end
 
 function ChangeWord:activate()
 	local function _inner_update()
 		local line = utility.construct_words_line()
-
-		local current_cursor_pos = vim.api.nvim_win_get_cursor(0)
-		vim.api.nvim_win_set_cursor(0, { current_cursor_pos[1], 10 })
-		current_cursor_pos = vim.api.nvim_win_get_cursor(0)
-
-		local cursor_pos_after_movement = movements.words(line, current_cursor_pos[2], self.counter)
-
-		local line = utility.get_line(current_cursor_pos[1])
-		self.line_text_after_change = line:sub(0, current_cursor_pos[2])
-			.. self.text_to_be_inserted
-			.. line:sub(cursor_pos_after_movement, #line)
-
-		self.cursor_target = current_cursor_pos
-
-		utility.construct_word_hls_forwards(self.counter)
-		utility.construct_highlight(current_cursor_pos[1], cursor_pos_after_movement, 1)
+		-- line = "1111 2222 3333 4444 5555 6666 7777 8888 9999"
+		self.cursor_target = utility.do_word_preparation(line, movements.words, self.counter, 10)
+		local target_with_offset = { self.cursor_target[1], self.cursor_target[2] + 2 }
+		local text_between_positions = utility.extract_text_from_coordinates(target_with_offset)
+		self.line_text_after_change = string.gsub(line, text_between_positions, self.text_to_be_inserted)
 	end
 	vim.schedule_wrap(_inner_update)()
 end

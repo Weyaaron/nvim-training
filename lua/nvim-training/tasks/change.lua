@@ -20,24 +20,14 @@ function Change:deactivate()
 		print("Target has to be type table, current value is " .. tostring(self.cursor_target))
 	end
 	local current_line = utility.get_line(cursor_pos[1])
+	print(current_line, self.line_text_after_change, #current_line, #self.line_text_after_change)
 	return current_line == self.line_text_after_change
 end
 
 function Change:change_f(line, f_movement)
 	local function _inner_update()
 		self.cursor_target = utility.do_f_preparation(line, f_movement, self.target_char)
-		local current_cursor_pos = vim.api.nvim_win_get_cursor(0)
-
-		local text_between_positions = ""
-
-		if current_cursor_pos[2] < self.cursor_target[2] then
-			text_between_positions =
-				utility.extract_text_left_to_right(line, current_cursor_pos[2], self.cursor_target[2])
-		else
-			text_between_positions =
-				utility.extract_text_right_to_left(line, self.cursor_target[2], current_cursor_pos[2])
-		end
-
+		local text_between_positions = utility.extract_text_from_coordinates(self.cursor_target)
 		self.line_text_after_change = string.gsub(line, text_between_positions, self.text_to_be_inserted)
 	end
 	vim.schedule_wrap(_inner_update)()
