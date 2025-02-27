@@ -1,26 +1,26 @@
 local Task = require("nvim-training.task")
 local utility = require("nvim-training.utility")
 
-local Increment = {}
-Increment.__index = Increment
-Increment.metadata = {
+local Decrement = {}
+Decrement.__index = Decrement
+Decrement.metadata = {
 	autocmd = "CursorMoved",
-	desc = "Increment the value at the cursor.",
-	instructions = "Increment the value at the cursor.",
+	desc = "Decrement the value at the cursor.",
+	instructions = "Decrement the value at the cursor.",
 	tags = { "increment", "change", "char" },
-	input_template = "<C-a>",
+	input_template = "<C-x>",
 }
 
-setmetatable(Increment, { __index = Task })
-function Increment:new()
+setmetatable(Decrement, { __index = Task })
+function Decrement:new()
 	local base = Task:new()
-	setmetatable(base, { __index = Increment })
+	setmetatable(base, { __index = Decrement })
 
 	base.inital_value = 5
-	base.updated_value = base.inital_value + 1
+	base.updated_value = base.inital_value - 1
 	return base
 end
-function Increment:activate()
+function Decrement:activate()
 	local function _inner_update()
 		local target_cursor_pos = 30
 		local line = utility.construct_char_line(self.inital_value, 30)
@@ -31,7 +31,7 @@ function Increment:activate()
 	vim.schedule_wrap(_inner_update)()
 end
 
-function Increment:deactivate()
+function Decrement:deactivate()
 	local cursor_pos = vim.api.nvim_win_get_cursor(0)
 	local line = utility.get_line(cursor_pos[1])
 
@@ -39,4 +39,4 @@ function Increment:deactivate()
 	return tonumber(char_at_cursor) == self.updated_value
 end
 
-return Increment
+return Decrement

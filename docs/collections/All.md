@@ -2,14 +2,13 @@
 | Name | Description | Tags | Notes
 | --- | -------- | -------- | -------- |
 |AppendChar | Insert a char next to the cursor. | append, change, insertion |
-|BlockCommentLine | Change the current line into a block comment. | change, comment, plugin, programming | This assumes the use of a plugin, it is not tested with the buildin-commenting-feature. |
 |ChangeF | Change text using F | chair-wise, change, F, horizontal, left |
 |Changef | Change text using f | chair-wise, change, f, horizontal, right |
 |ChangeLine | Change the current line. | change, deletion, line |
 |ChangeT | Change text using T | chair-wise, change, horizontal, left, T |
 |Changet | Change text using f | chair-wise, change, horizontal, right, t |
-|ChangeWord | Change multiple words. | change, counter, horizontal, text-object, word |
 |CommentLine | Change the current line into a single line comment. | change, commenting, plugin, programming | Not available in vanilla-vim, needs plugin. |
+|Decrement | Decrement the value at the cursor. | change, char, increment |
 |DeleteChar | Delete the current char. | change, char, deletion |
 |DeleteF | Delete back to the previous char. | chair-wise, deletion, F, horizontal, left |
 |Deletef | Delete forward to the next char. | chair-wise, deletion, f, horizontal, right |
@@ -37,18 +36,14 @@
 |MoveLinesDown | Move down multiple lines. | horizontal, j, lines, movement |
 |MoveLinesUp | Move multiple lines up. | horizontal, k, lines, movement |
 |MoveMatch | Move to the current match. | match, movement, text-object |
-|Moveo | Enter and leave insert mode below the current line. | insert_mode, linewise, movement, o |
 |MoveO | Enter and leave insert mode above the current line. | insert_mode, linewise, movement, O |
+|Moveo | Enter and leave insert mode below the current line. | insert_mode, linewise, movement, o |
 |MoveStartOfFile | Move to the start of the file. | file, start, vertical |
 |MoveStartOfLine | Move to the start of the current line. | line, movement, start |
-|MoveT | Go back next to the last ocurrence of a char. | chair-wise, horizontal, left, movement, T |
 |Movet | Move using t. | chair-wise, horizontal, movement, right, t |
-|MoveWord | Move multiple words. | counter, horizontal, movement, text-object, word |
+|MoveT | Go back next to the last ocurrence of a char. | chair-wise, horizontal, left, movement, T |
 |MoveWORD | Move multiple WORDS. | counter, horizontal, movement, text-object, WORD |
-|MoveWordEnd | Move to the end of words. | end, movement, vertical, word |
-|MoveWORDEnd | Move to the end of WORDs. | end, movement, vertical, WORD |
-|MoveWORDStart | Move Back to the start of 'WORDS'. | horizontal, movement, word |
-|MoveWordStart | Move back to the start of 'words'. | horizontal, movement, word |
+|MoveWord | Move multiple words. | counter, horizontal, movement, text-object, word |
 |Paste | Paste from a given register. | Paste, register |
 |paste | Paste from a given register. | paste, register |
 |SearchBackward | Search backwards. | diagonal, movement, search |
