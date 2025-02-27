@@ -25,7 +25,7 @@ local session_id
 local is_running = false
 --This is a number keept to seed the random number generation,
 --its value is not particularly importart. It will be increased between tasks.
-local random_seed = 124134
+module.random_seed = 124134
 
 local function loop(autocmd_callback_data)
 	--This sleep helps with some feedback, if we continue instantly the user might not recognize their actions clearly.
@@ -115,10 +115,10 @@ local function loop(autocmd_callback_data)
 	end
 
 	if not previous_task_result and user_config.enable_repeat_on_failure then
-		math.randomseed(random_seed)
+		math.randomseed(module.random_seed)
 	else
 		current_task = resoveld_scheduler:next(current_task, previous_task_result):new()
-		random_seed = random_seed + 1
+		module.random_seed = module.random_seed + 1
 	end
 	vim.cmd("set filetype=" .. current_task.file_type)
 
