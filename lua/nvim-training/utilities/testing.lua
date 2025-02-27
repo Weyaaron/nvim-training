@@ -17,6 +17,19 @@ function module.start_task_with_args(child, task_name, args_as_strs)
 	child.cmd("Training Start RandomScheduler UnitTest")
 end
 
+function module.start_multiple_tasks(child, task_name_list, args_as_strs)
+	local task_names_joined = ""
+	if args_as_strs then
+		task_names_joined = table.concat(task_name_list, ",")
+	end
+	local command = "require('nvim-training').setup( {custom_collections= { UnitTest = { '"
+		.. task_names_joined
+		.. "' },    }, "
+		.. "   })"
+	child.lua(command)
+	child.cmd("Training Start RandomScheduler UnitTest")
+end
+
 function module.construct_solution_string_from_task_data(task_data)
 	local result = task_data.input_template or ""
 
@@ -31,6 +44,11 @@ function module.construct_solution_string_from_task_data(task_data)
 	if result:find(reg_str) then
 		result = '"' .. result:gsub("<" .. reg_str .. ">", tostring(task_data[reg_str]))
 	end
+
+	if result:find("<counter>") then
+		result = result:gsub("<counter>", "")
+	end
+
 	return result
 end
 
