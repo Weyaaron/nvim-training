@@ -1,6 +1,8 @@
 local utility = require("nvim-training.utility")
 local movements = {}
 
+--All of this module uses zero indexing. This is ensured
+--by using unit tests.
 function movements.end_of_line(line, cursor_pos)
 	return #line - 1
 end
@@ -41,7 +43,8 @@ local function move_word_end(line, cursor_pos, word_bound_func, counter)
 		counter = counter + 1
 	end
 	local new_word_index = word_index + counter - 1
-	return word_positions[new_word_index][2]
+	--This -1 is to ensure that the result is 0-indexing aligned.
+	return word_positions[new_word_index][2] - 1
 end
 function movements.word_end(line, cursor_pos, counter)
 	return move_word_end(line, cursor_pos, utility.calculate_word_bounds, counter)

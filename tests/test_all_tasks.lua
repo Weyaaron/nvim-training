@@ -5,7 +5,11 @@ local utility = require("nvim-training.utility")
 local task_index_keys = utility.get_keys(task_index)
 local names = {}
 for i, v in pairs(task_index_keys) do
-	names[#names + 1] = { v }
+	local tags = task_index[v].metadata.tags
+	local truthy_tags = utility.truth_table(tags)
+	if truthy_tags["word"] or truthy_tags["WORD"] then
+		names[#names + 1] = { v }
+	end
 end
 
 local child = MiniTest.new_child_neovim()

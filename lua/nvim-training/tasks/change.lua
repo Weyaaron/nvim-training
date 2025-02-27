@@ -29,6 +29,7 @@ function Change:change_f(line, f_movement)
 		local current_cursor_pos = vim.api.nvim_win_get_cursor(0)
 
 		local text_between_positions = ""
+
 		if current_cursor_pos[2] < self.cursor_target[2] then
 			text_between_positions =
 				utility.extract_text_left_to_right(line, current_cursor_pos[2], self.cursor_target[2])

@@ -27,6 +27,28 @@ function utility.validate_custom_collections()
 	end
 end
 
+function utility.extract_text_from_coordinates(cursor_target)
+	local target_text = ""
+	local current_cursor_pos = vim.api.nvim_win_get_cursor(0)
+	local line = utility.get_line(current_cursor_pos[1])
+	if current_cursor_pos[2] < cursor_target[2] then
+		target_text = utility.extract_text_left_to_right(line, current_cursor_pos[2], cursor_target[2])
+	else
+		target_text = utility.extract_text_right_to_left(line, cursor_target[2], current_cursor_pos[2])
+	end
+	return target_text
+end
+
+function utility.extract_text(line, start, _end)
+	local target_text = ""
+	if start < _end then
+		target_text = utility.extract_text_left_to_right(line, start, _end)
+	else
+		target_text = utility.extract_text_right_to_left(line, _end, start)
+	end
+	return target_text
+end
+
 function utility.do_f_preparation(line, f_movement, target_char)
 	utility.set_buffer_to_rectangle_with_line(line)
 
