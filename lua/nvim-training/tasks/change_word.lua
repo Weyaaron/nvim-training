@@ -22,14 +22,27 @@ function ChangeWord:new()
 	return base
 end
 
+function ChangeWord:deactivate()
+	local cursor_pos = vim.api.nvim_win_get_cursor(0)
+	if type(self.cursor_target) == "number" then
+		print("Target has to be type table, current value is " .. tostring(self.cursor_target))
+	end
+	local current_line = utility.get_line(cursor_pos[1])
+	print(current_line, self.line_text_after_change, #current_line, #self.line_text_after_change)
+	return current_line == self.line_text_after_change
+end
+
 function ChangeWord:activate()
 	local function _inner_update()
 		local line = utility.construct_words_line()
-		-- line = "1111 2222 3333 4444 5555 6666 7777 8888 9999"
-		self.cursor_target = utility.do_word_preparation(line, movements.words, self.counter, 10)
-		local target_with_offset = { self.cursor_target[1], self.cursor_target[2] + 2 }
-		local text_between_positions = utility.extract_text_from_coordinates(target_with_offset)
+		self.counter = 1
+		line = "1111 2222 3333 4444 5555 6666 7777 8888 9999"
+		self.cursor_target = utility.do_word_preparation(line, movements.words, self.counter, 1)
+		-- local target_with_offset = { self.cursor_target[1], self.cursor_target[2] + 2 }
+		local cursor_pos = vim.api.nvim_win_get_cursor(0)
+		local text_between_positions = line:sub(cursor_pos[2], self.cursor_target[2] - 1)
 		self.line_text_after_change = string.gsub(line, text_between_positions, self.text_to_be_inserted)
+		print(vim.inspect(self.cursor_target), text_between_positions, self.line_text_after_change)
 	end
 	vim.schedule_wrap(_inner_update)()
 end
