@@ -11,10 +11,11 @@ for i, v in pairs(task_index_keys) do
 	names[#names + 1] = { v }
 	names[#names + 1] = { v }
 end
--- names = { { "YankInsideQuotes" } }
--- for i = 1, 10, 1 do
--- 	names[#names + 1] = names[i]
--- end
+
+names = { { "ChangeWord" } }
+for i = 1, 25, 1 do
+	names[#names + 1] = names[i]
+end
 
 local child = MiniTest.new_child_neovim()
 
@@ -40,15 +41,19 @@ function TestModule.test_success(current_task_name)
 	if key_inputs == "" then
 		MiniTest.skip("Skipped because unit tests are not supported yet.")
 	end
-	print(key_inputs)
+	-- print(key_inputs)
 	MiniTest.expect.no_equality(key_inputs, "")
 	interface_values = test_utils.load_interface_data_from_child(child)
-	MiniTest.expect.equality(interface_values.task_results[#interface_values.task_results], true)
+	local last_res = interface_values.task_results[#interface_values.task_results]
+	MiniTest.expect.equality(last_res, true)
 	print(vim.inspect(interface_values.task_results))
 	-- local cp = child.lua_get("_G.cursor_target")
-	-- local status = child.lua_get("_G.status")
-	-- if not status[1] then
-	-- 	print(vim.inspect(status))
+	local status = child.lua_get("_G.status")
+	-- if not status["res"] then
+	-- print(vim.inspect(status), vim.inspect(interface_values), last_res, vim.deep_equal(last_res, true))
+	local deq = vim.deep_equal(last_res, true)
+	print(last_res, deq, type(last_res))
+	-- print(vim.inspect(interface_values))
 	-- end
 	-- MiniTest.add_note(vim.inspect(cp))
 	MiniTest.expect.equality(#interface_values.task_results, 2)
