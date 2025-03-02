@@ -104,6 +104,13 @@ local function loop(autocmd_callback_data)
 
 	module.test_interface.task_results[#module.test_interface.task_results + 1] = previous_task_result
 
+	if not _G.status then
+		_G.status = {}
+	end
+	_G.status.t_res = previous_task_result
+	-- _G.status.current_line = current_line
+	-- _G.status.line_text_after_change = self.line_text_after_change
+
 	local utility = require("nvim-training.utility")
 	--This line ensures that the highlights of previous tasks are discarded.
 	local internal_config = require("nvim-training.internal_config")
@@ -137,6 +144,7 @@ local function loop(autocmd_callback_data)
 		target_data,
 		user_config.event_storage_directory_path .. tostring(session_id) .. ".json"
 	)
+
 	--The header may contain artifacts from previous tasks. To combat this, we reset it to known values.
 	header.reset()
 
