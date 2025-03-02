@@ -15,7 +15,7 @@ local user_config = {
 	possible_marks_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" },
 	possible_register_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" },
 	scheduler_args = { repetitions = 5 },
-	task_alphabet = "ABCDEFGabddefg,.",
+	task_alphabet = "ABCDEFGabddefg,",
 	quotes = { '"', "'" },
 	logging_args = {
 		enable_logging = true,

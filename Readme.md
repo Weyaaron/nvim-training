@@ -196,7 +196,7 @@ training.configure({ -- All of these options work for 'opts' of lazy as well.
 	possible_marks_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }, -- A list of possible marks.
 	possible_register_list = { "a", "b", "c", "r", "s", "t", "d", "n", "e" }, -- A list of possible registers.
 	scheduler_args = { repetitions = 5 }, --These args are used to configure all the available schedulers
-	task_alphabet = "ABCDEFGabddefg,.", -- The alphabet of targets used in tasks like f,t etc.
+	task_alphabet = "ABCDEFGabddefg,", -- The alphabet of targets used in tasks like f,t etc. WARNING: Chars that represent lua patterns (Including e.g. '.') are not a valid entry. This is not checked for.
 })
 ```
 
