@@ -60,7 +60,6 @@ local exported_tasks = {
 	YankF = require("nvim-training.tasks.yank_F"),
 	YankInsideBlock = require("nvim-training.tasks.yank_inside_block"),
 	-- YankInsideQuotes = require("nvim-training.tasks.yank_inside_quotes"),
-	YankInsideQuotes = require("nvim-training.tasks.yank_inside_quotes"),
 	YankLine = require("nvim-training.tasks.yank_line"),
 	YankMatch = require("nvim-training.tasks.yank_match"),
 	Yankt = require("nvim-training.tasks.yank_t"),

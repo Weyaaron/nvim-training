@@ -18,6 +18,7 @@ function YankInsideQuote:new()
 	setmetatable(base, { __index = YankInsideQuote })
 	base.target_quote = utility.construct_random_quote_pair()[1]
 	base.target_register = utility.calculate_target_register()
+	base.target_quote = "'"
 	return base
 end
 function YankInsideQuote:activate()

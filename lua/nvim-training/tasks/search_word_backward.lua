@@ -9,7 +9,10 @@ SearchWordBackward.metadata = {
 	desc = "Search backwards for the word at the cursor.",
 	instructions = "",
 	tags = { "search", "movement", "backward" },
-	input_template = "#<search_target>",
+	-- input_template = "#<search_target><cr>",
+	-- input_template = "?<<search_target>><cr>",
+	-- Currently not viable to test, might be fixed some day
+	input_template = "",
 }
 function SearchWordBackward:new()
 	local base = Task:new()

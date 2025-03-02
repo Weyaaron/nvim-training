@@ -9,7 +9,9 @@ SearchWordForward.metadata = {
 	desc = "Search forwards for the word at the cursor.",
 	instructions = "",
 	tags = { "search", "movement", "forward" },
-	input_template = "*<search_target>",
+	-- input_template = "*<search_target>",
+	-- Currently not supported
+	input_template = "",
 }
 function SearchWordForward:new()
 	local base = Task:new()

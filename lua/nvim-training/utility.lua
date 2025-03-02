@@ -36,7 +36,10 @@ function utility.do_f_preparation(line, f_movement, target_char)
 	cursor_pos = vim.api.nvim_win_get_cursor(0)
 	local new_x_pos = f_movement(line, cursor_pos[2], target_char)
 	local cursor_target = { cursor_pos[1], new_x_pos }
+	-- _G.cursor_target = cursor_target
 
+	-- local res, error = pcall(utility.construct_highlight, cursor_target[1], cursor_target[2], 1)
+	-- _G.status = { res, line, target_char, new_x_pos }
 	utility.construct_highlight(cursor_target[1], cursor_target[2], 1)
 	return cursor_target
 end
@@ -176,8 +179,7 @@ end
 function utility.set_buffer_to_rectangle_with_line(middle_line)
 	utility.update_buffer_respecting_header(utility.load_rectangle_with_line(middle_line))
 	local x = internal_config.header_length + 4
-
-	local y = math.random(0, #utility.get_line(x))
+	local y = utility.calculate_center_cursor_pos()
 	vim.api.nvim_win_set_cursor(0, { x, y })
 end
 
