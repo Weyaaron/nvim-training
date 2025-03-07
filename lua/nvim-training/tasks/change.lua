@@ -14,20 +14,6 @@ function Change:new()
 	self.text_to_be_inserted = "x"
 	return base
 end
-function Change:deactivate()
-	local cursor_pos = vim.api.nvim_win_get_cursor(0)
-	if type(self.cursor_target) == "number" then
-		print("Target has to be type table, current value is " .. tostring(self.cursor_target))
-	end
-	local current_line = utility.get_line(cursor_pos[1])
-	if not _G.status then
-		_G.status = {}
-	end
-	_G.status.comparison = current_line == self.line_text_after_change
-	_G.status.current_line = current_line
-	_G.status.line_text_after_change = self.line_text_after_change
-	return current_line == self.line_text_after_change
-end
 
 function Change:change_f(line, f_movement)
 	local function _inner_update()

@@ -164,7 +164,7 @@ function utility.calculate_counter()
 	if user_config.enable_counters then
 		counter = math.random(user_config.counter_bounds[1], user_config.counter_bounds[2])
 	end
-	return counter
+	return 1
 end
 
 function utility.set_buffer_to_lorem_ipsum_and_place_cursor_randomly()
@@ -504,17 +504,41 @@ local function construct_words_line_from_template(template_name)
 	local base_template = utility.load_line_template(template_name)
 	base_template = utility.split_str(base_template, "\n")[1]
 	local words = utility.split_str(base_template, " ")
+	-- print(vim.inspect(_G.status), "note")
+	-- print(vim.inspect(_G.status))
 
+	if _G.status.seed then
+		print("seedet")
+		math.randomseed(_G.status.seed)
+		_G.status.seedet_with = _G.status.seed
+	end
 	for i = #words, 2, -1 do
 		local j = math.random(i)
 		words[i], words[j] = words[j], words[i]
 	end
 
+	if not _G.status then
+		_G.status = {}
+	end
+	_G.status.words = words
 	return table.concat(words, " ")
 end
 
 function utility.construct_words_line()
-	return construct_words_line_from_template(template_index.LoremIpsum)
+	local line = construct_words_line_from_template(template_index.LoremIpsum)
+	local sub_line = line:gsub(",", " ")
+	sub_line = line:gsub("  ", " ")
+
+	if _G.status.word_pair then
+		print("wp")
+		-- math.randomseed(_G.status.seed)
+		-- _G.status.seedet_with = _G.status.seed
+		sub_line = table.concat(_G.status.word_pair, " ")
+	end
+
+	return sub_line
+
+	-- return "aaaa bbbb ccc dddd eee fff gggg hhhh iiii jjjj kkkk"
 end
 
 function utility.construct_empty_line_with_new_line()

@@ -10,7 +10,7 @@ local function move_across_word_pos(line, cursor_pos, word_calc_func, counter)
 	local word_index_cursor = utility.calculate_word_index_from_cursor_pos(word_positions, cursor_pos)
 
 	local cursor_is_at_wordend = cursor_pos == word_positions[word_index_cursor][2]
-
+        --word1 word2 word3
 	if cursor_is_at_wordend then
 		counter = counter + 1
 	end
