@@ -259,7 +259,7 @@ local function calculate_text_piece_bounds(input_str, patterns) -- { start_index
 
 	for i, pattern_el in pairs(patterns) do
 		for start, _, finish in input_str:gmatch(pattern_el) do
-			pieces[#pieces + 1] = { start - 1, finish - 1 }
+			pieces[#pieces + 1] = { start - 1, finish - 2 }
 		end
 	end
 

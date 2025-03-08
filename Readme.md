@@ -24,8 +24,8 @@ I consider this to be the best option for minimizing disruptions.
 Currently, logging and event storage for statistics is disabled. A fix/reeenabling them is
 under way.
 Furthermore, as of 2025-02, support for unit tests is in its infancy. It will take
-quite some more work to enable tests for all tasks/fix some of them.
-
+quite some more work to enable tests for all tasks/fix some of them. Some 
+failing tests will be addet to keep momentum going.
 
 # Some stats of current tasks
 

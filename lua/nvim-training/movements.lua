@@ -9,17 +9,12 @@ local function move_across_word_pos(line, cursor_pos, word_calc_func, counter)
 	local word_positions = word_calc_func(line)
 	local word_index_cursor = utility.calculate_word_index_from_cursor_pos(word_positions, cursor_pos)
 
-	local cursor_is_at_wordend = cursor_pos == word_positions[word_index_cursor][2]
-
-	if cursor_is_at_wordend then
-		counter = counter + 1
-	end
-
 	local char_at_cursor = line:sub(cursor_pos + 1, cursor_pos + 1)
-	if char_at_cursor == " " then
+	if char_at_cursor == " " and counter > 1 then
 		counter = counter - 1
 	end
 	local new_word_index = word_index_cursor + counter
+	-- print(vim.inspect(word_positions))
 	return word_positions[new_word_index][1]
 end
 
@@ -35,12 +30,14 @@ local function move_word_end(line, cursor_pos, word_bound_func, counter)
 	local word_positions = word_bound_func(line)
 	local word_index = utility.calculate_word_index_from_cursor_pos(word_positions, cursor_pos)
 
-	local cursor_is_at_wordend = cursor_pos == word_positions[word_index][2] - 1
+	local cursor_is_at_wordend = cursor_pos == word_positions[word_index][2]
 
 	if cursor_is_at_wordend then
 		counter = counter + 1
 	end
 	local new_word_index = word_index + counter - 1
+
+	-- print(vim.inspect(word_positions), "\n")
 	return word_positions[new_word_index][2]
 end
 function movements.word_end(line, cursor_pos, counter)
