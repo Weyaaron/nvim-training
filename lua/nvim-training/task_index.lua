@@ -7,6 +7,7 @@ local exported_tasks = {
 	Changet = require("nvim-training.tasks.change_t"),
 	ChangeT = require("nvim-training.tasks.change_T"),
 	-- ChangeWord = require("nvim-training.tasks.change_word"),
+	-- ChangeWORD = require("nvim-training.tasks.change_WORD"),
 	CommentLine = require("nvim-training.tasks.comment_line"),
 	Decrement = require("nvim-training.tasks.decrement"),
 	DeleteChar = require("nvim-training.tasks.delete_char"),
