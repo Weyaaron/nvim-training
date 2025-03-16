@@ -20,11 +20,17 @@ requests for new features.
 I will attempt to ship breaking changes to public interfaces in such a way that they are done "all/many at once".
 I consider this to be the best option for minimizing disruptions.
 
+# Contributions
+
+Some of the work on this plugin has been done under the supervision of
+[Jonas und der Wolf.](https://www.jonasundderwolf.de/) I am gratefull
+for this oppoturnity to contribute to open source on my own terms.
+
 # Known problems
 Currently, logging and event storage for statistics is disabled. A fix/reeenabling them is
 under way.
 Furthermore, as of 2025-02, support for unit tests is in its infancy. It will take
-quite some more work to enable tests for all tasks/fix some of them. Some 
+quite some more work to enable tests for all tasks/fix some of them. Some
 failing tests will be addet to keep momentum going.
 
 # Some stats of current tasks
