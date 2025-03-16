@@ -11,7 +11,7 @@
 |DeleteSentence | Delete the textobject inner sentence. | deletion, horizontal, text-object, sentence |
 |DeleteT | Delete back to the next char. | chair-wise, deletion, horizontal, left, T |
 |Deletet | Delete to the next char. | chair-wise, deletion, horizontal, right, t |
-|DeleteWord | Delete multiple words. | counter, deletion, horizontal, text-object, word |
 |DeleteWORD | Delete multiple WORDs. | counter, deletion, horizontal, text-object, WORD |
+|DeleteWord | Delete multiple words. | counter, deletion, horizontal, text-object, word |
 |DeleteWORDEnd | Delete using 'E'. | deletion, END, vertical, WORD_end |
 |DeleteWordEnd | Delete using 'e'. | deletion, end, vertical, word_end |

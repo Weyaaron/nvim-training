@@ -13,6 +13,7 @@ function Delete:new()
 	return base
 end
 function Delete:deactivate()
+	utility.update_debug_state({ target = self.target_text, actual_value = self:read_register() })
 	return self.target_text == self:read_register()
 end
 
@@ -42,7 +43,7 @@ function Delete:delete_with_word_movement(line, word_movement)
 		self.cursor_target = { current_cursor_pos[1], new_x_pos }
 		utility.construct_highlight(current_cursor_pos[1], self.cursor_target[2], 1)
 
-		self.target_text = line:sub(current_cursor_pos[2] + 1, self.cursor_target[2])
+		self.target_text = line:sub(current_cursor_pos[2] + 1, self.cursor_target[2] + 1)
 
 		utility.construct_word_hls_forwards(self.counter)
 		utility.construct_highlight(current_cursor_pos[1], self.cursor_target[2], 1)

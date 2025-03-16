@@ -87,8 +87,8 @@ The plugin aims to use scratch-buffers to avoid polluting the disk.
 |ChangeF | Change text using F | chair-wise, change, F, horizontal, left |
 |Changef | Change text using f | chair-wise, change, f, horizontal, right |
 |ChangeLine | Change the current line. | change, deletion, line |
-|ChangeT | Change text using T | chair-wise, change, horizontal, left, T |
 |Changet | Change text using f | chair-wise, change, horizontal, right, t |
+|ChangeT | Change text using T | chair-wise, change, horizontal, left, T |
 |CommentLine | Change the current line into a single line comment. | change, commenting, plugin, programming | Not available in vanilla-vim, needs plugin. |
 |Decrement | Decrement the value at the cursor. | change, char, increment |
 |DeleteChar | Delete the current char. | change, char, deletion |
@@ -98,12 +98,12 @@ The plugin aims to use scratch-buffers to avoid polluting the disk.
 |DeleteLine | Delete the current line. | deletion, line |
 |DeleteMatch | Delete the current match. | deletion, match, register, text-object |
 |DeleteSentence | Delete the textobject inner sentence. | deletion, horizontal, text-object, sentence |
-|Deletet | Delete to the next char. | chair-wise, deletion, horizontal, right, t |
 |DeleteT | Delete back to the next char. | chair-wise, deletion, horizontal, left, T |
-|DeleteWORD | Delete multiple WORDs. | counter, deletion, horizontal, text-object, WORD |
+|Deletet | Delete to the next char. | chair-wise, deletion, horizontal, right, t |
 |DeleteWord | Delete multiple words. | counter, deletion, horizontal, text-object, word |
-|DeleteWORDEnd | Delete using 'E'. | deletion, END, vertical, WORD_end |
+|DeleteWORD | Delete multiple WORDs. | counter, deletion, horizontal, text-object, WORD |
 |DeleteWordEnd | Delete using 'e'. | deletion, end, vertical, word_end |
+|DeleteWORDEnd | Delete using 'E'. | deletion, END, vertical, WORD_end |
 |Increment | Increment the value at the cursor. | change, char, increment |
 |InsertAtStartOfLine | Insert text at the start of the line. | I, insert, line, start |
 |InsertChar | Insert a char at the current position. | change, char, insertion |
@@ -118,14 +118,16 @@ The plugin aims to use scratch-buffers to avoid polluting the disk.
 |MoveLinesDown | Move down multiple lines. | horizontal, j, lines, movement |
 |MoveLinesUp | Move multiple lines up. | horizontal, k, lines, movement |
 |MoveMatch | Move to the current match. | match, movement, text-object |
-|MoveO | Enter and leave insert mode above the current line. | insert_mode, linewise, movement, O |
 |Moveo | Enter and leave insert mode below the current line. | insert_mode, linewise, movement, o |
+|MoveO | Enter and leave insert mode above the current line. | insert_mode, linewise, movement, O |
 |MoveStartOfFile | Move to the start of the file. | file, start, vertical |
 |MoveStartOfLine | Move to the start of the current line. | line, movement, start |
 |Movet | Move using t. | chair-wise, horizontal, movement, right, t |
 |MoveT | Go back next to the last ocurrence of a char. | chair-wise, horizontal, left, movement, T |
 |MoveWORD | Move multiple WORDS. | counter, horizontal, movement, text-object, WORD |
 |MoveWord | Move multiple words. | counter, horizontal, movement, text-object, word |
+|MoveWordEnd | Move to the end of words. | end, movement, vertical, word_end |
+|MoveWORDEnd | Move to the end of WORDs. | END, movement, vertical, WORD_end |
 |Paste | Paste from a given register. | Paste, register |
 |paste | Paste from a given register. | paste, register |
 |SearchBackward | Search backwards. | diagonal, movement, search |
