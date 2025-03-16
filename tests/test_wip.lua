@@ -19,7 +19,6 @@ names = {}
 for i = 1, 25, 1 do
 	names[#names + 1] = { "DeleteWORD" }
 	names[#names + 1] = { "MoveWORD" }
-
 end
 
 local child = MiniTest.new_child_neovim()

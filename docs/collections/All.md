@@ -20,8 +20,8 @@
 |DeleteT | Delete back to the next char. | chair-wise, deletion, horizontal, left, T |
 |DeleteWord | Delete multiple words. | counter, deletion, horizontal, text-object, word |
 |DeleteWORD | Delete multiple WORDs. | counter, deletion, horizontal, text-object, WORD |
-|DeleteWORDEnd | Delete using 'E'. | counter, deletion, E, horizontal, text-object, WORD |
-|DeleteWordEnd | Delete using 'e'. | counter, deletion, e, horizontal, text-object, word |
+|DeleteWORDEnd | Delete using 'E'. | deletion, END, vertical, WORD_end |
+|DeleteWordEnd | Delete using 'e'. | deletion, end, vertical, word_end |
 |Increment | Increment the value at the cursor. | change, char, increment |
 |InsertAtStartOfLine | Insert text at the start of the line. | I, insert, line, start |
 |InsertChar | Insert a char at the current position. | change, char, insertion |

@@ -9,9 +9,9 @@
 |DeleteLine | Delete the current line. | deletion, line |
 |DeleteMatch | Delete the current match. | deletion, match, register, text-object |
 |DeleteSentence | Delete the textobject inner sentence. | deletion, horizontal, text-object, sentence |
-|Deletet | Delete to the next char. | chair-wise, deletion, horizontal, right, t |
 |DeleteT | Delete back to the next char. | chair-wise, deletion, horizontal, left, T |
-|DeleteWORD | Delete multiple WORDs. | counter, deletion, horizontal, text-object, WORD |
+|Deletet | Delete to the next char. | chair-wise, deletion, horizontal, right, t |
 |DeleteWord | Delete multiple words. | counter, deletion, horizontal, text-object, word |
-|DeleteWORDEnd | Delete using 'E'. | counter, deletion, E, horizontal, text-object, WORD |
-|DeleteWordEnd | Delete using 'e'. | counter, deletion, e, horizontal, text-object, word |
+|DeleteWORD | Delete multiple WORDs. | counter, deletion, horizontal, text-object, WORD |
+|DeleteWORDEnd | Delete using 'E'. | deletion, END, vertical, WORD_end |
+|DeleteWordEnd | Delete using 'e'. | deletion, end, vertical, word_end |

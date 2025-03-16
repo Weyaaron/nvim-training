@@ -61,7 +61,6 @@ function TestModule.test_WORDS_at_word_end_counter()
 	MiniTest.expect.equality(result, 6)
 end
 
-
 function TestModule.single_character_word()
 	local line = "w w"
 	local result = movements.WORDS(line, 0, 1)

@@ -1,4 +1,3 @@
-
 local movements = require("nvim-training.movements")
 local utility = require("nvim-training.utility")
 

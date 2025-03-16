@@ -58,7 +58,6 @@ function TestModule.word_bounds()
 	MiniTest.expect.equality(word_bounds[1][2], 2)
 end
 
-
 function TestModule.test_Word_end_Within_words()
 	local two_words = "w1w w2w w3w"
 	test_word_movements(movements.word_end, two_words, 1, 1, 2)

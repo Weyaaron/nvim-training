@@ -2,8 +2,8 @@
 | Name | Description | Tags | Notes
 | --- | -------- | -------- | -------- |
 |DeleteMatch | Delete the current match. | deletion, match, register, text-object |
-|paste | Paste from a given register. | paste, register |
 |Paste | Paste from a given register. | Paste, register |
+|paste | Paste from a given register. | paste, register |
 |Yankf | Yank to the next char. | chair-wise, f, horizontal, register, right, yank |
 |YankF | Yank back to the previous char. | chair-wise, F, horizontal, left, register, yank |
 |YankInsideBlock | Yank inside the block. | inside, register, text-object, yank |
