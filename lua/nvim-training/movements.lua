@@ -5,16 +5,16 @@ function movements.end_of_line(line, cursor_pos)
 	return #line - 1
 end
 
+--This function may wrap to show that the computation failed.
 local function move_across_word_pos(line, cursor_pos, word_calc_func, counter)
 	local word_positions = word_calc_func(line)
+	--This index respects that we might be between words and assigns the rightmost word completly left of the cursor in this case.
 	local word_index_cursor = utility.calculate_word_index_from_cursor_pos(word_positions, cursor_pos)
 
-	local char_at_cursor = line:sub(cursor_pos + 1, cursor_pos + 1)
-	if char_at_cursor == " " and counter > 1 then
-		counter = counter - 1
-	end
 	local new_word_index = word_index_cursor + counter
-	-- print(vim.inspect(word_positions))
+	if new_word_index > #word_positions then
+		return -1
+	end
 	return word_positions[new_word_index][1]
 end
 
@@ -37,7 +37,6 @@ local function move_word_end(line, cursor_pos, word_bound_func, counter)
 	end
 	local new_word_index = word_index + counter - 1
 
-	-- print(vim.inspect(word_positions), "\n")
 	return word_positions[new_word_index][2]
 end
 function movements.word_end(line, cursor_pos, counter)

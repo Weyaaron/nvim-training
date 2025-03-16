@@ -297,6 +297,19 @@ function utility.calculate_word_index_from_cursor_pos(word_bounds, cursor_pos)
 		local word_end = v[2]
 		if cursor_pos <= word_end and cursor_pos >= word_start then
 			index = i
+			break
+		end
+	end
+	--This deals with an index between words.
+	if index == 0 then
+		for i = 1, #word_bounds - 1 do
+			local current_word_end = word_bounds[i][2]
+			local next_word_start = word_bounds[i + 1][1]
+			print(current_word_end, next_word_start)
+			if cursor_pos < next_word_start and cursor_pos > current_word_end then
+				index = i
+				break
+			end
 		end
 	end
 	return index
@@ -502,13 +515,22 @@ local function construct_words_line_from_template(template_name)
 	local base_template = utility.load_line_template(template_name)
 	base_template = utility.split_str(base_template, "\n")[1]
 	local words = utility.split_str(base_template, " ")
-
 	for i = #words, 2, -1 do
 		local j = math.random(i)
+
 		words[i], words[j] = words[j], words[i]
 	end
 
 	return table.concat(words, " ")
+end
+
+function utility.update_debug_state(new_values)
+	if not _G._status then
+		_G._status = {}
+	end
+	for key, value in pairs(new_values) do
+		_G._status[key] = value
+	end
 end
 
 function utility.construct_words_line()

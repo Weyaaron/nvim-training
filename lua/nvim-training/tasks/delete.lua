@@ -13,7 +13,6 @@ function Delete:new()
 	return base
 end
 function Delete:deactivate()
-	print(self.target_text, self:read_register())
 	return self.target_text == self:read_register()
 end
 

@@ -24,24 +24,28 @@ end
 
 function ChangeWord:activate()
 	local function _inner_update()
-		local new_line = utility.construct_words_line()
-		utility.set_buffer_to_rectangle_with_line(new_line)
+		local cursor_start = 10
+		local move_res = -1
+		local line = ""
+		while move_res == -1 do
+			line = utility.construct_words_line()
+			move_res = movements.words(line, cursor_start, self.counter)
+		end
+
+		utility.set_buffer_to_rectangle_with_line(line)
 
 		local current_cursor_pos = vim.api.nvim_win_get_cursor(0)
 		vim.api.nvim_win_set_cursor(0, { current_cursor_pos[1], 10 })
 		current_cursor_pos = vim.api.nvim_win_get_cursor(0)
 
-		local cursor_pos_after_movement = movements.words(new_line, current_cursor_pos[2], self.counter)
-
-		local line = utility.get_line(current_cursor_pos[1])
 		self.line_text_after_change = line:sub(0, current_cursor_pos[2])
 			.. self.text_to_be_inserted
-			.. line:sub(cursor_pos_after_movement, #line)
+			.. line:sub(move_res, #line)
 
 		self.cursor_target = current_cursor_pos
 
 		utility.construct_word_hls_forwards(self.counter)
-		utility.construct_highlight(current_cursor_pos[1], cursor_pos_after_movement, 1)
+		utility.construct_highlight(current_cursor_pos[1], move_res, 1)
 	end
 	vim.schedule_wrap(_inner_update)()
 end

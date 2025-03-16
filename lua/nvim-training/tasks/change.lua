@@ -20,6 +20,7 @@ function Change:deactivate()
 		print("Target has to be type table, current value is " .. tostring(self.cursor_target))
 	end
 	local current_line = utility.get_line(cursor_pos[1])
+	utility.update_debug_state({ curr_line = current_line, target_line = self.line_text_after_change })
 	return current_line == self.line_text_after_change
 end
 

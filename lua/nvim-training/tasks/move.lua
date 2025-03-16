@@ -23,6 +23,7 @@ function Move:deactivate()
 		"The cursor positions have been compared",
 		{ cursor_pos = cursor_pos, cursor_target = self.cursor_target }
 	)
+	utility.update_debug_state({ cp = cursor_pos, tcp = self.cursor_target })
 	return cursor_pos[1] == self.cursor_target[1] and cursor_pos[2] == self.cursor_target[2]
 end
 

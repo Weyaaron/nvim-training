@@ -23,6 +23,7 @@ end
 
 function YankWord:activate()
 	local function _inner_update()
+		--Todo: Work that the word computation might fail.
 		local word_line = utility.construct_words_line()
 		word_line = word_line:sub(0, internal_config.line_length)
 		utility.set_buffer_to_rectangle_with_line(word_line)
