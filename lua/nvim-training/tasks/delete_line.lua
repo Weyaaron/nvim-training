@@ -1,5 +1,5 @@
-local utility = require("nvim-training.utility")
 local Delete = require("nvim-training.tasks.delete")
+local utility = require("nvim-training.utility")
 
 local DeleteLine = {}
 DeleteLine.__index = DeleteLine

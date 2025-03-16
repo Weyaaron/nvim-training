@@ -1,8 +1,8 @@
 local Task = require("nvim-training.task")
 local utility = require("nvim-training.utility")
+
 local SearchWordBackward = {}
 SearchWordBackward.__index = SearchWordBackward
-
 setmetatable(SearchWordBackward, { __index = Task })
 SearchWordBackward.metadata = {
 	autocmd = "CursorMoved",
@@ -11,6 +11,7 @@ SearchWordBackward.metadata = {
 	tags = { "search", "movement", "backward" },
 	input_template = "#<search_target>",
 }
+
 function SearchWordBackward:new()
 	local base = Task:new()
 	setmetatable(base, { __index = SearchWordBackward })

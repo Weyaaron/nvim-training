@@ -1,6 +1,6 @@
+local Yank = require("nvim-training.tasks.yank")
 local utility = require("nvim-training.utility")
 local movements = require("nvim-training.movements")
-local Yank = require("nvim-training.tasks.yank")
 local tag_index = require("nvim-training.tag_index")
 
 local Yankt = {}

@@ -10,9 +10,10 @@
 |Movef | Find the next char. | chair-wise, f, horizontal, movement, right |
 |MoveLinesDown | Move down multiple lines. | horizontal, j, lines, movement |
 |MoveLinesUp | Move multiple lines up. | horizontal, k, lines, movement |
+|MoveMark | Move to a mark | mark, movement, vertical |
 |MoveMatch | Move to the current match. | match, movement, text-object |
-|MoveO | Enter and leave insert mode above the current line. | insert_mode, linewise, movement, O |
 |Moveo | Enter and leave insert mode below the current line. | insert_mode, linewise, movement, o |
+|MoveO | Enter and leave insert mode above the current line. | insert_mode, linewise, movement, O |
 |MoveStartOfLine | Move to the start of the current line. | line, movement, start |
 |MoveT | Go back next to the last ocurrence of a char. | chair-wise, horizontal, left, movement, T |
 |Movet | Move using t. | chair-wise, horizontal, movement, right, t |

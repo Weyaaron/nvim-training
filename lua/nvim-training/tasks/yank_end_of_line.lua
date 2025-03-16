@@ -1,5 +1,5 @@
-local utility = require("nvim-training.utility")
 local Yank = require("nvim-training.tasks.yank")
+local utility = require("nvim-training.utility")
 
 local YankEndOfLine = {}
 YankEndOfLine.__index = YankEndOfLine

@@ -1,5 +1,5 @@
-local utility = require("nvim-training.utility")
 local Change = require("nvim-training.tasks.change")
+local utility = require("nvim-training.utility")
 
 local InsertAtLineBeginning = {}
 InsertAtLineBeginning.__index = InsertAtLineBeginning

@@ -1,7 +1,7 @@
 local RandomCursorStart = require("nvim-training.tasks.random_cursor_start")
+
 local MoveToEndOfFile = {}
 MoveToEndOfFile.__index = MoveToEndOfFile
-
 setmetatable(MoveToEndOfFile, { __index = RandomCursorStart })
 MoveToEndOfFile.metadata = {
 	autocmd = "CursorMoved",

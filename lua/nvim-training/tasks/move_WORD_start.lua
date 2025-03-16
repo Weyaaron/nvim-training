@@ -1,5 +1,5 @@
-local utility = require("nvim-training.utility")
 local Move = require("nvim-training.tasks.move")
+local utility = require("nvim-training.utility")
 local movements = require("nvim-training.movements")
 
 local MoveWORDStart = {}

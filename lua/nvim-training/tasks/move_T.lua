@@ -1,7 +1,7 @@
-local utility = require("nvim-training.utility")
 local Move = require("nvim-training.tasks.move")
 local movements = require("nvim-training.movements")
 local tag_index = require("nvim-training.tag_index")
+local utility = require("nvim-training.utility")
 
 local MoveT = {}
 MoveT.metadata = {

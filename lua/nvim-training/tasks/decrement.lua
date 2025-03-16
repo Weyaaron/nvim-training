@@ -3,6 +3,7 @@ local utility = require("nvim-training.utility")
 
 local Decrement = {}
 Decrement.__index = Decrement
+setmetatable(Decrement, { __index = Task })
 Decrement.metadata = {
 	autocmd = "CursorMoved",
 	desc = "Decrement the value at the cursor.",
@@ -11,7 +12,6 @@ Decrement.metadata = {
 	input_template = "<C-x>",
 }
 
-setmetatable(Decrement, { __index = Task })
 function Decrement:new()
 	local base = Task:new()
 	setmetatable(base, { __index = Decrement })

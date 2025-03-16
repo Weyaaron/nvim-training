@@ -1,5 +1,5 @@
-local utility = require("nvim-training.utility")
 local Task = require("nvim-training.task")
+local utility = require("nvim-training.utility")
 
 local AppendChar = {}
 AppendChar.__index = AppendChar

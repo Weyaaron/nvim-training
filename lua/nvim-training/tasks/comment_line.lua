@@ -4,9 +4,7 @@ local template_index = require("nvim-training.template_index")
 
 local CommentLine = {}
 CommentLine.__index = CommentLine
-
 setmetatable(CommentLine, { __index = Task })
-
 CommentLine.metadata = {
 	autocmd = "TextChanged",
 	desc = "Change the current line into a single line comment.",

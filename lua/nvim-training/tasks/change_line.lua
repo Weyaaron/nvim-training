@@ -1,6 +1,6 @@
+local Change = require("nvim-training.tasks.change")
 local utility = require("nvim-training.utility")
 local internal_config = require("nvim-training.internal_config")
-local Change = require("nvim-training.tasks.change")
 
 local ChangeLine = {}
 ChangeLine.__index = ChangeLine

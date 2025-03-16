@@ -2,8 +2,8 @@
 | Name | Description | Tags | Notes
 | --- | -------- | -------- | -------- |
 |AppendChar | Insert a char next to the cursor. | append, change, insertion |
-|ChangeF | Change text using F | chair-wise, change, F, horizontal, left |
 |Changef | Change text using f | chair-wise, change, f, horizontal, right |
+|ChangeF | Change text using F | chair-wise, change, F, horizontal, left |
 |ChangeLine | Change the current line. | change, deletion, line |
 |Changet | Change text using f | chair-wise, change, horizontal, right, t |
 |ChangeT | Change text using T | chair-wise, change, horizontal, left, T |

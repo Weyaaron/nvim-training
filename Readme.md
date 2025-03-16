@@ -117,19 +117,21 @@ The plugin aims to use scratch-buffers to avoid polluting the disk.
 |Movef | Find the next char. | chair-wise, f, horizontal, movement, right |
 |MoveLinesDown | Move down multiple lines. | horizontal, j, lines, movement |
 |MoveLinesUp | Move multiple lines up. | horizontal, k, lines, movement |
+|MoveMark | Move to a mark | mark, movement, vertical |
 |MoveMatch | Move to the current match. | match, movement, text-object |
-|Moveo | Enter and leave insert mode below the current line. | insert_mode, linewise, movement, o |
 |MoveO | Enter and leave insert mode above the current line. | insert_mode, linewise, movement, O |
+|Moveo | Enter and leave insert mode below the current line. | insert_mode, linewise, movement, o |
 |MoveStartOfFile | Move to the start of the file. | file, start, vertical |
 |MoveStartOfLine | Move to the start of the current line. | line, movement, start |
 |Movet | Move using t. | chair-wise, horizontal, movement, right, t |
 |MoveT | Go back next to the last ocurrence of a char. | chair-wise, horizontal, left, movement, T |
-|MoveWORD | Move multiple WORDS. | counter, horizontal, movement, text-object, WORD |
 |MoveWord | Move multiple words. | counter, horizontal, movement, text-object, word |
-|MoveWordEnd | Move to the end of words. | end, movement, vertical, word_end |
+|MoveWORD | Move multiple WORDS. | counter, horizontal, movement, text-object, WORD |
 |MoveWORDEnd | Move to the end of WORDs. | END, movement, vertical, WORD_end |
-|Paste | Paste from a given register. | Paste, register |
+|MoveWordEnd | Move to the end of words. | end, movement, vertical, word_end |
+|OpenWindow | Open a new window. | window |
 |paste | Paste from a given register. | paste, register |
+|Paste | Paste from a given register. | Paste, register |
 |SearchBackward | Search backwards. | diagonal, movement, search |
 |SearchForward | Search forwards. | forward, movement, search |
 |SearchWordBackward | Search backwards for the word at the cursor. | backward, movement, search |

@@ -1,5 +1,5 @@
-local utility = require("nvim-training.utility")
 local Yank = require("nvim-training.tasks.yank")
+local utility = require("nvim-training.utility")
 local tag_index = require("nvim-training.tag_index")
 
 local YankMatch = {}

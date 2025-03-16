@@ -1,7 +1,7 @@
 local Task = require("nvim-training.task")
 local utility = require("nvim-training.utility")
-local Change = {}
 
+local Change = {}
 Change.__index = Change
 setmetatable(Change, { __index = Task })
 Change.metadata = { autocmd = "", desc = "", instructions = "", tags = { "change" } }

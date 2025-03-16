@@ -1,5 +1,5 @@
-local utility = require("nvim-training.utility")
 local Delete = require("nvim-training.tasks.delete")
+local utility = require("nvim-training.utility")
 local tag_index = require("nvim-training.tag_index")
 
 local DeleteSentence = {}
