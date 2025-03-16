@@ -305,7 +305,6 @@ function utility.calculate_word_index_from_cursor_pos(word_bounds, cursor_pos)
 		for i = 1, #word_bounds - 1 do
 			local current_word_end = word_bounds[i][2]
 			local next_word_start = word_bounds[i + 1][1]
-			print(current_word_end, next_word_start)
 			if cursor_pos < next_word_start and cursor_pos > current_word_end then
 				index = i
 				break

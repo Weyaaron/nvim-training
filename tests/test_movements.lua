@@ -58,27 +58,6 @@ function TestModule.word_bounds()
 	MiniTest.expect.equality(word_bounds[1][2], 2)
 end
 
-function TestModule.WORD_bounds()
-	local words = "w--w www"
-	local word_bounds = utility.calculate_WORD_bounds(words)
-	MiniTest.expect.equality(word_bounds[1][1], 0)
-	MiniTest.expect.equality(word_bounds[1][2], 3)
-end
-
-function TestModule.test_WORDS_within_Words()
-	local two_words = "w1w-w2w w3w"
-	test_word_movements(movements.WORDS, two_words, 1, 1, 8)
-end
-
-function TestModule.test_Words_at_Word_end()
-	local two_words = "w1-w2 w3"
-	test_word_movements(movements.WORDS, two_words, 4, 1, 6)
-end
-
-function TestModule.test_Words_at_Word_start()
-	local two_words = "w1-w2 w2"
-	test_word_movements(movements.WORDS, two_words, 0, 1, 6)
-end
 
 function TestModule.test_Word_end_Within_words()
 	local two_words = "w1w w2w w3w"

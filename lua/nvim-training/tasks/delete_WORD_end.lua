@@ -10,7 +10,7 @@ DeleteWORDEnd.metadata = {
 	autocmd = "TextChanged",
 	desc = "Delete using 'E'.",
 	instructions = "",
-	tags = utility.flatten({ tag_index.WORD, "E", "deletion" }),
+	tags = utility.flatten({ tag_index.WORD_end, tag_index.deletion }),
 	input_template = "<target_register>d<counter>E",
 }
 

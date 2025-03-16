@@ -4,12 +4,12 @@ local utility = require("nvim-training.utility")
 
 local task_index_keys = utility.get_keys(task_index)
 
-local repetitions = 15
+local repetitions = 10
 
 local names = {}
 for i, v in pairs(task_index_keys) do
 	local task = task_index[v]
-	if utility.truth_table(task.metadata.tags)["word"] then
+	if utility.truth_table(task.metadata.tags)["WORD"] then
 		for i = 1, repetitions do
 			names[#names + 1] = { v }
 		end

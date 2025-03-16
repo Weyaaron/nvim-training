@@ -31,6 +31,7 @@ end
 
 function Delete:delete_with_word_movement(line, word_movement)
 	local function _inner_update()
+		--Todo: Fix/implement this?!
 		utility.set_buffer_to_rectangle_with_line(line)
 
 		local current_cursor_pos = vim.api.nvim_win_get_cursor(0)
