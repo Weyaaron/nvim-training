@@ -1,6 +1,7 @@
 local exported_tags = {
 	block = { "text-object", "inside" },
 	change = { "change" },
+	surround = { "surround", "change", "plugin" },
 	deletion = { "deletion" },
 	F = { "F", "horizontal", "chair-wise", "left" },
 	f = { "f", "horizontal", "chair-wise", "right" },
