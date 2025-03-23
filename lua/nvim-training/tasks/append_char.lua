@@ -1,5 +1,6 @@
 local Task = require("nvim-training.task")
 local utility = require("nvim-training.utility")
+local tag_index = require("nvim-training.tag_index")
 
 local AppendChar = {}
 AppendChar.__index = AppendChar
@@ -8,7 +9,7 @@ AppendChar.metadata = {
 	autocmd = "InsertLeave",
 	desc = "Insert a char next to the cursor.",
 	instructions = "",
-	tags = { "change", "insertion", "append" },
+	tags = utility.flatten({ tag_index.change, "insertion", "append" }),
 	input_template = "ix<esc>",
 }
 

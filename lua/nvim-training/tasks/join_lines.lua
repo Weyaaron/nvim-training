@@ -1,5 +1,6 @@
 local Task = require("nvim-training.task")
 local utility = require("nvim-training.utility")
+local tag_index = require("nvim-training.tag_index")
 
 local JoinLines = {}
 JoinLines.__index = JoinLines
@@ -7,7 +8,7 @@ JoinLines.metadata = {
 	autocmd = "TextChanged",
 	desc = "Join the current line with the line below.",
 	instructions = "Join the current line with the line below.",
-	tags = { "change", "line", "join", "J" },
+	tags = utility.flatten({ tag_index.change, "line", "join", "J" }),
 	input_template = "J",
 }
 

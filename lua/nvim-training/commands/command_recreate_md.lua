@@ -37,8 +37,7 @@ local function generate_collection_list()
 	return "\n" .. table_header .. result .. "\n"
 end
 local function generate_task_list()
-	local table_header =
-		"\n\n# All tasks\n\n| Name | Description | Tags\n| --- | -------- | -------- | \n"
+	local table_header = "\n\n# All tasks\n\n| Name | Description | Tags\n| --- | -------- | -------- | \n"
 	local all_block = task_collection_index.All:render_markdown()
 	return "\n" .. table_header .. all_block .. "\n"
 end

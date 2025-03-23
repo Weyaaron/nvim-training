@@ -1,13 +1,14 @@
 local exported_tags = {
 	block = { "text-object", "inside" },
+	cchange = { "cchange", "operator" },
 	change = { "change" },
-	deletion = { "deletion" },
+	deletion = { "deletion", "operator", "register" },
 	F = { "F", "horizontal", "chair-wise", "left" },
 	f = { "f", "horizontal", "chair-wise", "right" },
 	lines_down = { "j", "horizontal", "lines" },
 	lines_up = { "k", "horizontal", "lines" },
 	match = { "match", "text-object" },
-	movement = { "movement" },
+	movement = { "movement", "operator" },
 	o = { "o", "insert_mode", "linewise" },
 	O = { "O", "insert_mode", "linewise" },
 	quotes = { "quotes" },
@@ -17,10 +18,11 @@ local exported_tags = {
 	word_end = { "word_end", "end", "vertical" },
 	WORD_end = { "WORD_end", "END", "vertical" },
 	treesitter = { "treesitter", "custom", "programming" },
+	programming = { "programming" },
 	word_start = { "word", "horizontal" },
 	word = { "word", "horizontal", "counter", "text-object" },
 	WORD = { "WORD", "horizontal", "counter", "text-object" },
-	yank = { "yank", "register" },
+	yank = { "yank", "register", "operator" },
 }
 
 return exported_tags

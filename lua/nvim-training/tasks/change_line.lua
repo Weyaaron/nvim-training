@@ -1,6 +1,7 @@
 local Change = require("nvim-training.tasks.change")
 local utility = require("nvim-training.utility")
 local internal_config = require("nvim-training.internal_config")
+local tag_index = require("nvim-training.tag_index")
 
 local ChangeLine = {}
 ChangeLine.__index = ChangeLine
@@ -8,7 +9,7 @@ ChangeLine.metadata = {
 	autocmd = "InsertLeave",
 	desc = "Change the current line.",
 	instructions = "Change the current line into 'x' and leave insert-mode.",
-	tags = { "deletion", "line", "change" },
+	tags = utility.flatten({ tag_index.change, "line" }),
 	input_template = "ccx<esc>",
 }
 

@@ -1,5 +1,6 @@
 local Task = require("nvim-training.task")
 local utility = require("nvim-training.utility")
+local tag_index = require("nvim-training.tag_index")
 
 local Increment = {}
 Increment.__index = Increment
@@ -7,7 +8,7 @@ Increment.metadata = {
 	autocmd = "CursorMoved",
 	desc = "Increment the value at the cursor.",
 	instructions = "Increment the value at the cursor.",
-	tags = { "increment", "change", "char" },
+	tags = utility.flatten({ "increment", tag_index.change, "char" }),
 	input_template = "<C-a>",
 }
 

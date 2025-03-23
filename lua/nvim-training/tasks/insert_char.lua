@@ -1,5 +1,6 @@
 local Task = require("nvim-training.task")
 local utility = require("nvim-training.utility")
+local tag_index = require("nvim-training.tag_index")
 
 local InsertChar = {}
 InsertChar.__index = InsertChar
@@ -8,7 +9,7 @@ InsertChar.metadata = {
 	autocmd = "InsertLeave",
 	desc = "Insert a char at the current position.",
 	instructions = "",
-	tags = { "change", "insertion", "char" },
+	tags = utility.flatten({ tag_index.change, tag_index.insertion, "char" }),
 	input_template = "ix<esc>",
 }
 

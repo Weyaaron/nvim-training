@@ -46,7 +46,11 @@ function YankWordEnd:activate()
 end
 
 function YankWordEnd:instructions()
-	return "Yank to" .. self.counter .. " end of word(s)" .. utility.construct_register_description(self.target_register) .. "."
+	return "Yank to"
+		.. self.counter
+		.. " end of word(s)"
+		.. utility.construct_register_description(self.target_register)
+		.. "."
 end
 
 return YankWordEnd

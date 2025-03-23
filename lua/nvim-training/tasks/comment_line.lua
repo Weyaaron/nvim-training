@@ -1,6 +1,7 @@
 local Task = require("nvim-training.task")
 local utility = require("nvim-training.utility")
 local template_index = require("nvim-training.template_index")
+local tag_index = require("nvim-training.tag_index")
 
 local CommentLine = {}
 CommentLine.__index = CommentLine
@@ -9,7 +10,7 @@ CommentLine.metadata = {
 	autocmd = "TextChanged",
 	desc = "Change the current line into a single line comment.",
 	instructions = "Change the current line into a single line comment.",
-	tags = { "programming", "plugin", "change", "commenting" },
+	tags = utility.flatten({ tag_index.change, "plugin", "commenting" }),
 	input_template = "gcc",
 }
 function CommentLine:new()
