@@ -1,8 +1,44 @@
-# nvim-training
+# nvim-training: Efficient training of keybinds
 
 [![License: GPL](https://img.shields.io/badge/License-GPL-brightgreen.svg)](https://opensource.org/license/gpl-3-0/)
 
-This code implements a Neovim Plugin for training your muscle memory.
+This code implements a Neovim Plugin for training keybinds 
+by providing 50+ different small tasks.
+![GIF](media/screencast.gif)
+
+
+# Getting Started
+## Installation
+Install it using the plugin manager of your choice.
+[Lazy](https://github.com/folke/lazy.nvim) is tested,
+if any other fails, please open an issue. Pinning your local installation to a fixed version is encouraged.
+In Lazy, a possible setup might be:
+
+```lua
+local lazy = require("lazy")
+local plugin_list = {
+    -- Your various other plugins ..
+    {"https://github.com/Weyaaron/nvim-training", pin= true, opts = {}}
+    -- Support for configuration with opts is included, see below for the options
+}
+lazy.setup(plugin_list)
+```
+
+## How to train 
+This plugin uses subcommands of `Training` to activate certain functions.
+All of these commands support completion, just use `Tab` and you will be fine.
+Currently, these are the available options:
+
+| Name | Syntax | Description |
+| --- | -------- | -------- |
+| Start | `:Training Start [Scheduler] [Task-Collection A] [Task Collection B] ...`| Starts a session with the choosen scheduler and the choosen task collections. Both arguments are optional. |
+| Stop | `:Training Stop`| Stops a session. |
+| Analyze | `:Training Analyze`| Prints some statistics about your progress. |
+
+The plugin aims to use scratch-buffers to avoid polluting the disk.
+
+
+# Philosophy
 
 This plugin fills a gap I have noticed during interaction with vim:
 Knowing is half the battle, executing another entirely.
@@ -33,49 +69,12 @@ Furthermore, as of 2025-02, support for unit tests is in its infancy. It will ta
 quite some more work to enable tests for all tasks/fix some of them. Some
 failing tests will be addet to keep momentum going.
 
-# New features (As of 2025-02)
-- Support for some treesitter-based operations.
-- Shipping of tasks/tags/collections that are not enabled by default, but can be opted into.
-
-
 # Some stats of current tasks
 
 - Supported Tasks: 67 (For a full list, see below)
 - Supported Tasks-Collections: 5
 - Supported Schedulers: 3
 
-# In Action
-![GIF](media/screencast.gif)
-
-# Installation
-
-Install it using the plugin manager of your choice.
-[Lazy](https://github.com/folke/lazy.nvim) is tested,
-if any other fails, please open an issue. Pinning your local installation to a fixed version is encouraged.
-In Lazy, a possible setup might be:
-
-```lua
-local lazy = require("lazy")
-local plugin_list = {
-    -- Your various other plugins ..
-    {"https://github.com/Weyaaron/nvim-training", pin= true, opts = {}}
-    -- Support for configuration with opts is included, see below for the options
-}
-lazy.setup(plugin_list)
-```
-
-# Commands
-This plugin uses subcommands of `Training` to activate certain functions.
-All of these commands support completion, just use `Tab` and you will be fine.
-Currently, these are the available options:
-
-| Name | Syntax | Description |
-| --- | -------- | -------- |
-| Start | `:Training Start [Scheduler] [Task-Collection A] [Task Collection B] ...`| Starts a session with the choosen scheduler and the choosen task collections. Both arguments are optional. |
-| Stop | `:Training Stop`| Stops a session. |
-| Analyze | `:Training Analyze`| Prints some statistics about your progress. |
-
-The plugin aims to use scratch-buffers to avoid polluting the disk.
 
 # Full Task List
 
