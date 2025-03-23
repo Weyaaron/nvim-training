@@ -4,7 +4,7 @@ local utility = require("nvim-training.utility")
 local function generate_file_per_collection()
 	local base_bath = utility.construct_base_path()
 	local path = base_bath .. "/docs/collections/"
-	local table_header = "| Name | Description | Tags | Notes\n| --- | -------- | -------- | -------- |\n"
+	local table_header = "| Name | Description | Tags\n| --- | -------- | -------- |\n"
 	for i, v in pairs(task_collection_index) do
 		local current_block = v:render_markdown(table_header)
 		local constructed_header = "## " .. v.name .. " (" .. v.desc .. ")\n" .. table_header
@@ -38,7 +38,7 @@ local function generate_collection_list()
 end
 local function generate_task_list()
 	local table_header =
-		"\n\n# All tasks\n\n| Name | Description | Tags | Notes\n| --- | -------- | -------- | -------- |\n"
+		"\n\n# All tasks\n\n| Name | Description | Tags\n| --- | -------- | -------- | \n"
 	local all_block = task_collection_index.All:render_markdown()
 	return "\n" .. table_header .. all_block .. "\n"
 end

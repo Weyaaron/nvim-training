@@ -1,6 +1,6 @@
 ## Yanking (Tasks involving yanking)
-| Name | Description | Tags | Notes
-| --- | -------- | -------- | -------- |
+| Name | Description | Tags
+| --- | -------- | -------- |
 |YankEndOfLine | Yank to the end of the current line. | end, line, yank |
 |YankF | Yank back to the previous char. | chair-wise, F, horizontal, left, register, yank |
 |Yankf | Yank to the next char. | chair-wise, f, horizontal, register, right, yank |

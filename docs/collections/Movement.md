@@ -1,6 +1,6 @@
 ## Movement (Tasks involving movements.)
-| Name | Description | Tags | Notes
-| --- | -------- | -------- | -------- |
+| Name | Description | Tags
+| --- | -------- | -------- |
 |MoveAbsoluteLine | Move to the absolute line. | line, movement, vertical |
 |MoveCharsLeft | Move left charwise. | char, h, horizontal, movement |
 |MoveCharsRight | Move right charwise. | horizontal, l, movement |
@@ -17,8 +17,8 @@
 |MoveStartOfLine | Move to the start of the current line. | line, movement, start |
 |Movet | Move using t. | chair-wise, horizontal, movement, right, t |
 |MoveT | Go back next to the last ocurrence of a char. | chair-wise, horizontal, left, movement, T |
-|MoveWord | Move multiple words. | counter, horizontal, movement, text-object, word |
 |MoveWORD | Move multiple WORDS. | counter, horizontal, movement, text-object, WORD |
+|MoveWord | Move multiple words. | counter, horizontal, movement, text-object, word |
 |MoveWordEnd | Move to the end of words. | end, movement, vertical, word_end |
 |MoveWORDEnd | Move to the end of WORDs. | END, movement, vertical, WORD_end |
 |SearchBackward | Search backwards. | diagonal, movement, search |

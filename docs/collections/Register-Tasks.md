@@ -1,6 +1,6 @@
 ## Register-Tasks (Tasks that may use registers)
-| Name | Description | Tags | Notes
-| --- | -------- | -------- | -------- |
+| Name | Description | Tags
+| --- | -------- | -------- |
 |DeleteMatch | Delete the current match. | deletion, match, register, text-object |
 |Paste | Paste from a given register. | Paste, register |
 |paste | Paste from a given register. | paste, register |

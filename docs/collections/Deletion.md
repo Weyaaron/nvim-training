@@ -1,6 +1,6 @@
 ## Deletion (Tasks involving deletion)
-| Name | Description | Tags | Notes
-| --- | -------- | -------- | -------- |
+| Name | Description | Tags
+| --- | -------- | -------- |
 |ChangeLine | Change the current line. | change, deletion, line |
 |DeleteChar | Delete the current char. | change, char, deletion |
 |DeleteF | Delete back to the previous char. | chair-wise, deletion, F, horizontal, left |

@@ -10,7 +10,6 @@ MoveRandom.metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move to the random target.",
 	instructions = "Move to the random highlight.",
-	notes = "This task assumes the existence of a plugin that provides such a motion.",
 	tags = utility.flatten({ tag_index.movement, "plugin", "diagonal" }),
 }
 

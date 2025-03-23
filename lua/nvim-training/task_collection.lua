@@ -39,9 +39,6 @@ function TaskCollection:render_markdown()
 		local pieces = { task_name, current_task.metadata.desc }
 		pieces[#pieces + 1] = table.concat(tags_of_current_task, ", ")
 
-		if current_task.metadata then
-			pieces[#pieces + 1] = current_task.metadata.notes
-		end
 		lines[#lines + 1] = "|" .. table.concat(pieces, " | ") .. " |"
 	end
 

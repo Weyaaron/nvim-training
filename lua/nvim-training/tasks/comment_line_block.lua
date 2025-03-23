@@ -10,7 +10,6 @@ CommentLineBlock.metadata = {
 	autocmd = "TextChanged",
 	desc = "Change the current line into a block comment.",
 	instructions = "Change the current line into a block comment.",
-	notes = "This assumes the use of a plugin, it is not tested with the buildin-commenting-feature. ",
 	tags = { "comment", "programming", "plugin", "change" },
 }
 function CommentLineBlock:new()

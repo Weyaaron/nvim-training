@@ -9,7 +9,6 @@ CommentLine.metadata = {
 	autocmd = "TextChanged",
 	desc = "Change the current line into a single line comment.",
 	instructions = "Change the current line into a single line comment.",
-	notes = "Not available in vanilla-vim, needs plugin.",
 	tags = { "programming", "plugin", "change", "commenting" },
 	input_template = "gcc",
 }

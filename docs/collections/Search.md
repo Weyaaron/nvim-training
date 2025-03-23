@@ -1,6 +1,6 @@
 ## Search (Tasks involving search)
-| Name | Description | Tags | Notes
-| --- | -------- | -------- | -------- |
+| Name | Description | Tags
+| --- | -------- | -------- |
 |SearchBackward | Search backwards. | diagonal, movement, search |
 |SearchForward | Search forwards. | forward, movement, search |
 |SearchWordBackward | Search backwards for the word at the cursor. | backward, movement, search |

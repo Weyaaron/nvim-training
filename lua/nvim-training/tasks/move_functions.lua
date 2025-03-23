@@ -10,7 +10,6 @@ MoveFunctions.metadata = {
 	autocmd = "CursorMoved",
 	desc = "Move around function objects.",
 	instructions = "Move to the start of the current function",
-	notes = "Not available in vanilla-vim, needs plugin.",
 	tags = { "programming", "plugin", "movement", "function" },
 }
 
