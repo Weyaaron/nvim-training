@@ -92,8 +92,9 @@ The plugin aims to use scratch-buffers to avoid polluting the disk.
 |ChangeF | Change text using F | chair-wise, change, F, horizontal, left |
 |Changef | Change text using f | chair-wise, change, f, horizontal, right |
 |ChangeLine | Change the current line. | change, deletion, line |
-|Changet | Change text using f | chair-wise, change, horizontal, right, t |
 |ChangeT | Change text using T | chair-wise, change, horizontal, left, T |
+|Changet | Change text using f | chair-wise, change, horizontal, right, t |
+|ChangeWORD | Change multiple WORDS. | change, counter, horizontal, text-object, WORD |
 |CommentLine | Change the current line into a single line comment. | change, commenting, plugin, programming |
 |Decrement | Decrement the value at the cursor. | change, char, increment |
 |DeleteChar | Delete the current char. | change, char, deletion |
