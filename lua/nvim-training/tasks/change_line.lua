@@ -9,7 +9,7 @@ ChangeLine.metadata = {
 	autocmd = "InsertLeave",
 	desc = "Change the current line.",
 	instructions = "Change the current line into 'x' and leave insert-mode.",
-	tags = utility.flatten({ tag_index.change, "line" }),
+	tags = utility.flatten({ tag_index.cchange, tag_index.line }),
 	input_template = "ccx<esc>",
 }
 

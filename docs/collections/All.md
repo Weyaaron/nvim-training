@@ -2,15 +2,15 @@
 | Name | Description | Tags
 | --- | -------- | -------- |
 |AppendChar | Insert a char next to the cursor. | append, change, insertion |
-|ChangeF | Change text using F | chair-wise, change, F, horizontal, left |
-|Changef | Change text using f | chair-wise, change, f, horizontal, right |
-|ChangeLine | Change the current line. | change, line |
-|ChangeT | Change text using T | chair-wise, change, horizontal, left, T |
-|Changet | Change text using f | chair-wise, change, horizontal, right, t |
-|ChangeWORD | Change multiple WORDS. | change, counter, horizontal, text-object, WORD |
+|ChangeF | Change text using F | cchange, chair-wise, F, horizontal, left, operator |
+|Changef | Change text using f | cchange, chair-wise, f, horizontal, operator, right |
+|ChangeLine | Change the current line. | cchange, line, lines, operator |
+|ChangeT | Change text using T | cchange, chair-wise, horizontal, left, operator, T |
+|Changet | Change text using f | cchange, chair-wise, horizontal, operator, right, t |
+|ChangeWORD | Change multiple WORDS. | cchange, counter, horizontal, operator, text-object, WORD |
 |CommentLine | Change the current line into a single line comment. | change, commenting, plugin |
 |Decrement | Decrement the value at the cursor. | change, char, increment |
-|DeleteChar | Delete the current char. | change, char, deletion |
+|DeleteChar | Delete the current char. | change, char |
 |DeleteF | Delete back to the previous char. | chair-wise, deletion, F, horizontal, left, operator, register |
 |Deletef | Delete forward to the next char. | chair-wise, deletion, f, horizontal, operator, register, right |
 |DeleteInnerConditional | Delete the condition of the current conditional. | custom, deletion, operator, programming, register, treesitter |
@@ -41,8 +41,8 @@
 |MoveLinesUp | Move multiple lines up. | horizontal, k, lines, movement, operator |
 |MoveMark | Move to a mark | mark, movement, vertical |
 |MoveMatch | Move to the current match. | match, movement, operator, text-object |
-|Moveo | Enter and leave insert mode below the current line. | insert_mode, linewise, movement, o, operator |
-|MoveO | Enter and leave insert mode above the current line. | insert_mode, linewise, movement, O, operator |
+|Moveo | Enter and leave insert mode below the current line. | change, insert_mode, linewise, o |
+|MoveO | Enter and leave insert mode above the current line. | change, insert_mode, linewise, O |
 |MoveStartOfFile | Move to the start of the file. | file, start, vertical |
 |MoveStartOfLine | Move to the start of the current line. | line, movement, start |
 |MoveT | Go back next to the last ocurrence of a char. | chair-wise, horizontal, left, movement, operator, T |
@@ -64,7 +64,7 @@
 |YankInnerConditional | Yank the condition of the current conditional. | custom, operator, programming, register, treesitter, yank |
 |YankInsideBlock | Yank inside the block. | inside, operator, register, text-object, yank |
 |YankInsideQuotes | Yank inside the quotes. | operator, quotes, register, yank |
-|YankLine | Yank a line into a register. | copy, line, operator, register, vertical, yank |
+|YankLine | Yank a line into a register. | line, lines, operator, register, vertical, yank |
 |YankMatch | Yank the current match. | match, operator, register, register, text-object, yank |
 |Yankt | Yank next to the next char. | chair-wise, horizontal, operator, register, right, t, yank |
 |YankT | Yank back next to the previous char. | chair-wise, horizontal, left, operator, register, T, yank |

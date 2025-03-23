@@ -8,7 +8,7 @@ YankLine.metadata = {
 	autocmd = "TextYankPost",
 	desc = "Yank a line into a register.",
 	instructions = "",
-	tags = utility.flatten({ tag_index.yank, "copy", "line", "vertical" }),
+	tags = utility.flatten({ tag_index.yank, tag_index.line, "vertical" }),
 	input_template = "<target_register>yy",
 }
 

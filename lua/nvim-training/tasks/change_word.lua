@@ -10,7 +10,7 @@ ChangeWord.metadata = {
 	autocmd = "InsertLeave",
 	desc = "Change multiple words.",
 	instructions = "",
-	tags = utility.flatten({ tag_index.change, tag_index.word }),
+	tags = utility.flatten({ tag_index.cchange, tag_index.word }),
 
 	input_template = "c<counter>wx<esc>",
 }

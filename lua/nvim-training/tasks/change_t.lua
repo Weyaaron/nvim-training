@@ -10,7 +10,7 @@ Changet.metadata = {
 	autocmd = "InsertLeave",
 	desc = "Change text using f",
 	instructions = "",
-	tags = utility.flatten({ tag_index.change, tag_index.t }),
+	tags = utility.flatten({ tag_index.cchange, tag_index.t }),
 	input_template = "<target_register>ct<target_char>x<esc>",
 }
 

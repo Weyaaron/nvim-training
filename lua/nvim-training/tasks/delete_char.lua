@@ -1,5 +1,6 @@
 local Task = require("nvim-training.task")
 local utility = require("nvim-training.utility")
+local tag_index = require("nvim-training.tag_index")
 
 local DeleteCharTask = {}
 DeleteCharTask.__index = DeleteCharTask
@@ -8,7 +9,7 @@ DeleteCharTask.metadata = {
 	autocmd = "TextChanged",
 	desc = "Delete the current char.",
 	instructions = "Delete the current char.",
-	tags = { "deletion", "change", "char" },
+	tags = utility.flatten({ tag_index.change, "char" }),
 	input_template = "x",
 }
 

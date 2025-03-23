@@ -10,7 +10,7 @@ ChangeF.metadata = {
 	autocmd = "InsertLeave",
 	desc = "Change text using F",
 	instructions = "",
-	tags = utility.flatten({ tag_index.change, tag_index.F }),
+	tags = utility.flatten({ tag_index.cchange, tag_index.F }),
 	input_template = "cF<target_char>x<esc>",
 }
 

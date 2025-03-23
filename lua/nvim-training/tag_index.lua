@@ -7,6 +7,7 @@ local exported_tags = {
 	f = { "f", "horizontal", "chair-wise", "right" },
 	lines_down = { "j", "horizontal", "lines" },
 	lines_up = { "k", "horizontal", "lines" },
+	line = { "line", "lines" },
 	match = { "match", "text-object" },
 	movement = { "movement", "operator" },
 	o = { "o", "insert_mode", "linewise" },

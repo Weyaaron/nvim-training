@@ -88,15 +88,15 @@ failing tests will be addet to keep momentum going.
 | Name | Description | Tags
 | --- | -------- | -------- | 
 |AppendChar | Insert a char next to the cursor. | append, change, insertion |
-|ChangeF | Change text using F | chair-wise, change, F, horizontal, left |
-|Changef | Change text using f | chair-wise, change, f, horizontal, right |
-|ChangeLine | Change the current line. | change, line |
-|ChangeT | Change text using T | chair-wise, change, horizontal, left, T |
-|Changet | Change text using f | chair-wise, change, horizontal, right, t |
-|ChangeWORD | Change multiple WORDS. | change, counter, horizontal, text-object, WORD |
+|ChangeF | Change text using F | cchange, chair-wise, F, horizontal, left, operator |
+|Changef | Change text using f | cchange, chair-wise, f, horizontal, operator, right |
+|ChangeLine | Change the current line. | cchange, line, lines, operator |
+|ChangeT | Change text using T | cchange, chair-wise, horizontal, left, operator, T |
+|Changet | Change text using f | cchange, chair-wise, horizontal, operator, right, t |
+|ChangeWORD | Change multiple WORDS. | cchange, counter, horizontal, operator, text-object, WORD |
 |CommentLine | Change the current line into a single line comment. | change, commenting, plugin |
 |Decrement | Decrement the value at the cursor. | change, char, increment |
-|DeleteChar | Delete the current char. | change, char, deletion |
+|DeleteChar | Delete the current char. | change, char |
 |DeleteF | Delete back to the previous char. | chair-wise, deletion, F, horizontal, left, operator, register |
 |Deletef | Delete forward to the next char. | chair-wise, deletion, f, horizontal, operator, register, right |
 |DeleteInnerConditional | Delete the condition of the current conditional. | custom, deletion, operator, programming, register, treesitter |
@@ -127,8 +127,8 @@ failing tests will be addet to keep momentum going.
 |MoveLinesUp | Move multiple lines up. | horizontal, k, lines, movement, operator |
 |MoveMark | Move to a mark | mark, movement, vertical |
 |MoveMatch | Move to the current match. | match, movement, operator, text-object |
-|Moveo | Enter and leave insert mode below the current line. | insert_mode, linewise, movement, o, operator |
-|MoveO | Enter and leave insert mode above the current line. | insert_mode, linewise, movement, O, operator |
+|Moveo | Enter and leave insert mode below the current line. | change, insert_mode, linewise, o |
+|MoveO | Enter and leave insert mode above the current line. | change, insert_mode, linewise, O |
 |MoveStartOfFile | Move to the start of the file. | file, start, vertical |
 |MoveStartOfLine | Move to the start of the current line. | line, movement, start |
 |MoveT | Go back next to the last ocurrence of a char. | chair-wise, horizontal, left, movement, operator, T |
@@ -150,7 +150,7 @@ failing tests will be addet to keep momentum going.
 |YankInnerConditional | Yank the condition of the current conditional. | custom, operator, programming, register, treesitter, yank |
 |YankInsideBlock | Yank inside the block. | inside, operator, register, text-object, yank |
 |YankInsideQuotes | Yank inside the quotes. | operator, quotes, register, yank |
-|YankLine | Yank a line into a register. | copy, line, operator, register, vertical, yank |
+|YankLine | Yank a line into a register. | line, lines, operator, register, vertical, yank |
 |YankMatch | Yank the current match. | match, operator, register, register, text-object, yank |
 |Yankt | Yank next to the next char. | chair-wise, horizontal, operator, register, right, t, yank |
 |YankT | Yank back next to the previous char. | chair-wise, horizontal, left, operator, register, T, yank |
@@ -165,18 +165,19 @@ failing tests will be addet to keep momentum going.
 | Name | Description | Details
 | ----------- | -------- | -------- |
 | All | All currently supported tasks| [All](/docs/collections/All.md)
-| Change | Tasks involving some change to the buffer.| [Change](/docs/collections/Change.md)
+| CChange | Tasks that use the 'change' operator.| [CChange](/docs/collections/CChange.md)
+| Change | Tasks that change the buffer but do not use the 'change' operator.| [Change](/docs/collections/Change.md)
 | Custom-Tasks | Tasks that require setup to work as intendet.| [Custom-Tasks](/docs/collections/Custom-Tasks.md)
 | Deletion | Tasks involving deletion| [Deletion](/docs/collections/Deletion.md)
 | F | Tasks involving F| [F](/docs/collections/F.md)
-| Movement | Tasks involving movements.| [Movement](/docs/collections/Movement.md)
-| Register-Tasks | Tasks that may use registers| [Register-Tasks](/docs/collections/Register-Tasks.md)
+| Movement | Tasks that move the cursor.| [Movement](/docs/collections/Movement.md)
+| Register | Tasks that may use registers.| [Register](/docs/collections/Register.md)
 | Search | Tasks involving search| [Search](/docs/collections/Search.md)
 | T | Tasks involving T| [T](/docs/collections/T.md)
-| Treesitter-Tasks | Tasks that rely on treesitter| [Treesitter-Tasks](/docs/collections/Treesitter-Tasks.md)
+| Treesitter | Tasks that use treesitter.| [Treesitter](/docs/collections/Treesitter.md)
 | WORD | WORD-based Tasks| [WORD](/docs/collections/WORD.md)
 | Word | Word-based Tasks| [Word](/docs/collections/Word.md)
-| Yanking | Tasks involving yanking| [Yanking](/docs/collections/Yanking.md)
+| Yanking | Tasks that use the 'yank' operator.| [Yanking](/docs/collections/Yanking.md)
 | f | Tasks involving f| [f](/docs/collections/f.md)
 | t | Tasks involving t| [t](/docs/collections/t.md)
 
