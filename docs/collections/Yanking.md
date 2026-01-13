@@ -4,7 +4,6 @@
 |YankEndOfLine | Yank to the end of the current line. | end, line, yank |
 |Yankf | Yank to the next char. | chair-wise, f, horizontal, operator, register, right, yank |
 |YankF | Yank back to the previous char. | chair-wise, F, horizontal, left, operator, register, yank |
-|YankInnerConditional | Yank the condition of the current conditional. | custom, operator, programming, register, treesitter, yank |
 |YankInsideBlock | Yank inside the block. | inside, operator, register, text-object, yank |
 |YankInsideQuotes | Yank inside the quotes. | operator, quotes, register, yank |
 |YankLine | Yank a line into a register. | line, lines, operator, register, vertical, yank |

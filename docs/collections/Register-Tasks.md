@@ -3,11 +3,8 @@
 | --- | -------- | -------- |
 |Deletef | Delete forward to the next char. | chair-wise, deletion, f, horizontal, operator, register, right |
 |DeleteF | Delete back to the previous char. | chair-wise, deletion, F, horizontal, left, operator, register |
-|DeleteInnerConditional | Delete the condition of the current conditional. | custom, deletion, operator, programming, register, treesitter |
 |DeleteInsideQuotes | Delete inside the quotes. | deletion, operator, quotes, register |
-|DeleteLhs | Delete the lhs of the current assignment. | custom, deletion, operator, programming, register, treesitter |
 |DeleteMatch | Delete the current match. | deletion, match, operator, register, register, text-object |
-|DeleteRhs | Delete the lhs of the current assignment. | custom, deletion, operator, programming, register, treesitter |
 |DeleteSentence | Delete the textobject inner sentence. | deletion, horizontal, operator, register, sentence, text-object |
 |Deletet | Delete to the next char. | chair-wise, deletion, horizontal, operator, register, right, t |
 |DeleteT | Delete back to the next char. | chair-wise, deletion, horizontal, left, operator, register, T |
@@ -19,7 +16,6 @@
 |Paste | Paste from a given register. | Paste, register |
 |Yankf | Yank to the next char. | chair-wise, f, horizontal, operator, register, right, yank |
 |YankF | Yank back to the previous char. | chair-wise, F, horizontal, left, operator, register, yank |
-|YankInnerConditional | Yank the condition of the current conditional. | custom, operator, programming, register, treesitter, yank |
 |YankInsideBlock | Yank inside the block. | inside, operator, register, text-object, yank |
 |YankInsideQuotes | Yank inside the quotes. | operator, quotes, register, yank |
 |YankLine | Yank a line into a register. | copy, line, operator, register, vertical, yank |

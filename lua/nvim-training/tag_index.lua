@@ -18,7 +18,6 @@ local exported_tags = {
 	t = { "t", "horizontal", "chair-wise", "right" },
 	word_end = { "word_end", "end", "vertical" },
 	WORD_end = { "WORD_end", "END", "vertical" },
-	treesitter = { "treesitter", "custom", "programming" },
 	programming = { "programming" },
 	word_start = { "word", "horizontal" },
 	word = { "word", "horizontal", "counter", "text-object" },

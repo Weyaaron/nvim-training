@@ -86,7 +86,7 @@ failing tests will be addet to keep momentum going.
 # All tasks
 
 | Name | Description | Tags
-| --- | -------- | -------- | 
+| --- | -------- | -------- |
 |AppendChar | Insert a char next to the cursor. | append, change, insertion |
 |ChangeF | Change text using F | cchange, chair-wise, F, horizontal, left, operator |
 |Changef | Change text using f | cchange, chair-wise, f, horizontal, operator, right |
@@ -99,12 +99,9 @@ failing tests will be addet to keep momentum going.
 |DeleteChar | Delete the current char. | change, char |
 |DeleteF | Delete back to the previous char. | chair-wise, deletion, F, horizontal, left, operator, register |
 |Deletef | Delete forward to the next char. | chair-wise, deletion, f, horizontal, operator, register, right |
-|DeleteInnerConditional | Delete the condition of the current conditional. | custom, deletion, operator, programming, register, treesitter |
 |DeleteInsideQuotes | Delete inside the quotes. | deletion, operator, quotes, register |
-|DeleteLhs | Delete the lhs of the current assignment. | custom, deletion, operator, programming, register, treesitter |
 |DeleteLine | Delete the current line. | deletion, line |
 |DeleteMatch | Delete the current match. | deletion, match, operator, register, register, text-object |
-|DeleteRhs | Delete the lhs of the current assignment. | custom, deletion, operator, programming, register, treesitter |
 |DeleteSentence | Delete the textobject inner sentence. | deletion, horizontal, operator, register, sentence, text-object |
 |DeleteT | Delete back to the next char. | chair-wise, deletion, horizontal, left, operator, register, T |
 |Deletet | Delete to the next char. | chair-wise, deletion, horizontal, operator, register, right, t |
@@ -147,7 +144,6 @@ failing tests will be addet to keep momentum going.
 |YankEndOfLine | Yank to the end of the current line. | end, line, yank |
 |Yankf | Yank to the next char. | chair-wise, f, horizontal, operator, register, right, yank |
 |YankF | Yank back to the previous char. | chair-wise, F, horizontal, left, operator, register, yank |
-|YankInnerConditional | Yank the condition of the current conditional. | custom, operator, programming, register, treesitter, yank |
 |YankInsideBlock | Yank inside the block. | inside, operator, register, text-object, yank |
 |YankInsideQuotes | Yank inside the quotes. | operator, quotes, register, yank |
 |YankLine | Yank a line into a register. | line, lines, operator, register, vertical, yank |
@@ -174,7 +170,6 @@ failing tests will be addet to keep momentum going.
 | Register | Tasks that may use registers.| [Register](/docs/collections/Register.md)
 | Search | Tasks involving search| [Search](/docs/collections/Search.md)
 | T | Tasks involving T| [T](/docs/collections/T.md)
-| Treesitter | Tasks that use treesitter.| [Treesitter](/docs/collections/Treesitter.md)
 | WORD | WORD-based Tasks| [WORD](/docs/collections/WORD.md)
 | Word | Word-based Tasks| [Word](/docs/collections/Word.md)
 | Yanking | Tasks that use the 'yank' operator.| [Yanking](/docs/collections/Yanking.md)

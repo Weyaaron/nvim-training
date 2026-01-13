@@ -13,12 +13,10 @@ local exported_tasks = {
 	DeleteChar = require("nvim-training.tasks.delete_char"),
 	Deletef = require("nvim-training.tasks.delete_f"),
 	DeleteF = require("nvim-training.tasks.delete_F"),
-	DeleteInnerConditional = require("nvim-training.tasks.delete_inner_conditional"),
 	DeleteInsideQuotes = require("nvim-training.tasks.delete_inside_quotes"),
 	DeleteLhs = require("nvim-training.tasks.delete_lhs"),
 	DeleteLine = require("nvim-training.tasks.delete_line"),
 	DeleteMatch = require("nvim-training.tasks.delete_match"),
-	DeleteRhs = require("nvim-training.tasks.delete_rhs"),
 	DeleteSentence = require("nvim-training.tasks.delete_sentence"),
 	Deletet = require("nvim-training.tasks.delete_t"),
 	DeleteT = require("nvim-training.tasks.delete_T"),
@@ -64,7 +62,6 @@ local exported_tasks = {
 	YankEndOfLine = require("nvim-training.tasks.yank_end_of_line"),
 	Yankf = require("nvim-training.tasks.yank_f"),
 	YankF = require("nvim-training.tasks.yank_F"),
-	YankInnerConditional = require("nvim-training.tasks.yank_inner_conditional"),
 	YankInsideBlock = require("nvim-training.tasks.yank_inside_block"),
 	-- YankInsideQuotes = require("nvim-training.tasks.yank_inside_quotes"),
 	YankInsideQuotes = require("nvim-training.tasks.yank_inside_quotes"),
@@ -74,6 +71,12 @@ local exported_tasks = {
 	YankT = require("nvim-training.tasks.yank_T"),
 	YankWord = require("nvim-training.tasks.yank_word"),
 	YankWORD = require("nvim-training.tasks.yank_WORD"),
+}
+
+local treesitter_tasks = {
+	YankInnerConditional = require("nvim-training.tasks.yank_inner_conditional"),
+	DeleteRhs = require("nvim-training.tasks.delete_rhs"),
+	DeleteInnerConditional = require("nvim-training.tasks.delete_inner_conditional"),
 }
 
 for i, v in pairs(exported_tasks) do
