@@ -2,7 +2,7 @@
 
 [![License: GPL](https://img.shields.io/badge/License-GPL-brightgreen.svg)](https://opensource.org/license/gpl-3-0/)
 
-This code implements a Neovim Plugin for training keybinds 
+This code implements a Neovim Plugin for training keybinds
 by providing 50+ different small tasks.
 ![GIF](media/screencast.gif)
 
@@ -24,7 +24,7 @@ local plugin_list = {
 lazy.setup(plugin_list)
 ```
 
-## How to train 
+## How to train
 This plugin uses subcommands of `Training` to activate certain functions.
 All of these commands support completion, just use `Tab` and you will be fine.
 Currently, these are the available options:
@@ -200,8 +200,6 @@ training.configure({ -- All of these options work for 'opts' of lazy as well.
 	audio_feedback = true, -- Enables/Disables audio feedback, if enabled, requires the 'sox' package providing the 'play' command.
 	counter_bounds = { 1, 5 }, --The outer bounds for counters used in some tasks. WARNING: A high value may result in glitchy behaviour.
 	custom_collections = {}, -- A table of tables containing names of tasks, for details read on.
-	disabled_tags = { "treesitter" }, -- A table of tags that are not enabled by default. For reasons see below.
-	disabled_collections = { "Treesitter-Tasks" }, -- A table of collections that are not enabled by default. For reasons see below.
 	enable_counters = true, -- Enables/Disables counters in tasks that support counters.
 	enable_events = true, -- Enables/Disables events.
 	enable_registers = false, -- Enables/Disables registers. Since this option complicates a lot of tasks, it is disabled by default.
@@ -222,21 +220,10 @@ training.configure({ -- All of these options work for 'opts' of lazy as well.
 })
 ```
 
-# On Disabled tags/collections
-
-Some tags/collections are disabled by default. These are instances that meet some of the following criteria:
-- They require a decent amount of setup to work as intended by the task
-- They are intendet to train something that is not shipped with "vanilla vim"
-- Their setup is somewhat personal/subject to the individual user
-
-Most of these are tasks that I would like to train on. Since others might consider them usefull, I will
-publish them, but opt-in.
-
-Support for these is provided, if you feel they could be improved/enabled by default you may open a issue to
-discuss this.
-
-
-
+## Deprecated Configuration Options
+- disabled_tags: This is no longer used since it did not provide feedback and was used to hide
+unfinished features. This option will on longer have any effect.
+- disabled_collections: No longer used for the same reasons as above.
 
 ## Custom Collections
 To add a custom collection, please use its name as a key for a list of task names in the config, for example like this:

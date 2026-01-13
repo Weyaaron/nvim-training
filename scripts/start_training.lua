@@ -8,8 +8,6 @@ local config = {
 	enable_counters = true, --Enables/Disables counters in tasks that support counters.
 	-- custom_collections = { Testing = { "YankF", "Yankf", "YankT", "Yankt" } },
 	-- custom_collections = { Testing = { "DeleteWord", "MoveWord" }, f = { "a" } },
-	disabled_collections = {},
-	disabled_tags = {},
 	custom_collections = { Testing = { "DeleteInnerConditional" } },
 	-- screen_layout = "basic",
 	screen_layout = "minimal",
