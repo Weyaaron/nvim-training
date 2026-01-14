@@ -41,12 +41,12 @@ function utility.calculate_treesitter_target_text(query_str)
 end
 
 function utility.do_treesitter_preparation(template_name, query_str)
-	local movements = require("nvim-training.movements")
+	-- local movements = require("nvim-training.movements")
 	utility.update_buffer_respecting_header(utility.load_raw_template(template_index[template_name]))
-	local start_coordinates = movements.query_start(query_str)
-	local end_coordinates = movements.query_end(query_str)
-	print(vim.inspect(start_coordinates))
-	vim.api.nvim_win_set_cursor(0, { start_coordinates[1] + 1, start_coordinates[2] + 1 })
+	-- local start_coordinates = movements.query_start(query_str)
+	-- local end_coordinates = movements.query_end(query_str)
+	-- print(vim.inspect(start_coordinates))
+	-- vim.api.nvim_win_set_cursor(0, { start_coordinates[1] + 1, start_coordinates[2] + 1 })
 	--
 	-- utility.construct_highlight(
 	-- 	start_coordinates[1],

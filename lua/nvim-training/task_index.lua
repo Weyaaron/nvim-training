@@ -76,8 +76,13 @@ local exported_tasks = {
 local treesitter_tasks = {
 	YankInnerConditional = require("nvim-training.tasks.yank_inner_conditional"),
 	DeleteRhs = require("nvim-training.tasks.delete_rhs"),
+	DeleteOuterAssignment = require("nvim-training.tasks.delete_outer_assignment"),
 	DeleteInnerConditional = require("nvim-training.tasks.delete_inner_conditional"),
 }
+
+for i, el in pairs(treesitter_tasks) do
+	exported_tasks[i] = el
+end
 
 for i, v in pairs(exported_tasks) do
 	v.name = i

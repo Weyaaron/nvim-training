@@ -2,6 +2,7 @@ local utility = require("nvim-training.utility")
 local Delete = require("nvim-training.tasks.delete")
 local tag_index = require("nvim-training.tag_index")
 local template_index = require("nvim-training.template_index")
+local treesitter = require("nvim-training.utilities.treesitter")
 
 local DeleteLhs = {}
 DeleteLhs.__index = DeleteLhs
@@ -12,6 +13,7 @@ DeleteLhs.metadata = {
 	instructions = "",
 	tags = utility.flatten({ tag_index.deletion, tag_index.treesitter }),
 	input_template = "", --Not set on purpose to skip tests, the current test do not cover treesitter tasks
+	-- #Todo:Eventually support setting the task-template in here
 }
 
 function DeleteLhs:new()
@@ -29,8 +31,8 @@ end
 function DeleteLhs:activate()
 	local function _inner_update()
 		utility.update_buffer_respecting_header(utility.load_raw_template(template_index.LuaConditional))
-		utility.do_treesitter_preparation("LuaAssignment", self.query_str)
-		self.target_text = utility.calculate_treesitter_target_text(self.query_str)
+		local query = treesitter.construct_query(self.query_str)
+		self.target_text = treesitter.execute_query(query, "text")
 	end
 	vim.schedule(_inner_update)
 end
