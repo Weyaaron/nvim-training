@@ -79,11 +79,12 @@ local treesitter_tasks = {
 	DeleteOuterAssignment = require("nvim-training.tasks.delete_outer_assignment"),
 	DeleteInnerConditional = require("nvim-training.tasks.delete_inner_conditional"),
 }
+exported_tasks = {}
 
 for i, el in pairs(treesitter_tasks) do
 	exported_tasks[i] = el
 end
-
+-- print(vim.inspect(exported_tasks))
 for i, v in pairs(exported_tasks) do
 	v.name = i
 end

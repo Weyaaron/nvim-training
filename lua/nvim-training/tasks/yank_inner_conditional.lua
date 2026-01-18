@@ -28,9 +28,8 @@ end
 
 function YankInnerConditional:activate()
 	local function _inner_update()
-		utility.update_buffer_respecting_header(utility.load_raw_template(template_index.LuaConditional))
-		local query = treesitter.construct_query(self.query_str)
-		self.target_text = treesitter.execute_query(query, "text")
+		treesitter.load_template_and_move_cursor(template_index.LuaConditional, self.query_str)
+		self.target_text = treesitter.execute_query(self.query_str, "text")
 	end
 	vim.schedule(_inner_update)
 end

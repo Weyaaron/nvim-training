@@ -4,7 +4,6 @@ local tag_index = require("nvim-training.tag_index")
 local template_index = require("nvim-training.template_index")
 local treesitter = require("nvim-training.utilities.treesitter")
 
-
 local DeleteRhs = {}
 DeleteRhs.__index = DeleteRhs
 setmetatable(DeleteRhs, { __index = Delete })
@@ -29,9 +28,8 @@ end
 
 function DeleteRhs:activate()
 	local function _inner_update()
-		utility.update_buffer_respecting_header(utility.load_raw_template(template_index.LuaConditional))
-		local query = treesitter.construct_query(self.query_str)
-		self.target_text = treesitter.execute_query(query, "text")
+		treesitter.load_template_and_move_cursor(template_index.LuaAssignment, self.query_str)
+		self.target_text = treesitter.execute_query(self.query_str, "text")
 	end
 	vim.schedule(_inner_update)
 end

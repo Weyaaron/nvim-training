@@ -29,17 +29,8 @@ end
 
 function DeleteOuterAssignment:activate()
 	local function _inner_update()
-		utility.update_buffer_respecting_header(utility.load_raw_template(template_index.LuaAssignment))
-
-		-- utility.do_treesitter_preparation("LuaAssignment", self.query_str)
-		local query = treesitter.construct_query(self.query_str)
-		local row_column_table = treesitter.execute_query(query, "start")
-		self.target_text = treesitter.execute_query(query, "text")
-		-- print("coordinates", vim.inspect(row_column_table))
-		if #row_column_table > 0 then
-			-- print("coordinates II", vim.inspect(row_column_table))
-			vim.api.nvim_win_set_cursor(0, { row_column_table[1] + 1, row_column_table[2] })
-		end
+		treesitter.load_template_and_move_cursor(template_index.LuaAssignment, self.query_str)
+		self.target_text = treesitter.execute_query(self.query_str, "text")
 	end
 	vim.schedule(_inner_update)
 end
