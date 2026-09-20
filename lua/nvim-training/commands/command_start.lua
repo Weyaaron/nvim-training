@@ -31,56 +31,64 @@ local function loop(autocmd_callback_data)
 	--This sleep helps with some feedback, if we continue instantly the user might not recognize their actions clearly.
 	vim.loop.sleep(500)
 
-	--Unfortunatly, this code is quite involved because some autocmds trigger unintended and
-	--we have to take care of the special case that we start the loop without an actual task at the startup.
-	--The interesting part happens at the end, where we pick a new task and do some setup for it.
-	if autocmd_callback_data then
-		if autocmd_callback_data then
-			if
-				autocmd_callback_data["event"] == "TextYankPost"
-				or autocmd_callback_data["event"] == "InsertLeave"
-				or autocmd_callback_data["event"] == "WinNew"
-			then
-				toogle_discard = false
-			end
-		end
-		if toogle_discard then
-			toogle_discard = false
-			return
-		end
-		if current_autocmd > 0 then
-			vim.api.nvim_del_autocmd(current_autocmd)
-		end
+	-- print(vim.inspect(autocmd_callback_data))
+	if current_task then
+		-- previous_task_result = current_task:deactivate(autocmd_callback_data)
 		previous_task_result = current_task:deactivate(autocmd_callback_data)
+	end
 
-		local target_data = {
-			result = previous_task_result,
-			timestamp = os.time(),
-			session_id = session_id,
-			event = "task_end",
-			task_name = current_task.name,
-		}
+	module.test_interface.task_results[#module.test_interface.task_results + 1] = previous_task_result
 
-		local utility = require("nvim-training.utility")
-		utility.append_to_table_path(
-			target_data,
-			user_config.event_storage_directory_path .. tostring(session_id) .. ".json"
-		)
+	local utility = require("nvim-training.utility")
+	--This line ensures that the highlights of previous tasks are discarded.
+	local internal_config = require("nvim-training.internal_config")
+	vim.api.nvim_buf_clear_namespace(0, internal_config.global_hl_namespace, 0, -1)
 
-		task_count = task_count + 1
-		if previous_task_result then
-			success_count = success_count + 1
-			current_streak = current_streak + 1
-			if current_streak >= max_streak then
-				max_streak = current_streak
-			end
-		else
-			failure_count = failure_count + 1
-			if current_streak >= max_streak then
-				max_streak = current_streak
-			end
-			current_streak = 0
+	local last_task_name = ""
+	if current_task then
+		last_task_name = current_task.name
+	end
+
+	-- move_task = require("lua/tasks/")
+	MoveWord = require("nvim-training.tasks.move_word")
+
+	-- current_task = resoveld_scheduler:next(current_task, previous_task_result):new()
+	current_task = MoveWord:new()
+	random_seed = random_seed + 1
+	vim.cmd("set filetype=" .. current_task.file_type)
+
+	module.test_interface.task_data = current_task:construct_interface_data()
+	current_task:activate()
+	--The header may contain artifacts from previous tasks. To combat this, we reset it to known values.
+	header.reset()
+
+	local target_data = {
+		result = previous_task_result,
+		timestamp = os.time(),
+		session_id = session_id,
+		event = "task_end",
+		task_name = current_task.name,
+	}
+
+	local utility = require("nvim-training.utility")
+	utility.append_to_table_path(
+		target_data,
+		user_config.event_storage_directory_path .. tostring(session_id) .. ".json"
+	)
+
+	task_count = task_count + 1
+	if previous_task_result then
+		success_count = success_count + 1
+		current_streak = current_streak + 1
+		if current_streak >= max_streak then
+			max_streak = current_streak
 		end
+	else
+		failure_count = failure_count + 1
+		if current_streak >= max_streak then
+			max_streak = current_streak
+		end
+		current_streak = 0
 	end
 	if reset_task_list and success_count == 0 and failure_count == 1 then
 		reset_task_list = false
@@ -101,44 +109,7 @@ local function loop(autocmd_callback_data)
 			audio.audio_feedback_failure()
 		end
 	end
-
-	module.test_interface.task_results[#module.test_interface.task_results + 1] = previous_task_result
-
-	local utility = require("nvim-training.utility")
-	--This line ensures that the highlights of previous tasks are discarded.
-	local internal_config = require("nvim-training.internal_config")
-	vim.api.nvim_buf_clear_namespace(0, internal_config.global_hl_namespace, 0, -1)
-
-	local last_task_name = ""
-	if current_task then
-		last_task_name = current_task.name
-	end
-
-	if not previous_task_result and user_config.enable_repeat_on_failure then
-		math.randomseed(random_seed)
-	else
-		current_task = resoveld_scheduler:next(current_task, previous_task_result):new()
-		random_seed = random_seed + 1
-	end
-	vim.cmd("set filetype=" .. current_task.file_type)
-
 	logging.log("Task changed from " .. last_task_name .. " to " .. current_task.name, {})
-
-	module.test_interface.task_data = current_task:construct_interface_data()
-	current_task:activate()
-	module.test_interface.current_task = current_task
-	local target_data = {
-		timestamp = os.time(),
-		session_id = session_id,
-		event = "task_start",
-		task_name = current_task.name,
-	}
-	utility.append_to_table_path(
-		target_data,
-		user_config.event_storage_directory_path .. tostring(session_id) .. ".json"
-	)
-	--The header may contain artifacts from previous tasks. To combat this, we reset it to known values.
-	header.reset()
 
 	--This gives tasks some options to configure the header, for example with a prefix and a suffix to turn the header into a block comment in a programming language
 	local additional_header_values = current_task:construct_optional_header_args()
@@ -157,11 +128,9 @@ local function loop(autocmd_callback_data)
 		header.store_key_value_in_header("_d_", current_task:instructions())
 		header.construct_header()
 	end)()
-
-	current_autocmd = vim.api.nvim_create_autocmd({ current_task.metadata.autocmd }, { callback = loop })
-	toogle_discard = true
+	-- current_autocmd = vim.api.nvim_create_autocmd("CmdAtom", { callback = loop })
+	-- toogle_discard = true
 end
-
 function module.execute(args)
 	local utility = require("nvim-training.utility")
 	local init = require("nvim-training.init")
@@ -235,7 +204,7 @@ function module.execute(args)
 	end
 	resoveld_scheduler = scheduler:new(provided_collections)
 
-	loop()
+	vim.api.nvim_create_autocmd("CmdAtom", { callback = loop })
 end
 
 function module.stop()
@@ -305,3 +274,67 @@ function module.complete(arg_lead)
 end
 
 return module
+
+-- local target_data = {
+-- 		result = previous_task_result,
+-- 		timestamp = os.time(),
+-- 		session_id = session_id,
+-- 		event = "task_end",
+-- 		task_name = current_task.name,
+-- 	}
+--
+-- 	local utility = require("nvim-training.utility")
+-- 	utility.append_to_table_path(
+-- 		target_data,
+-- 		user_config.event_storage_directory_path .. tostring(session_id) .. ".json"
+-- 	)
+--
+-- 	task_count = task_count + 1
+-- 	if previous_task_result then
+-- 		success_count = success_count + 1
+-- 		current_streak = current_streak + 1
+-- 		if current_streak >= max_streak then
+-- 			max_streak = current_streak
+-- 		end
+-- 	else
+-- 		failure_count = failure_count + 1
+-- 		if current_streak >= max_streak then
+-- 			max_streak = current_streak
+-- 		end
+-- 		current_streak = 0
+-- 	end
+-- end
+--    end
+-- if reset_task_list and success_count == 0 and failure_count == 1 then
+-- 	reset_task_list = false
+-- 	success_count = 0
+-- 	failure_count = 0
+-- end
+--
+-- local at_startup = success_count == 0 and failure_count == 0
+--
+-- if previous_task_result == true and not at_startup then
+-- 	if user_config.audio_feedback then
+-- 		audio.audio_feedback_success()
+-- 	end
+-- end
+--
+-- if previous_task_result == false and not at_startup then
+-- 	if user_config.audio_feedback then
+-- 		audio.audio_feedback_failure()
+-- 	end
+-- end
+-- logging.log("Task changed from " .. last_task_name .. " to " .. current_task.name, {})
+--
+--
+-- module.test_interface.current_task = current_task
+-- local target_data = {
+-- 	timestamp = os.time(),
+-- 	session_id = session_id,
+-- 	event = "task_start",
+-- 	task_name = current_task.name,
+-- }
+-- utility.append_to_table_path(
+-- 	target_data,
+-- 	user_config.event_storage_directory_path .. tostring(session_id) .. ".json"
+-- )

@@ -35,6 +35,12 @@ function MoveWord:activate()
 	vim.schedule_wrap(_inner_update)()
 end
 
+-- function MoveWord:check(lhs)
+-- 	print(lhs)
+-- 	return True
+-- 	-- if self.counter
+-- end
+
 function MoveWord:instructions()
 	return "Move " .. self.counter .. " word(s)."
 end

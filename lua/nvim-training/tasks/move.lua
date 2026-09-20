@@ -14,7 +14,8 @@ function Move:new()
 	base.cursor_target = { 0, 0 }
 	return base
 end
-function Move:deactivate()
+function Move:deactivate(autocmd_data)
+	print(vim.inspect(autocmd_data.data.lhs))
 	local cursor_pos = vim.api.nvim_win_get_cursor(0)
 	if not type(self.cursor_target) == "table" then
 		print("Target has to be type table, current value is " .. tostring(self.cursor_target))
