@@ -20,6 +20,8 @@ function Task:new()
 
 	base.target_register = utility.calculate_target_register()
 	vim.fn.setreg(base.target_register, "")
+	base.keystrokes = ""
+
 	return base
 end
 

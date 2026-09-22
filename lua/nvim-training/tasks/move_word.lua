@@ -18,6 +18,8 @@ function MoveWord:new()
 	local base = Move:new()
 	setmetatable(base, { __index = MoveWord })
 
+	base.keystrokes = ""
+
 	return base
 end
 
@@ -31,15 +33,14 @@ function MoveWord:activate()
 		current_cursor_pos = vim.api.nvim_win_get_cursor(0)
 		self.cursor_target = { current_cursor_pos[1], movements.words(line, current_cursor_pos[2], self.counter) }
 		utility.construct_highlight(current_cursor_pos[1], self.cursor_target[2], 1)
+
+		self.keystrokes = tostring(self.counter) .. "w"
+		if self.counter == 1 then
+			self.keystrokes = "w"
+		end
 	end
 	vim.schedule_wrap(_inner_update)()
 end
-
--- function MoveWord:check(lhs)
--- 	print(lhs)
--- 	return True
--- 	-- if self.counter
--- end
 
 function MoveWord:instructions()
 	return "Move " .. self.counter .. " word(s)."
